@@ -1,0 +1,1610 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "title": "Fleet Finance Manger",
+        "description": "Fleet Finance Manger - API for Android and IOS Development",
+        "termsOfService": "All rights reserved to Greefi Technologies",
+        "contact": {
+            "email": "hello@greefitech.com"
+        },
+        "version": "1.0.0"
+    },
+    "host": "localhost:9000",
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "paths": {
+        "/api/account/create": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "description": "Create New Account",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "account",
+                        "in": "query",
+                        "description": "Enter Account / Bank Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "HolderName",
+                        "in": "query",
+                        "description": "Enter Account holder name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/accounts": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "description": "Return all Accounts",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/account/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Account"
+                ],
+                "description": "Return particular EAccount",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/account/{id}/update": {
+            "post": {
+                "tags": [
+                    "Account"
+                ],
+                "description": "Update Account",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "account",
+                        "in": "query",
+                        "description": "Enter Account / Bank Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "HolderName",
+                        "in": "query",
+                        "description": "Enter Account holder name",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/create": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Create New Customer",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Enter Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "description": "Enter Mobile",
+                        "required": true,
+                        "type": "string",
+                        "format": "number"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Enter Address",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Enter Type [broker,direct]",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/customers": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Return all Customers",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Return particular Customer",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/{id}/update": {
+            "post": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Update Customer Data",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Enter Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "description": "Enter Mobile",
+                        "required": true,
+                        "type": "string",
+                        "format": "number"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Enter Address",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Enter Type [broker,direct]",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/customer/{id}/delete": {
+            "delete": {
+                "tags": [
+                    "Customer"
+                ],
+                "description": "Delete Customer Data",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/entry/create": {
+            "post": {
+                "tags": [
+                    "Entry"
+                ],
+                "description": "Create New Entry",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tripId",
+                        "in": "query",
+                        "description": "Enter Trip",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateFrom",
+                        "in": "query",
+                        "description": "Enter Date From",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleId",
+                        "in": "query",
+                        "description": "Enter Vehicle Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "customerId",
+                        "in": "query",
+                        "description": "Enter Customer Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "locationFrom",
+                        "in": "query",
+                        "description": "Enter location From",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "locationTo",
+                        "in": "query",
+                        "description": "Enter location To",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "loadType",
+                        "in": "query",
+                        "description": "Enter load Type",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "ton",
+                        "in": "query",
+                        "description": "Enter ton",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "account_id",
+                        "in": "query",
+                        "description": "Enter Account Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "billAmount",
+                        "in": "query",
+                        "description": "Enter Bill Amount",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "advance",
+                        "in": "query",
+                        "description": "Enter Advance",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "driverPadi",
+                        "in": "query",
+                        "description": "Enter Driver Padi",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "cleanerPadi",
+                        "in": "query",
+                        "description": "Enter Cleaner Padi",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "comission",
+                        "in": "query",
+                        "description": "Enter comission",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "loadingMamool",
+                        "in": "query",
+                        "description": "Enter loading Mamool",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "unLoadingMamool",
+                        "in": "query",
+                        "description": "Enter unLoadingMamool",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/expenseType/create": {
+            "post": {
+                "tags": [
+                    "ExpenseType"
+                ],
+                "description": "Create New Expense Type",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "expenseType",
+                        "in": "query",
+                        "description": "Enter Expense Type",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/expenseTypes": {
+            "get": {
+                "tags": [
+                    "ExpenseType"
+                ],
+                "description": "Return all Expense Type",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/expenseType/{id}/edit": {
+            "get": {
+                "tags": [
+                    "ExpenseType"
+                ],
+                "description": "Return particular Expense Type",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/expenseType/{id}/update": {
+            "post": {
+                "tags": [
+                    "ExpenseType"
+                ],
+                "description": "Create New Expense Type",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "expenseType",
+                        "in": "query",
+                        "description": "Enter Expense Type",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/expenseType/{id}/delete": {
+            "delete": {
+                "tags": [
+                    "ExpenseType"
+                ],
+                "description": "Delete Expense Type Data",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/staff/create": {
+            "post": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Create New Staff",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Enter Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mobile1",
+                        "in": "query",
+                        "description": "Enter Mobile 1",
+                        "required": true,
+                        "type": "string",
+                        "format": "number"
+                    },
+                    {
+                        "name": "mobile2",
+                        "in": "query",
+                        "description": "Enter Mobile 2",
+                        "type": "string",
+                        "format": "number"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Enter Address",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "licenceNumber",
+                        "in": "query",
+                        "description": "Enter licence Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "licenceRenewal",
+                        "in": "query",
+                        "description": "Enter licence Renewal Date [yyyy-mm-dd]",
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Enter Type [manager,driver,cleaner]",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/staffs": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Return all Staffs",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/staff/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Return particular Staff",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/staff/{id}/update": {
+            "post": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Update New Staff",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Enter Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "mobile1",
+                        "in": "query",
+                        "description": "Enter Mobile 1",
+                        "required": true,
+                        "type": "string",
+                        "format": "number"
+                    },
+                    {
+                        "name": "mobile2",
+                        "in": "query",
+                        "description": "Enter Mobile 2",
+                        "type": "string",
+                        "format": "number"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Enter Address",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "licenceNumber",
+                        "in": "query",
+                        "description": "Enter licence Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "licenceRenewal",
+                        "in": "query",
+                        "description": "Enter licence Renewal Date [yyyy-mm-dd]",
+                        "type": "string"
+                    },
+                    {
+                        "name": "type",
+                        "in": "query",
+                        "description": "Enter Type [manager,driver,cleaner]",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/staff/{id}/delete": {
+            "delete": {
+                "tags": [
+                    "Staff"
+                ],
+                "description": "Delete Staff Data",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/trip/create": {
+            "post": {
+                "tags": [
+                    "Trip"
+                ],
+                "description": "Create New Trip",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleId",
+                        "in": "query",
+                        "description": "Enter Vehicle Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tripName",
+                        "in": "query",
+                        "description": "Enter Trip Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateFrom",
+                        "in": "query",
+                        "description": "Enter Date yyyy-mm-dd",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateTo",
+                        "in": "query",
+                        "description": "Enter Date to yyyy-mm-dd",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "startKm",
+                        "in": "query",
+                        "description": "Enter Start Km",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "endKm",
+                        "in": "query",
+                        "description": "Enter End Km",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "staff1",
+                        "in": "query",
+                        "description": "Enter Staff 1 ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "staff2",
+                        "in": "query",
+                        "description": "Enter Staff 2 ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "staff3",
+                        "in": "query",
+                        "description": "Enter Staff 3 ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "advance",
+                        "in": "query",
+                        "description": "Enter Advance Amount",
+                        "required": false,
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/trips": {
+            "get": {
+                "tags": [
+                    "Trip"
+                ],
+                "description": "Return all Trips",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/trip/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Trip"
+                ],
+                "description": "Return particular Trip",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/trip/{id}/update": {
+            "post": {
+                "tags": [
+                    "Trip"
+                ],
+                "description": "Update Trip",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleId",
+                        "in": "query",
+                        "description": "Enter Vehicle Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "tripName",
+                        "in": "query",
+                        "description": "Enter Trip Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateFrom",
+                        "in": "query",
+                        "description": "Enter Date yyyy-mm-dd",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "dateTo",
+                        "in": "query",
+                        "description": "Enter Date to yyyy-mm-dd",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "startKm",
+                        "in": "query",
+                        "description": "Enter Start Km",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "endKm",
+                        "in": "query",
+                        "description": "Enter End Km",
+                        "required": true,
+                        "type": "number"
+                    },
+                    {
+                        "name": "staff1",
+                        "in": "query",
+                        "description": "Enter Staff 1 ID",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "staff2",
+                        "in": "query",
+                        "description": "Enter Staff 2 ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "staff3",
+                        "in": "query",
+                        "description": "Enter Staff 3 ID",
+                        "required": false,
+                        "type": "string"
+                    },
+                    {
+                        "name": "advance",
+                        "in": "query",
+                        "description": "Enter Advance Amount",
+                        "required": false,
+                        "type": "number"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/login": {
+            "post": {
+                "tags": [
+                    "Clients"
+                ],
+                "description": "Login with Email / Mobile",
+                "parameters": [
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Enter Email / Mobile",
+                        "required": true,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Enter Password",
+                        "required": true,
+                        "type": "string",
+                        "format": "password"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                }
+            }
+        },
+        "/api/register": {
+            "post": {
+                "tags": [
+                    "Clients"
+                ],
+                "description": "Register User",
+                "parameters": [
+                    {
+                        "name": "name",
+                        "in": "query",
+                        "description": "Enter Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "email",
+                        "in": "query",
+                        "description": "Enter Email",
+                        "required": true,
+                        "type": "string",
+                        "format": "email"
+                    },
+                    {
+                        "name": "mobile",
+                        "in": "query",
+                        "description": "Enter Mobile",
+                        "required": true,
+                        "type": "string",
+                        "format": "number"
+                    },
+                    {
+                        "name": "transportName",
+                        "in": "query",
+                        "description": "Enter Transport Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "address",
+                        "in": "query",
+                        "description": "Enter Address",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "password",
+                        "in": "query",
+                        "description": "Enter Password",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                }
+            }
+        },
+        "/api/vehicle/create": {
+            "post": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Create New Vehicle",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "ownerName",
+                        "in": "query",
+                        "description": "Enter Owner Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleNumber",
+                        "in": "query",
+                        "description": "Enter Vehicle Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleName",
+                        "in": "query",
+                        "description": "Enter Vehicle Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleType",
+                        "in": "query",
+                        "description": "Enter Vehicle Type Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleLastKm",
+                        "in": "query",
+                        "description": "Enter Vehicle Last Km",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "modelNumber",
+                        "in": "query",
+                        "description": "Enter Model Number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/vehicles": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Return all Vehicles",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/vehicle/{id}/edit": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Return particular Vehicle",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/vehicle/{id}/update": {
+            "post": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Update Vehicle",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "ownerName",
+                        "in": "query",
+                        "description": "Enter Owner Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleNumber",
+                        "in": "query",
+                        "description": "Enter Vehicle Number",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleName",
+                        "in": "query",
+                        "description": "Enter Vehicle Name",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleType",
+                        "in": "query",
+                        "description": "Enter Vehicle Type Id",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "vehicleLastKm",
+                        "in": "query",
+                        "description": "Enter Vehicle Last Km",
+                        "required": true,
+                        "type": "string"
+                    },
+                    {
+                        "name": "modelNumber",
+                        "in": "query",
+                        "description": "Enter Model Number",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        },
+        "/api/vehicle/types": {
+            "get": {
+                "tags": [
+                    "Vehicle"
+                ],
+                "description": "Return Vehicle Types",
+                "parameters": [
+                    {
+                        "name": "Authorization",
+                        "in": "header",
+                        "description": "",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "401": {
+                        "description": "Invalid Data"
+                    }
+                },
+                "security": [
+                    {
+                        "bearer": []
+                    }
+                ]
+            }
+        }
+    },
+    "definitions": {}
+}
