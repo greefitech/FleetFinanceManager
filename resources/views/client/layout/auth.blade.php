@@ -4,15 +4,11 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
     <title>MyVehicle - One Stop Fleet Accounts Management Solution</title>
-
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
-
     <!-- Scripts -->
     <script>
         window.Laravel = <?php echo json_encode([
@@ -34,7 +30,7 @@
                 </button>
 
                 <!-- Branding Image -->
-                <a class="navbar-brand" href="{{ url('/client') }}">
+                <a class="navbar-brand" href="{{ url('/') }}">
                     MyVehicle: Owner Application
                 </a>
             </div>
