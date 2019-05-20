@@ -42,7 +42,7 @@ class Client extends Authenticatable
         $this->notify(new ClientResetPassword($token));
     }
     public function customers(){
-        return $this->hasMany(Customer::class, 'clientid', 'id')->orderBy('updated_at','DESC');
+        return $this->hasMany(Customer::class, 'clientid', 'id')->orderBy('name');
     }
 
     public function vehicles(){

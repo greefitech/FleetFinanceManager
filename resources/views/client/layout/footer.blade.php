@@ -15,7 +15,7 @@
 <script src="{{ url('/assets/js/datatable/buttons.print.min.js') }}"></script>
 <script src="{{ url('/assets/js/datatable/date-dd-MMM-yyyy.js') }}"></script>
 <script src="{{ url('/assets/js/datatable/jquery-ui.js') }}"></script>
-{{--<script src="{{ url('/assets/js/validation.js') }}"></script>--}}
+<script src="{{ url('/assets/js/validation.js') }}"></script>
 
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js" type="text/javascript"></script>
 <script>
