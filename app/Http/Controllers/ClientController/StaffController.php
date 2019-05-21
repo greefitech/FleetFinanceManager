@@ -22,16 +22,7 @@ class StaffController extends Controller
     }
 
     public function add(){
-        return view('client.masters.staff.add');
-    }
-
-    public function asd($id){
-        try {
-            $staff = $this->Staff::findOrfail($id);
-            return view('client.masters.staff.view', compact('staff'));
-        }catch (Exception $e){
-            return back()->with('danger','Something went wrong!');
-        }
+        return view('client.master.staff.add');
     }
 
     public function save(){
@@ -45,7 +36,7 @@ class StaffController extends Controller
         ]);
         $StaffData = $this->Staff::where([['clientid',Auth::user()->id],['mobile1',request('mobile1')]])->first();
         if(!empty($StaffData->mobile1)){
-            return back()->with('danger','Staff Already Added!!')->withInput();
+            return back()->with('sorry','Staff Already Added!!')->withInput();
         }
         try {
             $this->Staff::create([
@@ -58,7 +49,7 @@ class StaffController extends Controller
                 'type' => request('type'),
                 'clientid' => auth()->user()->id,
             ]);
-            return back()->with('success','Added Successfully');
+            return redirect(route('client.ViewStaffs'))->with('success',['Staff','Created Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -66,8 +57,8 @@ class StaffController extends Controller
 
     public function edit($id){
         try{
-            $staff = $this->Staff::findOrfail($id);
-            return view('client.masters.staff.edit',compact('staff'));
+            $Data['staff'] = $this->Staff::findOrfail($id);
+            return view('client.master.staff.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -84,7 +75,7 @@ class StaffController extends Controller
         ]);
         $StaffData = $this->Staff::where([['clientid',Auth::user()->id],['id','!=',$id],['mobile1',request('mobile1')]])->get();
         if($StaffData->count() > 0){
-            return back()->with('danger','Staff Already Added!!')->withInput();
+            return back()->with('sorry','Staff Already Added!!')->withInput();
         }
         try {
             $staff = $this->Staff::findOrfail($id);
@@ -96,7 +87,7 @@ class StaffController extends Controller
             $staff->licenceRenewal = request('licenceRenewal');
             $staff->type = request('type');
             $staff->save();
-            return back()->with('success','Staff Updated Sucessfully!');
+            return back()->with('success',['Staff','Updated Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -107,12 +98,12 @@ class StaffController extends Controller
         $StaffWorkCount=StaffsWork::where([['staffId',$id]])->count();
         $ExpenseCount=Expense::where([['staffId',$id]])->count();
         if($StaffWorkCount > 0 || $ExpenseCount > 0 || $StaffTrip >0){
-            return back()->with('danger','Something went wrong! Delete Staff Cause Some Data Loss! Contact Admin!');
+            return back()->with('sorry','Something went wrong! Delete Staff Cause Some Data Loss! Contact Admin!');
         }
 
         try {
-            Staff::findOrfail($id)->delete();
-            return redirect('client/staff')->with('success','Staff Deleted Sucessfully!');
+            $this->Staff::findOrfail($id)->delete();
+            return redirect(route('client.ViewStaffs'))->with('success',['Staff','Deleted Successfully']);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger','Something went wrong! Delete Not Allowed!');
         }
