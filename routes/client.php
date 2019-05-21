@@ -12,7 +12,7 @@ Route::get('/customers', 'ClientController\CustomerController@View')->name('View
 Route::get('/customer/add', 'ClientController\CustomerController@Add')->name('AddCustomer');
 Route::post('/customer/add', 'ClientController\CustomerController@Save')->name('SaveCustomer');
 Route::get('/customer/{id}/edit', 'ClientController\CustomerController@edit')->name('EditCustomer');
-Route::post('/customer/{id}/edit', 'ClientController\CustomerController@update')->name('UpdateCustomer');
+Route::post('/customer/{id}/update', 'ClientController\CustomerController@update')->name('UpdateCustomer');
 Route::delete('/customer/{id}/delete', 'ClientController\CustomerController@delete')->name('DeleteCustomer');
 
 
@@ -20,5 +20,13 @@ Route::get('/staffs', 'ClientController\StaffController@view')->name('ViewStaffs
 Route::get('/staff/add', 'ClientController\StaffController@add')->name('AddStaff');
 Route::post('/staff/add', 'ClientController\StaffController@save')->name('SaveStaff');
 Route::get('/staff/{id}/edit', 'ClientController\StaffController@edit')->name('EditStaff');
-Route::post('/staff/{id}/edit', 'ClientController\StaffController@update')->name('UpdateStaff');
+Route::post('/staff/{id}/udate', 'ClientController\StaffController@update')->name('UpdateStaff');
 Route::delete('/staff/{id}/delete', 'ClientController\StaffController@delete')->name('DeleteStaff');
+
+
+Route::get('/vehicles', 'ClientController\VehicleController@view')->name('ViewVehicles');
+Route::get('/vehicle/add', 'ClientController\VehicleController@add')->name('AddVehicle');
+Route::post('/vehicle/add', 'ClientController\VehicleController@save')->name('SaveVehicle');
+Route::get('/vehicle/{id}/edit', 'ClientController\VehicleController@edit')->name('EditVehicle');
+Route::post('/vehicle/{id}/update', 'ClientController\VehicleController@update')->name('UpdateVehicle');
+Route::delete('/vehicle/{id}/delete', 'ClientController\VehicleController@delete')->name('DeleteVehicle');
