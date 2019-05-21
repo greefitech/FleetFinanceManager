@@ -3,6 +3,22 @@
 @section('content')
 
     <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12"></div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Balance Vehicle Count</span>
+                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ Auth::user()->vehicleCredit - count(Auth::user()->vehicles) }}</span></center></span>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix visible-sm-block"></div>
+        <div class="col-md-4 col-sm-6 col-xs-12"></div>
+    </div>
+
+    <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
@@ -37,7 +53,7 @@
 {{--                                                    <input type="hidden" name="_method" value="DELETE">--}}
                                                     <a href="#" class="btn"><i class="fa fa-truck text-aqua"></i></a>
                                                     <a href="#" class="btn"><i class="fa fa-file text-aqua"></i></a>
-                                                    <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ route('client.EditVehicle',$Vehicle->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
 {{--                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>--}}
 {{--                                                </form>--}}
                                             </td>

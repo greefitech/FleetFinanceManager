@@ -21,7 +21,7 @@ class VehicleController extends Controller
     }
 
     public function add(){
-        $Data['VehicleType']=VehicleType::get()->all();
+        $Data['VehicleTypes']=VehicleType::get()->all();
         return view('client.master.vehicle.add',$Data);
     }
 
@@ -37,7 +37,7 @@ class VehicleController extends Controller
 
         $Client = $this->Client::findOrfail(auth()->user()->id);
         $vehicle = $this->Vehicle::where([['clientid',auth()->user()->id]])->count();
-        if($Client->vehicleCredit!=''&& $Client->vehicleCredit<=$vehicle){
+        if($Client->vehicleCredit != ''&& $Client->vehicleCredit <= $vehicle){
             return back()->with('sorry','Contact Admin To Add More Vehicle!')->withInput();
         }
 
@@ -52,7 +52,7 @@ class VehicleController extends Controller
                 'VehicleProfit' => request('VehicleProfit'),
                 'clientid' => auth()->user()->id,
             ]);
-            return back()->with('success','Added Successfully');
+            return redirect(route('client.ViewVehicles'))->with('success',['Vehicle','Created Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -60,9 +60,9 @@ class VehicleController extends Controller
 
     public function edit($id){
         try{
-            $vehicle = $this->Vehicle::findOrfail($id);
-            $vehicleTypes=VehicleType::get()->all();
-            return view('client.masters.vehicle.edit',compact('vehicle','vehicleTypes'));
+            $Data['Vehicle'] = $this->Vehicle::findOrfail($id);
+            $Data['VehicleTypes']=VehicleType::get()->all();
+            return view('client.master.vehicle.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -84,7 +84,7 @@ class VehicleController extends Controller
             $vehicle->modelNumber = request('modelNumber');
             $vehicle->VehicleProfit = request('VehicleProfit');
             $vehicle->save();
-            return back()->with('success','Vehicle Updated Sucessfully!');
+            return back()->with('success',['Vehicle','Updated Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
