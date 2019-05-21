@@ -46,11 +46,11 @@ class Client extends Authenticatable
     }
 
     public function vehicles(){
-        return $this->hasMany(Vehicle::class, 'clientid', 'id')->orderBy('updated_at','DESC');
+        return $this->hasMany(Vehicle::class, 'clientid', 'id');
     }
 
     public function staffs(){
-        return $this->hasMany(Staff::class, 'clientid', 'id')->orderBy('updated_at','DESC');
+        return $this->hasMany(Staff::class, 'clientid', 'id')->orderBy('name');
     }
 
     public function entries(){

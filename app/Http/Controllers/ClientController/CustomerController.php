@@ -25,15 +25,6 @@ class CustomerController extends Controller
         return view('client.master.customer.add');
     }
 
-    public function show($id){
-        try {
-            $customer = $this->Customer::findOrfail($id);
-            return view('client.masters.customer.view', compact('customer'));
-        }catch (Exception $e){
-            return back()->with('danger','Something went wrong!');
-        }
-    }
-
     public function Save(){
         $this->validate(request(),[
             'name'=>'required',
