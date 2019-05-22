@@ -34,9 +34,9 @@ $(document).ready(function () {
 		e.preventDefault();
 		var startkm=$('#entry-startkm').val();
 		var endkm=$('#entry-endkm').val();
-		var totalkm=parseInt(endkm)-parseInt(startkm);
+		var totalkm= parseInt(endkm)-parseInt(startkm);
 		$('#entry-totalkm').val(totalkm);
-		if(totalkm<=0){
+		if(totalkm <= 0){
 			$('#ErrorTotal').html('<p style="color:red">Check KM Value Entered</p>');
 		}else{
 			$('#ErrorTotal').html('');

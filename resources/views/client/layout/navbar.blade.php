@@ -19,6 +19,50 @@
                     <li><a href="{{ url('/client/expense-types') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Type</span></a></li>
                 </ul>
             </li>
+
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i>
+                    <span>Trip</span>
+                    <span class="pull-right-container">
+                         <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ url('/client/trip/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Trip</span></a></li>
+                    <li><a href="{{ url('/client/entry/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Entry</span></a></li>
+                    <li><a href="{{ url('/client/expense/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Expense</span></a></li>
+                    <li><a href="{{ url('/client/halt/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Halt</span></a></li>
+                </ul>
+            </li>
+
+
+            <li><a href="{{ url('/client/income/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Income</span></a></li>
+            <li><a href="{{ url('/client/extra-income/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Extra Income</span></a></li>
+
+            <li><a href="{{ url('/client/expenses') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
+
+            <li><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
+
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i>
+                    <span>Report</span>
+                    <span class="pull-right-container">
+                         <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ url('/client/customers') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Customers</span></a></li>
+                </ul>
+            </li>
+
+
+
+
+
+            <li><a href="{{ url('client/managers') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Manager</span></a></li>
         </ul>
     </section>
 </aside>

@@ -30,3 +30,21 @@ Route::post('/vehicle/add', 'ClientController\VehicleController@save')->name('Sa
 Route::get('/vehicle/{id}/edit', 'ClientController\VehicleController@edit')->name('EditVehicle');
 Route::post('/vehicle/{id}/update', 'ClientController\VehicleController@update')->name('UpdateVehicle');
 Route::delete('/vehicle/{id}/delete', 'ClientController\VehicleController@delete')->name('DeleteVehicle');
+
+
+//TRIP
+Route::get('/trip/add', 'ClientController\TripController@add');
+Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip');
+Route::get('/trip/{id}/edit', 'ClientController\TripController@edit')->name('EditTrip');
+Route::post('/trip/{id}/edit', 'ClientController\TripController@update')->name('UpdateTrip');
+
+
+
+
+
+
+//TRIP WISE
+Route::get('/Vehicle-list', 'ClientController\TripWiseController@ViewVehicleList')->name('ViewVehicleList');
+Route::get('/Vehicle-list/{vehicleid}/trip-list', 'ClientController\TripWiseController@ViewTripListVehicleWise')->name('ViewTripListVehicleWise');
+Route::get('/Vehicle-trip/{tripid}/entry-list', 'ClientController\TripWiseController@ViewTripEntryList')->name('ViewTripEntryList');
+Route::get('/Vehicle-trip/{tripid}/expense-list', 'ClientController\TripWiseController@ViewTripExpenseList')->name('ViewTripExpenseList');
