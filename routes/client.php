@@ -39,8 +39,10 @@ Route::get('/trip/{id}/edit', 'ClientController\TripController@edit')->name('Edi
 Route::post('/trip/{id}/edit', 'ClientController\TripController@update')->name('UpdateTrip');
 
 
-
-
+//Entry
+Route::get('/entry/add', 'ClientController\EntryController@add');
+Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');
+Route::delete('/entry/{id}/delete', 'ClientController\EntryController@delete')->name('DeleteEntry');
 
 
 //TRIP WISE

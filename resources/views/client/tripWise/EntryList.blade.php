@@ -35,7 +35,7 @@
                                         <td>{{ $Entry->loadType }}</td>
                                         <td>{{ $Entry->billAmount }}</td>
                                         <td>
-                                            <form action="" method="POST">
+                                            <form action="{{ route('client.DeleteEntry',$Entry->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="_method" value="DELETE">
                                                 <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
