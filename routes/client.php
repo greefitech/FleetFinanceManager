@@ -32,6 +32,14 @@ Route::post('/vehicle/{id}/update', 'ClientController\VehicleController@update')
 Route::delete('/vehicle/{id}/delete', 'ClientController\VehicleController@delete')->name('DeleteVehicle');
 
 
+//Account
+Route::get('/accounts', 'ClientController\AccountController@view')->name('ViewAccounts');
+Route::get('/account/add', 'ClientController\AccountController@add')->name('AddAccount');
+Route::post('/account/add', 'ClientController\AccountController@save')->name('SaveAccount');
+Route::get('/account/{id}/edit', 'ClientController\AccountController@edit')->name('EditAccount');
+Route::post('/account/{id}/update', 'ClientController\AccountController@update')->name('UpdateAccount');
+Route::delete('/account/{id}/delete', 'ClientController\AccountController@delete')->name('DeleteAccount');
+
 //TRIP
 Route::get('/trip/add', 'ClientController\TripController@add');
 Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip');
