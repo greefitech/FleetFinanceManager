@@ -40,6 +40,14 @@ Route::get('/account/{id}/edit', 'ClientController\AccountController@edit')->nam
 Route::post('/account/{id}/update', 'ClientController\AccountController@update')->name('UpdateAccount');
 Route::delete('/account/{id}/delete', 'ClientController\AccountController@delete')->name('DeleteAccount');
 
+//Expense Type
+Route::get('/expense-types', 'ClientController\ExpenseTypeController@view')->name('ViewExpenseTypes');
+Route::get('/expense-type/add', 'ClientController\ExpenseTypeController@add')->name('AddExpenseType');
+Route::post('/expense-type/add', 'ClientController\ExpenseTypeController@save')->name('SaveExpenseType');
+Route::get('/expense-type/{id}/edit', 'ClientController\ExpenseTypeController@edit')->name('EditExpenseType');
+Route::post('/expense-type/{id}/update', 'ClientController\ExpenseTypeController@update')->name('UpdateExpenseType');
+Route::delete('/expense-type/{id}/delete', 'ClientController\ExpenseTypeController@delete')->name('DeleteExpenseType');
+
 //TRIP
 Route::get('/trip/add', 'ClientController\TripController@add');
 Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip');

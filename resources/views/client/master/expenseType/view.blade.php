@@ -7,39 +7,33 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Vehicles</center>
+                        <center>Expense Types</center>
                     </h4>
-                    <a href="{{ route('client.AddVehicle') }}" class="btn btn-info pull-right">Add Vehicle</a>
+                    <a href="{{ route('client.AddExpenseType') }}" class="btn btn-info pull-right">Add Expense Type</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty(auth()->user()->vehicles))
+                        @if(!empty($ExpenseTypes))
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
-                                        <th>Owner Name</th>
-                                        <th>Vehicle Number</th>
-                                        <th>Vehicle Name</th>
-                                        <th>Model</th>
+                                        <th>Expense Type</th>
+                                        <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(auth()->user()->vehicles as $Vehicle)
+                                    @foreach($ExpenseTypes as $ExpenseType)
                                         <tr>
-                                            <td>{{ $Vehicle->ownerName }}</td>
-                                            <td>{{ $Vehicle->vehicleNumber }}</td>
-                                            <td>{{ $Vehicle->vehicleName }}</td>
-                                            <td>{{ $Vehicle->modelNumber }}</td>
+                                            <td>{{ $ExpenseType->expenseType }}</td>
+                                            <td>{{ (!empty($ExpenseType->managerid))?$ExpenseType->manager->name:auth()->user()->name }}</td>
                                             <td>
-{{--                                                <form action="" method="POST">--}}
-{{--                                                    {{ csrf_field() }}--}}
-{{--                                                    <input type="hidden" name="_method" value="DELETE">--}}
-                                                    <a href="#" class="btn"><i class="fa fa-truck text-aqua"></i></a>
-                                                    <a href="#" class="btn"><i class="fa fa-file text-aqua"></i></a>
-                                                    <a href="{{ route('client.EditVehicle',$Vehicle->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-{{--                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>--}}
-{{--                                                </form>--}}
+                                                <form action="{{ route('client.DeleteExpenseType',$ExpenseType->id) }}" method="POST">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <a href="{{ route('client.EditExpenseType',$ExpenseType->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
+                                                </form>
                                             </td>
                                         </tr>
                                     @endforeach
