@@ -40,7 +40,7 @@ class ExpenseTypeController extends Controller
                 'expenseType' => request('expenseType'),
                 'clientid' => auth()->user()->id,
             ]);
-            return redirect(route('client.ViewExpenseTypes'))->with('success', ['Expense', 'Added Successfully!']);
+            return redirect(route('client.ViewExpenseTypes'))->with('success', ['Expense Type', 'Added Successfully!']);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
         }
@@ -69,7 +69,7 @@ class ExpenseTypeController extends Controller
             $ExpenseType = $this->ExpenseType::findOrfail($id);
             $ExpenseType->expenseType=request()->expenseType;
             $ExpenseType->save();
-            return redirect(route('client.ViewExpenseTypes'))->with('success', ['Expense', 'Updated Successfully!']);
+            return redirect(route('client.ViewExpenseTypes'))->with('success', ['Expense Type', 'Updated Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -83,7 +83,7 @@ class ExpenseTypeController extends Controller
         }
         try {
             $this->ExpenseType::findOrfail($id)->delete();
-            return redirect(route('client.ViewExpenseTypes'))->with('success',['Expense','Deleted Successfully!']);
+            return redirect(route('client.ViewExpenseTypes'))->with('success',['Expense Type','Deleted Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }

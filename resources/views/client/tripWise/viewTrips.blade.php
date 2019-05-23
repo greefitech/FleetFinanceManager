@@ -35,20 +35,29 @@
                                             <td>{{ $Trip->totalKm }}</td>
                                             <td>{{ $Trip->Staff1->name }}</td>
                                             <td>{{ $Trip->advance }}</td>
-                                            <td><span style="color: {{ ($Trip->status == 0)?'red':'green' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span></td>
+                                            <td><span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span></td>
                                             <td>
                                                 <a href="" class="btn btn-primary btn-sm">View Memo</a>
-                                                <a href="" class="btn btn-primary btn-sm">Halt</a>
-                                                <a href="{{ route('client.ViewTripEntryList',$Trip->id) }}" class="btn btn-primary btn-sm">Entries</a>
-                                                <a href="{{ route('client.ViewTripExpenseList',$Trip->id) }}" class="btn btn-primary btn-sm">Expense</a>
-                                                <a href="{{ route('client.EditTrip',$Trip->id) }}" class="btn btn-primary btn-sm">Edit</a>
+                                                <div class="input-group input-group-sm">
+                                                    <div class="input-group-btn">
+                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action
+                                                            <span class="fa fa-caret-down"></span></button>
+                                                        <ul class="dropdown-menu">
+                                                            <li><a href="{{ route('client.ViewTripEntryList',$Trip->id) }}">Entries</a></li>
+                                                            <li><a href="{{ route('client.ViewTripExpenseList',$Trip->id) }}">Expense</a></li>
+                                                            <li><a href="">Halt</a></li>
+                                                            <li class="divider"></li>
+                                                            <li><a href="{{ route('client.EditTrip',$Trip->id) }}">Edit</a></li>
+                                                        </ul>
+                                                    </div>
+                                                </div>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now added!!</p></blockquote>
+                            <blockquote><p>No Trip till now added!!</p></blockquote>
                         @endif
                     </div>
                 </div>

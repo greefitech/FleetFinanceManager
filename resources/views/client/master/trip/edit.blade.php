@@ -1,6 +1,30 @@
 @extends('client.layout.master')
 
 @section('content')
+    <?php
+    if($Trip->status == 1){
+        $buttonName = 'Incomplete Trip';
+        $button = 'danger';
+        $status = 0;
+    }else{
+        $buttonName = 'complete Trip';
+        $status = 1;
+        $button = 'success';
+    }
+?>
+    <div class="row">
+        <div class="col-sm-4">
+            <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
+                <div class="col-sm-12">
+                    <form action="{{ route('client.UpdateTripStatus',$Trip->id) }}" method="POST">
+                        {{ csrf_field() }}
+                        <input type="hidden" name="status" value="{{ $status }}">
+                        <button class="btn btn-{{ $button }}" type="submit">{{ $buttonName }}</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
 
     <div class="row">
@@ -120,6 +144,19 @@
                                         <div class="col-sm-12">
                                             <label>Advance</label>
                                             <input type="numbere" min="0" class="form-control" value="{{ $Trip->advance }}" placeholder="Enter Advance" name="advance">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group">
+                                        <div class="col-sm-6">
+                                            <label>Trip Status</label><br>
+                                            <div class="box box-{{ ($Trip->status == 0)?'danger':'success' }} box-solid">
+                                                <div class="box-header">
+                                                    <h3 class="box-title">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</h3>
+                                                </div>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </div>

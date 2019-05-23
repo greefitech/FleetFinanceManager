@@ -55,6 +55,9 @@ Route::get('/trip/{id}/edit', 'ClientController\TripController@edit')->name('Edi
 Route::post('/trip/{id}/edit', 'ClientController\TripController@update')->name('UpdateTrip');
 
 
+Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateTripStatus')->name('UpdateTripStatus');
+
+
 //Entry
 Route::get('/entry/add', 'ClientController\EntryController@add');
 Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');

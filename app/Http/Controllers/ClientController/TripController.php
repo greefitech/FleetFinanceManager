@@ -67,17 +67,18 @@ class TripController extends Controller
         }
     }
 
-    public function update($id){
-        $this->validate(request(),[
-            'dateFrom'=>'required|date',
-            'dateTo'=>'nullable|date|after:dateFrom',
-            'vehicleId'=>'required|exists:vehicles,id',
-            'startKm'=>'required',
-            'staff1'=>'required',
+    public function update($id)
+    {
+        $this->validate(request(), [
+            'dateFrom' => 'required|date',
+            'dateTo' => 'nullable|date|after:dateFrom',
+            'vehicleId' => 'required|exists:vehicles,id',
+            'startKm' => 'required',
+            'staff1' => 'required',
         ]);
 
         try {
-            $Trip= $this->Trip::findorfail($id);
+            $Trip = $this->Trip::findorfail($id);
             $Trip->vehicleId = request('vehicleId');
             $Trip->dateFrom = request('dateFrom');
             $Trip->dateTo = request('dateTo');
@@ -92,7 +93,19 @@ class TripController extends Controller
             $Trip->advance = request('advance');
 
             $Trip->save();
-            return redirect(route('client.ViewTripListVehicleWise',request('vehicleId')))->with('success',['Trip','Updated Successfully']);
+            return redirect(route('client.ViewTripListVehicleWise', request('vehicleId')))->with('success', ['Trip', 'Updated Successfully']);
+        } catch (Exception $e) {
+            return back()->with('danger', 'Something went wrong!');
+        }
+    }
+
+
+    public function UpdateTripStatus($id){
+        try {
+            $Trip= $this->Trip::findorfail($id);
+            $Trip->status = request('status');
+            $Trip->save();
+            return redirect(route('client.ViewTripListVehicleWise', $Trip->vehicleId))->with('success',['Trip Status','Updated Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
