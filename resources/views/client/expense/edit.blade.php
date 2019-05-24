@@ -7,11 +7,11 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Add Expense</center>
+                        <center>Edit Expense</center>
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveExpense') }}">
+                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateExpense',$Expense->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -22,7 +22,7 @@
                                             <select name="tripId" class="form-control"  id="entry-trip">
                                                 <option value="">Select Trip</option>
                                                 @foreach(Auth::user()->NotCompletedTrips as $Trip)
-                                                    <option value="{{ $Trip->id }}" {{ ($Trip->id == old('tripId'))?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} - {{ $Trip->tripName }} - {{ $Trip->dateFrom }}</option>
+                                                    <option value="{{ $Trip->id }}" {{ ($Trip->id == $Expense->tripId)?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} - {{ $Trip->tripName }} - {{ $Trip->dateFrom }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -34,7 +34,7 @@
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" value="{{ old('date') }}" placeholder="Enter Date" name="date">
+                                            <input type="date" class="form-control" value="{{ $Expense->date }}" placeholder="Enter Date" name="date">
                                         </div>
                                     </div>
                                 </div>
@@ -45,13 +45,14 @@
                                             <select name="vehicleId" class="form-control LastExpense" id="entry-vehicle">
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id==old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
+                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id==$Expense->vehicleId)?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
 
                             <div class="row">
                                 <div class="col-sm-6">
@@ -61,7 +62,7 @@
                                             <select name="expense_type" class="form-control expense-type LastExpense" id="entry-type">
                                                 <option value="">Select Expense Type</option>
                                                 @foreach($ExpenseTypes as $ExpenseType)
-                                                    <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id==old('expense_type'))?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
+                                                    <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id == $Expense->expense_type)?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -74,7 +75,7 @@
                                             <select name="staffId" class="form-control" id="expense-staff">
                                                 <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id == old('staffId')) ? 'selected':'' }}>{{ $staff->name }}</option>
+                                                    <option value="{{ $staff->id }}" {{ ($staff->id == $Expense->staffId) ? 'selected':'' }}>{{ $staff->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -84,7 +85,7 @@
                                     <div class="form-group{{ $errors->has('quantity') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Quantity</label>
-                                            <input type="number" class="form-control" min="0" name="quantity" id="expense-quantity">
+                                            <input type="number" class="form-control" min="0" name="quantity" value="{{ $Expense->quantity }}" id="expense-quantity">
                                         </div>
                                     </div>
                                 </div>
@@ -95,7 +96,7 @@
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Amount</label>
-                                            <input type="number" class="form-control" min="0" name="amount">
+                                            <input type="number" class="form-control" min="0" name="amount" value="{{ $Expense->amount }}">
                                         </div>
                                     </div>
                                 </div>
@@ -103,7 +104,7 @@
                                     <div class="form-group{{ $errors->has('location') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Location</label>
-                                            <input type="text" class="form-control" name="location">
+                                            <input type="text" class="form-control" value="{{ $Expense->location }}" min="0" name="location">
                                         </div>
                                     </div>
                                 </div>
@@ -112,9 +113,9 @@
                                         <div class="col-sm-12">
                                             <label>Payment Type</label>
                                             <select name="account_id" class="form-control" id="entry-Payment">
-                                                <option value="1" {{ (1 == old('account_id')) ? 'selected':'' }}>Cash</option>
+                                                <option value="1" {{ (1 == $Expense->account_id) ? 'selected':'' }}>Cash</option>
                                                 @foreach(Auth::user()->Accounts as $Account)
-                                                    <option value="{{ $Account->id }}" {{ ($Account->id == old('account_id')) ? 'selected':'' }}>{{ $Account->account }} - {{ !empty($Account->HolderName)? $Account->HolderName:'' }}</option>
+                                                    <option value="{{ $Account->id }}" {{ ($Account->id == $Expense->account_id) ? 'selected':'' }}>{{ $Account->account }} - {{ !empty($Account->HolderName)? $Account->HolderName:'' }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -128,8 +129,8 @@
                                         <div class="col-sm-12">
                                             <label>Payment Status</label>
                                             <select class="form-control" name="status">
-                                                <option value="1">Paid</option>
-                                                <option value="0">Not Paid</option>
+                                                <option value="1" {{ ($Expense->status ==1)?'selected':'' }}>Paid</option>
+                                                <option value="0" {{ ($Expense->status ==0)?'selected':'' }}>Not Paid</option>
                                             </select>
                                         </div>
                                     </div>
@@ -138,14 +139,14 @@
                                     <div class="form-group{{ $errors->has('discription') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Description</label>
-                                            <textarea class="form-control" name="discription">{{ old('discription') }}</textarea>
+                                            <textarea class="form-control" name="discription">{{ $Expense->discription }}</textarea>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                             <br>
                             <div align="center">
-                                <button type="submit" class="btn btn-info">Add Expense</button>
+                                <button type="submit" class="btn btn-info">Update Expense</button>
                             </div>
                         </div>
                     </form>

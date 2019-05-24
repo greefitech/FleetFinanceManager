@@ -12,7 +12,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Expenses))
+                        @if(!$Expenses->isEmpty())
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
@@ -23,6 +23,7 @@
                                         <th>Amount</th>
                                         <th>Status</th>
                                         <th>Description</th>
+                                        <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -34,13 +35,14 @@
                                             <td>{{ $Expense->location }}</td>
                                             <td>{{ $Expense->quantity }}</td>
                                             <td>{{ $Expense->amount }}</td>
-                                            <td><span style="color: {{ ($Expense->status == 0)?'red':'green' }}">{{ ($Expense->status == 0)?'Not Paid':'Paid' }}</span></td>
+                                            <td><span class="label label-{{ ($Expense->status == 0)?'danger':'success' }}">{{ ($Expense->status == 0)?'Not Paid':'Paid' }}</span></td>
                                             <td>{{ $Expense->discription }}</td>
+                                            <td>--</td>
                                             <td>
-                                                <form action="" method="POST">
+                                                <form action="{{ route('client.DeleteExpense',$Expense->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ route('client.EditExpense',$Expense->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>

@@ -65,6 +65,9 @@ Route::delete('/entry/{id}/delete', 'ClientController\EntryController@delete')->
 //Expense
 Route::get('/expense/add', 'ClientController\ExpenseController@add')->name('ViewExpenses');
 Route::post('/expense/add', 'ClientController\ExpenseController@save')->name('SaveExpense');
+Route::get('/expense/{id}/edit', 'ClientController\ExpenseController@edit')->name('EditExpense');
+Route::post('/expense/{id}/update', 'ClientController\ExpenseController@update')->name('UpdateExpense');
+Route::delete('/expense/{id}/delete', 'ClientController\ExpenseController@delete')->name('DeleteExpense');
 
 Route::get('/expense-vehicle-list', 'ClientController\ExpenseController@ExpenseVehcleListNonTrip')->name('ExpenseVehcleListNonTrip');
 Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ClientController\ExpenseController@NonTripVehicleExpenseList')->name('NonTripVehicleExpenseList');
