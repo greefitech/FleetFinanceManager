@@ -21,6 +21,7 @@
 
 <script src="{{ url('/js/entry.js') }}"></script>
 <script src="{{ url('/js/expense.js') }}"></script>
+<script src="{{ url('/js/income.js') }}"></script>
 
 <script>
     $(document).ready( function () {
