@@ -13,7 +13,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($ExpenseTypes))
+                        @if(!$ExpenseTypes->isEmpty()))
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
@@ -40,7 +40,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now added!!</p></blockquote>
+                            <blockquote><p>No Expense Type till now added!!</p></blockquote>
                         @endif
                     </div>
                 </div>

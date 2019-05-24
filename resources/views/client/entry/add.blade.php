@@ -36,7 +36,7 @@
                                     <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" min="0" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom"  id="entry-dateFrom">
+                                            <input type="date" class="form-control" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom"  id="entry-dateFrom">
                                         </div>
                                     </div>
                                 </div>

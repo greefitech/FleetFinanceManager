@@ -29,7 +29,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty(auth()->user()->vehicles))
+                        @if(!auth()->user()->vehicles->isEmpty())
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>

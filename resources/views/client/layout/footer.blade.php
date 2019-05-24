@@ -20,6 +20,7 @@
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js" type="text/javascript"></script>
 
 <script src="{{ url('/js/entry.js') }}"></script>
+<script src="{{ url('/js/expense.js') }}"></script>
 
 <script>
     $(document).ready( function () {

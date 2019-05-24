@@ -41,7 +41,7 @@
             <li><a href="{{ url('/client/income/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Income</span></a></li>
             <li><a href="{{ url('/client/extra-income/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Extra Income</span></a></li>
 
-            <li><a href="{{ url('/client/expenses') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
+            <li><a href="{{ url('/client/expense-vehicle-list') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
 
             <li><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
 

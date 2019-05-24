@@ -19,7 +19,6 @@
                                         <th>Owner Name</th>
                                         <th>Vehicle Number</th>
                                         <th>Vehicle Name</th>
-                                        <th>Total Income</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -29,9 +28,8 @@
                                             <td>{{ $Vehicle->ownerName }}</td>
                                             <td>{{ $Vehicle->vehicleNumber }}</td>
                                             <td>{{ $Vehicle->vehicleName }}</td>
-                                            <td>-----</td>
                                             <td>
-                                                <a href="{{ route('client.ViewTripListVehicleWise',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Trips</a>
+                                                <a href="{{ route('client.NonTripVehicleExpenseList',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Expense</a>
                                             </td>
                                         </tr>
                                     @endforeach

@@ -53,8 +53,6 @@ Route::get('/trip/add', 'ClientController\TripController@add');
 Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip');
 Route::get('/trip/{id}/edit', 'ClientController\TripController@edit')->name('EditTrip');
 Route::post('/trip/{id}/edit', 'ClientController\TripController@update')->name('UpdateTrip');
-
-
 Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateTripStatus')->name('UpdateTripStatus');
 
 
@@ -62,6 +60,15 @@ Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateT
 Route::get('/entry/add', 'ClientController\EntryController@add');
 Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');
 Route::delete('/entry/{id}/delete', 'ClientController\EntryController@delete')->name('DeleteEntry');
+
+
+//Expense
+Route::get('/expense/add', 'ClientController\ExpenseController@add')->name('ViewExpenses');
+Route::post('/expense/add', 'ClientController\ExpenseController@save')->name('SaveExpense');
+
+Route::get('/expense-vehicle-list', 'ClientController\ExpenseController@ExpenseVehcleListNonTrip')->name('ExpenseVehcleListNonTrip');
+Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ClientController\ExpenseController@NonTripVehicleExpenseList')->name('NonTripVehicleExpenseList');
+
 
 
 //TRIP WISE

@@ -45,7 +45,7 @@
                                     <div class="form-group{{ $errors->has('modelNumber') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Model Number</label>
-                                            <input type="text" class="form-control" value="{{ old('modelNumber') }}" placeholder="Enter Licence Number" name="modelNumber">
+                                            <input type="text" class="form-control" value="{{ old('modelNumber') }}" placeholder="Enter Model Number" name="modelNumber">
                                         </div>
                                     </div>
                                 </div>

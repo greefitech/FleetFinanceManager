@@ -13,7 +13,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty(auth()->user()->Accounts))
+                        @if(!auth()->user()->Accounts->isEmpty())
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>

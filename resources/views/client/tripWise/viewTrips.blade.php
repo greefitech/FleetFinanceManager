@@ -12,7 +12,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Trips))
+                        @if(!$Trips->isEmpty())
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
