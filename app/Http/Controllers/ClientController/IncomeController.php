@@ -4,10 +4,12 @@ namespace App\Http\Controllers\ClientController;
 
 use App\Customer;
 use App\Entry;
+use App\Income;
 use App\Trip;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class IncomeController extends Controller
 {
@@ -16,6 +18,7 @@ class IncomeController extends Controller
     }
 
     public function AddCustomerIncome($CustomerId){
+        $Data['Customer'] = Customer::findOrfail($CustomerId);
         $customer = Customer::findOrfail($CustomerId);
         $entryDatas = $customer->customerEntryData->groupBy('id');
         $incomeDatas = $customer->customerIncomeData->groupBy('entryId');
@@ -42,9 +45,35 @@ class IncomeController extends Controller
             }
         }
         if (!empty($final_data)) {
-            return view('client.income.CustomerIncomeBalanceList',compact('final_data', 'customer', 'total'));
+            return view('client.income.CustomerIncomeBalanceList',$Data,compact('final_data', 'customer', 'total'));
         }else{
             return redirect('/client/home');
         }
+    }
+    public function SaveCustomerIncome($customerId){
+        $this->validate(request(),[
+            'date'=>'required|date',
+            'account_id'=>'required',
+        ]);
+
+        foreach (request()->income as $vehicleEntryId => $incomeDetail){
+            if(!empty($incomeDetail['recevingAmount']) || !empty($incomeDetail['discountAmount'])){
+                $vehicleEntry = Entry::findOrfail($vehicleEntryId);
+                $vehicleTrip = Trip::findOrfail($vehicleEntry->tripId);
+                $income = new Income;
+                $income->date = request('date');
+                $income->account_id = request('account_id');
+                $income->customerId = $customerId;
+                $income->clientid= Auth::user()->id;
+                $income->vehicleId = $vehicleEntry->vehicleId;
+                $income->vehicleId = $vehicleEntry->vehicleId;
+                $income->entryId = $vehicleEntryId;
+                $income->tripId = $vehicleTrip->id;
+                $income->recevingAmount = $incomeDetail['recevingAmount'];
+                $income->discountAmount = $incomeDetail['discountAmount'];
+                $income->save();
+            }
+        }
+        return redirect(route('client.IncomeBalanceCustomerList'))->with('success',['Income','Added Sucessfully!']);
     }
 }

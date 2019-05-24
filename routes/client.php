@@ -75,6 +75,7 @@ Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ClientController\Ex
 //
 Route::get('/income/add', 'ClientController\IncomeController@IncomeBalanceCustomerList')->name('IncomeBalanceCustomerList');
 Route::get('/income/customer/{customerid}/add', 'ClientController\IncomeController@AddCustomerIncome')->name('AddCustomerIncome');
+Route::post('/income/customer/{customerid}/save', 'ClientController\IncomeController@SaveCustomerIncome')->name('SaveCustomerIncome');
 
 //TRIP WISE
 Route::get('/Vehicle-list', 'ClientController\TripWiseController@ViewVehicleList')->name('ViewVehicleList');
