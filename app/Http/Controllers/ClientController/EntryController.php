@@ -76,7 +76,7 @@ class EntryController extends Controller
             $entry->comission= round(request('comission'));
             $entry->loadingMamool=request('loadingMamool');
             $entry->unLoadingMamool=request('unLoadingMamool');
-            $balance =request('billAmount ')- request('advance');
+            $balance =request('billAmount')- request('advance');
             $entry->balance=round($balance);
             $entry->account_id=request('account_id');
             $entry->tripId=request('tripId');
@@ -155,7 +155,7 @@ class EntryController extends Controller
             $entry->comission= round(request('comission'));
             $entry->loadingMamool=request('loadingMamool');
             $entry->unLoadingMamool=request('unLoadingMamool');
-            $balance =request('billAmount ')- request('advance');
+            $balance =request('billAmount')- request('advance');
             $entry->balance=round($balance);
             $entry->account_id=request('account_id');
             $entry->tripId=request('tripId');
