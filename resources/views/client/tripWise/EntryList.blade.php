@@ -12,7 +12,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Entries))
+                        @if(!$Entries->isEmpty())
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
@@ -38,7 +38,7 @@
                                                 <form action="{{ route('client.DeleteEntry',$Entry->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ route('client.EditEntry',$Entry->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>
