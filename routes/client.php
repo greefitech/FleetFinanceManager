@@ -72,7 +72,7 @@ Route::delete('/expense/{id}/delete', 'ClientController\ExpenseController@delete
 Route::get('/expense-vehicle-list', 'ClientController\ExpenseController@ExpenseVehcleListNonTrip')->name('ExpenseVehcleListNonTrip');
 Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ClientController\ExpenseController@NonTripVehicleExpenseList')->name('NonTripVehicleExpenseList');
 
-//
+//Income
 Route::get('/income/add', 'ClientController\IncomeController@IncomeBalanceCustomerList')->name('IncomeBalanceCustomerList');
 Route::get('/income/customer/{customerid}/add', 'ClientController\IncomeController@AddCustomerIncome')->name('AddCustomerIncome');
 Route::post('/income/customer/{customerid}/save', 'ClientController\IncomeController@SaveCustomerIncome')->name('SaveCustomerIncome');
@@ -80,6 +80,16 @@ Route::get('/incomes', 'ClientController\IncomeController@view')->name('ViewInco
 Route::get('/income/{id}/edit', 'ClientController\IncomeController@edit')->name('EditIncome');
 Route::post('/income/{id}/update', 'ClientController\IncomeController@update')->name('UpdateIncome');
 Route::delete('/income/{id}/delete', 'ClientController\IncomeController@delete')->name('DeleteIncome');
+
+//Extra Income
+Route::get('/extra-income/add', 'ClientController\ExtraIncomeController@add')->name('AddExtraIncome');
+Route::post('/extra-income/add', 'ClientController\ExtraIncomeController@save')->name('SaveExtraIncome');
+Route::get('/extra-incomes', 'ClientController\ExtraIncomeController@view')->name('ViewExtraIncomes');
+Route::get('/extra-income/vehicle/{vehicleid}/list', 'ClientController\ExtraIncomeController@ViewExtraIncomeVehicleWiseList')->name('ViewExtraIncomeVehicleWiseList');
+Route::get('/extra-income/{expenseid}/edit', 'ClientController\ExtraIncomeController@edit')->name('EditExtraIncome');
+Route::post('/extra-income/{expenseid}/update', 'ClientController\ExtraIncomeController@update')->name('UpdateExtraIncome');
+Route::delete('/extra-income/{expenseid}/delete', 'ClientController\ExtraIncomeController@delete')->name('DeleteExtraIncome');
+
 
 //TRIP WISE
 Route::get('/Vehicle-list', 'ClientController\TripWiseController@ViewVehicleList')->name('ViewVehicleList');

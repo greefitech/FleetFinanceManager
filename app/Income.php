@@ -39,4 +39,8 @@ class Income extends Model
     public function Account(){
         return $this->hasOne(Account::class, 'id', 'account_id');
     }
+
+    public function ExpenseType(){
+        return $this->hasOne(ExpenseType::class, 'id','expense_type');
+    }
 }
