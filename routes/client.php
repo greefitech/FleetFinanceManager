@@ -63,7 +63,7 @@ Route::delete('/entry/{id}/delete', 'ClientController\EntryController@delete')->
 
 
 //Expense
-Route::get('/expense/add', 'ClientController\ExpenseController@add')->name('ViewExpenses');
+Route::get('/expense/add', 'ClientController\ExpenseController@add');
 Route::post('/expense/add', 'ClientController\ExpenseController@save')->name('SaveExpense');
 Route::get('/expense/{id}/edit', 'ClientController\ExpenseController@edit')->name('EditExpense');
 Route::post('/expense/{id}/update', 'ClientController\ExpenseController@update')->name('UpdateExpense');
@@ -71,6 +71,14 @@ Route::delete('/expense/{id}/delete', 'ClientController\ExpenseController@delete
 
 Route::get('/expense-vehicle-list', 'ClientController\ExpenseController@ExpenseVehcleListNonTrip')->name('ExpenseVehcleListNonTrip');
 Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ClientController\ExpenseController@NonTripVehicleExpenseList')->name('NonTripVehicleExpenseList');
+
+//Halt
+Route::get('/halt/add', 'ClientController\HaltController@add')->name('AddHalt');
+Route::post('/halt/add', 'ClientController\HaltController@save')->name('SaveHalt');
+Route::get('/halt/{id}/edit', 'ClientController\HaltController@edit')->name('EditHalt');
+Route::post('/halt/{id}/update', 'ClientController\HaltController@update')->name('UpdateHalt');
+Route::delete('/halt/{id}/delete', 'ClientController\HaltController@delete')->name('DeleteHalt');
+
 
 //Income
 Route::get('/income/add', 'ClientController\IncomeController@IncomeBalanceCustomerList')->name('IncomeBalanceCustomerList');
@@ -96,3 +104,4 @@ Route::get('/Vehicle-list', 'ClientController\TripWiseController@ViewVehicleList
 Route::get('/Vehicle-list/{vehicleid}/trip-list', 'ClientController\TripWiseController@ViewTripListVehicleWise')->name('ViewTripListVehicleWise');
 Route::get('/Vehicle-trip/{tripid}/entry-list', 'ClientController\TripWiseController@ViewTripEntryList')->name('ViewTripEntryList');
 Route::get('/Vehicle-trip/{tripid}/expense-list', 'ClientController\TripWiseController@ViewTripExpenseList')->name('ViewTripExpenseList');
+Route::get('/Vehicle-trip/{tripid}/halt-list', 'ClientController\TripWiseController@ViewTripHaltList')->name('ViewTripHaltList');

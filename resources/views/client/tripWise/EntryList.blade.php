@@ -15,35 +15,35 @@
                         @if(!empty($Entries))
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
-                                <tr>
-                                    <th>Date</th>
-                                    <th>Customer</th>
-                                    <th>Location From</th>
-                                    <th>Location To</th>
-                                    <th>Load</th>
-                                    <th>Bill Amount</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Customer</th>
+                                        <th>Location From</th>
+                                        <th>Location To</th>
+                                        <th>Load</th>
+                                        <th>Bill Amount</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($Entries as $Entry)
-                                    <tr>
-                                        <td>{{ date("d-m-Y", strtotime($Entry->dateFrom)) }}</td>
-                                        <td>{{ $Entry->customer->name }}</td>
-                                        <td>{{ $Entry->locationFrom }}</td>
-                                        <td>{{ $Entry->locationTo }}</td>
-                                        <td>{{ $Entry->loadType }}</td>
-                                        <td>{{ $Entry->billAmount }}</td>
-                                        <td>
-                                            <form action="{{ route('client.DeleteEntry',$Entry->id) }}" method="POST">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                    @foreach($Entries as $Entry)
+                                        <tr>
+                                            <td>{{ date("d-m-Y", strtotime($Entry->dateFrom)) }}</td>
+                                            <td>{{ $Entry->customer->name }}</td>
+                                            <td>{{ $Entry->locationFrom }}</td>
+                                            <td>{{ $Entry->locationTo }}</td>
+                                            <td>{{ $Entry->loadType }}</td>
+                                            <td>{{ $Entry->billAmount }}</td>
+                                            <td>
+                                                <form action="{{ route('client.DeleteEntry',$Entry->id) }}" method="POST">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else

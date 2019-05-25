@@ -23,4 +23,8 @@ class Halt extends Model
         return $this->hasOne(Vehicle::class, 'id', 'vehicleId');
     }
 
+    public function manager(){
+        return $this->hasOne(Manager::class, 'id', 'managerid');
+    }
+
 }
