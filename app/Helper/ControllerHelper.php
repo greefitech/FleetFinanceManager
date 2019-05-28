@@ -12,9 +12,7 @@ class Helper{
 
     public static function DateDifference($Date){
         if(!empty($Date)){
-            $datework = Carbon::parse($Date);
-            $now = Carbon::now();
-            return $datework->diffInDays($now)+1;
+            return Carbon::now()->diffInDays($Date, false);
         }else{
             return '-';
         }

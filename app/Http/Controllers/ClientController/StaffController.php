@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ClientController;
 
 use App\Expense;
+use App\Helpers\Helper;
 use App\Staff;
 use App\StaffsWork;
 use App\Trip;
@@ -15,10 +16,13 @@ class StaffController extends Controller
     public function __construct(){
         $this->middleware('client');
         $this->Staff = new Staff;
+        $this->Helper = new Helper;
     }
 
+
     public function view(){
-        return view('client.master.staff.view');
+        $Data['Helper'] = $this->Helper;
+        return view('client.master.staff.view',$Data);
     }
 
     public function add(){
