@@ -91,7 +91,7 @@ class StaffController extends Controller
             $staff->licenceRenewal = request('licenceRenewal');
             $staff->type = request('type');
             $staff->save();
-            return back()->with('success',['Staff','Updated Successfully']);
+            return redirect(route('client.ViewStaffs'))->with('success',['Staff','Updated Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
