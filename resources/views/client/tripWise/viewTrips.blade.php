@@ -37,7 +37,7 @@
                                             <td>{{ $Trip->advance }}</td>
                                             <td><span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span></td>
                                             <td>
-                                                <a href="" class="btn btn-primary btn-sm">View Memo</a>
+                                                <a href="{{ route('client.DownloadTripSheet',$Trip->id) }}" class="btn btn-primary btn-sm">View Trip Sheet</a>
                                                 <div class="input-group input-group-sm">
                                                     <div class="input-group-btn">
                                                         <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action
