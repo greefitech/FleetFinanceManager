@@ -1,6 +1,40 @@
 @extends('client.layout.master')
 
 @section('content')
+
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="box box-info">
+                <div class="box-body">
+                    <div class="col-sm-4">
+                        <label>Month</label>
+                        <select class="form-control dashboardDate" name="month" id="month" >
+                            <option value="1" {{ (date("m")==1)?'selected':'' }}>January</option>
+                            <option value="2" {{ (date("m")==2)?'selected':'' }}>February</option>
+                            <option value="3" {{ (date("m")==3)?'selected':'' }}>March</option>
+                            <option value="4" {{ (date("m")==4)?'selected':'' }}>April</option>
+                            <option value="5" {{ (date("m")==5)?'selected':'' }}>May</option>
+                            <option value="6" {{ (date("m")==6)?'selected':'' }}>June</option>
+                            <option value="7" {{ (date("m")==7)?'selected':'' }}>July</option>
+                            <option value="8" {{ (date("m")==8)?'selected':'' }}>August</option>
+                            <option value="9" {{ (date("m")==9)?'selected':'' }}>September</option>
+                            <option value="10" {{ (date("m")==10)?'selected':'' }}>October</option>
+                            <option value="11" {{ (date("m")==11)?'selected':'' }}>November</option>
+                            <option value="12" {{ (date("m")==12)?'selected':'' }}>December</option>
+                        </select>
+                    </div>
+                    <div class="col-sm-4">
+                        <label>Year</label>
+                        <select class="form-control dashboardDate" name="year" id="year">
+                            <option value="{{ date("Y") }}">{{ date("Y") }}</option>
+                            <option value="{{ date("Y") -1 }}">{{ date("Y") -1 }}</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="row">
         <div class="col-lg-4 col-xs-6">
             <div class="small-box bg-aqua">
@@ -17,7 +51,7 @@
         <!-- ./col -->
         <div class="col-lg-4 col-xs-6">
             <!-- small box -->
-            <div class="small-box bg-green">
+            <div class="small-box bg-green" id="DashboardIncome">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Profit</p>
                     <h3>{{ auth()->user()->get_profit_amount(date('m'),date('Y')) }}</h3>
@@ -30,7 +64,7 @@
         </div>
 
         <div class="col-lg-4 col-xs-6">
-            <div class="small-box bg-red">
+            <div class="small-box bg-red" id="DashboardExpense">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Expense</p>
                     <h3>{{ Auth::user()->get_non_trip_expense(date('m'),date('Y')) }}</h3>
@@ -72,7 +106,7 @@
             var year =$('#year').val();
             $.ajax({
                 type : "get",
-                url : '/client/getdashboardtotalincomeexpense',
+                url : '/client/dashboard/total-income-expense',
                 data:{month:month,year:year},
                 success:function(data){
                     $('#DashboardIncome').html(data.Income);

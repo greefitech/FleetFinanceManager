@@ -7,6 +7,9 @@ Route::get('/home', function () {
     return view('client.home');
 })->name('home');
 
+//Dashboard
+Route::get('/dashboard/total-income-expense', 'ClientController\DashboardController@dashboardTotalIncomeExpense');
+
 //CUSTOMER
 Route::get('/customers', 'ClientController\CustomerController@View')->name('ViewCustomers');
 Route::get('/customer/add', 'ClientController\CustomerController@Add')->name('AddCustomer');
