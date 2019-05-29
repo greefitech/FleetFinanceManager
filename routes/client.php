@@ -9,8 +9,10 @@ Route::get('/home', function () {
 
 //Dashboard
 Route::get('/dashboard/total-income-expense', 'ClientController\DashboardController@DashboardTotalIncomeExpense');
-Route::get('/dashboard/profit/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleProfitTotalMontly')->name('DashboardVehicleProfitTotalMontly');
-Route::get('/dashboard/expense/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleExpenseTotalMontly')->name('DashboardVehicleExpenseTotalMontly');
+Route::get('/dashboard/profit/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleProfitTotal')->name('DashboardVehicleProfitTotal');
+Route::get('/dashboard/expense/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleExpenseTotal')->name('DashboardVehicleExpenseTotal');
+
+Route::get('/dashboard/profit/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleProfitList')->name('DashboardVehicleProfitList');
 
 //CUSTOMER
 Route::get('/customers', 'ClientController\CustomerController@View')->name('ViewCustomers');

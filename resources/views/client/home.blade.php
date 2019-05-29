@@ -54,12 +54,12 @@
             <div class="small-box bg-green" id="DashboardIncome">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Profit</p>
-                    <h3>{{ auth()->user()->get_profit_amount(date('m'),date('Y')) }}</h3>
+                    <h3>{{ auth()->user()->CalculateProfitAmountTotal('',date('m'),date('Y')) }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
                 </div>
-                <a href="{{ route('client.DashboardVehicleProfitTotalMontly',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{ route('client.DashboardVehicleProfitTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
 
@@ -67,10 +67,10 @@
             <div class="small-box bg-red" id="DashboardExpense">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Expense</p>
-                    <h3>{{ Auth::user()->get_non_trip_expense(date('m'),date('Y')) }}</h3>
+                    <h3>{{ Auth::user()->CalculateNonTripExpenseAmountTotal('',date('m'),date('Y')) }}</h3>
                 </div>
                 <div class="icon"><i class="ion ion-pie-graph"></i></div>
-                <a href="{{ route('client.DashboardVehicleExpenseTotalMontly',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{ route('client.DashboardVehicleExpenseTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>
@@ -88,9 +88,9 @@
     $years = array(date('Y')-1,date('Y'));
     foreach ($years as $year){
         for ($i=1;$i<=12;$i++){
-            $incomeData = auth()->user()->get_profit_amount($i,$year);
+            $incomeData = auth()->user()->CalculateProfitAmountTotal('',$i,$year);
             array_push($income,$incomeData);
-            $ExpenseData = auth()->user()->get_non_trip_expense($i,$year);
+            $ExpenseData = auth()->user()->CalculateNonTripExpenseAmountTotal('',$i,$year);
             array_push($Expense,$ExpenseData);
         }
     }

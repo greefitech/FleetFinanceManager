@@ -21,7 +21,7 @@
                                         <th>Trip Name</th>
                                         <th>Total KM</th>
                                         <th>Staff</th>
-                                        <th>Advance</th>
+                                        <th>Profit</th>
                                         <th>Trip Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -34,7 +34,7 @@
                                             <td>{{ $Trip->tripName }}</td>
                                             <td>{{ $Trip->totalKm }}</td>
                                             <td>{{ $Trip->Staff1->name }}</td>
-                                            <td>{{ $Trip->advance }}</td>
+                                            <td>{{ auth()->user()->TripTotalIncome($Trip->id) - auth()->user()->TripTotalExpense($Trip->id) }}</td>
                                             <td><span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span></td>
                                             <td>
                                                 <a href="{{ route('client.DownloadTripSheet',$Trip->id) }}" class="btn btn-primary btn-sm">View Trip Sheet</a>

@@ -102,54 +102,32 @@ class Client extends Authenticatable
     }
 
 
-    public function get_income_amount(){
-        @$total_entry_amount = Entry::where('clientid', Auth::user()->id)->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('advance');
-        @$total_income_amount = Income::where('clientid', Auth::user()->id)->where('date', '>=', Carbon::now()->startOfMonth())->sum('recevingAmount');
-        return $total_entry_amount+$total_income_amount;
-    }
-
-    public function get_profit_amount($month,$year){
-//        $Trips = Trip::whereDate('clientid', Auth::user()->id)->whereDate('dateFrom', '>=', Carbon::now()->startOfMonth())->orwhereDate('dateTo', '>=', Carbon::now()->startOfMonth())->get();
-        $Trips= Trip::where('clientid', Auth::user()->id)->whereYear('dateTo', '=', $year)->whereMonth('dateTo', '=', $month)->get();
-        $total_income =0;
-        foreach ($Trips as $Trip){
-            $total_income += ($this->TripTotalIncome($Trip->id) - $this->TripTotalExpense($Trip->id));
+    public function CalculateProfitAmountTotal($VehicleId=NULL,$month,$year){
+        if(!empty($VehicleId)){
+            $Trips = Trip::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('dateTo', '=', $year)->whereMonth('dateTo', '=', $month)->get();
+            $total_income =0;
+            foreach ($Trips as $Trip){
+                $total_income += ($this->TripTotalIncome($Trip->id) - $this->TripTotalExpense($Trip->id));
+            }
+            return $total_income+ExtraIncome::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+        }else{
+            $Trips= Trip::where('clientid', Auth::user()->id)->whereYear('dateTo', '=', $year)->whereMonth('dateTo', '=', $month)->get();
+            $total_income =0;
+            foreach ($Trips as $Trip){
+                $total_income += ($this->TripTotalIncome($Trip->id) - $this->TripTotalExpense($Trip->id));
+            }
+            return $total_income+ExtraIncome::where('clientid', auth()->user()->id)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
         }
-        return $total_income+ExtraIncome::where('clientid', auth()->user()->id)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
-    }
-
-    public function get_expense_amount(){
-        @$total_comission_amount = Entry::where('clientid', Auth::user()->id)->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('comission');
-        @$total_loadingMamool_amount = Entry::where('clientid', Auth::user()->id)->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('loadingMamool');
-        @$total_unLoadingMamool_amount = Entry::where('clientid', Auth::user()->id)->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('unLoadingMamool');
-        @$total_expense_amount = Expense::where('clientid', Auth::user()->id)->where('date', '>=', Carbon::now()->startOfMonth())->sum('amount');
-        return $total_comission_amount+$total_loadingMamool_amount+$total_unLoadingMamool_amount+$total_expense_amount;
-    }
-
-    public function get_non_trip_expense($month,$year){
-//        @$total_expense_amount = Expense::where('clientid', Auth::user()->id)->where('tripId', NULL)->whereDate('date', '>=', Carbon::now()->startOfMonth())->sum('amount');
-        @$total_expense_amount = Expense::where('clientid', Auth::user()->id)->where('tripId', NULL)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
-        return $total_expense_amount;
-    }
-
-    public function currentMonthIncomeVehicleWise($vehicleId){
-        @$total_entry_amount = Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('advance');
-        @$total_income_amount = Income::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('date', '>=', Carbon::now()->startOfMonth())->sum('recevingAmount');
-        return $total_entry_amount+$total_income_amount;
-    }
-
-    public function currentMonthExpenseVehicleWise($vehicleId){
-        @$total_comission_amount = Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('comission');
-        @$total_loadingMamool_amount = Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('loadingMamool');
-        @$total_unLoadingMamool_amount = Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('unLoadingMamool');
-        @$total_expense_amount = Expense::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('date', '>=', Carbon::now()->startOfMonth())->sum('amount');
-        return $total_comission_amount+$total_loadingMamool_amount+$total_unLoadingMamool_amount+$total_expense_amount;
     }
 
 
-    public function currentMonthNonTripExpenseVehicleWise($vehicleId,$month,$year){
-        @$total_expense_amount = Expense::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('tripId', NULL)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
-        return $total_expense_amount;
+    public function CalculateNonTripExpenseAmountTotal($VehicleId=NULL,$month,$year){
+        if(!empty($VehicleId)){
+            return Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId]])->where('tripId', NULL)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+
+        }else{
+            return Expense::where('clientid', Auth::user()->id)->where('tripId', NULL)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+        }
     }
 
 
@@ -158,37 +136,19 @@ class Client extends Authenticatable
     }
 
 
-    public function CurrentMonthExpensesVehicleExpenseWiseEntrys($vehicleId){
-        @$FinalDatas['comission'] = Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('comission');
-        @$FinalDatas['loadingMamool']=Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('loadingMamool');
-        @$FinalDatas['unLoadingMamool']=Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('unLoadingMamool');
-        return $FinalDatas;
-    }
-
     public function currentMonthIncomeVehicleWiseAccount($vehicleId,$AccountId){
         @$total_entry_amount = Entry::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId],['account_id',$AccountId]])->where('dateFrom', '>=', Carbon::now()->startOfMonth())->sum('advance');
         @$total_income_amount = Income::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId],['account_id',$AccountId]])->where('date', '>=', Carbon::now()->startOfMonth())->sum('recevingAmount');
         return $total_entry_amount+$total_income_amount;
     }
 
-    public function currentMonthProfitVehicleWise($vehicleId,$month,$year){
-//        $Trips = Trip::where([['clientid', Auth::user()->id],['vehicleId',  $vehicleId]])->whereDate('dateFrom', '>=', Carbon::now()->startOfMonth())->orwhereDate('dateTo', '>=', Carbon::now()->startOfMonth())->get();
-        $Trips = Trip::where([['clientid', Auth::user()->id],['vehicleId',  $vehicleId]])->whereYear('dateTo', '=', $year)->whereMonth('dateTo', '=', $month)->get();
-        $total_income =0;
-        foreach ($Trips as $Trip){
-            $total_income += ($this->TripTotalIncome($Trip->id) - $this->TripTotalExpense($Trip->id));
-        }
-        return $total_income+ExtraIncome::where([['clientid', Auth::user()->id],['vehicleId',  $vehicleId]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');;
-    }
-
 
     public function GetEntryDataTripWise($tripId){
-        @$EntryData = Entry::where([['clientid', Auth::user()->id],['tripId',$tripId]])->get();
-        return $EntryData;
+        return Entry::where([['clientid', Auth::user()->id],['tripId',$tripId]])->get();
     }
+
     public function GetExpenseDataTripWise($tripId){
-        @$ExpenseData = Expense::where([['clientid', Auth::user()->id],['tripId',$tripId]])->get();
-        return $ExpenseData;
+        return Expense::where([['clientid', Auth::user()->id],['tripId',$tripId]])->get();
     }
 
     public function TripTotalIncome($tripId){

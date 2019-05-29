@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\ClientController;
 
+use App\ExtraIncome;
+use App\Trip;
+use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
 
 class DashboardController extends Controller
 {
@@ -11,16 +15,32 @@ class DashboardController extends Controller
         $month= date('F', mktime(0, 0, 0, request()->month, 10));
         $final['Income'] = '<div class="inner">
                                 <p>'.$month.'-'.request('year').' Profit</p>
-                                <h3>'.auth()->user()->get_profit_amount(request('month'),request('year')).'</h3>
+                                <h3>'.auth()->user()->CalculateProfitAmountTotal('',request('month'),request('year')).'</h3>
                             </div>
                             <div class="icon"><i class="ion ion-stats-bars"></i></div>
-                            <a href="'.route('client.DashboardVehicleProfitTotalMontly',[request('month'),request('year')]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
+                            <a href="'.route('client.DashboardVehicleProfitTotal',[request('month'),request('year')]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
         $final['expense'] = '<div class="inner">
                                 <p>'.$month.'-'.request('year').' Expense</p>
-                                <h3>'.auth()->user()->get_non_trip_expense(request('month'),request('year')).'</h3>
+                                <h3>'.auth()->user()->CalculateNonTripExpenseAmountTotal('',request('month'),request('year')).'</h3>
                             </div>
                             <div class="icon"><i class="ion ion-pie-graph"></i></div>
-                            <a href="'.route('client.DashboardVehicleExpenseTotalMontly',[request('month'),request('year')]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
+                            <a href="'.route('client.DashboardVehicleExpenseTotal',[request('month'),request('year')]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
         return $final;
+    }
+
+
+    public function DashboardVehicleProfitTotal($Month,$Year){
+        $Data['Month'] = $Month;
+        $Data['Year']=$Year;
+        return view('client.dashboard.ProfitVehicleListTotal',$Data);
+    }
+
+    public function DashboardVehicleProfitList($VehicleId,$Month,$Year){
+        $Data['Vehicle'] = Vehicle::findorfail($VehicleId);
+        $Data['Month'] = $Month;
+        $Data['Year']=$Year;
+        $Data['ExtraIncomes'] =  ExtraIncome::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('date', '=', $Year)->whereMonth('date', '=', $Month)->get();
+        $Data['Trips'] = Trip::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('dateTo', '=', $Year)->whereMonth('dateTo', '=', $Month)->get();
+        return view('client.dashboard.ProfitListDetail',$Data);
     }
 }
