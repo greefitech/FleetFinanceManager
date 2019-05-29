@@ -19,7 +19,7 @@ class ExpenseController extends Controller
 
     public function add(){
         $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
-        return view('client.expense.add',$Data);
+        return view('client.trip.expense.add',$Data);
     }
 
     public function save(){
@@ -63,7 +63,7 @@ class ExpenseController extends Controller
         try {
             $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
             $Data['Expense'] = $this->Expense::findorfail($id);
-            return view('client.expense.edit',$Data);
+            return view('client.trip.expense.edit',$Data);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
         }
@@ -119,13 +119,13 @@ class ExpenseController extends Controller
      */
 
     public function ExpenseVehcleListNonTrip(){
-        return view('client.expense.LorryList');
+        return view('client.trip.expense.LorryList');
     }
 
     public function NonTripVehicleExpenseList($VehicleId){
         try {
             $Data['Expenses'] = $this->Expense::where([['clientid', auth()->user()->id], ['vehicleId', $VehicleId]])->where('tripId', NULL)->orderBy('date', 'DESC')->get();
-            return view('client.expense.view-non-trip-expense',$Data);
+            return view('client.trip.expense.view-non-trip-expense',$Data);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
         }

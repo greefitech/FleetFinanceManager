@@ -16,7 +16,7 @@ class EntryController extends Controller
     }
 
     public function add(){
-        return view('client.entry.add');
+        return view('client.trip.entry.add');
     }
 
     public function save(){
@@ -92,7 +92,7 @@ class EntryController extends Controller
         try {
             $Data['Entry'] = Entry::findOrfail($id);
             $Data['Trip'] = Trip::findorfail($Data['Entry']->tripId);
-            return view('client.entry.edit',$Data);
+            return view('client.trip.entry.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }

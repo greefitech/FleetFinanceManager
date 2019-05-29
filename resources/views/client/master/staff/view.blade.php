@@ -34,8 +34,7 @@
                                             <td>{{ $Staff->address }}</td>
                                             <td>{{ $Staff->type }}</td>
                                             <td>{{ $Staff->licenceNumber }}</td>
-                                            <?php $RenewalDays = DateDifference($Staff->licenceRenewal) ?>
-                                            <td>@if($RenewalDays <10)<span style="color: red;">{{ $RenewalDays }}</span> @else {{ $RenewalDays }} @endif</td>
+                                            <td>@if(DateDifference($Staff->licenceRenewal) <10)<span style="color: red;">{{ DateDifference($Staff->licenceRenewal) }}</span> @else {{ DateDifference($Staff->licenceRenewal) }} @endif</td>
                                             <td>
                                                 <form action="{{ route('client.DeleteStaff',$Staff->id) }}" method="POST">
                                                     {{ csrf_field() }}

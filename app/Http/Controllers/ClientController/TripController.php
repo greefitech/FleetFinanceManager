@@ -28,7 +28,7 @@ class TripController extends Controller
      * Add Trip Form
      */
     public function add(){
-        return view('client.master.trip.add');
+        return view('client.trip.trip.add');
     }
 
     /*
@@ -77,7 +77,7 @@ class TripController extends Controller
     public function edit($id){
         try {
             $Data['Trip'] = $this->Trip::findorfail($id);
-            return view('client.master.trip.edit',$Data);
+            return view('client.trip.trip.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
