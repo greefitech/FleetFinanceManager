@@ -52,7 +52,7 @@
 {{--                                                    {{ csrf_field() }}--}}
 {{--                                                    <input type="hidden" name="_method" value="DELETE">--}}
                                                     <a href="#" class="btn"><i class="fa fa-truck text-aqua"></i></a>
-                                                    <a href="#" class="btn"><i class="fa fa-file text-aqua"></i></a>
+                                                    <a href="{{ route('client.ViewDocuments',$Vehicle->id) }}" class="btn"><i class="fa fa-file text-aqua"></i></a>
                                                     <a href="{{ route('client.EditVehicle',$Vehicle->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
 {{--                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>--}}
 {{--                                                </form>--}}

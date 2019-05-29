@@ -39,6 +39,14 @@ Route::get('/vehicle/{id}/edit', 'ClientController\VehicleController@edit')->nam
 Route::post('/vehicle/{id}/update', 'ClientController\VehicleController@update')->name('UpdateVehicle');
 Route::delete('/vehicle/{id}/delete', 'ClientController\VehicleController@delete')->name('DeleteVehicle');
 
+//Documents
+Route::get('/documents/{vehicleid}/view', 'ClientController\DocumentController@view')->name('ViewDocuments');
+Route::get('/document/{vehicleid}/add', 'ClientController\DocumentController@add')->name('AddDocument');
+Route::post('/document/{vehicleid}/save', 'ClientController\DocumentController@save')->name('SaveDocument');
+Route::get('/document/{documentid}/edit', 'ClientController\DocumentController@edit')->name('EditDocument');
+Route::post('/document/{documentid}/update', 'ClientController\DocumentController@update')->name('UpdateDocument');
+Route::delete('/document/{documentid}/delete', 'ClientController\DocumentController@delete')->name('DeleteDocument');
+
 
 //Account
 Route::get('/accounts', 'ClientController\AccountController@view')->name('ViewAccounts');
