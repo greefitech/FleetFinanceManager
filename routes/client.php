@@ -13,6 +13,7 @@ Route::get('/dashboard/profit/{month}/{year}/vehicle-list', 'ClientController\Da
 Route::get('/dashboard/expense/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleExpenseTotal')->name('DashboardVehicleExpenseTotal');
 
 Route::get('/dashboard/profit/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleProfitList')->name('DashboardVehicleProfitList');
+Route::get('/dashboard/non-trip-expense/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleNonTripExpenseList')->name('DashboardVehicleNonTripExpenseList');
 
 //CUSTOMER
 Route::get('/customers', 'ClientController\CustomerController@View')->name('ViewCustomers');

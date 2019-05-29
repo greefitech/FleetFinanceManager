@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\ClientController;
 
+use App\Expense;
 use App\ExtraIncome;
 use App\Trip;
 use App\Vehicle;
@@ -42,5 +43,19 @@ class DashboardController extends Controller
         $Data['ExtraIncomes'] =  ExtraIncome::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('date', '=', $Year)->whereMonth('date', '=', $Month)->get();
         $Data['Trips'] = Trip::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('dateTo', '=', $Year)->whereMonth('dateTo', '=', $Month)->get();
         return view('client.dashboard.ProfitListDetail',$Data);
+    }
+
+    public function DashboardVehicleExpenseTotal($Month,$Year){
+        $Data['Month'] = $Month;
+        $Data['Year']=$Year;
+        return view('client.dashboard.NonTripExpenseVehicleListTotal',$Data);
+    }
+
+    public function DashboardVehicleNonTripExpenseList($VehicleId,$Month,$Year){
+        $Data['Vehicle'] = Vehicle::findorfail($VehicleId);
+        $Data['Month'] = $Month;
+        $Data['Year']=$Year;
+        $Data['Expenses'] =  Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId]])->whereYear('date', '=', $Year)->whereMonth('date', '=', $Month)->whereNull('tripId')->get();
+        return view('client.dashboard.NonTripExpenseDetail',$Data);
     }
 }
