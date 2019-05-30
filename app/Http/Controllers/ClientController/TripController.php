@@ -92,7 +92,9 @@ class TripController extends Controller
             'dateTo' => 'nullable|date|after:dateFrom',
             'vehicleId' => 'required|exists:vehicles,id',
             'startKm' => 'required',
-            'staff1' => 'required',
+            'staff1' => 'required|exists:staff,id',
+            'staff2' => 'nullable|exists:staff,id',
+            'staff3' => 'nullable|exists:staff,id',
         ]);
 
         try {

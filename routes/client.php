@@ -79,6 +79,7 @@ Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateT
 
 //Entry
 Route::get('/entry/memo', 'ClientController\EntryController@memo');
+Route::post('/entry/memo', 'ClientController\EntryController@SaveMemo')->name('SaveMemo');
 
 
 Route::get('/entry/add', 'ClientController\EntryController@add');

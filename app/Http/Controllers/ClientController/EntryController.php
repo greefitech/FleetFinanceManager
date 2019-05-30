@@ -185,4 +185,26 @@ class EntryController extends Controller
     public function memo(){
         return view('client.trip.memo');
     }
+
+
+
+
+
+
+
+    public function SaveMemo(){
+        $this->validate(request(),[
+            'vehicleId'=>'required|exists:vehicles,id',
+            'dateFrom'=>'required|date',
+            'dateTo'=>'required|date|after_or_equal:dateFrom',
+            'advance'=>'nullable|numeric|min:0',
+            'startKm'=>'required|numeric|min:0',
+            'endKm'=>'required|numeric|min:'.(int)request('startKm'),
+            'staff.0' => 'required|exists:staff,id',
+            'staff.1' => 'nullable|exists:staff,id',
+            'staff.2' => 'nullable|exists:staff,id',
+        ]);
+
+        return request()->all();
+    }
 }
