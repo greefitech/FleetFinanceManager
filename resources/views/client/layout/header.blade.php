@@ -24,7 +24,7 @@
                         </li>
                         <li class="user-footer">
                             <div class="pull-left">
-                                <a href="" class="btn btn-default btn-flat">Profile</a>
+                                <a href="{{ route('client.profile') }}" class="btn btn-default btn-flat">Profile</a>
                             </div>
                             <div class="pull-right">
                                 <a href="{{ url('/client/logout') }}" class="btn btn-default btn-flat"

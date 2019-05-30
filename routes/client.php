@@ -23,7 +23,7 @@ Route::get('/customer/{id}/edit', 'ClientController\CustomerController@edit')->n
 Route::post('/customer/{id}/update', 'ClientController\CustomerController@update')->name('UpdateCustomer');
 Route::delete('/customer/{id}/delete', 'ClientController\CustomerController@delete')->name('DeleteCustomer');
 
-
+//Staff
 Route::get('/staffs', 'ClientController\StaffController@view')->name('ViewStaffs');
 Route::get('/staff/add', 'ClientController\StaffController@add')->name('AddStaff');
 Route::post('/staff/add', 'ClientController\StaffController@save')->name('SaveStaff');
@@ -31,7 +31,7 @@ Route::get('/staff/{id}/edit', 'ClientController\StaffController@edit')->name('E
 Route::post('/staff/{id}/udate', 'ClientController\StaffController@update')->name('UpdateStaff');
 Route::delete('/staff/{id}/delete', 'ClientController\StaffController@delete')->name('DeleteStaff');
 
-
+//Vehicle
 Route::get('/vehicles', 'ClientController\VehicleController@view')->name('ViewVehicles');
 Route::get('/vehicle/add', 'ClientController\VehicleController@add')->name('AddVehicle');
 Route::post('/vehicle/add', 'ClientController\VehicleController@save')->name('SaveVehicle');
@@ -126,3 +126,11 @@ Route::get('/Vehicle-trip/{tripid}/halt-list', 'ClientController\TripWiseControl
 
 //Trip Sheet
 Route::get('/trip-sheet/{tripid}/download', 'ClientController\TripSheetController@DownloadTripSheet')->name('DownloadTripSheet');
+
+
+
+//profile
+Route::get('/profile', 'ClientController\ProfileController@profile')->name('profile');
+Route::post('/profile', 'ClientController\ProfileController@UpdateProfile')->name('UpdateProfile');
+Route::get('/profile/change-password', 'ClientController\ProfileController@ChangePassword')->name('ChangePassword');
+Route::post('/profile/update-password', 'ClientController\ProfileController@UpdatePassword')->name('UpdatePassword');
