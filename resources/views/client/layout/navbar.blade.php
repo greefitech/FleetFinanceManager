@@ -22,7 +22,7 @@
 
 
             <li class="treeview">
-                <a href="#">
+                <a>
                     <i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Trip</span>
                     <span class="pull-right-container">
@@ -34,6 +34,7 @@
                     <li><a href="{{ url('/client/entry/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Entry</span></a></li>
                     <li><a href="{{ url('/client/expense/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Expense</span></a></li>
                     <li><a href="{{ url('/client/halt/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Halt</span></a></li>
+                    <li><a href="{{ url('/client/entry/memo') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Memo</span></a></li>
                 </ul>
             </li>
 

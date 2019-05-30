@@ -36,17 +36,23 @@
         </div>
     </div>
 
+    <?php
+        $IncomeDatas = unserialize($FinancialIndicator->income);
+        $ExpenseDatas = unserialize($FinancialIndicator->expense);
+
+    ?>
+
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>{{ $Vehicle->vehicleNumber }} Financial Indicator</center>
+                        <center>{{ $Vehicle->vehicleNumber }} Edit Financial Indicator</center>
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveFinancialIndicators',$Vehicle->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateFinancialIndicators',[$Vehicle->id,$FinancialIndicator->id]) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
 
@@ -55,29 +61,29 @@
                                     <div class="panel-heading">Expense</div>
                                     <div class="panel-body AddExpenseModuleDiv">
 
-                                    @if(!empty(old('ExpenseData')))
-                                        @foreach(old('ExpenseData') as $ExpenseDataKey=>$ExpenseData)
+                                    @if(!empty($ExpenseDatas))
+                                        @foreach($ExpenseDatas as $ExpenseDataKey=>$ExpenseData)
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
                                                 <button type="button" class="btn btn-danger btn-sm pull-right RemoveModule"><i class="fa fa-close"></i></button>
                                                 <div class="row">
                                                     <div class="form-group{{ $errors->has('ExpenseData.'.$ExpenseDataKey.'.master_expense') ? ' has-error' : '' }}">
                                                         <div class="col-sm-4">
-                                                            <input type="text" class="form-control" placeholder="Enter Master Expense" value="{{ old('ExpenseData')[$ExpenseDataKey]['master_expense'] }}" name="ExpenseData[{{$ExpenseDataKey }}][master_expense]">
+                                                            <input type="text" class="form-control" placeholder="Enter Master Expense" value="{{ $ExpenseDatas[$ExpenseDataKey]['master_expense'] }}" name="ExpenseData[{{$ExpenseDataKey }}][master_expense]">
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
                                             <div class="panel-body">
                                                 <div class="AddExpenseInputDiv{{$ExpenseDataKey}}">
-                                                @if(isset(old('ExpenseData')[$ExpenseDataKey]['date']))
-                                                    @foreach(old('ExpenseData')[$ExpenseDataKey]['date'] as $ExpenseInputKey=>$ExpenseInputs)
+                                                @if(isset($ExpenseDatas[$ExpenseDataKey]['date']))
+                                                    @foreach($ExpenseDatas[$ExpenseDataKey]['date'] as $ExpenseInputKey=>$ExpenseInputs)
                                                         <div class="row">
                                                             <div class="col-sm-3">
                                                                 <div class="form-group{{ $errors->has('ExpenseData.'.$ExpenseDataKey.'.date.'.$ExpenseInputKey) ? ' has-error' : '' }}">
                                                                     <div class="col-sm-12">
                                                                         <label>Date</label>
-                                                                        <input type="date" class="form-control" placeholder="Enter Master Expense" value="{{ old('ExpenseData')[$ExpenseDataKey]['date'][$ExpenseInputKey] }}" name="ExpenseData[{{$ExpenseDataKey}}][date][]">
+                                                                        <input type="date" class="form-control" placeholder="Enter Master Expense" value="{{ $ExpenseDatas[$ExpenseDataKey]['date'][$ExpenseInputKey] }}" name="ExpenseData[{{$ExpenseDataKey}}][date][]">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -85,7 +91,7 @@
                                                                 <div class="form-group{{ $errors->has('ExpenseData.'.$ExpenseDataKey.'.expense.'.$ExpenseInputKey) ? ' has-error' : '' }}">
                                                                     <div class="col-sm-12">
                                                                         <label>Expense</label>
-                                                                        <input type="text" class="form-control" placeholder="Enter Master Expense" value="{{ old('ExpenseData')[$ExpenseDataKey]['expense'][$ExpenseInputKey] }}" name="ExpenseData[{{$ExpenseDataKey}}][expense][]">
+                                                                        <input type="text" class="form-control" placeholder="Enter Master Expense" value="{{ $ExpenseDatas[$ExpenseDataKey]['expense'][$ExpenseInputKey] }}" name="ExpenseData[{{$ExpenseDataKey}}][expense][]">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -93,7 +99,7 @@
                                                                 <div class="form-group{{ $errors->has('ExpenseData.'.$ExpenseDataKey.'.amount.'.$ExpenseInputKey) ? ' has-error' : '' }}">
                                                                     <div class="col-sm-12">
                                                                         <label>Amount</label>
-                                                                        <input type="number" min="0" class="form-control ExpenseValue" placeholder="Enter Expense Amount" value="{{ old('ExpenseData')[$ExpenseDataKey]['amount'][$ExpenseInputKey] }}" name="ExpenseData[{{$ExpenseDataKey}}][amount][]">
+                                                                        <input type="number" min="0" class="form-control ExpenseValue" placeholder="Enter Expense Amount" value="{{ $ExpenseDatas[$ExpenseDataKey]['amount'][$ExpenseInputKey] }}" name="ExpenseData[{{$ExpenseDataKey}}][amount][]">
                                                                     </div>
                                                                 </div>
                                                             </div>
@@ -122,14 +128,14 @@
                                     <div class="panel-body AddInputModuleDiv">
 
 
-                                    @if(!empty(old('IncomeData')))
-                                        @foreach(old('IncomeData')['date'] as $IncomeKey=>$IncomeData)
+                                    @if(!empty($IncomeDatas))
+                                        @foreach($IncomeDatas['date'] as $IncomeKey=>$IncomeData)
                                             <div class="row">
                                                 <div class="col-sm-3">
                                                     <div class="form-group{{ $errors->has('IncomeData.date.'.$IncomeKey) ? ' has-error' : '' }}">
                                                         <div class="col-sm-12">
                                                             <label>Date</label>
-                                                            <input type="date" class="form-control" placeholder="Enter Master Expense" value="{{ old('IncomeData')['date'][$IncomeKey] }}" name="IncomeData[date][]">
+                                                            <input type="date" class="form-control" placeholder="Enter Master Expense" value="{{ $IncomeDatas['date'][$IncomeKey] }}" name="IncomeData[date][]">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -137,7 +143,7 @@
                                                     <div class="form-group{{ $errors->has('IncomeData.income.'.$IncomeKey) ? ' has-error' : '' }}">
                                                         <div class="col-sm-12">
                                                             <label>Income</label>
-                                                            <input type="text" class="form-control" placeholder="Enter Master Expense" value="{{ old('IncomeData')['income'][$IncomeKey] }}" name="IncomeData[income][]">
+                                                            <input type="text" class="form-control" placeholder="Enter Master Expense" value="{{ $IncomeDatas['income'][$IncomeKey] }}" name="IncomeData[income][]">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -145,7 +151,7 @@
                                                     <div class="form-group{{ $errors->has('IncomeData.amount.'.$IncomeKey) ? ' has-error' : '' }}">
                                                         <div class="col-sm-12">
                                                             <label>Amount</label>
-                                                            <input type="number" min="0" class="form-control IncomeValue" placeholder="Enter Amount" value="{{ old('IncomeData')['amount'][$IncomeKey] }}" name="IncomeData[amount][]">
+                                                            <input type="number" min="0" class="form-control IncomeValue" placeholder="Enter Amount" value="{{ $IncomeDatas['amount'][$IncomeKey] }}" name="IncomeData[amount][]">
                                                         </div>
                                                     </div>
                                                 </div>
@@ -165,7 +171,7 @@
 
                             <br>
                             <div align="center">
-                                <button type="submit" class="btn btn-info">Add Financial Indicator</button>
+                                <button type="submit" class="btn btn-info">Update Financial Indicator</button>
                             </div>
                         </div>
                     </form>

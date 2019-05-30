@@ -31,6 +31,10 @@ class Vehicle extends Model
         return $this->belongsTo(VehicleType::class, 'vehicleType', 'id');
     }
 
+    public function FinancialIndicator(){
+        return $this->hasOne(FinancialIncdicator::class, 'vehicleId', 'id');
+    }
+
     public function DocumentsList($VehicleId){
         return Document::where([['vehicleId',$VehicleId]])->get();
     }

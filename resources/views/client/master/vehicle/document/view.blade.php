@@ -31,7 +31,7 @@
                                         <td>{{ $Document->DocumentType->documentType }}</td>
                                         <td>{{ date("d-m-Y", strtotime($Document->duedate)) }}</td>
                                         <td>{{ $Document->interval }}</td>
-                                        <td>**********</td>
+                                        <td><span style="color: {{ (DateDifference($Document->duedate)<=$Document->notifyBefore)?'red':'green' }};font-weight: bold;">{{ DateDifference($Document->duedate) }}</span></td>
                                         <td>{{ $Document->amount }}</td>
                                         <td>
                                             <form action="{{ route('client.DeleteDocument',$Document->id) }}" method="POST">

@@ -6,6 +6,7 @@ use App\Customer;
 use App\Entry;
 use App\StaffsWork;
 use App\Trip;
+use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -179,5 +180,9 @@ class EntryController extends Controller
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
+    }
+
+    public function memo(){
+        return view('client.trip.memo');
     }
 }

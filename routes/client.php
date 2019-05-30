@@ -47,6 +47,11 @@ Route::get('/document/{documentid}/edit', 'ClientController\DocumentController@e
 Route::post('/document/{documentid}/update', 'ClientController\DocumentController@update')->name('UpdateDocument');
 Route::delete('/document/{documentid}/delete', 'ClientController\DocumentController@delete')->name('DeleteDocument');
 
+//Financial Indicator
+Route::get('/financial-indicator/{vehicleid}/add', 'ClientController\FinancialIndicatorController@add')->name('AddFinancialIndicators');
+Route::post('/financial-indicator/{vehicleid}/save', 'ClientController\FinancialIndicatorController@save')->name('SaveFinancialIndicators');
+Route::get('/financial-indicator/{indicatorid}/edit', 'ClientController\FinancialIndicatorController@edit')->name('EditFinancialIndicators');
+Route::post('/financial-indicator/{vehicleid}/{indicatorid}/update', 'ClientController\FinancialIndicatorController@update')->name('UpdateFinancialIndicators');
 
 //Account
 Route::get('/accounts', 'ClientController\AccountController@view')->name('ViewAccounts');
@@ -73,6 +78,9 @@ Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateT
 
 
 //Entry
+Route::get('/entry/memo', 'ClientController\EntryController@memo');
+
+
 Route::get('/entry/add', 'ClientController\EntryController@add');
 Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');
 Route::get('/entry/{id}/edit', 'ClientController\EntryController@edit')->name('EditEntry');
