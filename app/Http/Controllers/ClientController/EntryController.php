@@ -232,6 +232,31 @@ class EntryController extends Controller
             $this->validate(request(), $PCValidator);
         }
 
+        /*
+         * Extra Expense Validator
+         */
+        if(!empty(request('ExtraExpense'))){
+            $PCValidator=[];
+            foreach(request('ExtraExpense')['expense_type'] as $ExtraExpenseKey=>$EXt){
+                $PCValidator['ExtraExpense.expense_type.'.$ExtraExpenseKey] = 'required|exists:expense_types,id';
+                $PCValidator['ExtraExpense.account_id.'.$ExtraExpenseKey] = 'required';
+                $PCValidator['ExtraExpense.amount.'.$ExtraExpenseKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $PCValidator);
+        }
+
+        /*
+         * Paalam Toll validator
+         * */
+        if(!empty(request('PaalamToll'))){
+            $PCValidator=[];
+            foreach(request('PaalamToll')['amount'] as $PaalamTollKey=>$paall){
+                $PCValidator['PaalamToll.account_id.'.$PaalamTollKey] = 'required';
+                $PCValidator['PaalamToll.amount.'.$PaalamTollKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $PCValidator);
+        }
+
 
         return request()->all();
     }

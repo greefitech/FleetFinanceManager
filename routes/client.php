@@ -81,6 +81,14 @@ Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateT
 Route::get('/entry/memo', 'ClientController\EntryController@memo');
 Route::post('/entry/memo', 'ClientController\EntryController@SaveMemo')->name('SaveMemo');
 
+//GET AJAX DATA MEMO
+Route::get('/entry/memo/expense-type', function (){
+    return GetExpenseTypesOption();
+});
+Route::get('/entry/memo/accounts', function (){
+    return GetAccountsOption();
+});
+
 
 Route::get('/entry/add', 'ClientController\EntryController@add');
 Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');

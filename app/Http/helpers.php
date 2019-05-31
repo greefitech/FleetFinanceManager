@@ -1,5 +1,6 @@
 <?php
 
+use App\ExpenseType;
 use Carbon\Carbon;
 
 if (! function_exists('DateDifference')) {
@@ -9,5 +10,34 @@ if (! function_exists('DateDifference')) {
         } else {
             return '-';
         }
+    }
+}
+
+
+if (! function_exists('GetExpenseTypesOption')) {
+    function GetExpenseTypesOption(){
+        $ExpenseData='';
+        $ExpenseTypes = ExpenseType::where([['clientid',auth()->user()->id]])->orWhereNull('clientid')->where([['id' ,'!=',1],['id' ,'!=',2],['id' ,'!=',4],['id' ,'!=',6],['id' ,'!=',12]])->get();
+        foreach($ExpenseTypes as $ExpenseType){
+            $ExpenseData = $ExpenseData.'<option value="'.$ExpenseType->id.'">'.$ExpenseType->expenseType.'</option>';
+        }
+        return $ExpenseData;
+    }
+}
+
+if (! function_exists('GetExpenseTypes')) {
+    function GetExpenseTypes(){
+        return ExpenseType::where([['clientid',auth()->user()->id]])->orWhereNull('clientid')->where([['id' ,'!=',1],['id' ,'!=',2],['id' ,'!=',4],['id' ,'!=',6],['id' ,'!=',12]])->get();
+    }
+}
+
+
+if (! function_exists('GetAccountsOption')) {
+    function GetAccountsOption(){
+        $AccountsData='';
+        foreach(auth()->user()->Accounts as $Account){
+            return $AccountsData = $AccountsData.'<option value="'.$Account->id.'">'.$Account->account.' - '.$Account->HolderName.'</option>';
+        }
+        return $AccountsData;
     }
 }
