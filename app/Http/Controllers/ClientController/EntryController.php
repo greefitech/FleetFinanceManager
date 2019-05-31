@@ -245,6 +245,18 @@ class EntryController extends Controller
             $this->validate(request(), $PCValidator);
         }
 
+        /*
+         * Paalam Toll validator
+         * */
+        if(!empty(request('PaalamToll'))){
+            $PCValidator=[];
+            foreach(request('PaalamToll')['amount'] as $PaalamTollKey=>$paall){
+                $PCValidator['PaalamToll.account_id.'.$PaalamTollKey] = 'required';
+                $PCValidator['PaalamToll.amount.'.$PaalamTollKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $PCValidator);
+        }
+
 
         return request()->all();
     }
