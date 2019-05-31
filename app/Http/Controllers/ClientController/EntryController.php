@@ -232,6 +232,19 @@ class EntryController extends Controller
             $this->validate(request(), $PCValidator);
         }
 
+        /*
+         * Extra Expense Validator
+         */
+        if(!empty(request('ExtraExpense'))){
+            $PCValidator=[];
+            foreach(request('ExtraExpense')['expense_type'] as $ExtraExpenseKey=>$EXt){
+                $PCValidator['ExtraExpense.expense_type.'.$ExtraExpenseKey] = 'required|exists:expense_types,id';
+                $PCValidator['ExtraExpense.account_id.'.$ExtraExpenseKey] = 'required';
+                $PCValidator['ExtraExpense.amount.'.$ExtraExpenseKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $PCValidator);
+        }
+
 
         return request()->all();
     }

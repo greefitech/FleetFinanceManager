@@ -255,8 +255,77 @@
                                 <div class="col-sm-12">
                                     <div class="panel-group">
                                         <div class="panel panel-primary">
-                                            <div class="panel-heading"><span style="font-weight: bold;">Extra Expenses</span></div>
-                                            <div class="panel-body">Panel Content</div>
+                                            <div class="panel-heading">
+                                                <span style="font-weight: bold;">Extra Expenses
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddExtraExpenseInput"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table  class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Expenses Type</th>
+                                                            <th>Quantity</th>
+                                                            <th>Location</th>
+                                                            <th>Cost / ரூ.</th>
+                                                            <th>Note</th>
+                                                            <th>Account</th>
+                                                            <th>Status</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="ExtraExpenseTableData">
+                                                        @if(!empty(old('ExtraExpense')))
+                                                            @foreach(old('ExtraExpense')['expense_type'] as $ExpenseKey=>$PcD)
+                                                                <tr>
+                                                                    <td class="{{ $errors->has('ExtraExpense.expense_type.'.$ExpenseKey) ? ' has-error' : '' }}">
+                                                                        <select name="ExtraExpense[expense_type][]" class="form-control">
+                                                                            @foreach(GetExpenseTypes() as $ExpenseType)
+                                                                                <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id == old('ExtraExpense')['expense_type'][$ExpenseKey])?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('ExtraExpense.quantity.'.$ExpenseKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" class="form-control" name="ExtraExpense[quantity][]" value="{{ old('ExtraExpense')['quantity'][$ExpenseKey] }}">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('ExtraExpense.location.'.$ExpenseKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" name="ExtraExpense[location][]" value="{{ old('ExtraExpense')['location'][$ExpenseKey] }}">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('ExtraExpense.amount.'.$ExpenseKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" class="form-control ExtraExpenseAmountValue" name="ExtraExpense[amount][]" value="{{ old('ExtraExpense')['amount'][$ExpenseKey] }}">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('ExtraExpense.discription.'.$ExpenseKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" name="ExtraExpense[discription][]" value="{{ old('ExtraExpense')['discription'][$ExpenseKey] }}">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('ExtraExpense.account_id.'.$ExpenseKey) ? ' has-error' : '' }}">
+                                                                        <select name="ExtraExpense[account_id][]" class="form-control">
+                                                                            <option value="1">Cash</option>
+                                                                            @foreach(Auth::user()->Accounts as $Account)
+                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == old('ExtraExpense')['account_id'][$ExpenseKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('ExtraExpense.status.'.$ExpenseKey) ? ' has-error' : '' }}">
+                                                                        <select class="form-control" name="ExtraExpense[status][]">
+                                                                            <option value="1" {{ (old('ExtraExpense')['status'][$ExpenseKey]==1)?'selected':'' }}>Paid</option>
+                                                                            <option value="0" {{ (old('ExtraExpense')['status'][$ExpenseKey]==0)?'selected':'' }}>Not Paid</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><i style="color: red;" class="fa fa-close RemoveExtraExpenseInput"></i></td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                    <tr>
+                                                        <th colspan="3">Total</th>
+                                                        <th id="ExtraExpenseTotalSpentAmount"></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -269,7 +338,7 @@
                                 <div class="col-sm-12">
                                     <div class="panel-group">
                                         <div class="panel panel-warning">
-                                            <div class="panel-heading"><span style="font-weight: bold;">Entry Data</span></div>
+                                            <div class="panel-heading"><span style="font-weight: bold;">Paalam / Tollgate</span></div>
                                             <div class="panel-body">Panel Content</div>
                                         </div>
                                     </div>
@@ -295,6 +364,12 @@
 
     <script>
         $('tbody').sortable();
+
+
+        $(document).ready(function() {
+
+
+        });
     </script>
 
 
