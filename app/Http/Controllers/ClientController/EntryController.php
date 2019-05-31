@@ -193,17 +193,45 @@ class EntryController extends Controller
 
 
     public function SaveMemo(){
-        $this->validate(request(),[
-            'vehicleId'=>'required|exists:vehicles,id',
-            'dateFrom'=>'required|date',
-            'dateTo'=>'required|date|after_or_equal:dateFrom',
-            'advance'=>'nullable|numeric|min:0',
-            'startKm'=>'required|numeric|min:0',
-            'endKm'=>'required|numeric|min:'.(int)request('startKm'),
-            'staff.0' => 'required|exists:staff,id',
-            'staff.1' => 'nullable|exists:staff,id',
-            'staff.2' => 'nullable|exists:staff,id',
-        ]);
+//        $this->validate(request(),[
+//            'vehicleId'=>'required|exists:vehicles,id',
+//            'dateFrom'=>'required|date',
+//            'dateTo'=>'required|date|after_or_equal:dateFrom',
+//            'advance'=>'nullable|numeric|min:0',
+//            'startKm'=>'required|numeric|min:0',
+//            'endKm'=>'required|numeric|min:'.(int)request('startKm'),
+//            'staff.0' => 'required|exists:staff,id',
+//            'staff.1' => 'nullable|exists:staff,id',
+//            'staff.2' => 'nullable|exists:staff,id',
+//        ],
+//        [
+//            'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
+//        ]);
+
+        /*
+         * PC data validation validate location and amount all data are required
+         */
+        if(!empty(request('PCData'))){
+            $PCValidator=[];
+            foreach(request('PCData')['location'] as $PCKey=>$PCD){
+                $PCValidator['PCData.location.'.$PCKey] = 'required';
+                $PCValidator['PCData.amount.'.$PCKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $PCValidator);
+        }
+
+        /*
+         * RTO data validation validate location and amount all data are required
+         */
+        if(!empty(request('RTOData'))){
+            $PCValidator=[];
+            foreach(request('RTOData')['location'] as $PCKey=>$PCD){
+                $PCValidator['RTOData.location.'.$PCKey] = 'required';
+                $PCValidator['RTOData.amount.'.$PCKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $PCValidator);
+        }
+
 
         return request()->all();
     }

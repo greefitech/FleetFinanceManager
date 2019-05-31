@@ -87,14 +87,18 @@ class TripController extends Controller
      * Update Trip data
      */
     public function update($id){
-        $this->validate(request(), [
-            'dateFrom' => 'required|date',
-            'dateTo' => 'nullable|date|after:dateFrom',
-            'vehicleId' => 'required|exists:vehicles,id',
-            'startKm' => 'required',
-            'staff1' => 'required|exists:staff,id',
-            'staff2' => 'nullable|exists:staff,id',
-            'staff3' => 'nullable|exists:staff,id',
+        $this->validate(request(),[
+            'vehicleId'=>'required|exists:vehicles,id',
+            'dateFrom'=>'required|date',
+            'dateTo'=>'required|date|after_or_equal:dateFrom',
+            'advance'=>'nullable|numeric|min:0',
+            'startKm'=>'required|numeric|min:0',
+            'endKm'=>'required|numeric|min:'.(int)request('startKm'),
+            'staff.0' => 'required|exists:staff,id',
+            'staff.1' => 'nullable|exists:staff,id',
+            'staff.2' => 'nullable|exists:staff,id',
+        ],[
+            'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
         ]);
 
         try {
