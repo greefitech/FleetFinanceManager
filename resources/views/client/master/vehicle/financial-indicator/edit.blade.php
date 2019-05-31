@@ -187,6 +187,8 @@
 
 @section('script')
     <script>
+        $('.AddInputModuleDiv').sortable();
+        $('.AddExpenseModuleDiv').sortable();
         var ExpenseI = {{ (isset($ExpenseDataKey))?++$ExpenseDataKey:0 }};
         $('body').on('click','.RemoveModule',function (e) {
             e.preventDefault();
