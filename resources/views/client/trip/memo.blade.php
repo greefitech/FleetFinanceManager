@@ -131,8 +131,110 @@
                                 <div class="col-sm-12">
                                     <div class="panel-group">
                                         <div class="panel panel-info">
-                                            <div class="panel-heading"><span style="font-weight: bold;">Entry Data</span></div>
-                                            <div class="panel-body">Panel Content</div>
+                                            <div class="panel-heading">
+                                                <span style="font-weight: bold;">Entry Data
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddEntryInput"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="panel-body table-responsive">
+
+                                                <table  class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Date / தேதி</th>
+                                                        <th>Customer</th>
+                                                        <th>Source / புறப்படுமிடம்</th>
+                                                        <th>Destination / சேருமிடம்</th>
+                                                        <th>Load / லோடு</th>
+                                                        <th>Ton/டன்</th>
+                                                        <th>Account Type</th>
+                                                        <th>Bill Amount</th>
+                                                        <th>Advance / வரவு</th>
+                                                        <th>Commission / கமிஷன்</th>
+                                                        <th>Driver Padi (%)</th>
+                                                        <th>Cleaner Padi (%)</th>
+                                                        <th>Driver Padi</th>
+                                                        <th>Cleaner Padi</th>
+                                                        <th>Export / ஏற்றுமதிக்கூலி</th>
+                                                        <th>mport / இறக்குமதிக்கூலி</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="DieselTableData1">
+                                                            <tr>
+                                                                <td class="{{ $errors->has('EntryData.dateFrom.') ? ' has-error' : '' }}">
+                                                                    <input type="date" class="form-control" placeholder="Enter Date" name="EntryData[dateFrom][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.customerId.') ? ' has-error' : '' }}">
+                                                                    <select name="EntryData[customerId][]" class="form-control">
+                                                                        <option value="">Select Customer</option>
+                                                                        @foreach(auth()->user()->customers as $customer)
+                                                                            <option value="{{ $customer->id }}" {{ ($customer->id==old('customerId'))?'selected':'' }}>{{ $customer->name }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.locationFrom.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationFrom][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.locationTo.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationTo][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.loadType.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control" placeholder="Enter Load type" name="EntryData[loadType][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.ton.') ? ' has-error' : '' }}">
+                                                                    <input type="number" min="0" step="0.01" class="form-control EntryDataQuantityValue" placeholder="Enter Quantity" name="EntryData[ton][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.account_id.') ? ' has-error' : '' }}">
+                                                                    <select name="EntryData[account_id][]" class="form-control">
+                                                                        <option value="1">Cash</option>
+                                                                        @foreach(Auth::user()->Accounts as $Account)
+                                                                            <option value="{{ $Account->id }}" {{ ($Account->id == old('EntryData')['account_id'])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.billAmount.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control EntryDataAmountValue" placeholder="Enter Bill Amount" name="EntryData[billAmount][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.advance.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control EntryDataAmountValue" placeholder="Enter advamce" name="EntryData[advance][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.driverPadi.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control EntryDataAmountValue" placeholder="Enter driver padi" name="EntryData[driverPadi][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.cleanerPadi.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control EntryDataAmountValue" placeholder="Enter cleaner padi" name="EntryData[cleanerPadi][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.driverPadiAmount.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control EntryDataAmountValue" placeholder="Enter driver padi amount" name="EntryData[driverPadiAmount][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.cleanerPadiAmount.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control EntryDataAmountValue" placeholder="Enter cleaner padi amount" name="EntryData[cleanerPadiAmount][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.comission.') ? ' has-error' : '' }}">
+                                                                    <input type="text" class="form-control EntryDataAmountValue" placeholder="Enter Comission" name="EntryData[comission][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.loadingMamool.') ? ' has-error' : '' }}">
+                                                                    <input type="number" min="0" class="form-control EntryDataAmountValue" placeholder="Enter Loading" name="EntryData[loadingMamool][]">
+                                                                </td>
+                                                                <td class="{{ $errors->has('EntryData.unLoadingMamool.') ? ' has-error' : '' }}">
+                                                                    <input type="number" min="0" class="form-control EntryDataAmountValue" placeholder="Enter Unloading" name="EntryData[unLoadingMamool][]">
+                                                                </td>
+                                                                <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>
+                                                            </tr>
+                                                    </tbody>
+                                                    <tr>
+                                                        <th colspan="3">Total</th>
+                                                        <th id="DieselLitreTotalSpentAmount"></th>
+                                                        <th id="DieselCostTotalSpentAmount"></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </table>
+
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
