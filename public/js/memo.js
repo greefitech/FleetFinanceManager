@@ -19,10 +19,10 @@ $(document).ready(function() {
         var PCData =
             '<tr>\n' +
             '    <td>\n' +
-            '        <input type="text" class="form-control" placeholder="Enter Location" name="PCData[location][]">\n' +
+            '        <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" name="PCData[location][]">\n' +
             '    </td>\n' +
             '    <td>\n' +
-            '        <input type="number" min="0" class="form-control PCAmountValue" placeholder="Enter Amount" name="PCData[amount][]">\n' +
+            '        <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" placeholder="Enter Amount" name="PCData[amount][]">\n' +
             '    </td>\n' +
             '    <td><i style="color: red;" class="fa fa-close RemovePcInput"></i></td>\n' +
             '</tr>';
@@ -61,10 +61,10 @@ $(document).ready(function() {
         var RTOData =
             '<tr>\n' +
             ' <td>\n' +
-            '     <input type="text" class="form-control" placeholder="Enter Location" name="RTOData[location][]">\n' +
+            '     <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" name="RTOData[location][]">\n' +
             ' </td>\n' +
             ' <td>\n' +
-            '     <input type="text" class="form-control RTODataAmountValue" placeholder="Enter Amount" name="RTOData[amount][]">\n' +
+            '     <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" name="RTOData[amount][]">\n' +
             ' </td>\n' +
             ' <td><i style="color: red;"  class="fa fa-close RemoveRToInput"></i></td>\n' +
             '</tr>';

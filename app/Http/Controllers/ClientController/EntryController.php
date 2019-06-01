@@ -208,6 +208,35 @@ class EntryController extends Controller
 //            'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
 //        ]);
 
+
+        if(!empty(request('EntryData'))){
+            $EntryValidator=[];
+            foreach(request('EntryData')['amount'] as $EntryDataKey=>$paall){
+                $EntryValidator['EntryData.dateFrom.'.$EntryDataKey] = 'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.request('dateTo');
+                $EntryValidator['EntryData.account_id.'.$EntryDataKey] = 'required';
+                $EntryValidator['EntryData.customerId.'.$EntryDataKey] = 'required|exists:customers,id';
+                $EntryValidator['EntryData.locationFrom.'.$EntryDataKey] = 'required';
+                $EntryValidator['EntryData.locationTo.'.$EntryDataKey] = 'required';
+                $EntryValidator['EntryData.loadType.'.$EntryDataKey] = 'required';
+                $EntryValidator['EntryData.ton.'.$EntryDataKey] = 'required|min:1|between:1,99.99';
+                $EntryValidator['EntryData.billAmount.'.$EntryDataKey] = 'required|min:0|numeric';
+                $EntryValidator['EntryData.advance.'.$EntryDataKey] = 'nullable|min:0|numeric';
+
+
+
+                $EntryValidator['EntryData.commission_status.'.$EntryDataKey] = 'required';
+                $EntryValidator['EntryData.loading_mamool_status.'.$EntryDataKey] = 'required';
+                $EntryValidator['EntryData.unloading_mamool_status.'.$EntryDataKey] = 'required';
+
+                $EntryValidator['EntryData.loadingMamool.'.$EntryDataKey] = 'nullable|min:0|numeric';
+                $EntryValidator['EntryData.unLoadingMamool.'.$EntryDataKey] = 'nullable|min:0|numeric';
+            }
+            $this->validate(request(), $EntryValidator);
+        }
+
+
+
+
         /*
          * PC data validation validate location and amount all data are required
          */
@@ -273,6 +302,6 @@ class EntryController extends Controller
         }
 
 
-        return request()->all();
+        dd(request()->all());
     }
 }
