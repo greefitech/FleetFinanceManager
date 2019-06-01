@@ -145,8 +145,74 @@
                                 <div class="col-sm-12">
                                     <div class="panel-group">
                                         <div class="panel panel-primary">
-                                            <div class="panel-heading"><span style="font-weight: bold;">டீசல்</span></div>
-                                            <div class="panel-body">Panel Content</div>
+                                            <div class="panel-heading">
+                                                <span style="font-weight: bold;">டீசல்
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddDiseleInput"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="panel-body">
+                                                <table  class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Date / தேதி</th>
+                                                        <th>Location / இடம்</th>
+                                                        <th>Bunk / Description</th>
+                                                        <th>Litre / லிட்டர்</th>
+                                                        <th>Total Cost / விலை</th>
+                                                        <th>Account Type</th>
+                                                        <th>Payment Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="DieselTableData">
+                                                        @if(!empty(old('DieselData')))
+                                                            @foreach(old('DieselData')['date'] as $DiselKey=>$Dis)
+                                                                <tr>
+                                                                    <td class="{{ $errors->has('DieselData.date.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="date" class="form-control" placeholder="Enter date" value="{{ old('DieselData')['date'][$DiselKey] }}" name="DieselData[date][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.location.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('DieselData')['location'][$DiselKey] }}" name="DieselData[location][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.discription.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" placeholder="Enter Description" value="{{ old('DieselData')['discription'][$DiselKey] }}" name="DieselData[discription][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.quantity.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" step="0.01" class="form-control DieselDataQuantityValue" value="{{ old('DieselData')['quantity'][$DiselKey] }}" placeholder="Enter Quantity" name="DieselData[quantity][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.amount.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control DieselDataAmountValue" placeholder="Enter Amount" value="{{ old('DieselData')['amount'][$DiselKey] }}" name="DieselData[amount][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.account_id.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <select name="DieselData[account_id][]" class="form-control">
+                                                                            <option value="1">Cash</option>
+                                                                            @foreach(Auth::user()->Accounts as $Account)
+                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == old('DieselData')['account_id'][$DiselKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.status.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <select class="form-control" name="DieselData[status][]">
+                                                                            <option value="1" {{ (old('DieselData')['status'][$DiselKey]==1)?'selected':'' }}>Paid</option>
+                                                                            <option value="0" {{ (old('DieselData')['status'][$DiselKey]==0)?'selected':'' }}>Not Paid</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                    <tr>
+                                                        <th colspan="3">Total</th>
+                                                        <th id="DieselLitreTotalSpentAmount"></th>
+                                                        <th id="DieselCostTotalSpentAmount"></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -408,15 +474,13 @@
         $('tbody').sortable();
 
 
-        $(document).ready(function() {
 
+        $(document).ready(function() {
 
 
         });
 
-
     </script>
-
 
     <script src="{{ url('/js/memo.js') }}"></script>
 @endsection

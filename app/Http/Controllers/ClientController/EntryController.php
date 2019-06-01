@@ -257,6 +257,21 @@ class EntryController extends Controller
             $this->validate(request(), $PCValidator);
         }
 
+        /*
+         * Diesel validator
+         * */
+        if(!empty(request('DieselData'))){
+            $DieselValidator=[];
+            foreach(request('DieselData')['amount'] as $DieselDataKey=>$paall){
+                $DieselValidator['DieselData.account_id.'.$DieselDataKey] = 'required';
+                $DieselValidator['DieselData.date.'.$DieselDataKey] = 'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.request('dateTo');
+                $DieselValidator['DieselData.quantity.'.$DieselDataKey] = 'required|min:1|between:1,99.99';
+                $DieselValidator['DieselData.amount.'.$DieselDataKey] = 'required|min:0|numeric';
+                $DieselValidator1['DieselData.amount.'.$DieselDataKey.'.required'] = 'The Diesel Amount Field is required';
+            }
+            $this->validate(request(), $DieselValidator,$DieselValidator1);
+        }
+
 
         return request()->all();
     }
