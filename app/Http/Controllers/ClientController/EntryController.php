@@ -14,6 +14,7 @@ class EntryController extends Controller
 {
     public function __construct(){
         $this->middleware('client');
+        $this->Trip = new Trip;
     }
 
     public function add(){
@@ -21,8 +22,9 @@ class EntryController extends Controller
     }
 
     public function save(){
+        $Trip= $this->Trip::findOrfail(request('tripId'));
         $this->validate(request(),[
-            'dateFrom'=>'required|date',
+            'dateFrom'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'nullable|exists:customers,id',
             'customerMobile'=>'required_without:customerId',
@@ -33,10 +35,20 @@ class EntryController extends Controller
             'locationTo'=>'required',
             'loadType'=>'required',
             'tripId'=>'required|exists:trips,id',
-            'billAmount'=>'required',
+            'billAmount'=>'required|min:0|numeric',
+            'advance'=>'nullable|min:0|numeric',
+            'driverPadi'=>'required|numeric|min:0|max:100|between:0,99.99',
+            'cleanerPadi'=>'required|numeric|min:0|max:100|between:0,99.99',
+
+            'commission_status'=>'required',
+            'loading_mamool_status'=>'required',
+            'unloading_mamool_status'=>'required',
+            'loadingMamool'=>'nullable|min:0|numeric',
+            'unLoadingMamool'=>'nullable|min:0|numeric',
         ]);
 
-        $Trip= Trip::findOrfail(request('tripId'));
+
+
         if($Trip->vehicleId != request('vehicleId')){
             return back()->with('sorry','Vehicle Trip and Vehicle Not Matched !!')->withInput();
         }
@@ -77,6 +89,12 @@ class EntryController extends Controller
             $entry->comission= round(request('comission'));
             $entry->loadingMamool=request('loadingMamool');
             $entry->unLoadingMamool=request('unLoadingMamool');
+
+            $entry->commission_status=request('commission_status');
+            $entry->loading_mamool_status=request('loading_mamool_status');
+            $entry->unloading_mamool_status=request('unloading_mamool_status');
+
+
             $balance =request('billAmount')- request('advance');
             $entry->balance=round($balance);
             $entry->account_id=request('account_id');
@@ -100,8 +118,9 @@ class EntryController extends Controller
     }
 
     public function update($id){
+        $Trip= $this->Trip::findOrfail(request('tripId'));
         $this->validate(request(),[
-            'dateFrom'=>'required|date',
+            'dateFrom'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'nullable|exists:customers,id',
             'customerMobile'=>'required_without:customerId',
@@ -112,10 +131,19 @@ class EntryController extends Controller
             'locationTo'=>'required',
             'loadType'=>'required',
             'tripId'=>'required|exists:trips,id',
-            'billAmount'=>'required',
+            'billAmount'=>'required|min:0|numeric',
+            'advance'=>'nullable|min:0|numeric',
+            'driverPadi'=>'required|numeric|min:0|max:100|between:0,99.99',
+            'cleanerPadi'=>'required|numeric|min:0|max:100|between:0,99.99',
+
+            'commission_status'=>'required',
+            'loading_mamool_status'=>'required',
+            'unloading_mamool_status'=>'required',
+            'loadingMamool'=>'nullable|min:0|numeric',
+            'unLoadingMamool'=>'nullable|min:0|numeric',
         ]);
 
-        $Trip= Trip::findOrfail(request('tripId'));
+
         if($Trip->vehicleId != request('vehicleId')){
             return back()->with('sorry','Vehicle Trip and Vehicle Not Matched !!')->withInput();
         }
@@ -156,6 +184,10 @@ class EntryController extends Controller
             $entry->comission= round(request('comission'));
             $entry->loadingMamool=request('loadingMamool');
             $entry->unLoadingMamool=request('unLoadingMamool');
+            $entry->commission_status=request('commission_status');
+            $entry->loading_mamool_status=request('loading_mamool_status');
+            $entry->unloading_mamool_status=request('unloading_mamool_status');
+
             $balance =request('billAmount')- request('advance');
             $entry->balance=round($balance);
             $entry->account_id=request('account_id');

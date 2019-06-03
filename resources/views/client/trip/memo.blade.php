@@ -213,10 +213,10 @@
                                                                         <input type="number" min="0" max="100" step="0.01" class="form-control CleanerPadiPercentage"  placeholder="Enter cleaner paadi" value="{{ old('EntryData')['cleanerPadi'][$EntryKey] }}" name="EntryData[cleanerPadi][]" style="width:10em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.driverPadiAmount.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" value="{{ old('EntryData')['driverPadiAmount'][$EntryKey] }}" name="EntryData[driverPadiAmount][]" style="width:10em">
+                                                                        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" value="{{ old('EntryData')['driverPadiAmount'][$EntryKey] }}" name="EntryData[driverPadiAmount][]" style="width:10em" readonly>
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.cleanerPadiAmount.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" value="{{ old('EntryData')['cleanerPadiAmount'][$EntryKey] }}" name="EntryData[cleanerPadiAmount][]" style="width:10em">
+                                                                        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" value="{{ old('EntryData')['cleanerPadiAmount'][$EntryKey] }}" name="EntryData[cleanerPadiAmount][]" style="width:10em" readonly>
                                                                     </td>
 
                                                                     <td class="{{ $errors->has('EntryData.loadingMamool.'.$EntryKey) ? ' has-error' : '' }}">
@@ -578,6 +578,81 @@
                     </form>
                 </div>
             </div>
+            <div class="row">
+                <div class="col-sm-4">
+                    <div class="panel-group">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">Calculation</div>
+                            <div class="panel-body">
+                                <table  class="table table-bordered">
+                                    <thead>
+                                        <tr>
+                                            <th>Total / மொத்தம்	</th>
+                                            <th>Cost / ரூ.</th>
+                                        </tr>
+                                    </thead>
+                                    <thead>
+                                        <tr>
+                                            <th>Diesel / டீசல்</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalDieselCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Commission / கமிஷன்	</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalComissionCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Export / ஏற்றுமதிக்கூலி</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalExportCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Import / இறக்குமதிக்கூலி</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalImportCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Driver Rate / டிரைவர்படி</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalDriverPadiCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Cleaner Rate / கிளீனர் படி</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalCleanerPadiCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>RTO செலவு</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalRTOCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>PC செலவு</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalPCCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Expenses / இதறசெலவுகள்</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalExpenseCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Bridge / பாலம்</th>
+                                            <td style="text-align: center;font-weight: bold;" class="CalculeteTotalExpenseAmount" id="TotalPaalamCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Spent / மொத்த செலவு</th>
+                                            <td style="text-align: center;font-weight: bold;" id="TotalTotalSpentCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Total Income / மொத்த வரவு</th>
+                                            <td style="text-align: center;font-weight: bold;" id="TotalTotalIncomeCalculationAmount"></td>
+                                        </tr>
+                                        <tr>
+                                            <th>Balance / மீதி இருப்பு</th>
+                                            <td style="text-align: center;font-weight: bold;" id="TotalBalanceCalculationAmount"></td>
+                                        </tr>
+
+                                    </thead>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -596,84 +671,6 @@
         var EntryI = {{ isset($EntryKey)?++$EntryKey:0}};
 
         $(document).ready(function() {
-
-            $('body').on('click', '.AddEntryInput', function (e) {
-                var AccountsDataOption = GetAccountOptionData();
-                var CustomersDataOption = GetCustomerOptionData();
-                e.preventDefault();
-                var EntryData ='<tr>\n' +
-                    '    <td>\n' +
-                    '        <input type="date" class="form-control" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <select name="EntryData[customerId][]" class="form-control" style="width:15em">\n' +
-                    '            <option value="">Select Customer</option>'+CustomersDataOption+
-                    '        </select>\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationFrom][]" style="width:15em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationTo][]" style="width:15em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="text" class="form-control" placeholder="Enter Load type" name="EntryData[loadType][]" style="width:15em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" step="0.01" class="form-control" placeholder="Enter Ton" name="EntryData[ton][]" style="width:10em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <select name="EntryData[account_id][]" class="form-control" style="width:10em">\n' +
-                    '            <option value="1">Cash</option>'+AccountsDataOption+
-                    '        </select>\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0"  class="form-control BillAmountValue" placeholder="Enter Bill Amount" name="EntryData[billAmount][]" style="width:10em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" class="form-control AdvanceAmountTotal" placeholder="Enter Advance" name="EntryData[advance][]" style="width:10em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" class="form-control ComissionValue" placeholder="Enter Comission" name="EntryData[comission][]" style="width:10em">\n' +
-                    '        <input type="radio" class="commission_status_class" name="EntryData[commission_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
-                    '        <input type="radio" class="commission_status_class" name="EntryData[commission_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" max="100" step="0.01" class="form-control DriverPadiPercentage" placeholder="Enter driver paadi" name="EntryData[driverPadi][]" style="width:10em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" max="100" step="0.01" class="form-control CleanerPadiPercentage"  placeholder="Enter cleaner paadi" name="EntryData[cleanerPadi][]" style="width:10em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" name="EntryData[driverPadiAmount][]" style="width:10em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" name="EntryData[cleanerPadiAmount][]" style="width:10em">\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" class="form-control loadingMamoolValue" placeholder="Enter Loading" name="EntryData[loadingMamool][]" style="width:10em">\n' +
-                    '        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
-                    '        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
-                    '    </td>\n' +
-                    '    <td>\n' +
-                    '        <input type="number" min="0" class="form-control unLoadingMamoolValue" placeholder="Enter Unloading" name="EntryData[unLoadingMamool][]" style="width:10em">\n' +
-                    '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
-                    '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
-                    '    </td>\n' +
-                    '    <td><i style="color: red;" class="fa fa-close RemoveEntryDataInput"></i></td>\n' +
-                    '</tr>';
-
-                $('.EntryTableData').append(EntryData);
-                EntryI++;
-            });
-
-
-            $('body').on('click','.RemoveEntryDataInput',function (e) {
-                e.preventDefault();
-                $(this).parent().parent().remove();
-                CalculateEntryCalculations();
-            });
-
             $('body').on('click','.submit',function () {
                 $(".EntryTableData tr").each(function () {
                     $($(this).find('.unloading_mamool_status_class')).attr('name','EntryData[unloading_mamool_status]['+$(this).index()+']');
@@ -685,145 +682,6 @@
                 });
             });
         });
-
-        $('body').on('keyup change','.unLoadingMamoolValue,.loadingMamoolValue,.ComissionValue,.BillAmountValue,.AdvanceAmountTotal,.DriverPadiPercentage,.CleanerPadiPercentage,.CleanerPadiAmountValue',function (e) {
-            e.preventDefault();
-            CalculateEntryCalculations();
-        });
-
-        $('body').on('keyup change','.DriverPadiAmountValue',function (e) {
-            e.preventDefault();
-            $($(this).parent().parent().find('.DriverPadiPercentage')).val('');
-            CalculateDriverPadiAmountTotal();
-        });
-
-        $('body').on('keyup change','.CleanerPadiAmountValue',function (e) {
-            e.preventDefault();
-            $($(this).parent().parent().find('.CleanerPadiPercentage')).val('');
-            CalculateCleanerPadiAmountTotal();
-        });
-
-        CalculateEntryCalculations();
-        function CalculateEntryCalculations(){
-            CalculateUnloadingAmountTotal();
-            CalculateloadingAmountTotal();
-            CalculateComissionAmountTotal();
-            CalculateBillAmountTotal();
-            CalculateAdvanceAmountTotal();
-
-            CalculateCleanerPadiPercentageTotal();
-            CalculateDriverPadiPercentageTotal();
-
-            CalculateDriverPadiAmountTotal();
-            CalculateCleanerPadiAmountTotal();
-        }
-
-
-        function CalculateCleanerPadiPercentageTotal() {
-            $('.CleanerPadiPercentage').each(function(){
-                if($(this).parent().parent().find('.BillAmountValue').val() !='' && !isNaN($(this).parent().parent().find('.BillAmountValue').val()) && $(this).val() >0 && $(this).val()<=100) {
-                    $($(this).parent().parent().find('.CleanerPadiAmountValue')).val(Math.round((parseFloat($(this).parent().parent().find('.BillAmountValue').val()) * parseFloat($(this).val()) / 100)));
-                }
-            });
-        }
-
-
-        function CalculateDriverPadiPercentageTotal() {
-            $('.DriverPadiPercentage').each(function(){
-                if($(this).parent().parent().find('.BillAmountValue').val() !='' && !isNaN($(this).parent().parent().find('.BillAmountValue').val()) && $(this).val() >0 && $(this).val()<=100) {
-                    $($(this).parent().parent().find('.DriverPadiAmountValue')).val(Math.round((parseFloat($(this).parent().parent().find('.BillAmountValue').val()) * parseFloat($(this).val()) / 100)));
-                }
-            });
-        }
-
-
-
-
-        function CalculateCleanerPadiAmountTotal() {
-            var CleanerPadiTotalAmount = 0;
-            $('.CleanerPadiAmountValue').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    CleanerPadiTotalAmount += parseFloat($(this).val());
-                }
-            });
-            $('#CleanerPadiTotalAmount').html(CleanerPadiTotalAmount);
-        }
-
-        function CalculateDriverPadiAmountTotal() {
-            var DriverPadiTotalAmount = 0;
-            $('.DriverPadiAmountValue').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    DriverPadiTotalAmount += parseFloat($(this).val());
-                }
-            });
-            $('#DriverPadiTotalAmount').html(DriverPadiTotalAmount);
-        }
-
-
-        function CalculateBillAmountTotal() {
-            var BillAmountTotalAmount = 0;
-            $('.BillAmountValue').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    BillAmountTotalAmount += parseFloat($(this).val());
-                }
-            });
-            $('#BillAmountTotalAmount').html(BillAmountTotalAmount);
-        }
-
-        function CalculateAdvanceAmountTotal() {
-            var AdvanceAmountTotalAmount = 0;
-            $('.AdvanceAmountTotal').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    AdvanceAmountTotalAmount += parseFloat($(this).val());
-                }
-            });
-            $('#AdvanceAmountTotalAmount').html(AdvanceAmountTotalAmount);
-        }
-
-        function CalculateUnloadingAmountTotal() {
-            var UnloadingTotalAmount = 0;
-            $('.unLoadingMamoolValue').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    UnloadingTotalAmount += parseFloat($(this).val());
-                }
-            });
-            $('#UnloadingTotalAmount').html(UnloadingTotalAmount);
-        }
-
-        function CalculateloadingAmountTotal() {
-            var loadingTotalAmount = 0;
-            $('.loadingMamoolValue').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    loadingTotalAmount += parseFloat($(this).val());
-                }
-            });
-            $('#loadingTotalAmount').html(loadingTotalAmount);
-        }
-
-        function CalculateComissionAmountTotal() {
-            var ComissionTotalAmount = 0;
-            $('.ComissionValue').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    ComissionTotalAmount += parseFloat($(this).val());
-                }
-            });
-            $('#ComissionTotalAmount').html(ComissionTotalAmount);
-        }
-
-
-        var CustomerData;
-        GetCustomerOptionData();
-        function GetCustomerOptionData(){
-            $.ajax({
-                type: "get",
-                url: '/client/entry/memo/customers',
-                success: function(data) {
-                    CustomerData = data;
-                }
-            });
-            return CustomerData;
-        }
-
     </script>
 
     <script src="{{ url('/js/memo.js') }}"></script>

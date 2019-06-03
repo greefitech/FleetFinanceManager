@@ -216,7 +216,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('comission') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Comission</label>
+                                            <label>Comission
+                                                <input type="radio" name="commission_status" value="1" checked><label>Paid</label>
+                                                <input type="radio" name="commission_status" value="0"><label>Not Paid</label>
+                                            </label>
                                             <input type="number" class="form-control calculateEntryValue" step="0.01" value="{{ old('comission') }}" placeholder="Enter Comission" name="comission" id="entry-comission">
                                         </div>
                                     </div>
@@ -227,7 +230,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('loadingMamool') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>ஏற்றுக்கூலி</label>
+                                            <label>ஏற்றுக்கூலி
+                                                <input type="radio" name="loading_mamool_status" value="1" checked><label>Paid</label>
+                                                <input type="radio" name="loading_mamool_status" value="0"><label>Not Paid</label>
+                                            </label>
                                             <input type="number" class="form-control calculateEntryValue" min="0" value="{{ old('loadingMamool') }}" placeholder="Enter ஏற்றுக்கூலி" name="loadingMamool" id="entry-loadingMamool">
                                         </div>
                                     </div>
@@ -235,7 +241,10 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('unLoadingMamool') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>இறக்குக்கூலி</label>
+                                            <label>இறக்குக்கூலி
+                                                <input type="radio" name="unloading_mamool_status" value="1" checked><label>Paid</label>
+                                                <input type="radio" name="unloading_mamool_status" value="0"><label>Not Paid</label>
+                                            </label>
                                             <input type="number" class="form-control calculateEntryValue" min="0" value="{{ old('unLoadingMamool') }}" placeholder="Enter இறக்குக்கூலி" name="unLoadingMamool" id="entry-unLoadingMamool">
                                         </div>
                                     </div>
