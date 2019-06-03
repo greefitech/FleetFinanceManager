@@ -568,14 +568,19 @@
         <span class="sub">Vehicle Total Profit till Current Month Completed</span>
         <span class="sub">Adding Vehicle Extra Income (IOC diesel & Tyre sales, etc,.)</span>
     </li>
-    <li class="stage active">May 2019 - Iterating Lorry owners to ease of usability
-        <span class="sub">Custom design integration module integrated</span>
+    <li class="stage">May 2019 - Iterating Lorry owners to ease of usability
+        <span class="sub">Custom design integration module Completed</span>
+        <span class="sub">Trip Comission,Loading Charge ,Unloading Charge Payment Status Tracking Completed</span>
+        <span class="sub">Acquired users with 100 Vehicles</span>
+    </li>
+    <li class="stage active">Jun 2019 - Online Multiple Payment Integration Module
         <span class="sub">Working on Vehicle Document Expired Notification</span>
         <span class="sub">Working on Grease service Module integration</span>
         <span class="sub">Working on Oil service Module integration</span>
         <span class="sub">Working on Tyre Service module integration</span>
     </li>
-    <li class="stage">Jun 2019 - Online Multiple Payment Integration Module</li>
+
+
     <li class="stage">Jun 2019 - Mobile Application for Manager and Driver</li>
     <li class="stage">July 2019 - Have to Acquire 10K Vehicles</li>
     <li class="stage">July 2019 - Better Reports and Analytics</li>

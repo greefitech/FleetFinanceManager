@@ -19,6 +19,11 @@ class AddEntryPaymentStatus extends Migration
             $table->string('loading_mamool_status')->nullable()->after('loadingMamool');
             $table->string('unloading_mamool_status')->nullable()->after('unLoadingMamool');
         });
+
+        Schema::table('admins', function($table)
+        {
+            $table->string('mobile')->nullable()->unique()->after('password');
+        });
     }
 
     /**
