@@ -54,10 +54,10 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:clients',
             'mobile' => 'required|min:10|max:10|unique:clients',
-            'referral_number' => 'required|min:10|max:10',
             'transportName' => 'required|max:255',
             'address' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
+            'referral_number' => 'nullable|min:10|max:10',
 //            'captcha' => 'required|captcha',
         ]);
     }

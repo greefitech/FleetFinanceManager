@@ -125,7 +125,7 @@
                             <label for="referral_number" class="col-md-4 control-label">Referral By Phone Number </label>
 
                             <div class="col-md-6">
-                                <input id="referral_number" type="number" class="form-control" name="referral_number" minlength="10" maxlength="10" value="{{ old('referral_number') }}">
+                                <input id="referral_number" type="text" class="form-control" name="referral_number" value="{{ old('referral_number') }}">
 
                                 @if ($errors->has('referral_number'))
                                     <span class="help-block">
