@@ -19,7 +19,7 @@ class Client extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'mobile', 'transportName', 'address', 'wallet', 'expires_on'
+        'name', 'email', 'password', 'mobile', 'transportName', 'address', 'wallet', 'expires_on','referral_number'
     ];
 
     /**
@@ -93,6 +93,13 @@ class Client extends Authenticatable
         return $this->hasMany(ExpenseType::class, 'clientid', 'id');
     }
 
+    public function TotalIncome(){
+        return $this->hasMany(VehicleCredits::class, 'clientid', 'id');
+    }
+
+    public function refferedBY(){
+        return $this->hasMany(Admin::class, 'mobile', 'referral_number');
+    }
 
     public function get_outstanding_amount(){
         @$total_entry_amount = Entry::where('clientid', Auth::user()->id)->sum('balance');

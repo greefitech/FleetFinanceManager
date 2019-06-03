@@ -15,7 +15,11 @@ class ClientControllers extends Controller
     }
 
     public function ClientList(){
-        $Data['Clients']=Client::get()->all();
+        if(auth()->user()->id ==1){
+            $Data['Clients']=Client::get();
+        }else{
+            $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
+        }
         return view('admin.ClientList.ViewAllClients',compact('Data'));
     }
 

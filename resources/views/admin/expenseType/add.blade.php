@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="container">
                                     <div class="col-sm-12">
-                                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <div class="form-group{{ $errors->has('expenseType') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Expense Type</label>
                                                 <input type="text" class="form-control" value="{{ old('expenseType') }}" name="expenseType" id="expense_type" placeholder="Enter Expense Type">

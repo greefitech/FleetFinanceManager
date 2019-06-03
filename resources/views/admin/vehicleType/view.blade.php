@@ -1,8 +1,5 @@
 @extends('admin.layout.master')
 
-@section('ClientList')
-    is-active
-@endsection
 
 @section('content')
 
@@ -18,7 +15,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!empty($Data['VehicleTypes']))
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th style="text-align:center">Vehicle Type</th>

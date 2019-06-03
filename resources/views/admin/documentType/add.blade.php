@@ -22,7 +22,7 @@
                             <div class="row">
                                 <div class="container">
                                     <div class="col-sm-12">
-                                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <div class="form-group{{ $errors->has('documentType') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Document Type</label>
                                                 <input type="text" class="form-control" value="{{ old('documentType') }}" name="documentType" id="document_type">
