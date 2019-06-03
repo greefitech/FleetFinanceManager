@@ -52,8 +52,8 @@ class MemoController extends Controller
                 $EntryValidator['EntryData.billAmount.'.$EntryDataKey] = 'required|min:0|numeric';
                 $EntryValidator['EntryData.advance.'.$EntryDataKey] = 'nullable|min:0|numeric';
 
-                $EntryValidator['EntryData.driverPadi.'.$EntryDataKey] = 'nullable|numeric|min:0|max:100|between:0,99.99';
-                $EntryValidator['EntryData.cleanerPadi.'.$EntryDataKey] = 'nullable|numeric|min:0|max:100|between:0,99.99';
+                $EntryValidator['EntryData.driverPadi.'.$EntryDataKey] = 'required|numeric|min:0|max:100|between:0,99.99';
+                $EntryValidator['EntryData.cleanerPadi.'.$EntryDataKey] = 'required|numeric|min:0|max:100|between:0,99.99';
 
                 $EntryValidator['EntryData.driverPadiAmount.'.$EntryDataKey] = 'nullable|numeric|min:0';
                 $EntryValidator['EntryData.cleanerPadiAmount.'.$EntryDataKey] = 'nullable|numeric|min:0';
@@ -177,6 +177,11 @@ class MemoController extends Controller
                     $entry->comission=request('EntryData')['comission'][$EntryDataKey];
                     $entry->loadingMamool=request('EntryData')['loadingMamool'][$EntryDataKey];
                     $entry->unLoadingMamool=request('EntryData')['unLoadingMamool'][$EntryDataKey];
+
+                    $entry->commission_status=request('EntryData')['commission_status'][$EntryDataKey];
+                    $entry->loading_mamool_status=request('EntryData')['loading_mamool_status'][$EntryDataKey];
+                    $entry->unloading_mamool_status=request('EntryData')['unloading_mamool_status'][$EntryDataKey];
+
                     $balance =request('EntryData')['billAmount'][$EntryDataKey] - request('EntryData')['advance'][$EntryDataKey];
                     $entry->balance=$balance;
                     $entry->account_id=request('EntryData')['account_id'][$EntryDataKey];
