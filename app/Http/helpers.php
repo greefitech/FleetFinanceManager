@@ -41,3 +41,14 @@ if (! function_exists('GetAccountsOption')) {
         return $AccountsData;
     }
 }
+
+
+if (! function_exists('GetCustomersOption')) {
+    function GetCustomersOption(){
+        $CustomersData='';
+        foreach(auth()->user()->customers as $Customer){
+            return $CustomersData = $CustomersData.'<option value="'.$Customer->id.'">'.$Customer->name.'</option>';
+        }
+        return $CustomersData;
+    }
+}

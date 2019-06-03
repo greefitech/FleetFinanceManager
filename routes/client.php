@@ -89,6 +89,10 @@ Route::get('/entry/memo/accounts', function (){
     return GetAccountsOption();
 });
 
+Route::get('/entry/memo/customers', function (){
+    return GetCustomersOption();
+});
+
 
 Route::get('/entry/add', 'ClientController\EntryController@add');
 Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');

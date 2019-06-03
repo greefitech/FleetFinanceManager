@@ -222,8 +222,11 @@ class EntryController extends Controller
                 $EntryValidator['EntryData.billAmount.'.$EntryDataKey] = 'required|min:0|numeric';
                 $EntryValidator['EntryData.advance.'.$EntryDataKey] = 'nullable|min:0|numeric';
 
-                $EntryValidator['EntryData.driverPadi.'.$EntryDataKey] = 'nullable|min:0|max:100|between:0,99.99';
-                $EntryValidator['EntryData.cleanerPadi.'.$EntryDataKey] = 'nullable|min:0|max:100|between:0,99.99';
+                $EntryValidator['EntryData.driverPadi.'.$EntryDataKey] = 'nullable|numeric|min:0|max:100|between:0,99.99';
+                $EntryValidator['EntryData.cleanerPadi.'.$EntryDataKey] = 'nullable|numeric|min:0|max:100|between:0,99.99';
+
+                $EntryValidator['EntryData.driverPadiAmount.'.$EntryDataKey] = 'nullable|numeric|min:0|max:100|between:0,99.99';
+                $EntryValidator['EntryData.cleanerPadiAmount.'.$EntryDataKey] = 'nullable|numeric|min:0|max:100|between:0,99.99';
 
                 $EntryValidator['EntryData.commission_status.'.$EntryDataKey] = 'required';
                 $EntryValidator['EntryData.loading_mamool_status.'.$EntryDataKey] = 'required';
@@ -293,7 +296,7 @@ class EntryController extends Controller
             foreach(request('DieselData')['amount'] as $DieselDataKey=>$paall){
                 $DieselValidator['DieselData.account_id.'.$DieselDataKey] = 'required';
                 $DieselValidator['DieselData.date.'.$DieselDataKey] = 'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.request('dateTo');
-                $DieselValidator['DieselData.quantity.'.$DieselDataKey] = 'required|min:1|between:1,99.99';
+                $DieselValidator['DieselData.quantity.'.$DieselDataKey] = 'required|min:1|numeric|between:1,99.99';
                 $DieselValidator['DieselData.amount.'.$DieselDataKey] = 'required|min:0|numeric';
                 $DieselValidator1['DieselData.amount.'.$DieselDataKey.'.required'] = 'The Diesel Amount Field is required';
             }
