@@ -14,7 +14,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Data['Clients']))
+                        @if(!empty($Clients))
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
@@ -30,7 +30,7 @@
                                 </thead>
                                 <tbody>
 
-                                @foreach($Data['Clients'] as $Clients)
+                                @foreach($Clients as $Clients)
                                     @if(!empty($Clients))
                                         <tr>
                                             <td>{{ $Clients->name }}</td>

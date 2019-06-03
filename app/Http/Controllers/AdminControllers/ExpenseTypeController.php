@@ -15,7 +15,7 @@ class ExpenseTypeController extends Controller
 
     public function show(){
         $Data['ExpenseTypes']=ExpenseType::get()->all();
-        return view('admin.expenseType.view',compact('Data'));
+        return view('admin.expenseType.view',$Data);
     }
 
     public function add(){
@@ -23,6 +23,9 @@ class ExpenseTypeController extends Controller
     }
 
     public function addExpenseType(){
+        $this->validate(request(),[
+            'expenseType' => 'required|max:255',
+        ]);
         try {
             ExpenseType::create([
                 'expenseType' => request('expenseType'),
@@ -36,13 +39,16 @@ class ExpenseTypeController extends Controller
     public function editExpenseType($id){
         try {
             $Data['ExpenseTypes'] = ExpenseType::findOrfail($id);
-            return view('admin.expenseType.edit',compact('Data'));
+            return view('admin.expenseType.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
     public function updateExpenseType($id){
+        $this->validate(request(),[
+            'expenseType' => 'required|max:255',
+        ]);
         try {
             $ExpenseType = ExpenseType::findOrfail($id);
             $ExpenseType->expenseType=request()->expenseType;

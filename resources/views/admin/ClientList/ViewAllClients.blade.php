@@ -8,7 +8,7 @@
                 <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">No .of Clients</span>
-                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ count($Data['Clients']) }}</span></center></span>
+                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ count($Clients) }}</span></center></span>
                 </div>
             </div>
         </div>
@@ -18,7 +18,7 @@
 {{--                <div class="info-box-content">--}}
 {{--                    <span class="info-box-text">No.Of Vehicle</span>--}}
 {{--                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">--}}
-{{--                        @foreach($Data['Clients'] as $key=>$vehicleCredit)--}}
+{{--                        @foreach($Clients as $key=>$vehicleCredit)--}}
 {{--                                    {{ $vehicleCredit->vehicleCredit }}--}}
 {{--                        @endforeach--}}
 {{--                    </span></center></span>--}}
@@ -40,7 +40,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Data['Clients']))
+                        @if(!empty($Clients))
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                 <tr>
@@ -56,7 +56,7 @@
                                 </thead>
                                 <tbody>
 
-                                @foreach($Data['Clients'] as $Client)
+                                @foreach($Clients as $Client)
                                     <tr class="c-table__row">
                                         <td>{{$Client->name}}</td>
                                         <td>{{$Client->transportName}}</td>

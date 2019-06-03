@@ -14,7 +14,7 @@ class DocumentTypeController extends Controller
 
     public function show(){
         $Data['DocumentTypes']=DocumentType::get()->all();
-        return view('admin.documentType.view',compact('Data'));
+        return view('admin.documentType.view',$Data);
     }
 
     public function add(){
@@ -22,6 +22,9 @@ class DocumentTypeController extends Controller
     }
 
     public function addDocumentType(){
+        $this->validate(request(),[
+            'documentType' => 'required|max:255',
+        ]);
         try {
             DocumentType::create([
                 'documentType' => request('documentType'),
@@ -34,14 +37,17 @@ class DocumentTypeController extends Controller
 
     public function editDocumentType($id){
         try {
-            $Data['DocumentType'] = DocumentType::findOrfail($id);
-            return view('admin.documentType.edit',compact('Data'));
+            $Data['DocumentTypes'] = DocumentType::findOrfail($id);
+            return view('admin.documentType.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
     public function updateDocumentType($id){
+        $this->validate(request(),[
+            'documentType' => 'required|max:255',
+        ]);
         try {
             $DocumentType = DocumentType::findOrfail($id);
             $DocumentType->documentType=request()->documentType;

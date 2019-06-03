@@ -18,25 +18,30 @@ class DashBoardControllers extends Controller
     public function home(){
         if(auth()->user()->id ==1){
             $Data['Clients']=Client::get();
-            $Data['Admin']=Admin::get();
+            $Data['Admins']=Admin::get();
         }else{
             $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
         }
-        return view('admin.Dashboard.home',compact('Data'));
+        return view('admin.Dashboard.home',$Data);
     }
 
     public function TotalAdminWise(){
         if(auth()->user()->id ==1){
-            $Data['Admin']=Admin::get();
+            $Data['Admins']=Admin::get();
         }else{
             $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
         }
-        return view('admin.Dashboard.refferalWise',compact('Data'));
+        return view('admin.Dashboard.AdminWise',$Data);
     }
 
-    public function AdminClientWise($id){
-        $Data['Admin']=Admin::findorfail($id);
-        $Data['Clients']=Client::where('referral_number',$Data['Admin']->mobile)->get();
-        return view('admin.Dashboard.AdminClientWise',compact('Data'));
+    public function AdminClientWise($id)
+    {
+        $Data['Admins'] = Admin::findorfail($id);
+        if ($Data['Admins']->mobile == NUll){
+            $Data['Clients'] = Client::where('referral_number', '=' , NULL || '')->get();
+        }else{
+            $Data['Clients'] = Client::where('referral_number', $Data['Admins']->mobile)->get();
+        }
+        return view('admin.Dashboard.AdminClientWise',$Data);
     }
 }

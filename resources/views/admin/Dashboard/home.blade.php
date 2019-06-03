@@ -6,8 +6,8 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-orange">
                     <div class="inner">
-                        <p>Total Client Referred </p>
-                        <h3>{{ $Data['Clients']->count() }}</h3>
+                        <p>Total Client</p>
+                        <h3>{{ $Clients->count() }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -20,8 +20,8 @@
                     <div class="inner">
                         <p>Total Amount </p>
                         <?php $sum = 0; ?>
-                        @foreach($Data['Clients'] as $Clients)
-                            @foreach($Clients->TotalIncome as $TotalIncome)
+                        @foreach($Clients as $Client)
+                            @foreach($Client->TotalIncome as $TotalIncome)
                                 @php($sum += $TotalIncome->total_amount)
                             @endforeach
                         @endforeach
@@ -39,8 +39,8 @@
                     <div class="inner">
                         <p>Income </p>
                         <?php $sum = 0; ?>
-                        @foreach($Data['Clients'] as $Clients)
-                            @foreach($Clients->TotalIncome as $TotalIncome)
+                        @foreach($Clients as $Client)
+                            @foreach($Client->TotalIncome as $TotalIncome)
                                 @php($sum += $TotalIncome->paid_amount)
                             @endforeach
                         @endforeach
@@ -69,9 +69,9 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-purple">
                     <div class="inner">
-                        <p>Refferal Wise </p>
+                        <p>Admin Wise </p>
                         <?php $count = 0; ?>
-                        @foreach($Data['Admin'] as $Admin)
+                        @foreach($Admins as $Admin)
                             @if(!empty($Admin->mobile))
                                 @php($count++)
                             @endif
@@ -93,8 +93,8 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-orange">
                     <div class="inner">
-                        <p>Total Client Referred </p>
-                        <h3>{{ $Data['Clients']->count() }}</h3>
+                        <p>Total Client </p>
+                        <h3>{{ $Clients->count() }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -107,8 +107,8 @@
                     <div class="inner">
                         <p>Total Amount </p>
                         <?php $sum = 0; ?>
-                        @foreach($Data['Clients'] as $Clients)
-                            @foreach($Clients->TotalIncome as $TotalIncome)
+                        @foreach($Clients as $Client)
+                            @foreach($Client->TotalIncome as $TotalIncome)
                                 @php($sum += $TotalIncome->total_amount)
                             @endforeach
                         @endforeach
@@ -126,8 +126,8 @@
                     <div class="inner">
                         <p>Income </p>
                         <?php $sum = 0; ?>
-                        @foreach($Data['Clients'] as $Clients)
-                            @foreach($Clients->TotalIncome as $TotalIncome)
+                        @foreach($Clients as $Client)
+                            @foreach($Client->TotalIncome as $TotalIncome)
                                 @php($sum += $TotalIncome->paid_amount)
                             @endforeach
                         @endforeach

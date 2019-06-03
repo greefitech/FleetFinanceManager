@@ -13,7 +13,7 @@
                 <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">No .of Vehicle Credit</span>
-                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Data['Clients']->vehicleCredit }}</span></center></span>
+                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Clients->vehicleCredit }}</span></center></span>
                 </div>
             </div>
         </div>
@@ -22,7 +22,7 @@
                 <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Balance Vehicle Count</span>
-                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Data['Clients']->vehicleCredit - count($Data['Vehicles']) }}</span></center></span>
+                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Clients->vehicleCredit - count($Vehicles) }}</span></center></span>
                 </div>
             </div>
         </div>
@@ -36,12 +36,12 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Vehicle List - {{$Data['Clients']->name}} - {{$Data['Clients']->transportName}}</center>
+                        <center>Vehicle List - {{ $Clients->name }} - {{ $Clients->transportName }}</center>
                     </h4>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Data['Vehicles']))
+                        @if(!empty($Vehicles))
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                 <tr>
@@ -53,11 +53,11 @@
                                 </thead>
                                 <tbody>
 
-                                @foreach($Data['Vehicles'] as $Vehicle)
+                                @foreach($Vehicles as $Vehicle)
                                     <tr class="c-table__row">
-                                        <td>{{$Vehicle->ownerName}}</td>
-                                        <td>{{$Vehicle->vehicleNumber}}</td>
-                                        <td>{{$Vehicle->GetVehicleType->vehicleType}}</td>
+                                        <td>{{ $Vehicle->ownerName }}</td>
+                                        <td>{{ $Vehicle->vehicleNumber }}</td>
+                                        <td>{{ $Vehicle->GetVehicleType->vehicleType }}</td>
                                         <td>
                                             <a href=""><button type="button" class="btn btn-success">Edit</button></a>
                                             <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>

@@ -14,7 +14,7 @@
 
                 <div class="box-body">
 
-                    <form class="form-horizontal" action="{{route('admin.updateExpenseType',$Data['ExpenseTypes']->id) }}" method="POST">
+                    <form class="form-horizontal" action="{{route('admin.updateExpenseType',$ExpenseTypes->id) }}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="box-body">
@@ -24,7 +24,7 @@
                                         <div class="form-group{{ $errors->has('expenseType') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Expense Type</label>
-                                                <input type="text" class="form-control" value="{{ $Data['ExpenseTypes']->expenseType }}" name="expenseType" id="expense_type" placeholder="Enter Expense Type">
+                                                <input type="text" class="form-control" value="{{ $ExpenseTypes->expenseType }}" name="expenseType" id="expense_type" placeholder="Enter Expense Type">
                                             </div>
                                         </div>
                                     </div>
