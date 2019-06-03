@@ -257,7 +257,125 @@ $(document).ready(function() {
 
 
 
+
+
+
+
+    /*
+    * ==============================================
+    * ENTRY Module
+    * ======================================================*/
+
+
+
+    $('body').on('click', '.AddEntryInput', function (e) {
+        var AccountsDataOption = GetAccountOptionData();
+        var CustomersDataOption = GetCustomerOptionData();
+        e.preventDefault();
+        var EntryData ='<tr>\n' +
+            '    <td>\n' +
+            '        <input type="date" class="form-control" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <select name="EntryData[customerId][]" class="form-control" style="width:15em">\n' +
+            '            <option value="">Select Customer</option>'+CustomersDataOption+
+            '        </select>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationFrom][]" style="width:15em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationTo][]" style="width:15em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="text" class="form-control" placeholder="Enter Load type" name="EntryData[loadType][]" style="width:15em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" step="0.01" class="form-control" placeholder="Enter Ton" name="EntryData[ton][]" style="width:10em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <select name="EntryData[account_id][]" class="form-control" style="width:10em">\n' +
+            '            <option value="1">Cash</option>'+AccountsDataOption+
+            '        </select>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0"  class="form-control BillAmountValue" placeholder="Enter Bill Amount" name="EntryData[billAmount][]" style="width:10em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" class="form-control AdvanceAmountTotal" placeholder="Enter Advance" name="EntryData[advance][]" style="width:10em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" class="form-control ComissionValue" placeholder="Enter Comission" name="EntryData[comission][]" style="width:10em">\n' +
+            '        <input type="radio" class="commission_status_class" name="EntryData[commission_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
+            '        <input type="radio" class="commission_status_class" name="EntryData[commission_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" max="100" step="0.01" class="form-control DriverPadiPercentage" placeholder="Enter driver paadi" name="EntryData[driverPadi][]" style="width:10em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" max="100" step="0.01" class="form-control CleanerPadiPercentage"  placeholder="Enter cleaner paadi" name="EntryData[cleanerPadi][]" style="width:10em">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" name="EntryData[driverPadiAmount][]" style="width:10em" readonly>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" name="EntryData[cleanerPadiAmount][]" style="width:10em" readonly>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" class="form-control loadingMamoolValue" placeholder="Enter Loading" name="EntryData[loadingMamool][]" style="width:10em">\n' +
+            '        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
+            '        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" class="form-control unLoadingMamoolValue" placeholder="Enter Unloading" name="EntryData[unLoadingMamool][]" style="width:10em">\n' +
+            '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
+            '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
+            '    </td>\n' +
+            '    <td><i style="color: red;" class="fa fa-close RemoveEntryDataInput"></i></td>\n' +
+            '</tr>';
+
+        $('.EntryTableData').append(EntryData);
+        EntryI++;
+    });
+
+
+    $('body').on('click','.RemoveEntryDataInput',function (e) {
+        e.preventDefault();
+        $(this).parent().parent().remove();
+        CalculateEntryCalculations();
+    });
+
+
+
+    $('body').on('keyup change','.unLoadingMamoolValue,.loadingMamoolValue,.ComissionValue,.BillAmountValue,.AdvanceAmountTotal,.DriverPadiPercentage,.CleanerPadiPercentage,.CleanerPadiAmountValue',function (e) {
+        e.preventDefault();
+        CalculateEntryCalculations();
+    });
+
+    $('body').on('keyup change','.DriverPadiAmountValue',function (e) {
+        e.preventDefault();
+        // $($(this).parent().parent().find('.DriverPadiPercentage')).val('');
+        CalculateDriverPadiAmountTotal();
+    });
+
+    $('body').on('keyup change','.CleanerPadiAmountValue',function (e) {
+        e.preventDefault();
+        // $($(this).parent().parent().find('.CleanerPadiPercentage')).val('');
+        CalculateCleanerPadiAmountTotal();
+    });
+
+
 });
+CalculateTotalExpenseMasterFunction();
+
+function CalculateTotalExpenseMasterFunction() {
+    CalculatePcTotalAmount();
+    CalculateRTOTotalAmount();
+    CalculateExtraExpenseAmountTotal();
+    CalculatePaalamTollAmountTotal();
+    CalculateTotalDiselQuantityAmountValues();
+    CalculateTotalExpenseCalculationAmount();
+}
 
 
 /*
@@ -265,7 +383,7 @@ $(document).ready(function() {
 * CALCULATION FOR PC
 * =====================================
 * */
-    CalculatePcTotalAmount();
+
     function CalculatePcTotalAmount() {
         var PcTotal = 0;
         $('.PCAmountValue').each(function(){
@@ -273,7 +391,9 @@ $(document).ready(function() {
                 PcTotal += parseFloat($(this).val());
             }
         });
+        CalculateTotalExpenseCalculationAmount();
         $('#PCTotalSpentAmount').html(PcTotal);
+        $('#TotalPCCalculationAmount').html(PcTotal);
     }
 /*
 * ============================
@@ -287,7 +407,7 @@ $(document).ready(function() {
 * CALCULATION FOR PC
 * ======================================
 * */
-CalculateRTOTotalAmount();
+
 function CalculateRTOTotalAmount() {
     var RTOTotal = 0;
     $('.RTODataAmountValue').each(function(){
@@ -296,6 +416,7 @@ function CalculateRTOTotalAmount() {
         }
     });
     $('#RTOTotalSpentAmount').html(RTOTotal);
+    $('#TotalRTOCalculationAmount').html(RTOTotal);
 }
 /*
 * ============================
@@ -307,7 +428,7 @@ function CalculateRTOTotalAmount() {
 * calculate extra expense
 * ====================================*/
 
-CalculateExtraExpenseAmountTotal();
+
 function CalculateExtraExpenseAmountTotal() {
     var ExtraExpenseTotal = 0;
     $('.ExtraExpenseAmountValue').each(function(){
@@ -315,7 +436,9 @@ function CalculateExtraExpenseAmountTotal() {
             ExtraExpenseTotal += parseFloat($(this).val());
         }
     });
+    CalculateTotalExpenseCalculationAmount();
     $('#ExtraExpenseTotalSpentAmount').html(ExtraExpenseTotal);
+    $('#TotalExpenseCalculationAmount').html(ExtraExpenseTotal);
 }
 
 /*
@@ -329,7 +452,7 @@ function CalculateExtraExpenseAmountTotal() {
 * Calculate Total Palam Amount
 * ==============================*/
 
-CalculatePaalamTollAmountTotal();
+
 function CalculatePaalamTollAmountTotal() {
     var PaalamTollTotal = 0;
     $('.PaalamTollAmountValue').each(function(){
@@ -337,7 +460,9 @@ function CalculatePaalamTollAmountTotal() {
             PaalamTollTotal += parseFloat($(this).val());
         }
     });
+    CalculateTotalExpenseCalculationAmount();
     $('#PaalamTollTotalSpentAmount').html(PaalamTollTotal);
+    $('#TotalPaalamCalculationAmount').html(PaalamTollTotal);
 }
 
 /*=================================
@@ -352,7 +477,7 @@ function CalculatePaalamTollAmountTotal() {
 * ================================*/
 
 
-CalculateTotalDiselQuantityAmountValues();
+
 function CalculateTotalDiselQuantityAmountValues() {
     var DiselAmountTotal = 0;
     var DiselQuantityTotal = 0;
@@ -367,9 +492,11 @@ function CalculateTotalDiselQuantityAmountValues() {
             DiselQuantityTotal += parseFloat($(this).val());
         }
     });
+    CalculateTotalExpenseCalculationAmount();
 
     $('#DieselCostTotalSpentAmount').html(DiselAmountTotal);
     $('#DieselLitreTotalSpentAmount').html(DiselQuantityTotal);
+    $('#TotalDieselCalculationAmount').html(DiselAmountTotal);
 }
 
 
@@ -417,3 +544,173 @@ function GetAccountOptionData(){
 * ============================
 * get ajax data end
 * ============================*/
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+* ===================================
+* Entry Calculation Total Functions
+* ===================================*/
+
+
+
+
+
+CalculateEntryFullMasterFunctionCalculations();
+function CalculateEntryFullMasterFunctionCalculations(){
+    CalculateUnloadingAmountTotal();
+    CalculateloadingAmountTotal();
+    CalculateComissionAmountTotal();
+    CalculateBillAmountTotal();
+    CalculateAdvanceAmountTotal();
+
+    CalculateCleanerPadiPercentageTotal();
+    CalculateDriverPadiPercentageTotal();
+
+    CalculateDriverPadiAmountTotal();
+    CalculateCleanerPadiAmountTotal();
+
+    CalculateTotalExpenseCalculationAmount();
+}
+
+
+function CalculateCleanerPadiPercentageTotal() {
+    $('.CleanerPadiPercentage').each(function(){
+        if($(this).parent().parent().find('.BillAmountValue').val() !='' && !isNaN($(this).parent().parent().find('.BillAmountValue').val()) && $(this).val() >0 && $(this).val()<=100) {
+            $($(this).parent().parent().find('.CleanerPadiAmountValue')).val(Math.round((parseFloat($(this).parent().parent().find('.BillAmountValue').val()) * parseFloat($(this).val()) / 100)));
+        }
+    });
+}
+
+
+function CalculateDriverPadiPercentageTotal() {
+    $('.DriverPadiPercentage').each(function(){
+        if($(this).parent().parent().find('.BillAmountValue').val() !='' && !isNaN($(this).parent().parent().find('.BillAmountValue').val()) && $(this).val() >0 && $(this).val()<=100) {
+            $($(this).parent().parent().find('.DriverPadiAmountValue')).val(Math.round((parseFloat($(this).parent().parent().find('.BillAmountValue').val()) * parseFloat($(this).val()) / 100)));
+        }
+    });
+}
+
+
+
+
+function CalculateCleanerPadiAmountTotal() {
+    var CleanerPadiTotalAmount = 0;
+    $('.CleanerPadiAmountValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            CleanerPadiTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#CleanerPadiTotalAmount').html(CleanerPadiTotalAmount);
+    $('#TotalCleanerPadiCalculationAmount').html(CleanerPadiTotalAmount);
+}
+
+function CalculateDriverPadiAmountTotal() {
+    var DriverPadiTotalAmount = 0;
+    $('.DriverPadiAmountValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            DriverPadiTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#DriverPadiTotalAmount').html(DriverPadiTotalAmount);
+    $('#TotalDriverPadiCalculationAmount').html(DriverPadiTotalAmount);
+}
+
+
+function CalculateBillAmountTotal() {
+    var BillAmountTotalAmount = 0;
+    $('.BillAmountValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            BillAmountTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#BillAmountTotalAmount').html(BillAmountTotalAmount);
+    $('#TotalTotalIncomeCalculationAmount').html(BillAmountTotalAmount);
+
+}
+
+function CalculateAdvanceAmountTotal() {
+    var AdvanceAmountTotalAmount = 0;
+    $('.AdvanceAmountTotal').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            AdvanceAmountTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#AdvanceAmountTotalAmount').html(AdvanceAmountTotalAmount);
+}
+
+function CalculateUnloadingAmountTotal() {
+    var UnloadingTotalAmount = 0;
+    $('.unLoadingMamoolValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            UnloadingTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#UnloadingTotalAmount').html(UnloadingTotalAmount);
+    $('#TotalExportCalculationAmount').html(UnloadingTotalAmount);
+}
+
+function CalculateloadingAmountTotal() {
+    var loadingTotalAmount = 0;
+    $('.loadingMamoolValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            loadingTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#loadingTotalAmount').html(loadingTotalAmount);
+    $('#TotalImportCalculationAmount').html(loadingTotalAmount);
+}
+
+function CalculateComissionAmountTotal() {
+    var ComissionTotalAmount = 0;
+    $('.ComissionValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            ComissionTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#ComissionTotalAmount').html(ComissionTotalAmount);
+    $('#TotalComissionCalculationAmount').html(ComissionTotalAmount);
+}
+
+
+var CustomerData;
+GetCustomerOptionData();
+function GetCustomerOptionData(){
+    $.ajax({
+        type: "get",
+        url: '/client/entry/memo/customers',
+        success: function(data) {
+            CustomerData = data;
+        }
+    });
+    return CustomerData;
+}
+
+
+
+
+function CalculateTotalExpenseCalculationAmount() {
+    var TOTALEXPENSE = 0;
+    $('.CalculeteTotalExpenseAmount').each(function(){
+        if($(this).text() !='' && !isNaN($(this).text())){
+            TOTALEXPENSE += parseFloat($(this).text());
+        }
+    });
+    $('#TotalTotalSpentCalculationAmount').html(TOTALEXPENSE);
+    $('#TotalBalanceCalculationAmount').html(parseFloat($('#TotalTotalIncomeCalculationAmount').text()) - parseFloat(TOTALEXPENSE));
+}
