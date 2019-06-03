@@ -87,14 +87,7 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <p>Total Amount </p>
-                        <?php $total_amount = 0; ?>
-                        @foreach($Clients as $Client)
-                            @foreach($Client->TotalIncome as $TotalIncome)
-                                @php($total_amount += $TotalIncome->total_amount)
-                            @endforeach
-                        @endforeach
-
-                        <h3 id="total_amount">{{ $total_amount }}</h3>
+                        <h3 id="total_amount">{{ AdminVehicleCredits(auth()->user()->id)->sum('total_amount') }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -106,14 +99,7 @@
                 <div class="small-box bg-green">
                     <div class="inner">
                         <p>Income </p>
-                        <?php $paid_amount = 0; ?>
-                        @foreach($Clients as $Client)
-                            @foreach($Client->TotalIncome as $TotalIncome)
-                                @php($paid_amount += $TotalIncome->paid_amount)
-                            @endforeach
-                        @endforeach
-
-                        <h3 id="paid_amount">{{ $paid_amount }}</h3>
+                        <h3 id="total_amount">{{ AdminVehicleCredits(auth()->user()->id)->sum('paid_amount') }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -125,7 +111,7 @@
                 <div class="small-box bg-red">
                     <div class="inner">
                         <p>OutStanding </p>
-                        <h3 id="OutStanding"></h3>
+                        <h3>{{ AdminVehicleCredits(auth()->user()->id)->sum('total_amount') - AdminVehicleCredits(auth()->user()->id)->sum('paid_amount') }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>

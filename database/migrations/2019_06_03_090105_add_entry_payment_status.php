@@ -24,6 +24,11 @@ class AddEntryPaymentStatus extends Migration
         {
             $table->string('mobile')->nullable()->unique()->after('password');
         });
+
+        Schema::table('vehicle_types', function($table)
+        {
+            $table->string('wheel')->nullable()->after('vehicleType');
+        });
     }
 
     /**
