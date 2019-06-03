@@ -78,8 +78,8 @@ Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateT
 
 
 //Entry
-Route::get('/entry/memo', 'ClientController\EntryController@memo');
-Route::post('/entry/memo', 'ClientController\EntryController@SaveMemo')->name('SaveMemo');
+Route::get('/entry/memo', 'ClientController\MemoController@memo');
+Route::post('/entry/memo', 'ClientController\MemoController@SaveMemo')->name('SaveMemo');
 
 //GET AJAX DATA MEMO
 Route::get('/entry/memo/expense-type', function (){
