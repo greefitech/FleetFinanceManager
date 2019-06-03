@@ -19,10 +19,10 @@ $(document).ready(function() {
         var PCData =
             '<tr>\n' +
             '    <td>\n' +
-            '        <input type="text" class="form-control" placeholder="Enter Location" name="PCData[location][]">\n' +
+            '        <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" name="PCData[location][]">\n' +
             '    </td>\n' +
             '    <td>\n' +
-            '        <input type="number" min="0" class="form-control PCAmountValue" placeholder="Enter Amount" name="PCData[amount][]">\n' +
+            '        <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" placeholder="Enter Amount" name="PCData[amount][]">\n' +
             '    </td>\n' +
             '    <td><i style="color: red;" class="fa fa-close RemovePcInput"></i></td>\n' +
             '</tr>';
@@ -61,10 +61,10 @@ $(document).ready(function() {
         var RTOData =
             '<tr>\n' +
             ' <td>\n' +
-            '     <input type="text" class="form-control" placeholder="Enter Location" name="RTOData[location][]">\n' +
+            '     <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" name="RTOData[location][]">\n' +
             ' </td>\n' +
             ' <td>\n' +
-            '     <input type="text" class="form-control RTODataAmountValue" placeholder="Enter Amount" name="RTOData[amount][]">\n' +
+            '     <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" name="RTOData[amount][]">\n' +
             ' </td>\n' +
             ' <td><i style="color: red;"  class="fa fa-close RemoveRToInput"></i></td>\n' +
             '</tr>';
@@ -153,6 +153,110 @@ $(document).ready(function() {
     * Extra expense end
     * =====================================*/
 
+
+    /*
+    * =====================================
+    * Paalam Toll start
+    * =====================================*/
+
+    $('body').on('click', '.AddPalamTollInput', function (e) {
+        e.preventDefault();
+        var AccountsDataOption = GetAccountOptionData();
+        var ExtraExpenseInput ='<tr>\n' +
+            '   <td>\n' +
+            '       <input type="text" class="form-control" name="PaalamToll[location][]">\n' +
+            '   </td>\n' +
+            '   <td>\n' +
+            '       <input type="number" min="0" class="form-control PaalamTollAmountValue" name="PaalamToll[amount][]">\n' +
+            '   </td>\n' +
+            '   <td>\n' +
+            '        <select name="PaalamToll[account_id][]" class="form-control">'+
+            '             <option value="1">Cash</option>'+AccountsDataOption+
+            '        </select>\n' +
+            '   </td>\n' +
+            '<td><i style="color: red;" class="fa fa-close RemovePaalamTollInput"></i></td>' +
+            '</tr>';
+        $('.PaalamTollTableData').append(ExtraExpenseInput);
+    });
+
+    $('body').on('click','.RemovePaalamTollInput',function (e) {
+        e.preventDefault();
+        $(this).parent().parent().remove();
+        CalculatePaalamTollAmountTotal();
+    });
+
+    $('body').on('keyup change','.PaalamTollAmountValue',function (e) {
+        e.preventDefault();
+        CalculatePaalamTollAmountTotal();
+    });
+
+
+    /*=================================
+    * Paalam Toll End
+    * =================================*/
+
+
+
+    /*
+    * ==================================
+    * Diesel start
+    * =================================*/
+
+    $('body').on('click', '.AddDiseleInput', function (e) {
+        e.preventDefault();
+        var AccountsDataOption = GetAccountOptionData();
+        var DieselInputData ='<tr>\n' +
+            '    <td>\n' +
+            '        <input type="date" class="form-control" placeholder="Enter date" name="DieselData[date][]">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="text" class="form-control" placeholder="Enter Location" name="DieselData[location][]">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="text" class="form-control" placeholder="Enter Description" name="DieselData[discription][]">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" step="0.01" class="form-control DieselDataQuantityValue" placeholder="Enter Quantity" name="DieselData[quantity][]">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="text" class="form-control DieselDataAmountValue" placeholder="Enter Amount" name="DieselData[amount][]">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <select name="DieselData[account_id][]" class="form-control">\n' +
+            '            <option value="1">Cash</option>'+AccountsDataOption +
+            '            \n' +
+            '        </select>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <select class="form-control" name="DieselData[status][]">\n' +
+            '            <option value="1">Paid</option>\n' +
+            '            <option value="0">Not Paid</option>\n' +
+            '        </select>\n' +
+            '    </td>\n' +
+            '    <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>\n' +
+            '</tr>';
+        $('.DieselTableData').append(DieselInputData);
+    });
+
+    $('body').on('click','.RemoveDieselInput',function (e) {
+        e.preventDefault();
+        $(this).parent().parent().remove();
+        CalculateTotalDiselQuantityAmountValues();
+    });
+
+
+    $('body').on('keyup change','.DieselDataAmountValue,.DieselDataQuantityValue',function (e) {
+        e.preventDefault();
+        CalculateTotalDiselQuantityAmountValues();
+    });
+
+    /*
+    ====================================
+    * Diesel end
+    ========================================*/
+
+
+
 });
 
 
@@ -220,11 +324,65 @@ function CalculateExtraExpenseAmountTotal() {
 * ===============================*/
 
 
+/*
+* ==============================
+* Calculate Total Palam Amount
+* ==============================*/
+
+CalculatePaalamTollAmountTotal();
+function CalculatePaalamTollAmountTotal() {
+    var PaalamTollTotal = 0;
+    $('.PaalamTollAmountValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            PaalamTollTotal += parseFloat($(this).val());
+        }
+    });
+    $('#PaalamTollTotalSpentAmount').html(PaalamTollTotal);
+}
+
+/*=================================
+* Calculate total paalam toll amount end
+* =================================*/
+
+
+
+/*
+* ===============================
+* Calculate disel total amount start
+* ================================*/
+
+
+CalculateTotalDiselQuantityAmountValues();
+function CalculateTotalDiselQuantityAmountValues() {
+    var DiselAmountTotal = 0;
+    var DiselQuantityTotal = 0;
+    $('.DieselDataAmountValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            DiselAmountTotal += parseFloat($(this).val());
+        }
+    });
+
+    $('.DieselDataQuantityValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            DiselQuantityTotal += parseFloat($(this).val());
+        }
+    });
+
+    $('#DieselCostTotalSpentAmount').html(DiselAmountTotal);
+    $('#DieselLitreTotalSpentAmount').html(DiselQuantityTotal);
+}
+
+
+/*
+* =============================
+* calculate diesel amount end
+* =============================*/
+
 
 
 
 /*===================================
-* get ajax data for expense account client
+* GET ajax data for expense account client
 * ===================================*/
 
 var ExpenseTypeDatas;

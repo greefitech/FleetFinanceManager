@@ -131,8 +131,124 @@
                                 <div class="col-sm-12">
                                     <div class="panel-group">
                                         <div class="panel panel-info">
-                                            <div class="panel-heading"><span style="font-weight: bold;">Entry Data</span></div>
-                                            <div class="panel-body">Panel Content</div>
+                                            <div class="panel-heading">
+                                                <span style="font-weight: bold;">Entry Data
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddEntryInput"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="panel-body table-responsive">
+
+                                                <table  class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Date / தேதி</th>
+                                                            <th>Customer</th>
+                                                            <th>Source / புறப்படுமிடம்</th>
+                                                            <th>Destination / சேருமிடம்</th>
+                                                            <th>Load / லோடு</th>
+                                                            <th>Ton/டன்</th>
+                                                            <th>Account Type</th>
+                                                            <th>Bill Amount</th>
+                                                            <th>Advance / வரவு</th>
+                                                            <th>Commission / கமிஷன்</th>
+                                                            <th>Driver Padi (%)</th>
+                                                            <th>Cleaner Padi (%)</th>
+                                                            <th>Driver Padi</th>
+                                                            <th>Cleaner Padi</th>
+                                                            <th>Export / ஏற்றுமதிக்கூலி</th>
+                                                            <th>Import / இறக்குமதிக்கூலி</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody class="EntryTableData">
+                                                        @if(!empty(old('EntryData')))
+                                                            @foreach(old('EntryData')['dateFrom'] as $EntryKey=>$Entry)
+                                                                <tr>
+                                                                    <td class="{{ $errors->has('EntryData.dateFrom.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="date" class="form-control" value="{{ old('EntryData')['dateFrom'][$EntryKey] }}" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.customerId.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <select name="EntryData[customerId][]" class="form-control" style="width:15em">
+                                                                            <option value="">Select Customer</option>
+                                                                            @foreach(auth()->user()->customers as $customer)
+                                                                                <option value="{{ $customer->id }}" {{ ($customer->id==old('EntryData')['customerId'][$EntryKey])?'selected':'' }}>{{ $customer->name }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.locationFrom.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('EntryData')['locationFrom'][$EntryKey] }}" name="EntryData[locationFrom][]" style="width:15em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.locationTo.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('EntryData')['locationTo'][$EntryKey] }}" name="EntryData[locationTo][]" style="width:15em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.loadType.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" placeholder="Enter Load type" value="{{ old('EntryData')['loadType'][$EntryKey] }}" name="EntryData[loadType][]" style="width:15em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.ton.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" step="0.01" class="form-control" value="{{ old('EntryData')['ton'][$EntryKey] }}" placeholder="Enter Ton" name="EntryData[ton][]" style="width:10em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.account_id.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <select name="EntryData[account_id][]" class="form-control" style="width:10em">
+                                                                            <option value="1">Cash</option>
+                                                                            @foreach(Auth::user()->Accounts as $Account)
+                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == old('EntryData')['account_id'][$EntryKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.billAmount.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0"  class="form-control BillAmountValue" placeholder="Enter Bill Amount" value="{{ old('EntryData')['billAmount'][$EntryKey] }}" name="EntryData[billAmount][]" style="width:10em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.advance.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" class="form-control AdvanceAmountTotal" placeholder="Enter Advance" value="{{ old('EntryData')['advance'][$EntryKey] }}" name="EntryData[advance][]" style="width:10em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.comission.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" class="form-control ComissionValue" placeholder="Enter Comission" value="{{ old('EntryData')['comission'][$EntryKey] }}" name="EntryData[comission][]" style="width:10em">
+                                                                        <input type="radio" class="commission_status_class" name="EntryData[commission_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['commission_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
+                                                                        <input type="radio" class="commission_status_class" name="EntryData[commission_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['commission_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.driverPadi.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" max="100" step="0.01" class="form-control DriverPadiPercentage" placeholder="Enter driver paadi" value="{{ old('EntryData')['driverPadi'][$EntryKey] }}" name="EntryData[driverPadi][]" style="width:10em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.cleanerPadi.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" max="100" step="0.01" class="form-control CleanerPadiPercentage"  placeholder="Enter cleaner paadi" value="{{ old('EntryData')['cleanerPadi'][$EntryKey] }}" name="EntryData[cleanerPadi][]" style="width:10em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.driverPadiAmount.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" value="{{ old('EntryData')['driverPadiAmount'][$EntryKey] }}" name="EntryData[driverPadiAmount][]" style="width:10em">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.cleanerPadiAmount.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" value="{{ old('EntryData')['cleanerPadiAmount'][$EntryKey] }}" name="EntryData[cleanerPadiAmount][]" style="width:10em">
+                                                                    </td>
+
+                                                                    <td class="{{ $errors->has('EntryData.loadingMamool.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" class="form-control loadingMamoolValue" placeholder="Enter Loading" value="{{ old('EntryData')['loadingMamool'][$EntryKey] }}" name="EntryData[loadingMamool][]" style="width:10em">
+                                                                        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['loading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
+                                                                        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['loading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('EntryData.unLoadingMamool.'.$EntryKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" class="form-control unLoadingMamoolValue" placeholder="Enter Unloading" value="{{ old('EntryData')['unLoadingMamool'][$EntryKey] }}" name="EntryData[unLoadingMamool][]" style="width:10em">
+                                                                        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
+                                                                        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
+                                                                    </td>
+                                                                    <td><i style="color: red;" class="fa fa-close RemoveEntryDataInput"></i></td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                    <tr>
+                                                        <th colspan="7">Total</th>
+                                                        <th id="BillAmountTotalAmount"></th>
+                                                        <th id="AdvanceAmountTotalAmount"></th>
+                                                        <th id="ComissionTotalAmount"></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th id="DriverPadiTotalAmount"></th>
+                                                        <th id="CleanerPadiTotalAmount"></th>
+                                                        <th id="loadingTotalAmount"></th>
+                                                        <th id="UnloadingTotalAmount"></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -145,8 +261,74 @@
                                 <div class="col-sm-12">
                                     <div class="panel-group">
                                         <div class="panel panel-primary">
-                                            <div class="panel-heading"><span style="font-weight: bold;">டீசல்</span></div>
-                                            <div class="panel-body">Panel Content</div>
+                                            <div class="panel-heading">
+                                                <span style="font-weight: bold;">டீசல்
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddDiseleInput"><i class="fa fa-plus"></i></button>
+                                                </span>
+                                            </div>
+                                            <div class="panel-body table-responsive">
+                                                <table  class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Date / தேதி</th>
+                                                        <th>Location / இடம்</th>
+                                                        <th>Bunk / Description</th>
+                                                        <th>Litre / லிட்டர்</th>
+                                                        <th>Total Cost / விலை</th>
+                                                        <th>Account Type</th>
+                                                        <th>Payment Status</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="DieselTableData">
+                                                        @if(!empty(old('DieselData')))
+                                                            @foreach(old('DieselData')['date'] as $DiselKey=>$Dis)
+                                                                <tr>
+                                                                    <td class="{{ $errors->has('DieselData.date.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="date" class="form-control" placeholder="Enter date" value="{{ old('DieselData')['date'][$DiselKey] }}" name="DieselData[date][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.location.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('DieselData')['location'][$DiselKey] }}" name="DieselData[location][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.discription.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control" placeholder="Enter Description" value="{{ old('DieselData')['discription'][$DiselKey] }}" name="DieselData[discription][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.quantity.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="number" min="0" step="0.01" class="form-control DieselDataQuantityValue" value="{{ old('DieselData')['quantity'][$DiselKey] }}" placeholder="Enter Quantity" name="DieselData[quantity][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.amount.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <input type="text" class="form-control DieselDataAmountValue" placeholder="Enter Amount" value="{{ old('DieselData')['amount'][$DiselKey] }}" name="DieselData[amount][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.account_id.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <select name="DieselData[account_id][]" class="form-control">
+                                                                            <option value="1">Cash</option>
+                                                                            @foreach(Auth::user()->Accounts as $Account)
+                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == old('DieselData')['account_id'][$DiselKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                            @endforeach
+                                                                        </select>
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.status.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                        <select class="form-control" name="DieselData[status][]">
+                                                                            <option value="1" {{ (old('DieselData')['status'][$DiselKey]==1)?'selected':'' }}>Paid</option>
+                                                                            <option value="0" {{ (old('DieselData')['status'][$DiselKey]==0)?'selected':'' }}>Not Paid</option>
+                                                                        </select>
+                                                                    </td>
+                                                                    <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
+                                                    </tbody>
+                                                    <tr>
+                                                        <th colspan="3">Total</th>
+                                                        <th id="DieselLitreTotalSpentAmount"></th>
+                                                        <th id="DieselCostTotalSpentAmount"></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -165,7 +347,7 @@
                                                     <button type="button" class="btn btn-primary btn-sm pull-right AddRTOInput"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
@@ -179,10 +361,10 @@
                                                             @foreach(old('RTOData')['location'] as $RTOKey=>$PcD)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('RTOData.location.'.$RTOKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('RTOData')['location'][$RTOKey] }}" name="RTOData[location][]">
+                                                                        <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" value="{{ old('RTOData')['location'][$RTOKey] }}" name="RTOData[location][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('RTOData.amount.'.$RTOKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control RTODataAmountValue" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
+                                                                        <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
                                                                     </td>
                                                                     <td><i style="color: red;" class="fa fa-close RemoveRToInput"></i></td>
                                                                 </tr>
@@ -210,7 +392,7 @@
                                                     <button type="button" class="btn btn-success btn-sm pull-right AddPCInput"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                         <tr>
@@ -224,10 +406,10 @@
                                                             @foreach(old('PCData')['location'] as $PCKey=>$PcD)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('PCData.location.'.$PCKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" value="{{ old('PCData')['location'][$PCKey] }}" placeholder="Enter Location" name="PCData[location][]">
+                                                                        <input type="text" class="form-control" style="width: 15em" value="{{ old('PCData')['location'][$PCKey] }}" placeholder="Enter Location" name="PCData[location][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('PCData.amount.'.$PCKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" class="form-control PCAmountValue" value="{{ old('PCData')['amount'][$PCKey] }}" placeholder="Enter Amount" name="PCData[amount][]">
+                                                                        <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" value="{{ old('PCData')['amount'][$PCKey] }}" placeholder="Enter Amount" name="PCData[amount][]">
                                                                     </td>
                                                                     <td><i style="color: red;" class="fa fa-close RemovePcInput"></i></td>
                                                                 </tr>
@@ -260,7 +442,7 @@
                                                     <button type="button" class="btn btn-success btn-sm pull-right AddExtraExpenseInput"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
-                                            <div class="panel-body">
+                                            <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                         <tr>
@@ -341,7 +523,7 @@
                                             <div class="panel-heading"><span style="font-weight: bold;">Paalam / Tollgate
                                                 <button type="button" class="btn btn-primary btn-sm pull-right AddPalamTollInput"><i class="fa fa-plus"></i></button>
                                                 </span></div>
-                                            <div class="panel-body">
+                                            <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
@@ -390,7 +572,7 @@
 
                             <br>
                             <div align="center">
-                                <button type="submit" class="btn btn-info">Add Memo</button>
+                                <button type="submit" class="btn btn-info submit">Add Memo</button>
                             </div>
                         </div>
                     </form>
@@ -403,58 +585,246 @@
 
 
 @section('script')
+    <style>
+        td input[type="text"], td select, td input[type="number"] {
+            width:10em;
+        }
+    </style>
 
     <script>
         $('tbody').sortable();
-
+        var EntryI = {{ isset($EntryKey)?++$EntryKey:0}};
 
         $(document).ready(function() {
 
-            $('body').on('click', '.AddPalamTollInput', function (e) {
-                e.preventDefault();
+            $('body').on('click', '.AddEntryInput', function (e) {
                 var AccountsDataOption = GetAccountOptionData();
-                var ExtraExpenseInput ='<tr>\n' +
-                    '   <td>\n' +
-                    '       <input type="text" class="form-control" name="PaalamToll[location][]">\n' +
-                    '   </td>\n' +
-                    '   <td>\n' +
-                    '       <input type="number" min="0" class="form-control PaalamTollAmountValue" name="PaalamToll[amount][]">\n' +
-                    '   </td>\n' +
-                    '   <td>\n' +
-                    '        <select name="PaalamToll[account_id][]" class="form-control">'+
-                    '             <option value="1">Cash</option>'+AccountsDataOption+
+                var CustomersDataOption = GetCustomerOptionData();
+                e.preventDefault();
+                var EntryData ='<tr>\n' +
+                    '    <td>\n' +
+                    '        <input type="date" class="form-control" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <select name="EntryData[customerId][]" class="form-control" style="width:15em">\n' +
+                    '            <option value="">Select Customer</option>'+CustomersDataOption+
                     '        </select>\n' +
-                    '   </td>\n' +
-                    '<td><i style="color: red;" class="fa fa-close RemovePaalamTollInput"></i></td>' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationFrom][]" style="width:15em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="text" class="form-control" placeholder="Enter Location" name="EntryData[locationTo][]" style="width:15em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="text" class="form-control" placeholder="Enter Load type" name="EntryData[loadType][]" style="width:15em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" step="0.01" class="form-control" placeholder="Enter Ton" name="EntryData[ton][]" style="width:10em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <select name="EntryData[account_id][]" class="form-control" style="width:10em">\n' +
+                    '            <option value="1">Cash</option>'+AccountsDataOption+
+                    '        </select>\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0"  class="form-control BillAmountValue" placeholder="Enter Bill Amount" name="EntryData[billAmount][]" style="width:10em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" class="form-control AdvanceAmountTotal" placeholder="Enter Advance" name="EntryData[advance][]" style="width:10em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" class="form-control ComissionValue" placeholder="Enter Comission" name="EntryData[comission][]" style="width:10em">\n' +
+                    '        <input type="radio" class="commission_status_class" name="EntryData[commission_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
+                    '        <input type="radio" class="commission_status_class" name="EntryData[commission_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" max="100" step="0.01" class="form-control DriverPadiPercentage" placeholder="Enter driver paadi" name="EntryData[driverPadi][]" style="width:10em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" max="100" step="0.01" class="form-control CleanerPadiPercentage"  placeholder="Enter cleaner paadi" name="EntryData[cleanerPadi][]" style="width:10em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" name="EntryData[driverPadiAmount][]" style="width:10em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" name="EntryData[cleanerPadiAmount][]" style="width:10em">\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" class="form-control loadingMamoolValue" placeholder="Enter Loading" name="EntryData[loadingMamool][]" style="width:10em">\n' +
+                    '        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
+                    '        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
+                    '    </td>\n' +
+                    '    <td>\n' +
+                    '        <input type="number" min="0" class="form-control unLoadingMamoolValue" placeholder="Enter Unloading" name="EntryData[unLoadingMamool][]" style="width:10em">\n' +
+                    '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
+                    '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
+                    '    </td>\n' +
+                    '    <td><i style="color: red;" class="fa fa-close RemoveEntryDataInput"></i></td>\n' +
                     '</tr>';
-                $('.PaalamTollTableData').append(ExtraExpenseInput);
+
+                $('.EntryTableData').append(EntryData);
+                EntryI++;
             });
 
-            $('body').on('click','.RemovePaalamTollInput',function (e) {
+
+            $('body').on('click','.RemoveEntryDataInput',function (e) {
                 e.preventDefault();
                 $(this).parent().parent().remove();
-                CalculatePaalamTollAmountTotal();
+                CalculateEntryCalculations();
             });
 
-            $('body').on('keyup change','.PaalamTollAmountValue',function (e) {
-                e.preventDefault();
-                CalculatePaalamTollAmountTotal();
+            $('body').on('click','.submit',function () {
+                $(".EntryTableData tr").each(function () {
+                    $($(this).find('.unloading_mamool_status_class')).attr('name','EntryData[unloading_mamool_status]['+$(this).index()+']');
+                    $($(this).find('.unloading_mamool_status_class')).attr('required',true);
+                    $($(this).find('.loading_mamool_status_class')).attr('name','EntryData[loading_mamool_status]['+$(this).index()+']');
+                    $($(this).find('.loading_mamool_status_class')).attr('required',true);
+                    $($(this).find('.commission_status_class')).attr('name','EntryData[commission_status]['+$(this).index()+']');
+                    $($(this).find('.commission_status_class')).attr('required',true);
+                });
             });
-
         });
 
-        CalculatePaalamTollAmountTotal();
-        function CalculatePaalamTollAmountTotal() {
-            var PaalamTollTotal = 0;
-            $('.PaalamTollAmountValue').each(function(){
-                if($(this).val() !='' && !isNaN($(this).val())){
-                    PaalamTollTotal += parseFloat($(this).val());
+        $('body').on('keyup change','.unLoadingMamoolValue,.loadingMamoolValue,.ComissionValue,.BillAmountValue,.AdvanceAmountTotal,.DriverPadiPercentage,.CleanerPadiPercentage,.CleanerPadiAmountValue',function (e) {
+            e.preventDefault();
+            CalculateEntryCalculations();
+        });
+
+        $('body').on('keyup change','.DriverPadiAmountValue',function (e) {
+            e.preventDefault();
+            $($(this).parent().parent().find('.DriverPadiPercentage')).val('');
+            CalculateDriverPadiAmountTotal();
+        });
+
+        $('body').on('keyup change','.CleanerPadiAmountValue',function (e) {
+            e.preventDefault();
+            $($(this).parent().parent().find('.CleanerPadiPercentage')).val('');
+            CalculateCleanerPadiAmountTotal();
+        });
+
+        CalculateEntryCalculations();
+        function CalculateEntryCalculations(){
+            CalculateUnloadingAmountTotal();
+            CalculateloadingAmountTotal();
+            CalculateComissionAmountTotal();
+            CalculateBillAmountTotal();
+            CalculateAdvanceAmountTotal();
+
+            CalculateCleanerPadiPercentageTotal();
+            CalculateDriverPadiPercentageTotal();
+
+            CalculateDriverPadiAmountTotal();
+            CalculateCleanerPadiAmountTotal();
+        }
+
+
+        function CalculateCleanerPadiPercentageTotal() {
+            $('.CleanerPadiPercentage').each(function(){
+                if($(this).parent().parent().find('.BillAmountValue').val() !='' && !isNaN($(this).parent().parent().find('.BillAmountValue').val()) && $(this).val() >0 && $(this).val()<=100) {
+                    $($(this).parent().parent().find('.CleanerPadiAmountValue')).val(Math.round((parseFloat($(this).parent().parent().find('.BillAmountValue').val()) * parseFloat($(this).val()) / 100)));
                 }
             });
-            $('#PaalamTollTotalSpentAmount').html(PaalamTollTotal);
         }
-    </script>
 
+
+        function CalculateDriverPadiPercentageTotal() {
+            $('.DriverPadiPercentage').each(function(){
+                if($(this).parent().parent().find('.BillAmountValue').val() !='' && !isNaN($(this).parent().parent().find('.BillAmountValue').val()) && $(this).val() >0 && $(this).val()<=100) {
+                    $($(this).parent().parent().find('.DriverPadiAmountValue')).val(Math.round((parseFloat($(this).parent().parent().find('.BillAmountValue').val()) * parseFloat($(this).val()) / 100)));
+                }
+            });
+        }
+
+
+
+
+        function CalculateCleanerPadiAmountTotal() {
+            var CleanerPadiTotalAmount = 0;
+            $('.CleanerPadiAmountValue').each(function(){
+                if($(this).val() !='' && !isNaN($(this).val())){
+                    CleanerPadiTotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#CleanerPadiTotalAmount').html(CleanerPadiTotalAmount);
+        }
+
+        function CalculateDriverPadiAmountTotal() {
+            var DriverPadiTotalAmount = 0;
+            $('.DriverPadiAmountValue').each(function(){
+                if($(this).val() !='' && !isNaN($(this).val())){
+                    DriverPadiTotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#DriverPadiTotalAmount').html(DriverPadiTotalAmount);
+        }
+
+
+        function CalculateBillAmountTotal() {
+            var BillAmountTotalAmount = 0;
+            $('.BillAmountValue').each(function(){
+                if($(this).val() !='' && !isNaN($(this).val())){
+                    BillAmountTotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#BillAmountTotalAmount').html(BillAmountTotalAmount);
+        }
+
+        function CalculateAdvanceAmountTotal() {
+            var AdvanceAmountTotalAmount = 0;
+            $('.AdvanceAmountTotal').each(function(){
+                if($(this).val() !='' && !isNaN($(this).val())){
+                    AdvanceAmountTotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#AdvanceAmountTotalAmount').html(AdvanceAmountTotalAmount);
+        }
+
+        function CalculateUnloadingAmountTotal() {
+            var UnloadingTotalAmount = 0;
+            $('.unLoadingMamoolValue').each(function(){
+                if($(this).val() !='' && !isNaN($(this).val())){
+                    UnloadingTotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#UnloadingTotalAmount').html(UnloadingTotalAmount);
+        }
+
+        function CalculateloadingAmountTotal() {
+            var loadingTotalAmount = 0;
+            $('.loadingMamoolValue').each(function(){
+                if($(this).val() !='' && !isNaN($(this).val())){
+                    loadingTotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#loadingTotalAmount').html(loadingTotalAmount);
+        }
+
+        function CalculateComissionAmountTotal() {
+            var ComissionTotalAmount = 0;
+            $('.ComissionValue').each(function(){
+                if($(this).val() !='' && !isNaN($(this).val())){
+                    ComissionTotalAmount += parseFloat($(this).val());
+                }
+            });
+            $('#ComissionTotalAmount').html(ComissionTotalAmount);
+        }
+
+
+        var CustomerData;
+        GetCustomerOptionData();
+        function GetCustomerOptionData(){
+            $.ajax({
+                type: "get",
+                url: '/client/entry/memo/customers',
+                success: function(data) {
+                    CustomerData = data;
+                }
+            });
+            return CustomerData;
+        }
+
+    </script>
 
     <script src="{{ url('/js/memo.js') }}"></script>
 @endsection
