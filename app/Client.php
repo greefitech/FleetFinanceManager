@@ -101,6 +101,8 @@ class Client extends Authenticatable
         return $this->hasMany(Admin::class, 'mobile', 'referral_number');
     }
 
+
+
     public function get_outstanding_amount(){
         @$total_entry_amount = Entry::where('clientid', Auth::user()->id)->sum('balance');
         @$total_income_amount = Income::where('clientid', Auth::user()->id)->sum('recevingAmount');

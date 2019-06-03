@@ -14,7 +14,7 @@
 
                 <div class="box-body">
 
-                    <form action="{{route('admin.updateDocumentType',$Data['DocumentType']->id)}}" method="POST">
+                    <form action="{{route('admin.updateDocumentType',$DocumentTypes->id)}}" method="POST">
                         {{ csrf_field() }}
 
                         <div class="box-body">
@@ -24,7 +24,7 @@
                                         <div class="form-group{{ $errors->has('documentType') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Document Type</label>
-                                                <input type="text" class="form-control" value="{{$Data['DocumentType']->documentType }}" name="documentType" id="document_type">
+                                                <input type="text" class="form-control" value="{{$DocumentTypes->documentType }}" name="documentType" id="document_type" required>
                                             </div>
                                         </div>
                                     </div>

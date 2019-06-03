@@ -12,8 +12,8 @@ use App\Http\Controllers\Controller;
 class AdminController extends Controller
 {
     public function Viewadminaccount(){
-        $Data['admin']=Admin::get();
-        return view('admin.users.view',compact('Data'));
+        $Data['admins']=Admin::get();
+        return view('admin.users.view',$Data);
     }
 
     public function addadminaccount(){

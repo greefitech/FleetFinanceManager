@@ -24,6 +24,9 @@ class vehicleTypeController extends Controller
 
 
     public function addVehicleType(){
+        $this->validate(request(),[
+            'vehicleType' => 'required|max:255',
+        ]);
         try {
             VehicleType::create([
                 'vehicleType' => request('vehicleType'),
@@ -46,6 +49,9 @@ class vehicleTypeController extends Controller
     }
 
     public function updateVehicleType($id){
+        $this->validate(request(),[
+            'vehicleType' => 'required|max:255',
+        ]);
         try {
             $VehicleType = VehicleType::findOrfail($id);
             $VehicleType->vehicleType=request()->vehicleType;

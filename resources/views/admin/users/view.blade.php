@@ -14,19 +14,18 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Data['admin']))
+                        @if(!empty($admins))
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th style="text-align:center">Name</th>
                                     <th style="text-align:center">E-mail</th>
                                     <th style="text-align:center">Mobile Number</th>
-                                    <th style="text-align:center">Action</th>
                                 </tr>
                                 </thead>
                                 <tbody>
 
-                                @foreach($Data['admin'] as $admin)
+                                @foreach($admins as $admin)
                                     @if(!empty($admin->mobile))
                                         <tr>
                                             <td>{{ $admin->name }}</td>

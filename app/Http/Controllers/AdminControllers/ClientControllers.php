@@ -20,21 +20,28 @@ class ClientControllers extends Controller
         }else{
             $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
         }
-        return view('admin.ClientList.ViewAllClients',compact('Data'));
+        return view('admin.ClientList.ViewAllClients',$Data);
     }
 
     public function VehicleLists($id){
         $Data['Clients']=Client::findorfail($id);
         $Data['Vehicles']=Vehicle::where([['clientid',$id]])->get();
-        return view('admin.ClientList.ViewAllVehicles',compact('Data'));
+        return view('admin.ClientList.ViewAllVehicles',$Data);
     }
 
     public function EditClient($id){
         $Data['Client']=Client::findorfail($id);
-        return view('admin.ClientList.editClient',compact('Data'));
+        return view('admin.ClientList.editClient',$Data);
     }
 
     public function UpdateClientDeteils($id){
+        $this->validate(request(),[
+            'name' => 'required|max:255',
+            'email' => 'required|email|max:255|unique:admins',
+            'transportName' => 'required',
+            'mobile' => 'required|min:10|max:10|unique:admins',
+            'address' => 'required|max:255',
+        ]);
         try {
             $Client=Client::findorfail($id);
             $Client->name=request()->name;

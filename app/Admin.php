@@ -38,4 +38,12 @@ class Admin extends Authenticatable
     {
         $this->notify(new AdminResetPassword($token));
     }
+
+    public function ClientDetails(){
+        return $this->hasMany(Client::class, 'referral_number', 'mobile');
+    }
+
+    public function TotalIncome(){
+        return $this->hasMany(VehicleCredits::class, 'clientid', 'id');
+    }
 }
