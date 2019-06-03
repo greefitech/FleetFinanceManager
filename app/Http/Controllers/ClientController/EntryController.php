@@ -211,7 +211,7 @@ class EntryController extends Controller
 
         if(!empty(request('EntryData'))){
             $EntryValidator=[];
-            foreach(request('EntryData')['amount'] as $EntryDataKey=>$paall){
+            foreach(request('EntryData')['dateFrom'] as $EntryDataKey=>$paall){
                 $EntryValidator['EntryData.dateFrom.'.$EntryDataKey] = 'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.request('dateTo');
                 $EntryValidator['EntryData.account_id.'.$EntryDataKey] = 'required';
                 $EntryValidator['EntryData.customerId.'.$EntryDataKey] = 'required|exists:customers,id';
@@ -222,19 +222,18 @@ class EntryController extends Controller
                 $EntryValidator['EntryData.billAmount.'.$EntryDataKey] = 'required|min:0|numeric';
                 $EntryValidator['EntryData.advance.'.$EntryDataKey] = 'nullable|min:0|numeric';
 
-
+                $EntryValidator['EntryData.driverPadi.'.$EntryDataKey] = 'nullable|min:0|max:100|between:0,99.99';
+                $EntryValidator['EntryData.cleanerPadi.'.$EntryDataKey] = 'nullable|min:0|max:100|between:0,99.99';
 
                 $EntryValidator['EntryData.commission_status.'.$EntryDataKey] = 'required';
                 $EntryValidator['EntryData.loading_mamool_status.'.$EntryDataKey] = 'required';
                 $EntryValidator['EntryData.unloading_mamool_status.'.$EntryDataKey] = 'required';
-
+//
                 $EntryValidator['EntryData.loadingMamool.'.$EntryDataKey] = 'nullable|min:0|numeric';
                 $EntryValidator['EntryData.unLoadingMamool.'.$EntryDataKey] = 'nullable|min:0|numeric';
             }
             $this->validate(request(), $EntryValidator);
         }
-
-
 
 
         /*
