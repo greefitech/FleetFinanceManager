@@ -10,14 +10,12 @@
                     <h4>
                         <center>Add Admin</center>
                     </h4>
-                    <a href="{{ route('admin.Viewadminaccount') }}" class="btn btn-info pull-right">View Admin</a>
+                    <a href="{{ route('admin.ViewAdminAccount') }}" class="btn btn-info pull-right">View Admin</a>
                 </div>
 
                 <div class="box-body">
-
                     <form class="form-horizontal"  action="{{ route('admin.SaveadminAccount') }}" method="POST">
                         {{ csrf_field() }}
-
                         <div class="box-body">
                             <div class="container">
                                 <div class="row">

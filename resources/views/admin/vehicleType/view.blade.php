@@ -15,10 +15,11 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!empty($Data['VehicleTypes']))
-                            <table  class="table table-bordered table-striped">
+                            <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                 <tr>
                                     <th style="text-align:center">Vehicle Type</th>
+                                    <th style="text-align:center">Wheele</th>
                                     <th style="text-align:center">Action</th>
                                 </tr>
                                 </thead>
@@ -27,6 +28,7 @@
                                 @foreach($Data['VehicleTypes'] as $VehicleType)
                                     <tr>
                                         <td>{{ $VehicleType->vehicleType }}</td>
+                                        <td>-</td>
                                         <td style="text-align:center">
                                             <a href="{{ route('admin.vehicleTypeEdit',$VehicleType->id) }}"><button type="button" class="btn btn-success">Edit</button></a>
                                             <a href="{{ route('admin.deleteVehicleType',$VehicleType->id) }}"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>

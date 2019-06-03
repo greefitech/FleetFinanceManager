@@ -17,9 +17,9 @@ Route::get('/home', 'AdminControllers\DashBoardControllers@home')->name('home');
 
 Route::get('/getClientDetails', 'AdminControllers\DashBoardControllers@getClientDetails');
 
-Route::get('/TotalAdminWise', 'AdminControllers\DashBoardControllers@TotalAdminWise')->name('TotalAdminWise');
+Route::get('/dashboard/admin/list', 'AdminControllers\DashBoardControllers@TotalAdminWise')->name('DashboardAdminList');
 
-Route::get('/AdminClientWise/{id}', 'AdminControllers\DashBoardControllers@AdminClientWise')->name('AdminClientWise');
+Route::get('/dashboard/admin/{id}/client-list', 'AdminControllers\DashBoardControllers@AdminClientWise')->name('AdminClientWise');
 
 
 
@@ -83,7 +83,7 @@ Route::get('/AddSettlement', 'AdminControllers\SettlementController@AddSettlemen
 Route::POSt('/SaveSettlement', 'AdminControllers\SettlementController@SaveSettlement')->name('SaveSettlement');
 
 //ADMIN ACCOUNT
-Route::get('/Viewadminaccount', 'AdminControllers\AdminController@Viewadminaccount')->name('Viewadminaccount');
+Route::get('/Viewadminaccount', 'AdminControllers\AdminController@Viewadminaccount')->name('ViewAdminAccount');
 Route::get('/addadminaccount', 'AdminControllers\AdminController@addadminaccount')->name('adminAccountAdd');
 Route::POST('/SaveadminAccount', 'AdminControllers\AdminController@SaveadminAccount')->name('SaveadminAccount');
 

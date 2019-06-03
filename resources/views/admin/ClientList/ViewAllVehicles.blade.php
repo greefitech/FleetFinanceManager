@@ -41,36 +41,32 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Vehicles))
+                        @if(!$Vehicles->isEmpty())
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
-                                <tr>
-                                    <th>Owner Name</th>
-                                    <th>Vehicle Number</th>
-                                    <th>Vehicle Type</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Owner Name</th>
+                                        <th>Vehicle Number</th>
+                                        <th>Vehicle Type</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-
-                                @foreach($Vehicles as $Vehicle)
-                                    <tr class="c-table__row">
-                                        <td>{{ $Vehicle->ownerName }}</td>
-                                        <td>{{ $Vehicle->vehicleNumber }}</td>
-                                        <td>{{ $Vehicle->GetVehicleType->vehicleType }}</td>
-                                        <td>
-                                            <a href=""><button type="button" class="btn btn-success">Edit</button></a>
-                                            <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>
-
-                                        </td>
-                                    </tr>
-                                @endforeach
-
-
+                                    @foreach($Vehicles as $Vehicle)
+                                        <tr class="c-table__row">
+                                            <td>{{ $Vehicle->ownerName }}</td>
+                                            <td>{{ $Vehicle->vehicleNumber }}</td>
+                                            <td>{{ $Vehicle->GetVehicleType->vehicleType }}</td>
+                                            <td>
+                                                <a href=""><button type="button" class="btn btn-success">Edit</button></a>
+                                                <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Customer till now added!!</p></blockquote>
+                            <blockquote><p>No Vehicle till now!!</p></blockquote>
                         @endif
                     </div>
                 </div>

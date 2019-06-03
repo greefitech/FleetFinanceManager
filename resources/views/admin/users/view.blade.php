@@ -15,26 +15,22 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!empty($admins))
-                            <table  class="table table-bordered table-striped">
+                            <table  class="table table-bordered table-striped DataTable">
                                 <thead>
-                                <tr>
-                                    <th style="text-align:center">Name</th>
-                                    <th style="text-align:center">E-mail</th>
-                                    <th style="text-align:center">Mobile Number</th>
-                                </tr>
+                                    <tr>
+                                        <th style="text-align:center">Name</th>
+                                        <th style="text-align:center">E-mail</th>
+                                        <th style="text-align:center">Mobile Number</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-
-                                @foreach($admins as $admin)
-                                    @if(!empty($admin->mobile))
+                                    @foreach($admins as $admin)
                                         <tr>
                                             <td>{{ $admin->name }}</td>
                                             <td>{{ $admin->email }}</td>
                                             <td>{{ $admin->mobile }}</td>
                                         </tr>
-                                    @endif
-                                @endforeach
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else

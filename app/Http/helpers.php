@@ -13,7 +13,6 @@ if (! function_exists('DateDifference')) {
     }
 }
 
-
 if (! function_exists('GetExpenseTypesOption')) {
     function GetExpenseTypesOption(){
         $ExpenseData='';

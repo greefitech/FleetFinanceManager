@@ -17,34 +17,31 @@
                         @if(!empty($Data['Clients']))
                             <table  class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Transport Name</th>
-                                    <th>Mobile Number</th>
-                                    <th>Address</th>
-                                    <th>No.of Vehicle</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Transport Name</th>
+                                        <th>Mobile Number</th>
+                                        <th>Address</th>
+                                        <th>No.of Vehicle</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-
-                                @foreach($Data['Clients'] as $Clients)
-                                    @if(!empty($Clients))
-                                        <tr>
-                                            <td>{{ $Clients->name }}</td>
-                                            <td>{{ $Clients->transportName }}</td>
-                                            <td>{{ $Clients->mobile }}</td>
-                                            <td>{{ $Clients->address }}</td>
-                                            <td>{{ $Clients->vehicleCredit }}</td>
-                                            <td>
-                                                <a href="{{ route('admin.EditVehicleCredit') }}"><button type="button" class="btn btn-success">Add</button></a>
-                                                &nbsp;&nbsp;
-                                                <a href=""><button type="button" class="btn btn-danger">Delete</button></a>
-                                            </td>
-                                        </tr>
-                                    @endif
-                                @endforeach
-
+                                    @foreach($Data['Clients'] as $Clients)
+                                        @if(!empty($Clients))
+                                            <tr>
+                                                <td>{{ $Clients->name }}</td>
+                                                <td>{{ $Clients->transportName }}</td>
+                                                <td>{{ $Clients->mobile }}</td>
+                                                <td>{{ $Clients->address }}</td>
+                                                <td>{{ $Clients->vehicleCredit }}</td>
+                                                <td>
+                                                    <a href="{{ route('admin.EditVehicleCredit') }}"><button type="button" class="btn btn-success">Add</button></a>
+                                                    <a href=""><button type="button" class="btn btn-danger">Delete</button></a>
+                                                </td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else

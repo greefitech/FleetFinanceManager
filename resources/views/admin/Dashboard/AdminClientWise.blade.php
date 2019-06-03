@@ -17,49 +17,36 @@
                         @if(!empty($Clients))
                             <table  class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Transport Name</th>
-                                    <th>Mobile Number</th>
-                                    <th>Address</th>
-                                    <th>Vehicle Credit</th>
-                                    <th>Total Amount</th>
-                                    <th>Balance Amount</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Transport Name</th>
+                                        <th>Mobile Number</th>
+                                        <th>Address</th>
+                                        <th>Vehicle Credit</th>
+                                        <th>Total Amount</th>
+                                        <th>Balance Amount</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-
-                                @foreach($Clients as $Clients)
-                                    @if(!empty($Clients))
+                                    @foreach($Clients as $Clients)
                                         <tr>
                                             <td>{{ $Clients->name }}</td>
                                             <td>{{ $Clients->transportName }}</td>
                                             <td>{{ $Clients->mobile }}</td>
                                             <td>{{ $Clients->address }}</td>
                                             <td>{{ $Clients->vehicleCredit }}</td>
-                                            <?php $sum = 0; ?>
-                                            @foreach($Clients->TotalIncome as $TotalIncome)
-                                                @php($sum += $TotalIncome->total_amount)
-                                            @endforeach
-                                                    <td>{{ $sum  }}</td>
-                                                <?php $sub = 0; ?>
-                                            @foreach($Clients->TotalIncome as $TotalIncome)
-                                                @php($sub -= ($TotalIncome->paid_amount) - ($TotalIncome->total_amount))
-                                            @endforeach
-                                                <td>{{ $sub }}</td>
-
+                                            <td>{{ VehicleCreditsClientWise($Clients->id)->sum('total_amount') }}</td>
+                                            <td>{{ VehicleCreditsClientWise($Clients->id)->sum('total_amount') - VehicleCreditsClientWise($Clients->id)->sum('paid_amount') }}</td>
                                             <td>
                                                 <a href=""><button type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
-                                    @endif
-                                @endforeach
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Admin Records!!</p></blockquote>
+                            <blockquote><p>No Client Records!!</p></blockquote>
                         @endif
                     </div>
                 </div>

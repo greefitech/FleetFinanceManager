@@ -10,59 +10,34 @@
                     <h4>
                         <center>View Admin Wise</center>
                     </h4>
-                    {{--                    <a href="{{ route('admin.adminAccountAdd') }}" class="btn btn-info pull-right">Add Admin</a>--}}
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!empty($Admins))
                             <table  class="table table-bordered table-striped">
                                 <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Mobile Number</th>
-                                    <th>Total Amount</th>
-                                    <th>Paid Amount</th>
-                                    <th>Balance Amount</th>
-                                    <th>Action</th>
-                                </tr>
+                                    <tr>
+                                        <th>Name</th>
+                                        <th>Mobile Number</th>
+                                        <th>Total Amount</th>
+                                        <th>Paid Amount</th>
+                                        <th>Balance Amount</th>
+                                        <th>Action</th>
+                                    </tr>
                                 </thead>
                                 <tbody>
-
-                                @foreach($Admins as $Admin)
-                                    @if(!empty($Admin))
+                                    @foreach($Admins as $Admin)
                                         <tr>
                                             <td>{{ $Admin->name }}</td>
-                                            <td>
-                                                @if($Admin->mobile != '' || NULL)
-                                                    {{ $Admin->mobile }}
-                                                @else
-                                                    ---
-                                                @endif
-                                            </td>
-                                            <td>
-                                            <?php $sum = 0; ?>
-                                            @foreach($Admin->ClientDetails as $ClientDetails)
-                                                @foreach($ClientDetails->TotalIncome as $TotalIncome)
-                                                    @php($sum += $TotalIncome->total_amount)
-                                                @endforeach
-                                            @endforeach
-                                                {{ $sum }}
-                                            </td>
-                                            <?php $sub = 0; ?>
-                                            @foreach($Admin->ClientDetails as $ClientDetails)
-                                                @foreach($ClientDetails->TotalIncome as $TotalIncome)
-                                                    @php($sub += $TotalIncome->paid_amount)
-                                                @endforeach
-                                            @endforeach
-                                            <td>{{ $sub }}</td>
-                                            <td>{{ $sum-$sub }}</td>
+                                            <td>{{ (!empty($Admin->mobile))?$Admin->mobile:'-' }}</td>
+                                            <td>{{ AdminVehicleCredits($Admin->id)->sum('total_amount') }}</td>
+                                            <td>{{ AdminVehicleCredits($Admin->id)->sum('paid_amount') }}</td>
+                                            <td>{{ AdminVehicleCredits($Admin->id)->sum('total_amount') - AdminVehicleCredits($Admin->id)->sum('paid_amount') }}</td>
                                             <td>
                                                 <a href="{{ route('admin.AdminClientWise',$Admin->id) }}"><button type="button" class="btn btn-success">View</button></a>
                                             </td>
                                         </tr>
-                                    @endif
-                                @endforeach
-
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else

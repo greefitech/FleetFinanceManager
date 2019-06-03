@@ -48,7 +48,7 @@ class ClientControllers extends Controller
             $Client->transportName=request()->transportName;
             $Client->mobile=request()->mobile;
             $Client->address=request()->address;
-//            $Client->vehicleCredit=request()->vehicleCredit;
+            $Client->memosheet=request('memosheet');
             $Client->save();
             return back()->with('success',['Client','Updated Sucessfully!']);
         }catch (\Exception $e){

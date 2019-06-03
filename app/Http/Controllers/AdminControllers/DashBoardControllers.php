@@ -5,6 +5,7 @@ namespace App\Http\Controllers\AdminControllers;
 use App\Admin;
 use App\Client;
 use App\Vehicle;
+use App\VehicleCredits;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -16,9 +17,10 @@ class DashBoardControllers extends Controller
     }
 
     public function home(){
-        if(auth()->user()->id ==1){
+        if(auth()->user()->id == 1){
             $Data['Clients']=Client::get();
-            $Data['Admins']=Admin::get();
+            $Data['Admins'] = Admin::whereNotNull('mobile')->count();
+            $Data['VehicleCredits'] = VehicleCredits::get();
         }else{
             $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
         }
@@ -34,8 +36,7 @@ class DashBoardControllers extends Controller
         return view('admin.Dashboard.AdminWise',$Data);
     }
 
-    public function AdminClientWise($id)
-    {
+    public function AdminClientWise($id){
         $Data['Admins'] = Admin::findorfail($id);
         if ($Data['Admins']->mobile == NUll){
             $Data['Clients'] = Client::where('referral_number', '=' , NULL || '')->get();

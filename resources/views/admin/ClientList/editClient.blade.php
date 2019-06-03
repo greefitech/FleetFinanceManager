@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12"></div>
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
                 <span class="info-box-icon bg-orange"><i class="ion ion-ios-gear-outline"></i></span>
@@ -12,6 +13,7 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4 col-sm-6 col-xs-12"></div>
     </div>
 
     <div class="row">
@@ -78,9 +80,11 @@
                                 <div class="col-sm-6">
                                     <div class="form-group">
                                         <div class="col-sm-12">
-                                            <label>Vehicle Credits</label>
-                                            <select name="" id="" class="form-control">
-                                                <option value="">select</option>
+                                            <label>Trip Sheet</label>
+                                            <select name="memosheet" class="form-control">
+                                                @foreach(TripSheet() as $key=>$Trip)
+                                                    <option value="{{ $Trip[0] }}" {{ ($Trip[0] == $Client->memosheet)?'selected':'' }}>{{ $Trip[1] }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>

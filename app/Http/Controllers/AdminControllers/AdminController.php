@@ -12,7 +12,7 @@ use App\Http\Controllers\Controller;
 class AdminController extends Controller
 {
     public function Viewadminaccount(){
-        $Data['admins']=Admin::get();
+        $Data['admins'] = Admin::whereNotNull('mobile')->get();
         return view('admin.users.view',$Data);
     }
 
@@ -21,7 +21,6 @@ class AdminController extends Controller
     }
 
     public function SaveadminAccount(){
-//        return request()->all();
         $this->validate(request(),[
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:admins',
@@ -29,13 +28,13 @@ class AdminController extends Controller
             'mobile' => 'required|min:10|max:10|unique:admins',
         ]);
         try {
-        Admin::create([
-            'name' => request('name'),
-            'email' => request('email'),
-            'remember_token' => request('remember'),
-            'password' => bcrypt(request('password')),
-            'mobile' => request('mobile'),
-        ]);
+            Admin::create([
+                'name' => request('name'),
+                'email' => request('email'),
+                'remember_token' => request('remember'),
+                'password' => bcrypt(request('password')),
+                'mobile' => request('mobile'),
+            ]);
             return back()->with('success',['Admin','Added Successfully!']);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');

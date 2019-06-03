@@ -25,7 +25,9 @@
 
 <script>
     $(document).ready( function () {
-        $('.DataTable').DataTable();
+        $('.DataTable').DataTable({
+            "aaSorting": []
+        });
     });
 </script>
 @yield('script')
