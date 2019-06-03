@@ -19,7 +19,7 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <p>Total Amount</p>
-                        <h3 id="total_amount">{{ $VehicleCredits->sum('total_amount') }}</h3>
+                        <h3 id="total_amount">{{ @$VehicleCredits->sum('total_amount') }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -67,7 +67,6 @@
             </div>
         </div>
     @endif
-
 
     @if(auth()->user()->id != 1 )
         <div class="row">
