@@ -34,8 +34,7 @@ class DashBoardControllers extends Controller
         return view('admin.Dashboard.AdminWise',$Data);
     }
 
-    public function AdminClientWise($id)
-    {
+    public function AdminClientWise($id){
         $Data['Admins'] = Admin::findorfail($id);
         if ($Data['Admins']->mobile == NUll){
             $Data['Clients'] = Client::where('referral_number', '=' , NULL || '')->get();

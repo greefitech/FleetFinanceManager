@@ -24,6 +24,7 @@
                                     <th>Address</th>
                                     <th>Vehicle Credit</th>
                                     <th>Total Amount</th>
+                                    <th>Paid Amount</th>
                                     <th>Balance Amount</th>
                                     <th>Action</th>
                                 </tr>
@@ -38,16 +39,27 @@
                                             <td>{{ $Clients->mobile }}</td>
                                             <td>{{ $Clients->address }}</td>
                                             <td>{{ $Clients->vehicleCredit }}</td>
-                                            <?php $sum = 0; ?>
-                                            @foreach($Clients->TotalIncome as $TotalIncome)
-                                                @php($sum += $TotalIncome->total_amount)
-                                            @endforeach
-                                                    <td>{{ $sum  }}</td>
-                                                <?php $sub = 0; ?>
-                                            @foreach($Clients->TotalIncome as $TotalIncome)
-                                                @php($sub -= ($TotalIncome->paid_amount) - ($TotalIncome->total_amount))
-                                            @endforeach
-                                                <td>{{ $sub }}</td>
+                                            <td>
+                                                <?php $total_amount = 0; ?>
+                                                @foreach($Clients->TotalIncome as $TotalIncome)
+                                                    @php($total_amount += $TotalIncome->total_amount)
+                                                @endforeach
+                                                {{ $total_amount  }}
+                                            </td>
+                                            <td>
+                                                <?php $paid_amount = 0; ?>
+                                                @foreach($Clients->TotalIncome as $TotalIncome)
+                                                    @php($paid_amount += $TotalIncome->paid_amount)
+                                                @endforeach
+                                                {{ $paid_amount  }}
+                                            </td>
+                                            <td>
+                                                <?php $balanceAmount = 0; ?>
+                                                @foreach($Clients->TotalIncome as $TotalIncome)
+                                                    @php($balanceAmount -= ($TotalIncome->paid_amount) - ($TotalIncome->total_amount))
+                                                @endforeach
+                                                {{ $balanceAmount }}
+                                            </td>
 
                                             <td>
                                                 <a href=""><button type="button" class="btn btn-success">View</button></a>

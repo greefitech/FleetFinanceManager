@@ -19,14 +19,14 @@
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <p>Total Amount </p>
-                        <?php $sum = 0; ?>
+                        <?php $total_amount = 0; ?>
                         @foreach($Clients as $Client)
                             @foreach($Client->TotalIncome as $TotalIncome)
-                                @php($sum += $TotalIncome->total_amount)
+                                @php($total_amount += $TotalIncome->total_amount)
                             @endforeach
                         @endforeach
 
-                        <h3 id="total_amount">{{ $sum }}</h3>
+                        <h3 id="total_amount">{{ $total_amount }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -38,13 +38,13 @@
                 <div class="small-box bg-green">
                     <div class="inner">
                         <p>Income </p>
-                        <?php $sum = 0; ?>
+                        <?php $paid_amount = 0; ?>
                         @foreach($Clients as $Client)
                             @foreach($Client->TotalIncome as $TotalIncome)
-                                @php($sum += $TotalIncome->paid_amount)
+                                @php($paid_amount += $TotalIncome->paid_amount)
                             @endforeach
                         @endforeach
-                        <h3 id="paid_amount">{{ $sum }}</h3>
+                        <h3 id="paid_amount">{{ $paid_amount }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -99,21 +99,21 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('admin.AdminClientWise',auth()->user()->id) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-aqua">
                     <div class="inner">
                         <p>Total Amount </p>
-                        <?php $sum = 0; ?>
+                        <?php $total_amount = 0; ?>
                         @foreach($Clients as $Client)
                             @foreach($Client->TotalIncome as $TotalIncome)
-                                @php($sum += $TotalIncome->total_amount)
+                                @php($total_amount += $TotalIncome->total_amount)
                             @endforeach
                         @endforeach
 
-                        <h3 id="total_amount">{{ $sum }}</h3>
+                        <h3 id="total_amount">{{ $total_amount }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -125,14 +125,14 @@
                 <div class="small-box bg-green">
                     <div class="inner">
                         <p>Income </p>
-                        <?php $sum = 0; ?>
+                        <?php $paid_amount = 0; ?>
                         @foreach($Clients as $Client)
                             @foreach($Client->TotalIncome as $TotalIncome)
-                                @php($sum += $TotalIncome->paid_amount)
+                                @php($paid_amount += $TotalIncome->paid_amount)
                             @endforeach
                         @endforeach
 
-                        <h3 id="paid_amount">{{ $sum }}</h3>
+                        <h3 id="paid_amount">{{ $paid_amount }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
