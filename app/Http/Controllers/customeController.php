@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 
 class customeController extends Controller
 {
+
     public function getTripDatas(){
         return $trip = Trip::findOrfail(request('tripId'));
     }

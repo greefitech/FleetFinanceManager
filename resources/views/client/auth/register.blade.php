@@ -120,6 +120,21 @@
 {{--                                @endif--}}
 {{--                            </div>--}}
 {{--                        </div>--}}
+
+                        <div class="form-group{{ $errors->has('referral_number') ? ' has-error' : '' }}">
+                            <label for="referral_number" class="col-md-4 control-label">Referral By Phone Number </label>
+
+                            <div class="col-md-6">
+                                <input id="referral_number" type="number" class="form-control" name="referral_number" minlength="10" maxlength="10" value="{{ old('referral_number') }}">
+
+                                @if ($errors->has('referral_number'))
+                                    <span class="help-block">
+                                        <strong>{{ $errors->first('referral_number') }}</strong>
+                                    </span>
+                                @endif
+                            </div>
+                        </div>
+
                         <div class="form-group">
                             <div class="col-md-6 col-md-offset-4">
                                 <button type="submit" class="btn btn-primary">

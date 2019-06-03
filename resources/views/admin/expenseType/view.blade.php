@@ -1,9 +1,5 @@
 @extends('admin.layout.master')
 
-@section('ClientList')
-    is-active
-@endsection
-
 @section('content')
 
     <div class="row">
@@ -18,7 +14,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!empty($Data['ExpenseTypes']))
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th style="text-align:center">Expense Type</th>
@@ -29,7 +25,7 @@
 
                                 @foreach($Data['ExpenseTypes'] as $key=>$ExpenseTypes)
                                     <tr>
-                                        <td>{{ $ExpenseTypes->id }}-{{ $ExpenseTypes->expenseType }}</td>
+                                        <td>{{ $ExpenseTypes->expenseType }}</td>
                                         <td style="text-align:center">
                                             <a href="{{ route('admin.ExpenseTypeEdit',$ExpenseTypes->id) }}"><button type="button" class="btn btn-success">Edit</button></a>
                                             @if($ExpenseTypes->id!=1 && $ExpenseTypes->id!=2)

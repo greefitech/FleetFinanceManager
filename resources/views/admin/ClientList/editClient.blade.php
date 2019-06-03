@@ -3,6 +3,18 @@
 @section('content')
 
     <div class="row">
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-orange"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">No .of Vehicle Credit</span>
+                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Data['Client']->vehicleCredit }}</span></center></span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
@@ -67,12 +79,13 @@
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle Credits</label>
-                                            <input type="number" class="form-control" value="{{ $Data['Client']->vehicleCredit }}" placeholder="Enter Your Name" id="entry-vehicleCredit" disabled>
+                                            <select name="" id="" class="form-control">
+                                                <option value="">select</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-
                             <br>
                             <div align="center">
                                 <button type="submit" class="btn btn-success btn-block">Update Client</button>

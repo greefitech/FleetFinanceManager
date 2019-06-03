@@ -21,7 +21,7 @@
                             <div class="row">
                                 <div class="container">
                                     <div class="col-sm-12">
-                                        <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
+                                        <div class="form-group{{ $errors->has('vehicleType') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Vehicle Type</label>
                                                 <input type="text" class="form-control" value="{{ old('vehicleType') }}" name="vehicleType" placeholder="Enter Vehicle Type" id="vehicle_type">

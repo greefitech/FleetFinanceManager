@@ -14,7 +14,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!empty($Data['DocumentTypes']))
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped">
                                 <thead>
                                 <tr>
                                     <th style="text-align:center">Vehicle Type</th>

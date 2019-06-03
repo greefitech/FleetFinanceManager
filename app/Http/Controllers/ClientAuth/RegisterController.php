@@ -54,6 +54,7 @@ class RegisterController extends Controller
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:clients',
             'mobile' => 'required|min:10|max:10|unique:clients',
+            'referral_number' => 'required|min:10|max:10',
             'transportName' => 'required|max:255',
             'address' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
@@ -69,7 +70,7 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        // dd($data);
+//         dd($data);
         $clients = Client::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -77,7 +78,8 @@ class RegisterController extends Controller
             'transportName' => $data['transportName'],
             'expires_on' => Helper::get_expire_date(date('Y')),
             'address' => $data['address'],
-            'password' => bcrypt($data['password']),
+            'referral_number' => $data['referral_number'],
+            'password' => bcrypt($data['password'])
         ]);
         Account::create([
             'account' =>'IOC',
