@@ -35,7 +35,7 @@ if (! function_exists('GetAccountsOption')) {
     function GetAccountsOption(){
         $AccountsData='';
         foreach(auth()->user()->Accounts as $Account){
-            return $AccountsData = $AccountsData.'<option value="'.$Account->id.'">'.$Account->account.' - '.$Account->HolderName.'</option>';
+            $AccountsData = $AccountsData.'<option value="'.$Account->id.'">'.$Account->account.' - '.$Account->HolderName.'</option>';
         }
         return $AccountsData;
     }
@@ -46,8 +46,34 @@ if (! function_exists('GetCustomersOption')) {
     function GetCustomersOption(){
         $CustomersData='';
         foreach(auth()->user()->customers as $Customer){
-            return $CustomersData = $CustomersData.'<option value="'.$Customer->id.'">'.$Customer->name.'</option>';
+            $CustomersData = $CustomersData.'<option value="'.$Customer->id.'">'.$Customer->name.'</option>';
         }
         return $CustomersData;
+    }
+}
+
+if (! function_exists('GetRTOMasterDataInputs')) {
+    function GetRTOMasterDataInputs(){
+        try {
+            $RtoMasterInput='';
+            $RTOMaster = \App\RTOMaster::findorfail(request('rtoid'));
+            $RTOMasterDatas = unserialize($RTOMaster->description);
+            foreach($RTOMasterDatas['location'] as $MasterKey=>$RTOMasterData){
+                 $RtoMasterInput = $RtoMasterInput.'<tr>
+                        <td>
+                            <input type="text" class="form-control" style="width: 15em" value="'.$RTOMasterDatas['location'][$MasterKey].'" placeholder="Enter Location" name="RTOData[location][]">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control RTODataAmountValue" style="width: 15em" value="'.$RTOMasterDatas['amount'][$MasterKey].'" placeholder="Enter Amount" name="RTOData[amount][]">
+                        </td>
+                        <td><i style="color: red;"  class="fa fa-close RemoveRToInput"></i></td>
+                    </tr>';
+                    ;
+            }
+            return $RtoMasterInput;
+
+        }catch (Exception $e){
+            return 'error';
+        }
     }
 }

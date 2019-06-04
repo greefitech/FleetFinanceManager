@@ -69,6 +69,13 @@ Route::get('/expense-type/{id}/edit', 'ClientController\ExpenseTypeController@ed
 Route::post('/expense-type/{id}/update', 'ClientController\ExpenseTypeController@update')->name('UpdateExpenseType');
 Route::delete('/expense-type/{id}/delete', 'ClientController\ExpenseTypeController@delete')->name('DeleteExpenseType');
 
+//RTO Master
+Route::get('/rto-masters', 'ClientController\RTOMasterController@view')->name('ViewRTOMasters');
+Route::get('/rto-master/add', 'ClientController\RTOMasterController@add')->name('AddRTOMaster');
+Route::post('/rto-master/save', 'ClientController\RTOMasterController@save')->name('SaveRTOMaster');
+Route::get('/rto-master/{id}/edit', 'ClientController\RTOMasterController@edit')->name('EditRTOMaster');
+Route::post('/rto-master/{id}/update', 'ClientController\RTOMasterController@update')->name('UpdateRTOMaster');
+
 //TRIP
 Route::get('/trip/add', 'ClientController\TripController@add');
 Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip');
@@ -91,6 +98,10 @@ Route::get('/entry/memo/accounts', function (){
 
 Route::get('/entry/memo/customers', function (){
     return GetCustomersOption();
+});
+
+Route::get('/entry/memo/RTOMasterData', function (){
+    return GetRTOMasterDataInputs();
 });
 
 

@@ -343,9 +343,22 @@
                                     <div class="panel-group">
                                         <div class="panel panel-info">
                                             <div class="panel-heading">
-                                                <span style="font-weight: bold;">RTO
-                                                    <button type="button" class="btn btn-primary btn-sm pull-right AddRTOInput"><i class="fa fa-plus"></i></button>
-                                                </span>
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <h5 style="font-weight: bold;">RTO</h5>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control RTOMasterDatas" style="width: 300px;">
+                                                            <option value="">Master Data</option>
+                                                            @foreach($RTOMasters as $RTOMaster)
+                                                                <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button type="button" class="btn btn-primary btn-sm pull-right AddRTOInput"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
@@ -634,17 +647,16 @@
                                         </tr>
                                         <tr>
                                             <th>Total Spent / மொத்த செலவு</th>
-                                            <td style="text-align: center;font-weight: bold;" id="TotalTotalSpentCalculationAmount"></td>
+                                            <td style="text-align: center;font-weight: bold;color: red;" id="TotalTotalSpentCalculationAmount"></td>
                                         </tr>
                                         <tr>
                                             <th>Total Income / மொத்த வரவு</th>
-                                            <td style="text-align: center;font-weight: bold;" id="TotalTotalIncomeCalculationAmount"></td>
+                                            <td style="text-align: center;font-weight: bold;color: blue;" id="TotalTotalIncomeCalculationAmount"></td>
                                         </tr>
                                         <tr>
                                             <th>Balance / மீதி இருப்பு</th>
-                                            <td style="text-align: center;font-weight: bold;" id="TotalBalanceCalculationAmount"></td>
+                                            <td style="text-align: center;font-weight: bold;color: green;" id="TotalBalanceCalculationAmount"></td>
                                         </tr>
-
                                     </thead>
                                 </table>
                             </div>
@@ -681,8 +693,25 @@
                     $($(this).find('.commission_status_class')).attr('required',true);
                 });
             });
+
+
+            $('body').on('change','.RTOMasterDatas',function () {
+                if($(this).val() != ''){
+                    $.ajax({
+                        type: "get",
+                        url: '/client/entry/memo/RTOMasterData',
+                        data:{rtoid:$(this).val()},
+                        success: function(data) {
+                            if(data !='error'){
+                                $('.RTOTableData').append(data);
+                            }
+                        }
+                    });
+                }
+            });
         });
     </script>
 
     <script src="{{ url('/js/memo.js') }}"></script>
+    <script src="{{ url('/js/rtomaster.js') }}"></script>
 @endsection

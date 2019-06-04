@@ -47,8 +47,6 @@ class EntryController extends Controller
             'unLoadingMamool'=>'nullable|min:0|numeric',
         ]);
 
-
-
         if($Trip->vehicleId != request('vehicleId')){
             return back()->with('sorry','Vehicle Trip and Vehicle Not Matched !!')->withInput();
         }
@@ -93,7 +91,6 @@ class EntryController extends Controller
             $entry->commission_status=request('commission_status');
             $entry->loading_mamool_status=request('loading_mamool_status');
             $entry->unloading_mamool_status=request('unloading_mamool_status');
-
 
             $balance =request('billAmount')- request('advance');
             $entry->balance=round($balance);
