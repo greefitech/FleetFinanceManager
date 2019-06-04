@@ -166,3 +166,13 @@ Route::get('/profile', 'ClientController\ProfileController@profile')->name('prof
 Route::post('/profile', 'ClientController\ProfileController@UpdateProfile')->name('UpdateProfile');
 Route::get('/profile/change-password', 'ClientController\ProfileController@ChangePassword')->name('ChangePassword');
 Route::post('/profile/update-password', 'ClientController\ProfileController@UpdatePassword')->name('UpdatePassword');
+
+
+//profile
+Route::get('/managers', 'ClientController\ManagerController@view')->name('ViewManagers');
+Route::get('/manager/add', 'ClientController\ManagerController@add')->name('AddManager');
+Route::post('/manager/save', 'ClientController\ManagerController@save')->name('SaveManager');
+Route::get('/manager/{id}/edit', 'ClientController\ManagerController@edit')->name('EditManager');
+Route::post('/manager/{id}/update', 'ClientController\ManagerController@update')->name('UpdateManager');
+
+

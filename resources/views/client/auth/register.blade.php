@@ -42,7 +42,7 @@
                             <label for="mobile" class="col-md-4 control-label">Mobile Number</label>
 
                             <div class="col-md-6">
-                                <input id="mobile" type="tel" class="form-control" name="mobile" value="{{ old('mobile') }}">
+                                <input id="mobile" maxlength="10" type="tel" class="form-control" name="mobile" value="{{ old('mobile') }}">
 
                                 @if ($errors->has('mobile'))
                                     <span class="help-block">
@@ -125,7 +125,7 @@
                             <label for="referral_number" class="col-md-4 control-label">Referral By Phone Number </label>
 
                             <div class="col-md-6">
-                                <input id="referral_number" type="text" class="form-control" name="referral_number" value="{{ old('referral_number') }}">
+                                <input id="referral_number" maxlength="10" type="text" class="form-control" name="referral_number" value="{{ old('referral_number') }}">
 
                                 @if ($errors->has('referral_number'))
                                     <span class="help-block">
