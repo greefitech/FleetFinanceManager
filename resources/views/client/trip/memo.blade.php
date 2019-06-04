@@ -634,7 +634,7 @@
                                         </tr>
                                         <tr>
                                             <th>Total Spent / மொத்த செலவு</th>
-                                            <td style="text-align: center;font-weight: bold;" id="TotalTotalSpentCalculationAmount"></td>
+                                            <td style="text-align: center;font-weight: bold;color: red;" id="TotalTotalSpentCalculationAmount"></td>
                                         </tr>
                                         <tr>
                                             <th>Total Income / மொத்த வரவு</th>
@@ -644,7 +644,6 @@
                                             <th>Balance / மீதி இருப்பு</th>
                                             <td style="text-align: center;font-weight: bold;" id="TotalBalanceCalculationAmount"></td>
                                         </tr>
-
                                     </thead>
                                 </table>
                             </div>

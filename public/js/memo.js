@@ -342,14 +342,14 @@ $(document).ready(function() {
     $('body').on('click','.RemoveEntryDataInput',function (e) {
         e.preventDefault();
         $(this).parent().parent().remove();
-        CalculateEntryCalculations();
+        CalculateEntryFullMasterFunctionCalculations();
     });
 
 
 
     $('body').on('keyup change','.unLoadingMamoolValue,.loadingMamoolValue,.ComissionValue,.BillAmountValue,.AdvanceAmountTotal,.DriverPadiPercentage,.CleanerPadiPercentage,.CleanerPadiAmountValue',function (e) {
         e.preventDefault();
-        CalculateEntryCalculations();
+        CalculateEntryFullMasterFunctionCalculations();
     });
 
     $('body').on('keyup change','.DriverPadiAmountValue',function (e) {
@@ -662,7 +662,7 @@ function CalculateUnloadingAmountTotal() {
         }
     });
     $('#UnloadingTotalAmount').html(UnloadingTotalAmount);
-    $('#TotalExportCalculationAmount').html(UnloadingTotalAmount);
+    $('#TotalImportCalculationAmount').html(UnloadingTotalAmount);
 }
 
 function CalculateloadingAmountTotal() {
@@ -673,7 +673,7 @@ function CalculateloadingAmountTotal() {
         }
     });
     $('#loadingTotalAmount').html(loadingTotalAmount);
-    $('#TotalImportCalculationAmount').html(loadingTotalAmount);
+    $('#TotalExportCalculationAmount').html(loadingTotalAmount);
 }
 
 function CalculateComissionAmountTotal() {
