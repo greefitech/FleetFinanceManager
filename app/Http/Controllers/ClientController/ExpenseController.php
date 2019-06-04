@@ -37,6 +37,12 @@ class ExpenseController extends Controller
             if ($Trip->vehicleId != request('vehicleId')) {
                 return back()->with('sorry', 'Vehicle Trip and Vehicle Not Matched !!')->withInput();
             }
+            $this->validate(request(),[
+                'date'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
+            ],[
+                'date.after_or_equal'=>'Check Date With Trip',
+                'date.before_or_equal'=>'Check Date With Trip',
+            ]);
         }
         try {
             $this->Expense::create([
@@ -84,6 +90,12 @@ class ExpenseController extends Controller
             if ($Trip->vehicleId != request('vehicleId')) {
                 return back()->with('sorry', 'Vehicle Trip and Vehicle Not Matched !!')->withInput();
             }
+            $this->validate(request(),[
+                'date'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
+            ],[
+                'date.after_or_equal'=>'Check Date With Trip',
+                'date.before_or_equal'=>'Check Date With Trip',
+            ]);
         }
         try {
             $this->Expense::findorfail($id)->update([

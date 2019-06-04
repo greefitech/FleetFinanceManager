@@ -36,11 +36,17 @@ class TripController extends Controller
      */
     public function save(){
         $this->validate(request(),[
-            'dateFrom'=>'required|date',
-            'dateTo'=>'nullable|date|after:dateFrom',
             'vehicleId'=>'required|exists:vehicles,id',
-            'startKm'=>'required|min:0',
-            'staff1'=>'nullable|min:0',
+            'dateFrom'=>'required|date',
+            'dateTo'=>'required|date|after_or_equal:dateFrom',
+            'advance'=>'nullable|numeric|min:0',
+            'startKm'=>'required|numeric|min:0',
+            'endKm'=>'required|numeric|min:'.(int)request('startKm'),
+            'staff1' => 'required|exists:staff,id',
+            'staff2' => 'nullable|exists:staff,id',
+            'staff3' => 'nullable|exists:staff,id',
+        ],[
+            'staff1.required'=>'Any One Staff Is needed.Select any one staff'
         ]);
         $tripCount= $this->Trip::where([['clientid', auth()->user()->id],['vehicleId', request('vehicleId')]])->count();
         try {
@@ -94,11 +100,11 @@ class TripController extends Controller
             'advance'=>'nullable|numeric|min:0',
             'startKm'=>'required|numeric|min:0',
             'endKm'=>'required|numeric|min:'.(int)request('startKm'),
-            'staff.0' => 'required|exists:staff,id',
-            'staff.1' => 'nullable|exists:staff,id',
-            'staff.2' => 'nullable|exists:staff,id',
+            'staff1' => 'required|exists:staff,id',
+            'staff2' => 'nullable|exists:staff,id',
+            'staff3' => 'nullable|exists:staff,id',
         ],[
-            'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
+            'staff1.required'=>'Any One Staff Is needed.Select any one staff'
         ]);
 
         try {
@@ -115,7 +121,6 @@ class TripController extends Controller
             $Trip->staff2 = request('staff2');
             $Trip->staff3 = request('staff3');
             $Trip->advance = request('advance');
-
             $Trip->save();
             return redirect(route('client.ViewTripListVehicleWise', request('vehicleId')))->with('success', ['Trip', 'Updated Successfully']);
         } catch (Exception $e) {

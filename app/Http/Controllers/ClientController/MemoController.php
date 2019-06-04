@@ -4,6 +4,7 @@ namespace App\Http\Controllers\ClientController;
 
 use App\Entry;
 use App\Expense;
+use App\RTOMaster;
 use App\Trip;
 use App\Vehicle;
 use Illuminate\Http\Request;
@@ -15,10 +16,12 @@ class MemoController extends Controller
      public function __construct(){
         $this->middleware('client');
         $this->Trip = new Trip;
+        $this->RTOMaster = new RTOMaster;
     }
 
     public function memo(){
-        return view('client.trip.memo');
+        $Data['RTOMasters'] = $this->RTOMaster::where([['clientid',auth()->user()->id]])->get();
+        return view('client.trip.memo',$Data);
     }
 
 
