@@ -98,7 +98,7 @@
                 <div class="small-box bg-green">
                     <div class="inner">
                         <p>Income </p>
-                        <h3 id="total_amount">{{ AdminVehicleCredits(auth()->user()->id)->sum('paid_amount') }}</h3>
+                        <h3 id="total_amount">{{ AdminVehicleCredits(auth()->user()->id)->sum('paid_amount') + AdminVehicleCreditPayment(auth()->user()->id)->sum('PaidAmount') }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
@@ -110,7 +110,7 @@
                 <div class="small-box bg-red">
                     <div class="inner">
                         <p>OutStanding </p>
-                        <h3>{{ AdminVehicleCredits(auth()->user()->id)->sum('total_amount') - AdminVehicleCredits(auth()->user()->id)->sum('paid_amount') }}</h3>
+                        <h3>{{ (AdminVehicleCredits(auth()->user()->id)->sum('total_amount') - AdminVehicleCredits(auth()->user()->id)->sum('paid_amount')) - AdminVehicleCreditPayment(auth()->user()->id)->sum('PaidAmount') }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>

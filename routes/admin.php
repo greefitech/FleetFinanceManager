@@ -15,8 +15,6 @@
 
 Route::get('/home', 'AdminControllers\DashBoardControllers@home')->name('home');
 
-Route::get('/getClientDetails', 'AdminControllers\DashBoardControllers@getClientDetails');
-
 Route::get('/dashboard/admin/list', 'AdminControllers\DashBoardControllers@TotalAdminWise')->name('DashboardAdminList');
 
 Route::get('/dashboard/admin/{id}/client-list', 'AdminControllers\DashBoardControllers@AdminClientWise')->name('AdminClientWise');
@@ -77,10 +75,11 @@ Route::post('/Clients/addVehicleCredit', 'AdminControllers\VehicleCreditControll
 //Vehicle Renewal
 Route::get('/VehicleRenewal', 'AdminControllers\ClientRenewalControllers@AddVehicleRenewal');
 
-//settlement
-Route::get('/Settlement', 'AdminControllers\SettlementController@Settlement')->name('Settlement');
-Route::get('/AddSettlement', 'AdminControllers\SettlementController@AddSettlement')->name('AddSettlement');
-Route::POSt('/SaveSettlement', 'AdminControllers\SettlementController@SaveSettlement')->name('SaveSettlement');
+//VehicleCreditPayment
+Route::get('/Vehicle-Credit-Payment/View', 'AdminControllers\VehicleCreditPaymentController@ViewVehicleCreditPayment')->name('ViewVehicleCreditPayment');
+Route::get('/Vehicle-Credit-Payment/Add', 'AdminControllers\VehicleCreditPaymentController@AddVehicleCreditPayment')->name('AddVehicleCreditPayment');
+Route::POSt('Vehicle-Credit-Payment/Save', 'AdminControllers\VehicleCreditPaymentController@SaveVehicleCreditPayment')->name('SaveVehicleCreditPayment');
+Route::get('/Client/Details', 'AdminControllers\VehicleCreditPaymentController@getClientDetails');
 
 //ADMIN ACCOUNT
 Route::get('/Viewadminaccount', 'AdminControllers\AdminController@Viewadminaccount')->name('ViewAdminAccount');

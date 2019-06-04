@@ -4,6 +4,7 @@
 /*Client Reference Name*/
 
 use App\Admin;
+use App\VehicleCreditPayment;
 use App\VehicleCredits;
 
 if (! function_exists('GetClientReferenceName')) {
@@ -34,7 +35,15 @@ if (! function_exists('TripSheet')) {
 /*Get Admin Vehicle Credit Payment*/
 if (! function_exists('AdminVehicleCredits')) {
     function AdminVehicleCredits($AdminID){
-        return VehicleCredits::where('created_by',$AdminID)->get();
+        return $Data['VehicleCredits'] = VehicleCredits::where('created_by',$AdminID)->get();
+    }
+}
+
+
+/*Get Admin Vehicle Credit Payment*/
+if (! function_exists('AdminVehicleCreditPayment')) {
+    function AdminVehicleCreditPayment($AdminID){
+        return VehicleCreditPayment::where('created_by',$AdminID)->get();
     }
 }
 
@@ -42,5 +51,11 @@ if (! function_exists('AdminVehicleCredits')) {
 if (! function_exists('VehicleCreditsClientWise')) {
     function VehicleCreditsClientWise($ClientId){
         return VehicleCredits::where('clientid',$ClientId)->get();
+    }
+}
+/*Vehicle Credit Payment Client Wise*/
+if (! function_exists('VehicleCreditPaymentClientWise')) {
+    function VehicleCreditPaymentClientWise($ClientId){
+        return VehicleCreditPayment::where('client_id',$ClientId)->get();
     }
 }
