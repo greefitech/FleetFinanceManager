@@ -7,13 +7,13 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Add Settlement</center>
+                        <center>View Vehicle Credit Payment</center>
                     </h4>
-                    <a href="{{ route('admin.AddSettlement') }}" class="btn btn-info pull-right">Add Settlement</a>
+                    <a href="{{ route('admin.AddVehicleCreditPayment') }}" class="btn btn-info pull-right">Add Vehicle Credit Payment</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty($Data['Settlement']))
+                        @if(!empty($VehicleCreditPayment))
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                 <tr>

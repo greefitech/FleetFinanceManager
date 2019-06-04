@@ -9,7 +9,7 @@ use App\Http\Controllers\Controller;
 class SettlementController extends Controller
 {
    public function Settlement(){
-       return view('admin.settlement.view');
+       return view('admin.VehicleCreditPayment.view');
    }
 
    public function AddSettlement(){
@@ -18,11 +18,11 @@ class SettlementController extends Controller
        }else{
            $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
        }
-       return view('admin.settlement.add',compact('Data'));
+       return view('admin.VehicleCreditPayment.add',$Data);
    }
 
     public function SaveSettlement(){
         return request()->all();
-//        return view('admin.settlement.add',compact('Data'));
+//        return view('admin.VehicleCreditPayment.add',compact('Data'));
     }
 }

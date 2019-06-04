@@ -31,8 +31,8 @@
                                             <td>{{ $Admin->name }}</td>
                                             <td>{{ (!empty($Admin->mobile))?$Admin->mobile:'-' }}</td>
                                             <td>{{ AdminVehicleCredits($Admin->id)->sum('total_amount') }}</td>
-                                            <td>{{ AdminVehicleCredits($Admin->id)->sum('paid_amount') }}</td>
-                                            <td>{{ AdminVehicleCredits($Admin->id)->sum('total_amount') - AdminVehicleCredits($Admin->id)->sum('paid_amount') }}</td>
+                                            <td>{{ AdminVehicleCredits($Admin->id)->sum('paid_amount') + AdminVehicleCreditPayment($Admin->id)->sum('PaidAmount') }}</td>
+                                            <td>{{ (AdminVehicleCredits($Admin->id)->sum('total_amount') - AdminVehicleCredits($Admin->id)->sum('paid_amount')) - AdminVehicleCreditPayment($Admin->id)->sum('PaidAmount') }}</td>
                                             <td>
                                                 <a href="{{ route('admin.AdminClientWise',$Admin->id) }}"><button type="button" class="btn btn-success">View</button></a>
                                             </td>

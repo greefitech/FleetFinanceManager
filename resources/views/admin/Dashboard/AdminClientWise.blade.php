@@ -8,7 +8,7 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>View Admin Wise</center>
+                        <center>View Client Wise</center>
                     </h4>
                     {{--                    <a href="{{ route('admin.adminAccountAdd') }}" class="btn btn-info pull-right">Add Admin</a>--}}
                 </div>
@@ -37,7 +37,7 @@
                                             <td>{{ $Clients->address }}</td>
                                             <td>{{ $Clients->vehicleCredit }}</td>
                                             <td>{{ VehicleCreditsClientWise($Clients->id)->sum('total_amount') }}</td>
-                                            <td>{{ VehicleCreditsClientWise($Clients->id)->sum('total_amount') - VehicleCreditsClientWise($Clients->id)->sum('paid_amount') }}</td>
+                                            <td>{{ (VehicleCreditsClientWise($Clients->id)->sum('total_amount') - VehicleCreditsClientWise($Clients->id)->sum('paid_amount')) - VehicleCreditPaymentClientWise($Clients->id)->sum('PaidAmount') }}</td>
                                             <td>
                                                 <a href=""><button type="button" class="btn btn-success">View</button></a>
                                             </td>
