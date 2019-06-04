@@ -14,7 +14,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!empty($ExpenseTypes))
-                            <table  class="table table-bordered table-striped">
+                            <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                 <tr>
                                     <th style="text-align:center">Expense Type</th>

@@ -1,5 +1,5 @@
 <header class="main-header">
-    <a href="{{ url('client/home') }}" class="logo">
+    <a href="{{ url('admin/home') }}" class="logo">
         <span class="logo-mini">{{ auth()->user()->name }}</span>
         <span class="logo-lg"> <img src="{{ url('/assets/img/greefi.jpg') }}" height="25px"> {{ auth()->user()->name }}</span>
     </a>
