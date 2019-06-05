@@ -8,7 +8,7 @@
             <div class="info-box">
                 <span class="info-box-icon bg-orange"><i class="ion ion-ios-gear-outline"></i></span>
                 <div class="info-box-content">
-                    <span class="info-box-text">No .of Vehicle Credit</span>
+                    <span class="info-box-text">Total Vehicle Credit</span>
                     <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Client->vehicleCredit }}</span></center></span>
                 </div>
             </div>
@@ -25,12 +25,9 @@
                     </h4>
                     <a href="{{ route('admin.ClientList') }}" class="btn btn-info pull-right">View Client List</a>
                 </div>
-
                 <div class="box-body">
-
-                    <form class="form-horizontal" action="{{route('admin.UpdateClientDeteils',$Client->id)}}" method="POST">
+                    <form class="form-horizontal" action="{{route('admin.UpdateClientDetails',$Client->id)}}" method="POST">
                         {{ csrf_field() }}
-
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -92,12 +89,10 @@
                             </div>
                             <br>
                             <div align="center">
-                                <button type="submit" class="btn btn-success btn-block">Update Client</button>
+                                <button type="submit" class="btn btn-success">Update Client</button>
                             </div>
                         </div>
-
                     </form>
-
                 </div>
             </div>
         </div>

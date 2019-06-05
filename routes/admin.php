@@ -48,12 +48,15 @@ Route::get('/documentType/{id}/delete', 'AdminControllers\DocumentTypeController
 
 // CLIENT
 Route::get('/ClientList', 'AdminControllers\ClientControllers@ClientList')->name('ClientList');
-Route::get('/Clients/VehicleList/{id}', 'AdminControllers\ClientControllers@VehicleLists');
-Route::get('/Clients/Vehicle/{id}/delete', 'AdminControllers\ClientControllers@deleteVehicle')->name('deleteVehicle');
-Route::get('/Clients/{id}/delete', 'AdminControllers\ClientControllers@deleteCustomer')->name('deleteCustomer');
+Route::get('/Clients/{id}/edit-client', 'AdminControllers\ClientControllers@EditClient')->name('EditClientList');
+Route::post('/Client/{id}/update-details', 'AdminControllers\ClientControllers@UpdateClientDetails')->name('UpdateClientDetails');
+//ClientVehicle
+Route::get('/Clients/{id}/VehicleList', 'AdminControllers\ClientControllers@VehicleLists')->name('VehicleListClientWise');
+Route::get('/Client/{id}/credit-details', 'AdminControllers\ClientControllers@ClientVehicleCreditDetails')->name('ClientVehicleCreditDetails');
 
-Route::get('/Clients/{id}/editClient', 'AdminControllers\ClientControllers@EditClient');
-Route::post('/Clients/{id}/UpdateClient', 'AdminControllers\ClientControllers@UpdateClientDeteils')->name('UpdateClientDeteils');
+
+
+
 
 
 // Vehicle Credit

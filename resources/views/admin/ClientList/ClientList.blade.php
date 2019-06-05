@@ -12,11 +12,6 @@
                 </div>
             </div>
         </div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-        </div>
-
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-4 col-sm-6 col-xs-12"></div>
     </div>
 
     <div class="row">
@@ -45,7 +40,7 @@
                                 </thead>
                                 <tbody>
                                     @foreach($Clients as $Client)
-                                        <tr class="c-table__row">
+                                        <tr>
                                             <td>{{$Client->name}}</td>
                                             <td>{{$Client->transportName}}</td>
                                             <td>{{$Client->mobile}}</td>
@@ -54,24 +49,9 @@
                                             <td>{{ $Client->vehicles->count() }}</td>
                                             <td>{{ GetClientReferenceName($Client->referral_number) }}</td>
                                             <td>
-
-{{--                                                <div class="input-group input-group-sm">--}}
-{{--                                                    <div class="input-group-btn">--}}
-{{--                                                        <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown" aria-expanded="false">Action--}}
-{{--                                                            <span class="fa fa-caret-down"></span></button>--}}
-{{--                                                        <ul class="dropdown-menu">--}}
-{{--                                                            <li><a href="">Entries</a></li>--}}
-{{--                                                            <li><a href="">Expense</a></li>--}}
-{{--                                                            <li><a href="">Halt</a></li>--}}
-{{--                                                            <li class="divider"></li>--}}
-{{--                                                            <li><a href="">Edit</a></li>--}}
-{{--                                                        </ul>--}}
-{{--                                                    </div>--}}
-{{--                                                </div>--}}
-
-                                                <a href="/admin/Clients/VehicleList/{{$Client->id}}"><button type="button" class="btn btn-success btn-sm">Vehicle List</button></a>
-                                                <a href="/admin/Clients/{{$Client->id}}/editClient"><button type="button" class="btn btn-primary btn-sm">Edit Client</button></a>
-                                                <a href=""><button type="button" class="btn btn-info btn-sm">Vehicle Credit</button></a>
+                                                <a href="{{ route('admin.VehicleListClientWise',$Client->id) }}"><button type="button" class="btn btn-success btn-sm">Vehicle List</button></a>
+                                                <a href="{{ route('admin.EditClientList',$Client->id) }}"><button type="button" class="btn btn-primary btn-sm">Edit Client</button></a>
+                                                <a href="{{ route('admin.ClientVehicleCreditDetails',$Client->id) }}"><button type="button" class="btn btn-info btn-sm">Vehicle Credit</button></a>
 {{--                                                <a href="#"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>--}}
                                             </td>
                                         </tr>
