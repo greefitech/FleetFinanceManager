@@ -56,23 +56,21 @@ Route::get('/Client/{id}/credit-details', 'AdminControllers\ClientControllers@Cl
 
 
 
-
-
-
 // Vehicle Credit
-Route::get('/VehicleCredit', 'AdminControllers\VehicleCreditControllers@VehicleCredit')->name('ViewVehicleCredit');
-Route::get('/EditVehicleCredit', 'AdminControllers\VehicleCreditControllers@EditVehicleCredit')->name('EditVehicleCredit');
-Route::post('/Clients/addVehicleCredit', 'AdminControllers\VehicleCreditControllers@addVehicleCredit')->name('addVehicleCredit');
+Route::get('/VehicleCredit', 'AdminControllers\VehicleCreditControllers@add')->name('AddVehicleCredit');
+Route::post('/vehicleCredit/add', 'AdminControllers\VehicleCreditControllers@SaveVehicleCredit')->name('SaveVehicleCredit');
 
 
 //Vehicle Renewal
 Route::get('/VehicleRenewal', 'AdminControllers\ClientRenewalControllers@AddVehicleRenewal');
 
 //VehicleCreditPayment
-Route::get('/Vehicle-Credit-Payment/View', 'AdminControllers\VehicleCreditPaymentController@ViewVehicleCreditPayment')->name('ViewVehicleCreditPayment');
-Route::get('/Vehicle-Credit-Payment/Add', 'AdminControllers\VehicleCreditPaymentController@AddVehicleCreditPayment')->name('AddVehicleCreditPayment');
+Route::get('/Vehicle-Credit-Payment/add', 'AdminControllers\VehicleCreditPaymentController@add')->name('AddVehicleCreditPayment');
 Route::POSt('Vehicle-Credit-Payment/Save', 'AdminControllers\VehicleCreditPaymentController@SaveVehicleCreditPayment')->name('SaveVehicleCreditPayment');
-Route::get('/Client/Details', 'AdminControllers\VehicleCreditPaymentController@getClientDetails');
+Route::get('/Client/client-payment-balance-details', 'AdminControllers\VehicleCreditPaymentController@getClientDetails');
+
+
+
 
 //ADMIN ACCOUNT
 Route::get('/Viewadminaccount', 'AdminControllers\AdminController@Viewadminaccount')->name('ViewAdminAccount');

@@ -12,6 +12,24 @@
                 </div>
             </div>
         </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Total Payment</span>
+                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Client->vehicleCredit }}</span></center></span>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4 col-sm-6 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-green"><i class="ion ion-ios-gear-outline"></i></span>
+                <div class="info-box-content">
+                    <span class="info-box-text">Balance Payment</span>
+                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ $Client->vehicleCredit }}</span></center></span>
+                </div>
+            </div>
+        </div>
     </div>
 
     <div class="row">

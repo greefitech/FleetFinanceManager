@@ -16,7 +16,7 @@ class CreateVehicleCreditPaymentsTable extends Migration
         Schema::create('vehicle_credit_payments', function (Blueprint $table) {
             $table->increments('id');
             $table->string('client_id');
-            $table->string('PaidAmount');
+            $table->string('PaidAmount')->nullable();
             $table->string('Discount')->nullable();
             $table->string('created_by');
             $table->timestamps();

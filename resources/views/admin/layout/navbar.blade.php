@@ -5,7 +5,7 @@
             <li><a href="{{ url('/admin/home') }}"><i class="fa fa-dashboard <?php echo $color[array_rand($color,1)] ?>"></i> <span>Dashboard</span></a></li>
             <li><a href="{{ url('/admin/ClientList') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Client List</span></a></li>
             <li><a href="{{ url('/admin/VehicleCredit') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Vehicle Credit</span></a></li>
-            <li><a href="{{ url('/admin/Vehicle-Credit-Payment/View') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Vehicle Credit Payment</span></a></li>
+            <li><a href="{{ url('/admin/Vehicle-Credit-Payment/add') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Vehicle Credit Payment</span></a></li>
             @if(auth()->user()->id == 1)
 
 
@@ -36,9 +36,6 @@
                         <li><a href="{{ url('/admin/Viewadminaccount') }}"><i class="fa fa-user-plus  <?php echo $color[array_rand($color,1)] ?>" aria-hidden="true"></i> <span>Add Admin</span></a></li>
                     </ul>
                 </li>
-
-
-
 
             @endif
 
