@@ -19,42 +19,32 @@ Route::get('/dashboard/admin/list', 'AdminControllers\DashBoardControllers@Total
 
 Route::get('/dashboard/admin/{id}/client-list', 'AdminControllers\DashBoardControllers@AdminClientWise')->name('AdminClientWise');
 
-
-
-// ENTRY LOAD TYPE
-Route::get('/loadType', 'AdminControllers\EntryLoadType@show');
-Route::get('/loadType/add', 'AdminControllers\EntryLoadType@add');
-Route::post('/loadType/add', 'AdminControllers\EntryLoadType@addLoadType')->name('addLoadType');
-Route::get('/loadType/{id}/edit', 'AdminControllers\EntryLoadType@editLoadType');
-Route::post('/loadType/{id}/update', 'AdminControllers\EntryLoadType@updateLoadType')->name('updateLoadType');
-Route::delete('/loadType/{id}/delete', 'AdminControllers\EntryLoadType@deleteLoadType')->name('deleteLoadType');
-
-
-
 // VEHICLE MODEL TYPE
-Route::get('/vehicleType', 'AdminControllers\vehicleTypeController@show');
-Route::get('/vehicleType/add', 'AdminControllers\vehicleTypeController@add')->name('VehicleType');
-Route::post('/vehicleType/add', 'AdminControllers\vehicleTypeController@addVehicleType')->name('addVehicleType');
-Route::get('/vehicleType/{id}/edit', 'AdminControllers\vehicleTypeController@editVehicleType')->name('vehicleTypeEdit');
-Route::post('/vehicleType/{id}/update', 'AdminControllers\vehicleTypeController@updateVehicleType')->name('updateVehicleType');
-Route::get('/vehicleType/{id}/delete', 'AdminControllers\vehicleTypeController@deleteVehicleType')->name('deleteVehicleType');
+Route::get('/vehicleType', 'AdminControllers\vehicleTypeController@view')->name('ViewVehicleType');
+Route::get('/vehicleType/add', 'AdminControllers\vehicleTypeController@add')->name('AddVehicleType');
+Route::post('/vehicleType/save', 'AdminControllers\vehicleTypeController@save')->name('SaveVehicleType');
+Route::get('/vehicleType/{id}/edit', 'AdminControllers\vehicleTypeController@edit')->name('vehicleTypeEdit');
+Route::post('/vehicleType/{id}/update', 'AdminControllers\vehicleTypeController@update')->name('UpdateVehicleType');
+Route::get('/vehicleType/{id}/delete', 'AdminControllers\vehicleTypeController@delete')->name('DeleteVehicleType');
 
 
 // EXPENSE TYPE
-Route::get('/expenseType', 'AdminControllers\ExpenseTypeController@show')->name('ExpenseType');
-Route::get('/expenseType/add', 'AdminControllers\ExpenseTypeController@add')->name('AddExpense');
-Route::post('/expenseType/add', 'AdminControllers\ExpenseTypeController@addExpenseType')->name('addExpenseType');
-Route::get('/expenseType/{id}/edit', 'AdminControllers\ExpenseTypeController@editExpenseType')->name('ExpenseTypeEdit');
-Route::post('/expenseType/{id}/update', 'AdminControllers\ExpenseTypeController@updateExpenseType')->name('updateExpenseType');
-Route::get('/expenseType/{id}/delete', 'AdminControllers\ExpenseTypeController@deleteExpenseType')->name('deleteExpenseType');
+Route::get('/expenseType', 'AdminControllers\ExpenseTypeController@view')->name('ViewExpenseType');
+Route::get('/expenseType/add', 'AdminControllers\ExpenseTypeController@add')->name('AddExpenseType');
+Route::post('/expenseType/add', 'AdminControllers\ExpenseTypeController@save')->name('SaveExpenseType');
+Route::get('/expenseType/{id}/edit', 'AdminControllers\ExpenseTypeController@edit')->name('EditExpenseType');
+Route::post('/expenseType/{id}/update', 'AdminControllers\ExpenseTypeController@update')->name('updateExpenseType');
+Route::get('/expenseType/{id}/delete', 'AdminControllers\ExpenseTypeController@delete')->name('deleteExpenseType');
 
 // DOCUMENT TYPE
-Route::get('/documentType', 'AdminControllers\DocumentTypeController@show')->name('view');
-Route::get('/documentType/add', 'AdminControllers\DocumentTypeController@add')->name('addDocument');
-Route::post('/documentType/add', 'AdminControllers\DocumentTypeController@addDocumentType')->name('addDocumentType');
-Route::get('/documentType/{id}/edit', 'AdminControllers\DocumentTypeController@editDocumentType')->name('editDocumentType');
-Route::post('/documentType/{id}/update', 'AdminControllers\DocumentTypeController@updateDocumentType')->name('updateDocumentType');
-Route::get('/documentType/{id}/delete', 'AdminControllers\DocumentTypeController@deleteDocumentType')->name('deleteDocumentType');
+Route::get('/documentType', 'AdminControllers\DocumentTypeController@view')->name('ViewDocumentType');
+Route::get('/documentType/add', 'AdminControllers\DocumentTypeController@add')->name('AddDocumentType');
+Route::post('/documentType/add', 'AdminControllers\DocumentTypeController@save')->name('SaveDocumentType');
+Route::get('/documentType/{id}/edit', 'AdminControllers\DocumentTypeController@edit')->name('EditDocumentType');
+Route::post('/documentType/{id}/update', 'AdminControllers\DocumentTypeController@update')->name('UpdateDocumentType');
+Route::get('/documentType/{id}/delete', 'AdminControllers\DocumentTypeController@delete')->name('DeleteDocumentType');
+
+
 
 // CLIENT
 Route::get('/ClientList', 'AdminControllers\ClientControllers@ClientList')->name('ClientList');

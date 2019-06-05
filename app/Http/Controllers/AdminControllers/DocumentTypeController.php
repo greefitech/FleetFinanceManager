@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminControllers;
 
+use App\Document;
 use App\DocumentType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,39 +13,45 @@ class DocumentTypeController extends Controller
         $this->middleware('admin');
     }
 
-    public function show(){
+    /*view document type*/
+    public function view(){
         $Data['DocumentTypes']=DocumentType::get()->all();
-        return view('admin.documentType.view',$Data);
+        return view('admin.master.documentType.view',$Data);
     }
 
+    /*add document type*/
     public function add(){
-        return view('admin.documentType.add');
+        return view('admin.master.documentType.add');
     }
 
-    public function addDocumentType(){
+    /*Save Document Type*/
+    public function save(){
         $this->validate(request(),[
             'documentType' => 'required|max:255',
         ]);
+
         try {
             DocumentType::create([
                 'documentType' => request('documentType'),
             ]);
-            return back()->with('success',['Document','Type Added Sucessfully!']);
+            return back()->with('success',['Document Type','Added Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function editDocumentType($id){
+    /*Edit Document Type*/
+    public function edit($id){
         try {
             $Data['DocumentTypes'] = DocumentType::findOrfail($id);
-            return view('admin.documentType.edit',$Data);
+            return view('admin.master.documentType.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function updateDocumentType($id){
+    /*Update Document type*/
+    public function update($id){
         $this->validate(request(),[
             'documentType' => 'required|max:255',
         ]);
@@ -52,17 +59,20 @@ class DocumentTypeController extends Controller
             $DocumentType = DocumentType::findOrfail($id);
             $DocumentType->documentType=request()->documentType;
             $DocumentType->save();
-            return back()->with('success',['Document','Type Updated Sucessfully!']);
+            return back()->with('success',['Document Type',' Updated Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-
-    public function deleteDocumentType($id){
+    /*Delete Document type*/
+    public function delete($id){
         try {
+            if(Document::where([['documentType',$id]])->count() > 0){
+                return back()->with('sorry','Some Client Has Used this document type!!');
+            }
             DocumentType::findOrfail($id)->delete();
-            return back()->with('success',['Document','Type Deleted Sucessfully!']);
+            return back()->with('success',['Document Type','Deleted Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }

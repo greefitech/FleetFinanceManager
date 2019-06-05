@@ -13,16 +13,16 @@ class ExpenseTypeController extends Controller
         $this->middleware('admin');
     }
 
-    public function show(){
+    public function view(){
         $Data['ExpenseTypes']=ExpenseType::get()->all();
-        return view('admin.expenseType.view',$Data);
+        return view('admin.master.expenseType.view',$Data);
     }
 
     public function add(){
-        return view('admin.expenseType.add');
+        return view('admin.master.expenseType.add');
     }
 
-    public function addExpenseType(){
+    public function save(){
         $this->validate(request(),[
             'expenseType' => 'required|max:255',
         ]);
@@ -30,43 +30,42 @@ class ExpenseTypeController extends Controller
             ExpenseType::create([
                 'expenseType' => request('expenseType'),
             ]);
-            return back()->with('success',['Expense','Type Added Sucessfully!']);
+            return back()->with('success',['Expense Type','Added Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function editExpenseType($id){
+    public function edit($id){
         try {
             $Data['ExpenseTypes'] = ExpenseType::findOrfail($id);
-            return view('admin.expenseType.edit',$Data);
+            return view('admin.master.expenseType.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function updateExpenseType($id){
+    public function update($id){
         $this->validate(request(),[
             'expenseType' => 'required|max:255',
         ]);
         try {
             $ExpenseType = ExpenseType::findOrfail($id);
-            $ExpenseType->expenseType=request()->expenseType;
+            $ExpenseType->expenseType=request('expenseType');
             $ExpenseType->save();
-            return back()->with('success',['Expense','Type Updated Sucessfully!']);
+            return back()->with('success',['Expense Type','Updated Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function deleteExpenseType($id){
-        $ExpenseCount=Expense::where([['expense_type',$id]])->count();
-        if($ExpenseCount>0){
-            return back()->with('danger',['Something went wrong!','Delete Customer Cause Some Data Loss! Contact Admin!']);
+    public function delete($id){
+        if(Expense::where([['expense_type',$id]])->count() >0 && $id>=17){
+            return back()->with('dorry','Expense Type already added by some client');
         }
         try {
             ExpenseType::findOrfail($id)->delete();
-            return back()->with('success',['Vehicle','Type Deleted Sucessfully!']);
+            return back()->with('success',['Expense Type','Deleted Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\AdminControllers;
 
+use App\Vehicle;
 use App\VehicleType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -12,60 +13,66 @@ class vehicleTypeController extends Controller
         $this->middleware('admin');
     }
 
-    public function show(){
+
+    public function view(){
         $Data['VehicleTypes']=VehicleType::get()->all();
-        return view('admin.vehicleType.view',compact('Data'));
+        return view('admin.master.vehicleType.view',$Data);
     }
 
 
     public function add(){
-        return view('admin.vehicleType.add');
+        return view('admin.master.vehicleType.add');
     }
 
 
-    public function addVehicleType(){
+    public function save(){
         $this->validate(request(),[
-            'vehicleType' => 'required|max:255',
+            'vehicleType' => 'required|unique:vehicle_types|max:255',
+            'wheel' => 'required',
         ]);
         try {
             VehicleType::create([
                 'vehicleType' => request('vehicleType'),
+                'wheel' => request('wheel'),
             ]);
-            return back()->with('success',['Vehicle','Added Sucessfully!']);
+            return back()->with('success',['Vehicle Type','Added Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-
-
-    public function editVehicleType($id){
+    public function edit($id){
         try {
             $Data['vehicleType'] = VehicleType::findOrfail($id);
-            return view('admin.vehicleType.edit',compact('Data'));
+            return view('admin.master.vehicleType.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function updateVehicleType($id){
+    public function update($id){
         $this->validate(request(),[
-            'vehicleType' => 'required|max:255',
+            'vehicleType' => 'required|max:255|unique:vehicle_types,vehicleType,'.$id,
+            'wheel' => 'required',
         ]);
         try {
             $VehicleType = VehicleType::findOrfail($id);
-            $VehicleType->vehicleType=request()->vehicleType;
+            $VehicleType->vehicleType=request('vehicleType');
+            $VehicleType->wheel=request('wheel');
             $VehicleType->save();
-            return back()->with('success',['Vehicle','Type Updated Sucessfully!']);
+            return back()->with('success',['Vehicle Type','Updated Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function deleteVehicleType($id){
+    public function delete($id){
+        if(Vehicle::where([['vehicleType',$id]])->count() >0){
+            return back()->with('sorry','Some Client Has Used this Vehicle Type!!');
+        }
         try {
             VehicleType::findOrfail($id)->delete();
-            return redirect('admin/vehicleType')->with('success','Vehicle Type Deleted Sucessfully!');
+            return redirect('admin/vehicleType')->with('success',['Vehicle Type','Deleted Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }

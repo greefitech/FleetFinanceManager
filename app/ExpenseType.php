@@ -18,4 +18,8 @@ class ExpenseType extends Model
     public function manager(){
         return $this->hasOne(Manager::class, 'id', 'managerid');
     }
+
+    public function client(){
+        return $this->hasOne(Client::class, 'id', 'clientid');
+    }
 }
