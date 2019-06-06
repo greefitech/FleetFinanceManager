@@ -17,6 +17,8 @@
 <script src="{{ url('/assets/js/datatable/jquery-ui.js') }}"></script>
 <script src="{{ url('/assets/js/validation.js') }}"></script>
 
+<script src="{{ asset('/assets/js/select2.min.js') }}"></script>
+
 <script src="//cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.0/jquery.validate.js" type="text/javascript"></script>
 
 <script src="{{ url('/js/entry.js') }}"></script>
@@ -28,6 +30,7 @@
         $('.DataTable').DataTable({
             "aaSorting": []
         });
+        $('.select2').select2();
     });
 </script>
 @yield('script')

@@ -103,7 +103,7 @@ $(document).ready(function() {
         var AccountsDataOption = GetAccountOptionData();
         var ExtraExpenseInput ='<tr>\n' +
             '    <td>\n' +
-            '        <select name="ExtraExpense[expense_type][]" class="form-control">\n'+
+            '        <select name="ExtraExpense[expense_type][]" class="form-control select2">\n'+
             '           <option value="">Select Expense</option>'+ExpenseTypeDataOptions+
             '        </select>\n' +
             '    </td>\n' +
@@ -133,6 +133,7 @@ $(document).ready(function() {
             '<td><i style="color: red;" class="fa fa-close RemoveExtraExpenseInput"></i></td>' +
             '</tr>';
         $('.ExtraExpenseTableData').append(ExtraExpenseInput);
+        $('.select2').select2();
     });
 
     /*
@@ -278,7 +279,7 @@ $(document).ready(function() {
             '        <input type="date" class="form-control" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">\n' +
             '    </td>\n' +
             '    <td>\n' +
-            '        <select name="EntryData[customerId][]" class="form-control" style="width:15em">\n' +
+            '        <select name="EntryData[customerId][]" class="form-control select2" style="width:15em">\n' +
             '            <option value="">Select Customer</option>'+CustomersDataOption+
             '        </select>\n' +
             '    </td>\n' +
@@ -337,6 +338,7 @@ $(document).ready(function() {
 
         $('.EntryTableData').append(EntryData);
         EntryI++;
+        $('.select2').select2();
     });
 
 

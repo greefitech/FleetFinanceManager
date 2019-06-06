@@ -46,7 +46,7 @@ if (! function_exists('GetCustomersOption')) {
     function GetCustomersOption(){
         $CustomersData='';
         foreach(auth()->user()->customers as $Customer){
-            $CustomersData = $CustomersData.'<option value="'.$Customer->id.'">'.$Customer->name.'</option>';
+            $CustomersData = $CustomersData.'<option value="'.$Customer->id.'">'.$Customer->name.' | '.$Customer->mobile.'</option>';
         }
         return $CustomersData;
     }

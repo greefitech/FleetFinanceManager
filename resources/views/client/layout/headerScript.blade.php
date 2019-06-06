@@ -20,4 +20,6 @@
     <script src="{{ url('/assets/js/datatable/dataTables.responsive.min.js') }}"></script>
     <script src="{{ url('/assets/js/datatable/dataTables.bootstrap.min.js') }}"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
+    <link href="{{ asset('/assets/css/select2.min.css') }}" rel="stylesheet" />
+
 </head>
