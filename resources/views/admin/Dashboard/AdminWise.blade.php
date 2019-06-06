@@ -31,8 +31,11 @@
                                             <td>{{ $Admin->name }}</td>
                                             <td>{{ (!empty($Admin->mobile))?$Admin->mobile:'-' }}</td>
                                             <td>{{ AdminVehicleCredits($Admin->id)->sum('total_amount') }}</td>
+
                                             <td>{{ AdminVehicleCredits($Admin->id)->sum('paid_amount') + AdminVehicleCreditPayment($Admin->id)->sum('PaidAmount') }}</td>
-                                            <td>{{ (AdminVehicleCredits($Admin->id)->sum('total_amount') - AdminVehicleCredits($Admin->id)->sum('paid_amount')) - AdminVehicleCreditPayment($Admin->id)->sum('PaidAmount') }}</td>
+                                            <td>{{ AdminVehicleCredits($Admin->id)->sum('total_amount') - (AdminVehicleCredits($Admin->id)->sum('paid_amount') + AdminVehicleCreditPayment($Admin->id)->sum('PaidAmount') + AdminVehicleCreditPayment($Admin->id)->sum('Discount')) }}</td>
+
+
                                             <td>
                                                 <a href="{{ route('admin.AdminClientWise',$Admin->id) }}"><button type="button" class="btn btn-success">View</button></a>
                                             </td>
@@ -48,21 +51,5 @@
             </div>
         </div>
     </div>
-
-@endsection
-
-@section('script')
-
-    <script>
-
-        $(document).ready(function() {
-            var total_amount = $('#total_amount').text();
-            var paid_amount = $('#paid_amount').text();
-            var sum = parseInt(total_amount) - parseInt(paid_amount);
-            $('#OutStanding').text(sum);
-        });
-
-
-    </script>
 
 @endsection

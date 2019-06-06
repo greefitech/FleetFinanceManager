@@ -37,7 +37,7 @@
                                             <td>{{ $Clients->address }}</td>
                                             <td>{{ $Clients->vehicleCredit }}</td>
                                             <td>{{ VehicleCreditsClientWise($Clients->id)->sum('total_amount') }}</td>
-                                            <td>{{ (VehicleCreditsClientWise($Clients->id)->sum('total_amount') - VehicleCreditsClientWise($Clients->id)->sum('paid_amount')) - VehicleCreditPaymentClientWise($Clients->id)->sum('PaidAmount') }}</td>
+                                            <td>{{ VehicleCreditsClientWise($Clients->id)->sum('total_amount') - (VehicleCreditsClientWise($Clients->id)->sum('paid_amount') + VehicleCreditPaymentClientWise($Clients->id)->sum('PaidAmount') + VehicleCreditPaymentClientWise($Clients->id)->sum('Discount')) }}</td>
                                             <td>
                                                 <a href=""><button type="button" class="btn btn-success">View</button></a>
                                             </td>
