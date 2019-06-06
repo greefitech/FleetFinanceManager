@@ -38,7 +38,7 @@ class ExpenseController extends Controller
                 return back()->with('sorry', 'Vehicle Trip and Vehicle Not Matched !!')->withInput();
             }
             $this->validate(request(),[
-                'date'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
+                'date'=>'required|date|after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo,
             ],[
                 'date.after_or_equal'=>'Check Date With Trip',
                 'date.before_or_equal'=>'Check Date With Trip',
@@ -91,7 +91,7 @@ class ExpenseController extends Controller
                 return back()->with('sorry', 'Vehicle Trip and Vehicle Not Matched !!')->withInput();
             }
             $this->validate(request(),[
-                'date'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
+                'date'=>'required|date|after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo,
             ],[
                 'date.after_or_equal'=>'Check Date With Trip',
                 'date.before_or_equal'=>'Check Date With Trip',

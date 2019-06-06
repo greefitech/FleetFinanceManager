@@ -64,13 +64,41 @@ class MemoController extends Controller
                 $EntryValidator['EntryData.commission_status.'.$EntryDataKey] = 'required';
                 $EntryValidator['EntryData.loading_mamool_status.'.$EntryDataKey] = 'required';
                 $EntryValidator['EntryData.unloading_mamool_status.'.$EntryDataKey] = 'required';
-//
+
                 $EntryValidator['EntryData.loadingMamool.'.$EntryDataKey] = 'nullable|min:0|numeric';
                 $EntryValidator['EntryData.unLoadingMamool.'.$EntryDataKey] = 'nullable|min:0|numeric';
             }
             $this->validate(request(), $EntryValidator);
         }
 
+        
+        /*
+         * Diesel validator
+         * */
+        if(!empty(request('DieselData'))){
+            $DieselValidator=[];
+            foreach(request('DieselData')['amount'] as $DieselDataKey=>$paall){
+                $DieselValidator['DieselData.account_id.'.$DieselDataKey] = 'required';
+                $DieselValidator['DieselData.date.'.$DieselDataKey] = 'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.request('dateTo');
+                $DieselValidator['DieselData.quantity.'.$DieselDataKey] = 'required|min:1|numeric|between:1,50000.99';
+                $DieselValidator['DieselData.amount.'.$DieselDataKey] = 'required|min:0|numeric';
+                $DieselValidator1['DieselData.amount.'.$DieselDataKey.'.required'] = 'The Diesel Amount Field is required';
+            }
+            $this->validate(request(), $DieselValidator,$DieselValidator1);
+        }
+
+         /*
+         * Extra Expense Validator
+         */
+        if(!empty(request('ExtraExpense'))){
+            $PCValidator=[];
+            foreach(request('ExtraExpense')['expense_type'] as $ExtraExpenseKey=>$EXt){
+                $PCValidator['ExtraExpense.expense_type.'.$ExtraExpenseKey] = 'required|exists:expense_types,id';
+                $PCValidator['ExtraExpense.account_id.'.$ExtraExpenseKey] = 'required';
+                $PCValidator['ExtraExpense.amount.'.$ExtraExpenseKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $PCValidator);
+        }
 
         /*
          * PC data validation validate location and amount all data are required
@@ -97,19 +125,6 @@ class MemoController extends Controller
         }
 
         /*
-         * Extra Expense Validator
-         */
-        if(!empty(request('ExtraExpense'))){
-            $PCValidator=[];
-            foreach(request('ExtraExpense')['expense_type'] as $ExtraExpenseKey=>$EXt){
-                $PCValidator['ExtraExpense.expense_type.'.$ExtraExpenseKey] = 'required|exists:expense_types,id';
-                $PCValidator['ExtraExpense.account_id.'.$ExtraExpenseKey] = 'required';
-                $PCValidator['ExtraExpense.amount.'.$ExtraExpenseKey] = 'required|min:0|numeric';
-            }
-            $this->validate(request(), $PCValidator);
-        }
-
-        /*
          * Paalam Toll validator
          * */
         if(!empty(request('PaalamToll'))){
@@ -120,22 +135,6 @@ class MemoController extends Controller
             }
             $this->validate(request(), $PCValidator);
         }
-
-        /*
-         * Diesel validator
-         * */
-        if(!empty(request('DieselData'))){
-            $DieselValidator=[];
-            foreach(request('DieselData')['amount'] as $DieselDataKey=>$paall){
-                $DieselValidator['DieselData.account_id.'.$DieselDataKey] = 'required';
-                $DieselValidator['DieselData.date.'.$DieselDataKey] = 'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.request('dateTo');
-                $DieselValidator['DieselData.quantity.'.$DieselDataKey] = 'required|min:1|numeric|between:1,50000.99';
-                $DieselValidator['DieselData.amount.'.$DieselDataKey] = 'required|min:0|numeric';
-                $DieselValidator1['DieselData.amount.'.$DieselDataKey.'.required'] = 'The Diesel Amount Field is required';
-            }
-            $this->validate(request(), $DieselValidator,$DieselValidator1);
-        }
-
 
 //        dd(request()->all());
         try {

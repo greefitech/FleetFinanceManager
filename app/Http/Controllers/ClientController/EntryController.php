@@ -24,7 +24,7 @@ class EntryController extends Controller
     public function save(){
         $Trip= $this->Trip::findOrfail(request('tripId'));
         $this->validate(request(),[
-            'dateFrom'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
+            'dateFrom'=>'required|date|after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo,
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'nullable|exists:customers,id',
             'customerMobile'=>'required_without:customerId',
@@ -117,7 +117,7 @@ class EntryController extends Controller
     public function update($id){
         $Trip= $this->Trip::findOrfail(request('tripId'));
         $this->validate(request(),[
-            'dateFrom'=>'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.$Trip->dateTo,
+            'dateFrom'=>'required|date|after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo,
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'nullable|exists:customers,id',
             'customerMobile'=>'required_without:customerId',

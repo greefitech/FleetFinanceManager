@@ -103,7 +103,8 @@ $(document).ready(function() {
         var AccountsDataOption = GetAccountOptionData();
         var ExtraExpenseInput ='<tr>\n' +
             '    <td>\n' +
-            '        <select name="ExtraExpense[expense_type][]" class="form-control">'+ExpenseTypeDataOptions+
+            '        <select name="ExtraExpense[expense_type][]" class="form-control">\n'+
+            '           <option value="">Select Expense</option>'+ExpenseTypeDataOptions+
             '        </select>\n' +
             '    </td>\n' +
             '    <td>\n' +
@@ -120,7 +121,7 @@ $(document).ready(function() {
             '   </td>\n' +
             '   <td>\n' +
             '        <select name="ExtraExpense[account_id][]" class="form-control">'+
-            '             <option value="1">Cash</option>'+AccountsDataOption+
+            '             <option value="1">Cash</option>\n'+AccountsDataOption+
             '        </select>\n' +
             '   </td>\n' +
             '   <td>\n' +

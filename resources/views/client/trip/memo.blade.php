@@ -475,6 +475,7 @@
                                                                 <tr>
                                                                     <td class="{{ $errors->has('ExtraExpense.expense_type.'.$ExpenseKey) ? ' has-error' : '' }}">
                                                                         <select name="ExtraExpense[expense_type][]" class="form-control">
+                                                                            <option value="">Select Expense</option>
                                                                             @foreach(GetExpenseTypes() as $ExpenseType)
                                                                                 <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id == old('ExtraExpense')['expense_type'][$ExpenseKey])?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
                                                                             @endforeach
