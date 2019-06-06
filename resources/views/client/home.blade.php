@@ -36,7 +36,7 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-4 col-xs-12">
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <p>Out Standing Amount</p>
@@ -49,7 +49,7 @@
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-4 col-xs-12">
             <!-- small box -->
             <div class="small-box bg-green" id="DashboardIncome">
                 <div class="inner">
@@ -63,7 +63,7 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-xs-6">
+        <div class="col-lg-4 col-xs-12">
             <div class="small-box bg-red" id="DashboardExpense">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Expense</p>
@@ -76,9 +76,9 @@
     </div>
 
     <div class="row">
-        <div class="col-sm-12">
-            <script src="https://canvasjs.com/assets/script/canvasjs.min.js"></script>
-            <div id="chartContainer" ></div>
+        <script src="//canvasjs.com/assets/script/canvasjs.min.js"></script>
+        <div class="col-sm-12 col-lg-12 col-xs-12">
+            <div id="chartContainer" style="height: 400px; width: 100%;"></div>
         </div>
     </div>
 
@@ -99,6 +99,7 @@
 
 
 @section('script')
+
 
     <script type="text/javascript">
         $(".dashboardDate").change(function() {
@@ -129,7 +130,13 @@
             axisY: {
                 title: "Amount",
                 valueFormatString: "0#",
-                tickColor: "#00000",
+                titleFontColor: "brown",
+                lineColor: "#4F81BC",
+                labelFontColor: "#4F81BC",
+                tickColor: "#4F81BC"
+            },
+            toolTip: {
+                shared: true
             },
 
             data: [{
