@@ -1,30 +1,18 @@
 @extends('client.layout.master')
 
 @section('content')
+
     <?php
     if($Trip->status == 1){
         $buttonName = 'Incomplete Trip';
         $button = 'danger';
         $status = 0;
     }else{
-        $buttonName = 'complete Trip';
+        $buttonName = 'Complete Trip';
         $status = 1;
         $button = 'success';
     }
-?>
-    <div class="row">
-        <div class="col-sm-4">
-            <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
-                <div class="col-sm-12">
-                    <form action="{{ route('client.UpdateTripStatus',$Trip->id) }}" method="POST">
-                        {{ csrf_field() }}
-                        <input type="hidden" name="status" value="{{ $status }}">
-                        <button class="btn btn-{{ $button }}" type="submit">{{ $buttonName }}</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+    ?>
 
 
     <div class="row">
@@ -34,7 +22,21 @@
                     <h4>
                         <center>Edit Trip</center>
                     </h4>
+
+                    <div class="row">
+                        <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
+                            <div class="col-sm-12">
+                                <form action="{{ route('client.UpdateTripStatus',$Trip->id) }}" method="POST">
+                                    {{ csrf_field() }}
+                                    <input type="hidden" name="status" value="{{ $status }}">
+                                    <button class="btn btn-{{ $button }} pull-right" type="submit">{{ $buttonName }}</button>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
+
                 <div class="box-body">
                     <form class="form-horizontal" method="post" action="{{ route('client.UpdateTrip',$Trip->id) }}">
                         {{ csrf_field() }}
@@ -144,6 +146,14 @@
                                         <div class="col-sm-12">
                                             <label>Advance</label>
                                             <input type="numbere" min="0" class="form-control" value="{{ $Trip->advance }}" placeholder="Enter Advance" name="advance">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('tripName') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Trip Name</label>
+                                            <input type="text" class="form-control" value="{{ $Trip->tripName }}" placeholder="Enter Trip Name" name="tripName">
                                         </div>
                                     </div>
                                 </div>

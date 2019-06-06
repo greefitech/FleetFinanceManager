@@ -103,6 +103,7 @@ class TripController extends Controller
             'staff1' => 'required|exists:staff,id',
             'staff2' => 'nullable|exists:staff,id',
             'staff3' => 'nullable|exists:staff,id',
+            'tripName' => 'required',
         ],[
             'staff1.required'=>'Any One Staff Is needed.Select any one staff'
         ]);
@@ -121,6 +122,7 @@ class TripController extends Controller
             $Trip->staff2 = request('staff2');
             $Trip->staff3 = request('staff3');
             $Trip->advance = request('advance');
+            $Trip->tripName = request('tripName');
             $Trip->save();
             return redirect(route('client.ViewTripListVehicleWise', request('vehicleId')))->with('success', ['Trip', 'Updated Successfully']);
         } catch (Exception $e) {

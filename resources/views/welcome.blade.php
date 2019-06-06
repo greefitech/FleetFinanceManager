@@ -5,6 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>MyVehicle</title>
+    <meta name="description" content="MyVehicle is One Stop Fleet Accounts Management Solution.To manage account for lorry.">
+    <meta name="keywords" content="myvehicle,greefi technology,fleet finance management,sankari lorry owners association,tiruchengode lorry owners association">
+    <meta name="author" content="Myvehicle INC">
     <link rel="stylesheet" media="screen" href="{{ url('design/css/bootstrap.css') }}"/>
     <link rel="apple-touch-icon" sizes="57x57" href="{{ url('design/fav/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ url('design/fav/apple-icon-60x60.png') }}">
@@ -70,15 +73,11 @@
             <a href="{{ url('/client/login') }}"><input type="submit" value="Owner" class="btn btn-lg" id="login-btn"></a>
             <a href="{{ url('/manager/login') }}"><input type="submit" value="Manager" class="btn  btn-lg" id="login-btn"></a>
 
-
-
             <p>&nbsp;Having any Trouble?</p>
             <p><a href="#"><span class="glyphicon glyphicon glyphicon-phone"></span>  + 91 90924 73334</a> &nbsp; <br class="visible-xs" />  &nbsp;
                 <a href="#"><span class="glyphicon glyphicon glyphicon-envelope"> </span> hello@myvehicle.biz</a></p>
         </div>
     </div>
-
-
     <a href="#about" class="down"><span class="glyphicon glyphicon glyphicon-menu-down"></span></a>
 
     <div class="overlay"></div>
