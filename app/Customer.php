@@ -69,7 +69,7 @@ class Customer extends Model
         $EntryCount=Entry::where([['customerId',$id]])->count();
         $IncomeCount=Income::where([['customerId',$id]])->count();
         if($EntryCount>0 ||$IncomeCount>0){
-            return back()->with('danger','Something went wrong! Delete Customer Cause Some Data Loss! Contact Admin!');
+            return back()->with('sorry','Something went wrong! Delete Customer Cause Some Data Loss! Contact Admin!');
         }
         try {
             Customer::findOrfail($id)->delete();
