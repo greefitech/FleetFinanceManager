@@ -75,6 +75,7 @@ Route::get('/rto-master/add', 'ClientController\RTOMasterController@add')->name(
 Route::post('/rto-master/save', 'ClientController\RTOMasterController@save')->name('SaveRTOMaster');
 Route::get('/rto-master/{id}/edit', 'ClientController\RTOMasterController@edit')->name('EditRTOMaster');
 Route::post('/rto-master/{id}/update', 'ClientController\RTOMasterController@update')->name('UpdateRTOMaster');
+Route::delete('/rto-master/{id}/delete', 'ClientController\RTOMasterController@delete')->name('DeleteRTOMaster');
 
 //TRIP
 Route::get('/trip/add', 'ClientController\TripController@add');

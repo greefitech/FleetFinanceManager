@@ -75,4 +75,13 @@ class RTOMasterController extends Controller
             return back()->with('danger','Something went wrong!');
         }
     }
+
+    public function delete($id){
+        try {
+            RTOMaster::findorfail($id)->delete();
+            return back()->with('success',['RTO Master','Deleted Successfully']);
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
 }

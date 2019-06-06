@@ -26,7 +26,7 @@
                                         <tr>
                                             <td>{{ $RTOMaster->place }}</td>
                                             <td>
-                                                <form action="" method="POST">
+                                                <form action="{{ route('client.DeleteRTOMaster',$RTOMaster->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <a href="{{ route('client.EditRTOMaster',$RTOMaster->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
