@@ -20,7 +20,7 @@
                                     <div class="form-group{{ $errors->has('tripId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Trip</label>
-                                            <select name="tripId" class="form-control"  id="entry-trip">
+                                            <select name="tripId" class="form-control select2"  id="entry-trip">
                                                 <option value="">Select Trip</option>
                                                 @foreach(Auth::user()->NotCompletedTrips as $Trip)
                                                     <option value="{{ $Trip->id }}" {{ ($Trip->id == $Halt->tripId)?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} - {{ $Trip->tripName }} - {{ $Trip->dateFrom }}</option>
@@ -45,7 +45,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select name="vehicleId" class="form-control" id="entry-vehicle">
+                                            <select name="vehicleId" class="form-control select2" id="entry-vehicle">
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id==$Halt->vehicleId)?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>

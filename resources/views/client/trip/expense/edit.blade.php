@@ -19,10 +19,10 @@
                                     <div class="form-group{{ $errors->has('tripId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Trip</label>
-                                            <select name="tripId" class="form-control"  id="entry-trip">
+                                            <select name="tripId" class="form-control select2"  id="entry-trip">
                                                 <option value="">Select Trip</option>
                                                 @foreach(Auth::user()->NotCompletedTrips as $Trip)
-                                                    <option value="{{ $Trip->id }}" {{ ($Trip->id == $Expense->tripId)?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} - {{ $Trip->tripName }} - {{ $Trip->dateFrom }}</option>
+                                                    <option value="{{ $Trip->id }}" {{ ($Trip->id == $Expense->tripId)?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} | {{ $Trip->tripName }} | {{ date("d-m-Y", strtotime($Trip->dateFrom)) }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -42,7 +42,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select name="vehicleId" class="form-control LastExpense" id="entry-vehicle">
+                                            <select name="vehicleId" class="form-control LastExpense select2" id="entry-vehicle">
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id==$Expense->vehicleId)?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
@@ -59,7 +59,7 @@
                                     <div class="form-group{{ $errors->has('expense_type') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Expense</label>
-                                            <select name="expense_type" class="form-control expense-type LastExpense" id="entry-type">
+                                            <select name="expense_type" class="form-control expense-type LastExpense select2" id="entry-type">
                                                 <option value="">Select Expense Type</option>
                                                 @foreach($ExpenseTypes as $ExpenseType)
                                                     <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id == $Expense->expense_type)?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
@@ -75,7 +75,7 @@
                                             <select name="staffId" class="form-control" id="expense-staff">
                                                 <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id == $Expense->staffId) ? 'selected':'' }}>{{ $staff->name }}</option>
+                                                    <option value="{{ $staff->id }}" {{ ($staff->id == $Expense->staffId) ? 'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

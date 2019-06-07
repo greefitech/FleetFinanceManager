@@ -36,7 +36,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select class="form-control" name="vehicleId">
+                                            <select class="form-control select2" name="vehicleId">
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
@@ -78,7 +78,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Staff 1</label>
-                                            <select class="form-control" name="staff1">
+                                            <select class="form-control select2" name="staff1">
                                                  <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
                                                     <option value="{{ $staff->id }}" {{ ($staff->id==old('staff1'))?'selected':'' }}>{{ $staff->name }}</option>
@@ -91,7 +91,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Staff 2</label>
-                                            <select class="form-control" name="staff2">
+                                            <select class="form-control select2" name="staff2">
                                                  <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
                                                     <option value="{{ $staff->id }}" {{ ($staff->id==old('staff1'))?'selected':'' }}>{{ $staff->name }}</option>
@@ -104,7 +104,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Staff 3</label>
-                                            <select class="form-control" name="staff3">
+                                            <select class="form-control select2" name="staff3">
                                                  <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
                                                     <option value="{{ $staff->id }}" {{ ($staff->id==old('staff1'))?'selected':'' }}>{{ $staff->name }}</option>
