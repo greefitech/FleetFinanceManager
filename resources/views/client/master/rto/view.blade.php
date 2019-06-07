@@ -14,7 +14,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!$RTOMasters->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
                                         <th>Place</th>

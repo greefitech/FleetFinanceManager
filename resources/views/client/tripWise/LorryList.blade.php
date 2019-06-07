@@ -29,7 +29,7 @@
                                             <td>{{ $Vehicle->ownerName }}</td>
                                             <td>{{ $Vehicle->vehicleNumber }}</td>
                                             <td>{{ $Vehicle->vehicleName }}</td>
-                                            <td>-----</td>
+                                            <th style="color: green;">{{ auth()->user()->getVehicleTotalProfitAmount($Vehicle->id) }}</th>
                                             <td>
                                                 <a href="{{ route('client.ViewTripListVehicleWise',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Trips</a>
                                             </td>

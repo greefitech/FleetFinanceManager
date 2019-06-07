@@ -14,7 +14,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!auth()->user()->staffs->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -34,7 +34,7 @@
                                             <td>{{ $Staff->address }}</td>
                                             <td>{{ $Staff->type }}</td>
                                             <td>{{ $Staff->licenceNumber }}</td>
-                                            <td>@if(DateDifference($Staff->licenceRenewal) <10)<span style="color: red;">{{ DateDifference($Staff->licenceRenewal) }}</span> @else {{ DateDifference($Staff->licenceRenewal) }} @endif</td>
+                                            <th>@if(DateDifference($Staff->licenceRenewal) < 10)<span style="color: red;">{{ DateDifference($Staff->licenceRenewal) }}</span> @else {{ DateDifference($Staff->licenceRenewal) }} @endif</th>
                                             <td>
                                                 <form action="{{ route('client.DeleteStaff',$Staff->id) }}" method="POST">
                                                     {{ csrf_field() }}

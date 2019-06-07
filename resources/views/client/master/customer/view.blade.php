@@ -14,7 +14,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!auth()->user()->customers->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -37,7 +37,6 @@
                                                 <form action="{{ route('client.DeleteCustomer',$Customer->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="#" class="btn"><i class="fa fa-eye text-aqua"></i></a>
                                                     <a href="{{ route('client.EditCustomer',$Customer->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>

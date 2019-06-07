@@ -30,7 +30,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!auth()->user()->vehicles->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
                                         <th>Owner Name</th>
