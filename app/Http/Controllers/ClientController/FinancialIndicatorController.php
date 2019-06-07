@@ -53,6 +53,12 @@ class FinancialIndicatorController extends Controller
         }
     }
 
+    public function view($FinancialId){
+        $Data['FinancialIndicator'] = FinancialIncdicator::findorfail($FinancialId);
+        $Data['Vehicle'] = Vehicle::findorfail($Data['FinancialIndicator']->vehicleId);
+        return view('client.master.vehicle.financial-indicator.view',$Data);
+    }
+
     public function edit($FinancialId){
         $Data['FinancialIndicator'] = FinancialIncdicator::findorfail($FinancialId);
         $Data['Vehicle'] = Vehicle::findorfail($Data['FinancialIndicator']->vehicleId);

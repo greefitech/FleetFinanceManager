@@ -50,8 +50,10 @@ Route::delete('/document/{documentid}/delete', 'ClientController\DocumentControl
 //Financial Indicator
 Route::get('/financial-indicator/{vehicleid}/add', 'ClientController\FinancialIndicatorController@add')->name('AddFinancialIndicators');
 Route::post('/financial-indicator/{vehicleid}/save', 'ClientController\FinancialIndicatorController@save')->name('SaveFinancialIndicators');
+Route::get('/financial-indicator/{indicatorid}/view', 'ClientController\FinancialIndicatorController@view')->name('ViewFinancialIndicators');
 Route::get('/financial-indicator/{indicatorid}/edit', 'ClientController\FinancialIndicatorController@edit')->name('EditFinancialIndicators');
 Route::post('/financial-indicator/{vehicleid}/{indicatorid}/update', 'ClientController\FinancialIndicatorController@update')->name('UpdateFinancialIndicators');
+
 
 //Account
 Route::get('/accounts', 'ClientController\AccountController@view')->name('ViewAccounts');

@@ -82,6 +82,10 @@
         </div>
     </div>
 
+
+
+
+
     <?php
     $income = array();
     $Expense = array();
@@ -99,8 +103,6 @@
 
 
 @section('script')
-
-
     <script type="text/javascript">
         $(".dashboardDate").change(function() {
             var month =$('#month').val();

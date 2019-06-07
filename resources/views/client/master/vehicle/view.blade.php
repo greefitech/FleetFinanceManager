@@ -52,7 +52,7 @@
 {{--                                                    {{ csrf_field() }}--}}
 {{--                                                    <input type="hidden" name="_method" value="DELETE">--}}
                                                     @if(!empty($Vehicle->FinancialIndicator))
-                                                        <a href="{{ route('client.EditFinancialIndicators',$Vehicle->FinancialIndicator->id) }}" class="btn"><i class="fa fa-truck text-aqua"></i></a>
+                                                        <a href="{{ route('client.ViewFinancialIndicators',$Vehicle->FinancialIndicator->id) }}" class="btn"><i class="fa fa-truck text-aqua"></i></a>
                                                     @else
                                                         <a href="{{ route('client.AddFinancialIndicators',$Vehicle->id) }}" class="btn"><i class="fa fa-truck text-aqua"></i></a>
                                                     @endif
