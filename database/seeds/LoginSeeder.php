@@ -51,16 +51,16 @@ class LoginSeeder extends Seeder
         DB::table('document_types')->insert($documentTypes);
 
         $vehicleTypes = [
-            ['vehicleType' => 'Open Body - 10 W','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Open Body - 12 W','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Open Body - 14 W','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Pickup Truck','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Reefer Truck','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Trailer - 6 W','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Trailer - 10 W','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Trailer - 12 W','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Trailer - 14 W','created_at'=>now(),'updated_at'=>now()],
-            ['vehicleType' => 'Trailer - 22 W','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Open Body - 10 W','wheel'=>'10','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Open Body - 12 W','wheel'=>'12','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Open Body - 14 W','wheel'=>'14','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Pickup Truck','wheel'=>'6','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Reefer Truck','wheel'=>'6','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Trailer - 6 W','wheel'=>'6','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Trailer - 10 W','wheel'=>'10','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Trailer - 12 W','wheel'=>'12','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Trailer - 14 W','wheel'=>'14','created_at'=>now(),'updated_at'=>now()],
+            ['vehicleType' => 'Trailer - 22 W','wheel'=>'22','created_at'=>now(),'updated_at'=>now()],
         ];
         DB::table('vehicle_types')->insert($vehicleTypes);
 
@@ -111,7 +111,7 @@ class LoginSeeder extends Seeder
             ['expenseType' => 'Grease','created_at'=>now(),'updated_at'=>now()],
             ['expenseType' => 'டயர்','created_at'=>now(),'updated_at'=>now()],
             ['expenseType' => 'ஆயில்','created_at'=>now(),'updated_at'=>now()],
-            ['expenseType' => 'Other Expenses(1)','created_at'=>now(),'updated_at'=>now()],
+            ['expenseType' => 'இதர செலவு (Expense Outer Trip)','created_at'=>now(),'updated_at'=>now()],
         ];
         DB::table('expense_types')->insert($expenseTypes);
     }
