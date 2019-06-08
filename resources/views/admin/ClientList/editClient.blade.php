@@ -87,6 +87,27 @@
                                     </div>
                                 </div>
                             </div>
+                            @if(auth()->user()->id == 1)
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
+                                            <div class="col-sm-12">
+                                                <label>New Password</label>
+                                                <input type="password" class="form-control" placeholder="Enter New Password" name="password">
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="col-sm-6">
+                                        <div class="form-group{{ $errors->has('password_confirmation') ? ' has-error' : '' }}">
+                                            <div class="col-sm-12">
+                                                <label>Confirm Password</label>
+                                                <input type="password" class="form-control" placeholder="Enter Confirm Password" name="password_confirmation">
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
                             <br>
                             <div align="center">
                                 <button type="submit" class="btn btn-success">Update Client</button>

@@ -7,6 +7,7 @@ use App\Vehicle;
 use App\VehicleCredits;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Hash;
 
 class ClientControllers extends Controller
 {
@@ -60,6 +61,7 @@ class ClientControllers extends Controller
             'transportName' => 'required',
             'mobile' => 'required|min:10|max:10|unique:clients,mobile,'.$id,
             'address' => 'required|max:255',
+            'password' => 'nullable|min:6|confirmed',
         ]);
         try {
             $Client=Client::findorfail($id);
@@ -68,6 +70,9 @@ class ClientControllers extends Controller
             $Client->mobile=request()->mobile;
             $Client->address=request()->address;
             $Client->memosheet=request('memosheet');
+            if(!empty(request('password'))){
+                $Client->password = bcrypt(request('password'));
+            }
             $Client->save();
             return back()->with('success',['Client','Updated Successfully!']);
         }catch (\Exception $e){
