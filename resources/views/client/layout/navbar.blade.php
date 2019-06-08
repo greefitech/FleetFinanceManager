@@ -80,7 +80,7 @@
                     </span>
                 </a>
                 <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{ url('/client/customers') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Customers</span></a></li>
+                    <li><a href="{{ url('/client/report/expense-report') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Report</span></a></li>
                 </ul>
             </li>
 
