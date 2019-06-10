@@ -61,12 +61,12 @@ Route::group(['prefix' => 'client'], function () {
 
 Route::group(['prefix' => 'manager'], function () {
     Route::get('/', 'ManagerAuth\LoginController@showLoginForm')->name('login');
-  Route::get('/login', 'ManagerAuth\LoginController@showLoginForm')->name('login');
-  Route::post('/login', 'ManagerAuth\LoginController@login');
-  Route::post('/logout', 'ManagerAuth\LoginController@logout')->name('logout');
-  Route::post('/password/email', 'ManagerAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
-  Route::post('/password/reset', 'ManagerAuth\ResetPasswordController@reset')->name('password.email');
-  Route::get('/password/reset', 'ManagerAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
-  Route::get('/password/reset/{token}', 'ManagerAuth\ResetPasswordController@showResetForm');
+    Route::get('/login', 'ManagerAuth\LoginController@showLoginForm')->name('login');
+    Route::post('/login', 'ManagerAuth\LoginController@login');
+    Route::post('/logout', 'ManagerAuth\LoginController@logout')->name('logout');
+    Route::post('/password/email', 'ManagerAuth\ForgotPasswordController@sendResetLinkEmail')->name('password.request');
+    Route::post('/password/reset', 'ManagerAuth\ResetPasswordController@reset')->name('password.email');
+    Route::get('/password/reset', 'ManagerAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
+    Route::get('/password/reset/{token}', 'ManagerAuth\ResetPasswordController@showResetForm');
 });
 

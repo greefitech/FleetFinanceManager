@@ -180,9 +180,11 @@ Route::post('/manager/{id}/update', 'ClientController\ManagerController@update')
 
 
 
-
-
 //Report
 Route::get('/report/expense-report', 'ClientController\ReportController@ExpenseReport')->name('ExpenseReport');
 Route::post('/report/expense-report/download', 'ClientController\ReportController@DownloadExpenseReport')->name('DownloadExpenseReport');
 
+
+//tyre
+Route::get('/master/tyres', 'ClientController\TyreController@view')->name('ViewTyres');
+Route::get('/master/tyre/add', 'ClientController\TyreController@add')->name('AddTyre');
