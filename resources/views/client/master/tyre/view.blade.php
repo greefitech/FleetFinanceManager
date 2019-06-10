@@ -39,7 +39,7 @@
                                                 <form action="" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="#" class="btn"><i class="fa fa-eye text-aqua"></i></a>
+                                                    <a href="{{ route('client.ViewTyreStatus',$Tyre->id) }}" class="btn"><i class="fa fa-eye text-aqua"></i></a>
                                                     <a href="{{ route('client.EditTyre',$Tyre->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>

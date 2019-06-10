@@ -54,6 +54,9 @@ class TyreController extends Controller
             'tyre_number'=>'required',
             'manufacture_company'=>'required',
         ]);
+
+
+
         try {
             $Tyre = Tyre::findorfail($id);
             $Tyre->tyre_number = request('tyre_number');
@@ -65,8 +68,22 @@ class TyreController extends Controller
             $Tyre->purchased_from = request('purchased_from');
             $Tyre->tyre_status = request('tyre_status');
             $Tyre->clientid=auth()->user()->id;
+//            if($Tyre->isDirty('tyre_number')){
+//                return 'tyre number changes! insert data to tyre log';
+//            }
             $Tyre->save();
+
+
             return redirect(route('client.ViewTyres'))->with('success',['Tyre','Updated Successfully!']);
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
+
+    public function ViewTyreStatus($id){
+        try {
+            $Data['Tyre'] = Tyre::findorfail($id);
+            return view('client.master.tyre.TyreStatus',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
