@@ -23,7 +23,7 @@
 
 
             <li class="treeview">
-                <a>
+                <a href="#">
                     <i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Trip</span>
                     <span class="pull-right-container">
