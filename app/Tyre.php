@@ -19,4 +19,9 @@ class Tyre extends Model
     use SoftDeletes;
     protected $dates = ['deleted_at'];
     protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function vehicle(){
+        return $this->hasOne(Vehicle::class,'id', 'vehicleId');
+    }
+
 }

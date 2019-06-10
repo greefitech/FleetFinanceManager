@@ -188,3 +188,6 @@ Route::post('/report/expense-report/download', 'ClientController\ReportControlle
 //tyre
 Route::get('/master/tyres', 'ClientController\TyreController@view')->name('ViewTyres');
 Route::get('/master/tyre/add', 'ClientController\TyreController@add')->name('AddTyre');
+Route::post('/master/tyre/add', 'ClientController\TyreController@save')->name('SaveTyre');
+Route::get('/master/tyre/{id}/edit', 'ClientController\TyreController@edit')->name('EditTyre');
+Route::post('/master/tyre/{id}/update', 'ClientController\TyreController@update')->name('UpdateTyre');
