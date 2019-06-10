@@ -45,7 +45,7 @@
                                     <div class="form-group{{ $errors->has('condition') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Condition</label>
-                                            <textarea name="condition" class="form-control">{{ old('condition') }}</textarea>
+                                            <textarea name="condition" class="form-control" placeholder="Tyre Condition">{{ old('condition') }}</textarea>
                                         </div>
                                     </div>
                                 </div>
@@ -73,7 +73,7 @@
                                     <div class="form-group{{ $errors->has('purchased_from') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Purchased From</label>
-                                            <textarea name="purchased_from" class="form-control">{{ old('purchased_from') }}</textarea>
+                                            <textarea name="purchased_from" class="form-control" placeholder="purchased company">{{ old('purchased_from') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

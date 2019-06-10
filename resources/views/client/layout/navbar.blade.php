@@ -18,7 +18,7 @@
                     <li><a href="{{ url('/client/accounts') }}"><i class="fa fa-university <?php echo $color[array_rand($color,1)] ?>"></i> <span>Accounts</span></a></li>
                     <li><a href="{{ url('/client/expense-types') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Type</span></a></li>
                     <li><a href="{{ url('/client/rto-masters') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>RTO Master</span></a></li>
-                    <li><a href="{{ url('/client/master/tyres') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Tyre</span></a></li>
+                    <li><a href="{{ url('/client/master/tyres') }}"><i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i> <span>Tyre</span></a></li>
                 </ul>
             </li>
 
