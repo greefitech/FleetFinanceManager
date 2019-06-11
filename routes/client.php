@@ -192,3 +192,8 @@ Route::post('/master/tyre/add', 'ClientController\TyreController@save')->name('S
 Route::get('/master/tyre/{id}/edit', 'ClientController\TyreController@edit')->name('EditTyre');
 Route::post('/master/tyre/{id}/update', 'ClientController\TyreController@update')->name('UpdateTyre');
 Route::get('/master/tyre/{id}/status', 'ClientController\TyreController@ViewTyreStatus')->name('ViewTyreStatus');
+
+
+//Assign tyre
+Route::get('/tyre/vehicle-list', 'ClientController\TyreController@ViewTyreVehicleList')->name('ViewTyreVehicleList');
+Route::get('/tyre/vehicle/{id}/assigned-list', 'ClientController\TyreController@ViewVehicleTyreAssignedList')->name('ViewVehicleTyreAssignedList');

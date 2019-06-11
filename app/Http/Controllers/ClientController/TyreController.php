@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ClientController;
 
 use App\Tyre;
+use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -87,5 +88,17 @@ class TyreController extends Controller
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
+    }
+
+
+    /*Vehicle tyre assignment list*/
+
+    public function ViewTyreVehicleList(){
+        return view('client.tyre.AssignTyre.LorryList');
+    }
+
+    public function ViewVehicleTyreAssignedList($VehicleID){
+        $Data['Vehicle'] = Vehicle::findorfail($VehicleID);
+        return view('client.tyre.AssignTyre.TyreAssignedList',$Data);
     }
 }
