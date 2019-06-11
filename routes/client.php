@@ -197,3 +197,4 @@ Route::get('/master/tyre/{id}/status', 'ClientController\TyreController@ViewTyre
 //Assign tyre
 Route::get('/tyre/vehicle-list', 'ClientController\TyreController@ViewTyreVehicleList')->name('ViewTyreVehicleList');
 Route::get('/tyre/vehicle/{id}/assigned-list', 'ClientController\TyreController@ViewVehicleTyreAssignedList')->name('ViewVehicleTyreAssignedList');
+Route::get('/tyre/vehicle/{id}/assign-tyre/add', 'ClientController\TyreController@AddAssignTyre')->name('AddAssignTyre');

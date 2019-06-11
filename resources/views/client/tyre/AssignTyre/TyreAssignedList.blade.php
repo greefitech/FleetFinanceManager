@@ -9,6 +9,7 @@
                     <h4>
                         <center>{{ $Vehicle->vehicleNumber }} Assigned Tyre List</center>
                     </h4>
+                    <a href="{{ route('client.AddAssignTyre',$Vehicle->id ) }}"><button type="button" class="btn btn-info btn-sm pull-right">Assign Vehicle Tyre</button></a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">

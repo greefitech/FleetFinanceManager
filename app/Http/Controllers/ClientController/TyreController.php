@@ -101,4 +101,9 @@ class TyreController extends Controller
         $Data['Vehicle'] = Vehicle::findorfail($VehicleID);
         return view('client.tyre.AssignTyre.TyreAssignedList',$Data);
     }
+
+    public function AddAssignTyre($VehicleID) {
+        $Data['Vehicle'] = Vehicle::findorfail($VehicleID);
+        return view('client.tyre.AssignTyre.AddAssignTyre',$Data);
+    }
 }

@@ -1,6 +1,7 @@
 <?php
 
 use App\ExpenseType;
+use App\Tyre;
 use Carbon\Carbon;
 
 if (! function_exists('DateDifference')) {
@@ -49,6 +50,12 @@ if (! function_exists('GetCustomersOption')) {
             $CustomersData = $CustomersData.'<option value="'.$Customer->id.'">'.$Customer->name.' | '.$Customer->mobile.'</option>';
         }
         return $CustomersData;
+    }
+}
+
+if (! function_exists('GetClientTyreList')) {
+    function GetClientTyreList(){
+        return $Tyre = Tyre::where('clientid',auth()->user()->id)->get();
     }
 }
 
