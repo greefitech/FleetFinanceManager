@@ -18,7 +18,6 @@
                     <li><a href="{{ url('/client/accounts') }}"><i class="fa fa-university <?php echo $color[array_rand($color,1)] ?>"></i> <span>Accounts</span></a></li>
                     <li><a href="{{ url('/client/expense-types') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Type</span></a></li>
                     <li><a href="{{ url('/client/rto-masters') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>RTO Master</span></a></li>
-                    <li><a href="{{ url('/client/master/tyres') }}"><i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i> <span>Tyre</span></a></li>
                 </ul>
             </li>
 
@@ -72,7 +71,19 @@
 
             <li><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-shopping-cart <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
 
-            <li><a href="{{ url('/client/tyre/vehicle-list') }}"><i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i> <span>Assign Tyre</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i>
+                    <span>Tyre</span>
+                    <span class="pull-right-container">
+                         <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ url('/client/master/tyres') }}"><i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i> <span>Tyre</span></a></li>
+                    <li><a href="{{ url('/client/tyre/vehicle-list') }}"><i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i> <span>Assign Tyre</span></a></li>
+                </ul>
+            </li>
 
             <li class="treeview">
                 <a href="#">
