@@ -30,7 +30,7 @@
                                             <td>{{ ucfirst($AssignTyre->position) }}</td>
                                             <td>{{ $AssignTyre->updated_at }}</td>
                                             <td>
-                                                <a href="" class="btn"><i class="fa fa-cog text-aqua"></i></a>
+                                                <a href="{{ route('client.AddTyreCurrentStatusVehicle',[$Vehicle->id,$AssignTyre->id]) }}" class="btn"><i class="fa fa-cog text-aqua"></i></a>
                                                 <a href="{{ route('client.EditVehicleAssignTyre',[$Vehicle->id,$AssignTyre->id]) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                             </td>
                                         </tr>

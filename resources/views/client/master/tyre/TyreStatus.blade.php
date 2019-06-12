@@ -30,14 +30,13 @@
                                     @foreach($TyreLogs as $TyreLog)
                                         <tr>
                                             <td>{{ $TyreLog->transaction }}</td>
-                                            <td>{{ $TyreLog->created_at }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($TyreLog->created_at)) }}</td>
                                             <td>{{ @$TyreLog->vehicle->vehicleNumber }}</td>
                                             <td>{{ ucfirst($TyreLog->position) }}</td>
                                             <td>{{ $TyreLog->current_depth }}</td>
                                             <td>{{ $TyreLog->km }}</td>
                                             <td>{{ @$TyreLog->manager->name }}</td>
                                             <td>{{ @$TyreLog->Staff->name }}</td>
-
                                         </tr>
                                     @endforeach
                                 </tbody>

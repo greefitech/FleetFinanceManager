@@ -163,29 +163,30 @@ class TyreController extends Controller
         }
     }
 
-    public function UpdateVehicleAssignTyre($VehicleID,$AssignedTyreId) {
-        $this->validate(request(),[
-            'position'=>'required',
+    public function UpdateVehicleAssignTyre($VehicleID,$AssignedTyreId)
+    {
+        $this->validate(request(), [
+            'position' => 'required',
         ]);
-        if(AssignTyre::where([['vehicleId',$VehicleID],['position',request('position')],['id','!=',$AssignedTyreId]])->first()){
-            return back()->with('sorry','Vehicle Tyre Is Already Assigned on Position '.ucfirst(request('position')))->withInput();
+        if (AssignTyre::where([['vehicleId', $VehicleID], ['position', request('position')], ['id', '!=', $AssignedTyreId]])->first()) {
+            return back()->with('sorry', 'Vehicle Tyre Is Already Assigned on Position ' . ucfirst(request('position')))->withInput();
         }
         try {
             $AssignTyre = AssignTyre::findorfail($AssignedTyreId);
             $AssighedData = AssignTyre::findorfail($AssignedTyreId);
             $AssignTyre->tyre_id = request('tyre_id');
             $AssignTyre->position = request('position');
-            if($AssignTyre->isDirty('position') && !$AssignTyre->isDirty('tyre_id')){
+            if ($AssignTyre->isDirty('position') && !$AssignTyre->isDirty('tyre_id')) {
                 TyreLog::create([
-                    'transaction'=>'Changed From '.AssignTyre::findorfail($AssignedTyreId)->position.' To '.request('position'),
-                    'vehicleId'=>$VehicleID,
-                    'tyre_id'=>request('tyre_id'),
-                    'position'=>request('position'),
-                    'km'=>request('km'),
-                    'current_depth'=>request('current_depth'),
-                    'note'=>request('note'),
-                    'staffId'=>request('staffId'),
-                    'clientid'=>auth()->user()->id,
+                    'transaction' => 'Changed From ' . AssignTyre::findorfail($AssignedTyreId)->position . ' To ' . request('position'),
+                    'vehicleId' => $VehicleID,
+                    'tyre_id' => request('tyre_id'),
+                    'position' => request('position'),
+                    'km' => request('km'),
+                    'current_depth' => request('current_depth'),
+                    'note' => request('note'),
+                    'staffId' => request('staffId'),
+                    'clientid' => auth()->user()->id,
                 ]);
                 $AssignTyre->vehicleId = $VehicleID;
                 $AssignTyre->position = request('position');
@@ -206,27 +207,57 @@ class TyreController extends Controller
                 $AssignTyre->tyre_id = NULL;
                 Tyre::findorfail($AssighedData->tyre_id)->update(['vehicleId' => NULL]);
             }
-            if($AssignTyre->isDirty('tyre_id')) {
+            if ($AssignTyre->isDirty('tyre_id')) {
                 if (request('tyre_id') != '') {
                     TyreLog::create([
-                        'transaction'=>'Inserted',
-                        'vehicleId'=>$VehicleID,
-                        'tyre_id'=>request('tyre_id'),
-                        'position'=>request('position'),
-                        'km'=>request('km'),
-                        'current_depth'=>request('current_depth'),
-                        'note'=>request('note'),
-                        'staffId'=>request('staffId'),
-                        'clientid'=>auth()->user()->id,
+                        'transaction' => 'Inserted',
+                        'vehicleId' => $VehicleID,
+                        'tyre_id' => request('tyre_id'),
+                        'position' => request('position'),
+                        'km' => request('km'),
+                        'current_depth' => request('current_depth'),
+                        'note' => request('note'),
+                        'staffId' => request('staffId'),
+                        'clientid' => auth()->user()->id,
                     ]);
                     Tyre::findorfail(request('tyre_id'))->update(['vehicleId' => $VehicleID]);
                 }
             }
 
             $AssignTyre->save();
-            return redirect(route('client.ViewVehicleTyreAssignedList',$VehicleID))->with('success',['Tyre','Updated Assigned Successfully!']);
-        }catch (Exception $e){
-            return back()->with('danger','Something went wrong!');
+            return redirect(route('client.ViewVehicleTyreAssignedList', $VehicleID))->with('success', ['Tyre', 'Updated Assigned Successfully!']);
+        } catch (Exception $e) {
+            return back()->with('danger', 'Something went wrong!');
+        }
+    }
+    public function AddTyreCurrentStatusVehicle($VehicleID,$AssignedTyreId){
+        $Data['Vehicle'] = Vehicle::findorfail($VehicleID);
+        $Data['AssignedTyre'] = AssignTyre::findorfail($AssignedTyreId);
+        return view('client.tyre.AssignTyre.AddTyreStatus',$Data);
+    }
+
+    public function SaveTyreCurrentStatusVehicle($VehicleID,$AssignedTyreId){
+        $this->validate(request(), [
+            'transaction' => 'required',
+        ]);
+        try{
+            $AssignedTyre = AssignTyre::findorfail($AssignedTyreId);
+            if(!empty($AssignedTyre->tyre_id) && !empty($AssignedTyre->position)){
+                TyreLog::create([
+                    'transaction' => request('transaction'),
+                    'vehicleId' => $VehicleID,
+                    'tyre_id' =>$AssignedTyre->tyre_id,
+                    'position' =>$AssignedTyre->position,
+                    'km' => request('km'),
+                    'current_depth' => request('current_depth'),
+                    'note' => request('note'),
+                    'staffId' => request('staffId'),
+                    'clientid' => auth()->user()->id,
+                ]);
+            }
+            return redirect(route('client.ViewVehicleTyreAssignedList', $VehicleID))->with('success', ['Tyre Status', 'Added Successfully!']);
+        } catch (Exception $e) {
+            return back()->with('danger', 'Something went wrong!');
         }
     }
 }
