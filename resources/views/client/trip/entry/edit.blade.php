@@ -257,10 +257,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div align="center">
-                                <button type="submit" class="btn btn-info">Update Entry</button>
-                            </div>
+
+                            @if($Entry->Trip->status !=1)
+                                <div align="center">
+                                    <button type="submit" class="btn btn-info">Update Entry</button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>
