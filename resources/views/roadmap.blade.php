@@ -15,6 +15,13 @@
 
         gtag('config', 'UA-92345002-2');
     </script>
+    <script>
+        window.__pushpro = {
+            site_uuid: "1f43eb66-a2bf-4959-bc43-0950b95afe25",
+        }
+    </script>
+    <script src="https://storage.googleapis.com/push-pro-java-scripts/pushpro-lib.js"></script>
+
 
     <style>
         #track-your-transfer {

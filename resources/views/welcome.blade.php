@@ -8,6 +8,12 @@
     <meta name="description" content="MyVehicle is One Stop Fleet Accounts Management Solution.To manage account for lorry.">
     <meta name="keywords" content="myvehicle,greefi technology,fleet finance management,sankari lorry owners association,tiruchengode lorry owners association">
     <meta name="author" content="Myvehicle INC">
+    <script>
+        window.__pushpro = {
+            site_uuid: "1f43eb66-a2bf-4959-bc43-0950b95afe25",
+        }
+    </script>
+    <script src="https://storage.googleapis.com/push-pro-java-scripts/pushpro-lib.js"></script>
     <link rel="stylesheet" media="screen" href="{{ url('design/css/bootstrap.css') }}"/>
     <link rel="apple-touch-icon" sizes="57x57" href="{{ url('design/fav/apple-icon-57x57.png') }}">
     <link rel="apple-touch-icon" sizes="60x60" href="{{ url('design/fav/apple-icon-60x60.png') }}">
