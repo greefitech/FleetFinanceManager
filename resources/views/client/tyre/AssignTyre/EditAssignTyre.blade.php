@@ -12,7 +12,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveVehicleAssignTyre',$Vehicle->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateVehicleAssignTyre',[$Vehicle->id,$AssignTyre->id]) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -21,9 +21,14 @@
                                         <div class="col-sm-12">
                                             <label>Tyre Number</label>
                                             <select name="tyre_id" id="tyre_id" class="form-control select2">
-                                                @foreach(GetNonUsedTyreList(auth()->user()->id) as $key =>$ClientTyreList)
-                                                    <option value="{{ $ClientTyreList->id }}" {{ ($ClientTyreList->id == old('tyre_id')) ?'selected':'' }}>{{ $ClientTyreList->tyre_number }} | {{ $ClientTyreList->manufacture_company }}</option>
-                                                @endforeach
+                                                @if(!empty($AssignTyre->tyre_id))
+                                                    <option value="{{ $AssignTyre->tyre_id }}">{{ $AssignTyre->Tyre->tyre_number }} | {{ $AssignTyre->Tyre->manufacture_company }}</option>
+                                                    <option value="">Remove Tyre</option>
+                                                @else
+                                                    @foreach(GetNonUsedTyreList(auth()->user()->id) as $key =>$ClientTyreList)
+                                                        <option value="{{ $ClientTyreList->id }}">{{ $ClientTyreList->tyre_number }} | {{ $ClientTyreList->manufacture_company }}</option>
+                                                    @endforeach
+                                                @endif
                                             </select>
                                         </div>
                                     </div>
@@ -35,12 +40,12 @@
                                             <select class="form-control select2" name="position">
                                                 <option value="">Select Position</option>
                                                 @for($i = 1;$i<=$Vehicle->GetVehicleType->wheel/2;$i++)
-                                                    <option value="r{{ $i }}">Right {{ $i }}</option>
+                                                    <option value="r{{ $i }}" {{ ($AssignTyre->position == 'r'.$i)?'selected':'' }}>Right {{ $i }}</option>
                                                 @endfor
                                                 @for($i = 1;$i<=$Vehicle->GetVehicleType->wheel/2;$i++)
-                                                    <option value="l{{ $i }}">Left {{ $i }}</option>
+                                                    <option value="l{{ $i }}" {{ ($AssignTyre->position == 'l'.$i)?'selected':'' }}>Left {{ $i }}</option>
                                                 @endfor
-                                                <option value="Stepney">Stepney</option>
+                                                <option value="Stepney" {{ ($AssignTyre->position == 'Stepney')?'selected':'' }}>Stepney</option>
                                             </select>
                                         </div>
                                     </div>
@@ -71,7 +76,7 @@
                                             <select name="staffId" class="form-control select2" id="entry-staff1">
                                                 <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staffId'))?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                    <option value="{{ $staff->id }}">{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

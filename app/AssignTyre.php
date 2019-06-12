@@ -14,4 +14,9 @@ class AssignTyre extends Model
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
     }
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function Tyre(){
+        return $this->hasOne(Tyre::class, 'id', 'tyre_id');
+    }
 }

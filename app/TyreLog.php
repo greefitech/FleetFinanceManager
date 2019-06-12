@@ -14,4 +14,17 @@ class TyreLog extends Model
             $model->{$model->getKeyName()} = Uuid::generate()->string;
         });
     }
+    protected $guarded = ['id', 'created_at', 'updated_at'];
+
+    public function vehicle(){
+        return $this->hasOne(Vehicle::class, 'id', 'vehicleId');
+    }
+
+    public function manager(){
+        return $this->hasOne(Manager::class, 'id', 'managerid');
+    }
+
+    public function Staff(){
+        return $this->hasOne(Staff::class, 'id', 'staffId');
+    }
 }

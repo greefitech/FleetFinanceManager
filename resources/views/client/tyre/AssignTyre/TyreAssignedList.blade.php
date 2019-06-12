@@ -13,7 +13,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!auth()->user()->vehicles->isEmpty())
+                        @if(!$AssignTyres->isEmpty())
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
@@ -24,7 +24,17 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-
+                                    @foreach($AssignTyres as $AssignTyre)
+                                        <tr>
+                                            <td><a href="{{ !empty($AssignTyre->Tyre)?route('client.EditTyre',$AssignTyre->Tyre->id):'#' }}">{{ !empty($AssignTyre->Tyre)?$AssignTyre->Tyre->tyre_number:'NA' }}</a></td>
+                                            <td>{{ ucfirst($AssignTyre->position) }}</td>
+                                            <td>{{ $AssignTyre->updated_at }}</td>
+                                            <td>
+                                                <a href="" class="btn"><i class="fa fa-cog text-aqua"></i></a>
+                                                <a href="{{ route('client.EditVehicleAssignTyre',[$Vehicle->id,$AssignTyre->id]) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else

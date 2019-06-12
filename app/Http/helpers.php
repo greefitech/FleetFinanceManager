@@ -53,12 +53,6 @@ if (! function_exists('GetCustomersOption')) {
     }
 }
 
-if (! function_exists('GetClientTyreList')) {
-    function GetClientTyreList(){
-        return $Tyre = Tyre::where('clientid',auth()->user()->id)->get();
-    }
-}
-
 if (! function_exists('GetRTOMasterDataInputs')) {
     function GetRTOMasterDataInputs(){
         try {
@@ -82,5 +76,13 @@ if (! function_exists('GetRTOMasterDataInputs')) {
         }catch (Exception $e){
             return 'error';
         }
+    }
+}
+
+
+
+if (! function_exists('GetNonUsedTyreList')) {
+    function GetNonUsedTyreList(){
+        return Tyre::where([['clientid',auth()->user()->id],['tyre_status','!=',0]])->WhereNull('vehicleId')->get();
     }
 }

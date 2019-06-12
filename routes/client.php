@@ -198,3 +198,6 @@ Route::get('/master/tyre/{id}/status', 'ClientController\TyreController@ViewTyre
 Route::get('/tyre/vehicle-list', 'ClientController\TyreController@ViewTyreVehicleList')->name('ViewTyreVehicleList');
 Route::get('/tyre/vehicle/{id}/assigned-list', 'ClientController\TyreController@ViewVehicleTyreAssignedList')->name('ViewVehicleTyreAssignedList');
 Route::get('/tyre/vehicle/{id}/assign-tyre/add', 'ClientController\TyreController@AddAssignTyre')->name('AddAssignTyre');
+Route::post('/tyre/vehicle/{id}/assign-tyre/add', 'ClientController\TyreController@SaveVehicleAssignTyre')->name('SaveVehicleAssignTyre');
+Route::get('/tyre/vehicle/{vehicleid}/assign-tyre/{assignedtyreid}/edit', 'ClientController\TyreController@EditVehicleAssignTyre')->name('EditVehicleAssignTyre');
+Route::post('/tyre/vehicle/{vehicleid}/assign-tyre/{assignedtyreid}/update', 'ClientController\TyreController@UpdateVehicleAssignTyre')->name('UpdateVehicleAssignTyre');
