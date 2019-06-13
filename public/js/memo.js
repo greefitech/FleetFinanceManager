@@ -209,7 +209,7 @@ $(document).ready(function() {
         var AccountsDataOption = GetAccountOptionData();
         var DieselInputData ='<tr>\n' +
             '    <td>\n' +
-            '        <input type="date" class="form-control" placeholder="Enter date" name="DieselData[date][]">\n' +
+            '        <input type="date" class="form-control DateValue" placeholder="Enter date" name="DieselData[date][]">\n' +
             '    </td>\n' +
             '    <td>\n' +
             '        <input type="text" class="form-control" placeholder="Enter Location" name="DieselData[location][]">\n' +
@@ -276,7 +276,7 @@ $(document).ready(function() {
         e.preventDefault();
         var EntryData ='<tr>\n' +
             '    <td>\n' +
-            '        <input type="date" class="form-control" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">\n' +
+            '        <input type="date" class="form-control DateValue" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">\n' +
             '    </td>\n' +
             '    <td>\n' +
             '        <select name="EntryData[customerId][]" class="form-control select2" style="width:15em">\n' +

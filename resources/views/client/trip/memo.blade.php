@@ -33,7 +33,7 @@
                                         <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி </label>
-                                                <input type="date" class="form-control" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom">
+                                                <input type="date" class="form-control DateChanges dateFrom" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom">
                                             </div>
                                         </div>
                                     </div>
@@ -41,7 +41,7 @@
                                         <div class="form-group{{ $errors->has('dateTo') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி </label>
-                                                <input type="date" class="form-control" value="{{ old('dateTo') }}" placeholder="Enter Date To" name="dateTo">
+                                                <input type="date" class="form-control DateChanges dateTo" value="{{ old('dateTo') }}" placeholder="Enter Date To" name="dateTo">
                                             </div>
                                         </div>
                                     </div>
@@ -165,7 +165,7 @@
                                                             @foreach(old('EntryData')['dateFrom'] as $EntryKey=>$Entry)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('EntryData.dateFrom.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="date" class="form-control" value="{{ old('EntryData')['dateFrom'][$EntryKey] }}" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">
+                                                                        <input type="date" class="form-control DateValue" value="{{ old('EntryData')['dateFrom'][$EntryKey] }}" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.customerId.'.$EntryKey) ? ' has-error' : '' }}">
                                                                         <select name="EntryData[customerId][]" class="form-control select2" style="width:15em">
@@ -285,7 +285,7 @@
                                                             @foreach(old('DieselData')['date'] as $DiselKey=>$Dis)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('DieselData.date.'.$DiselKey) ? ' has-error' : '' }}">
-                                                                        <input type="date" class="form-control" placeholder="Enter date" value="{{ old('DieselData')['date'][$DiselKey] }}" name="DieselData[date][]">
+                                                                        <input type="date" class="form-control DateValue" placeholder="Enter date" value="{{ old('DieselData')['date'][$DiselKey] }}" name="DieselData[date][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.location.'.$DiselKey) ? ' has-error' : '' }}">
                                                                         <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('DieselData')['location'][$DiselKey] }}" name="DieselData[location][]">
@@ -692,6 +692,14 @@
                     $($(this).find('.loading_mamool_status_class')).attr('required',true);
                     $($(this).find('.commission_status_class')).attr('name','EntryData[commission_status]['+$(this).index()+']');
                     $($(this).find('.commission_status_class')).attr('required',true);
+                });
+            });
+
+            $('body').on('change','.DateChanges',function (e) {
+                e.preventDefault();
+                $(".DateValue").attr({
+                    "min" : $('.dateFrom').val(),
+                    "max" : $('.dateTo').val()
                 });
             });
 
