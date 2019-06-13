@@ -695,7 +695,7 @@
                 });
             });
 
-            $('body').on('change','.DateChanges',function (e) {
+            $('body').on('change keyup','.DateChanges',function (e) {
                 e.preventDefault();
                 $(".DateValue").attr({
                     "min" : $('.dateFrom').val(),

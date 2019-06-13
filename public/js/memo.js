@@ -238,6 +238,7 @@ $(document).ready(function() {
             '    <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>\n' +
             '</tr>';
         $('.DieselTableData').append(DieselInputData);
+        $('.DateChanges').trigger('change');
     });
 
     $('body').on('click','.RemoveDieselInput',function (e) {
@@ -339,6 +340,7 @@ $(document).ready(function() {
         $('.EntryTableData').append(EntryData);
         EntryI++;
         $('.select2').select2();
+        $('.DateChanges').trigger('change');
     });
 
 
