@@ -339,8 +339,8 @@ $(document).ready(function() {
 
         $('.EntryTableData').append(EntryData);
         EntryI++;
-        $('.select2').select2();
         $('.DateChanges').trigger('change');
+        $('.select2').select2();
     });
 
 
