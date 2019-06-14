@@ -56,7 +56,7 @@ class Customer extends Model
                 $customer->clientid = auth()->user()->id;
             }else if(!$id && Auth::guard('manager')->check()){
                 $customer->clientid = auth()->user()->clientid;
-                $customer->managerid = auth()->user()->managerid;
+                $customer->managerid = auth()->user()->id;
             }
             $customer->save();
             return 'success';
