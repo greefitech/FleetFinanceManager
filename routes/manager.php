@@ -1,3 +1,3 @@
 <?php
 
-Route::get('/home', 'ManagerControllers\EntryController@add')->name('home');
+Route::get('/home', 'ManagerController\DashboardController@home')->name('home');
