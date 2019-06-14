@@ -43,7 +43,7 @@ class Manager extends Authenticatable
         return $this->hasOne(Client::class, 'id', 'clientid');
     }
 
-    public function customers(){
+    public function Customers(){
         return $this->hasMany(Customer::class, 'clientid', 'clientid')->orderBy('updated_at','DESC');
     }
 
