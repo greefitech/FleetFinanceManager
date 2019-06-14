@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ auth()->user()->transportName }} | Fleet Finance</title>
+    <title>{{ auth()->user()->Owner->transportName }} | Fleet Finance</title>
     <link rel="icon" href="{{ url('/assets/img/greefi.jpg') }}">
     <link rel="stylesheet" href="{{ url('/assets/css/bootstrap.min.css') }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
@@ -21,5 +21,4 @@
     <script src="{{ url('/assets/js/datatable/dataTables.bootstrap.min.js') }}"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="{{ asset('/assets/css/select2.min.css') }}" rel="stylesheet" />
-
 </head>

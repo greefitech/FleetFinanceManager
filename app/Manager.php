@@ -39,7 +39,7 @@ class Manager extends Authenticatable
         $this->notify(new ManagerResetPassword($token));
     }
 
-    public function owner(){
+    public function Owner(){
         return $this->hasOne(Client::class, 'id', 'clientid');
     }
 
