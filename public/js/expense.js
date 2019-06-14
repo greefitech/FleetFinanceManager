@@ -96,8 +96,8 @@ $(document).ready(function () {
 
     $(".LastExpense").on("change", function(e) {
         e.preventDefault();
-        var ExpenseType = $('#expense-type option:selected').attr('value');
-        var vehicleID = $('#expense-vehicle option:selected').attr('value');
+        var ExpenseType = $('.expense-type option:selected').attr('value');
+        var vehicleID = $('.expense-vehicle option:selected').attr('value');
         $('#expense-LastData').val('');
         if(ExpenseType != '' && vehicleID!= ''){
             $('#expense-LastData').val('No Record Found!!');

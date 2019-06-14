@@ -42,7 +42,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select name="vehicleId" class="form-control LastExpense select2" id="entry-vehicle">
+                                            <select name="vehicleId" class="form-control expense-vehicle LastExpense select2" id="entry-vehicle">
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id==$Expense->vehicleId)?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>

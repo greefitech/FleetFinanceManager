@@ -117,13 +117,23 @@ class ExpenseController extends Controller
         }
     }
 
-    public function delete($id){
+    public function delete($id)
+    {
         try {
             $this->Expense::findOrfail($id)->delete();
-            return back()->with('success',['Expense','Deleted Successfully!']);
+            return back()->with('success', ['Expense', 'Deleted Successfully!']);
         } catch (\Illuminate\Database\QueryException $e) {
-            return back()->with('danger','Something went wrong! Delete Not Allowed!');
+            return back()->with('danger', 'Something went wrong! Delete Not Allowed!');
         }
+    }
+
+
+    public function GetLastExpenseTypeDetail(){
+            $Expense= Expense::where([['clientid', auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
+            return '        Date : '.date('d-m-Y', strtotime($Expense->date)).'
+        Quantity : '.$Expense->quantity.'
+        Amount : '.$Expense->amount.'
+        Discription : '.$Expense->discription;
     }
 
     /*
