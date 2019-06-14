@@ -124,7 +124,7 @@ Route::delete('/expense/{id}/delete', 'ClientController\ExpenseController@delete
 
 Route::get('/expense-vehicle-list', 'ClientController\ExpenseController@ExpenseVehcleListNonTrip')->name('ExpenseVehcleListNonTrip');
 Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ClientController\ExpenseController@NonTripVehicleExpenseList')->name('NonTripVehicleExpenseList');
-
+Route::get('/expense/GetLastExpenseTypeDetail', 'ClientController\ExpenseController@GetLastExpenseTypeDetail');
 //Halt
 Route::get('/halt/add', 'ClientController\HaltController@add')->name('AddHalt');
 Route::post('/halt/add', 'ClientController\HaltController@save')->name('SaveHalt');
