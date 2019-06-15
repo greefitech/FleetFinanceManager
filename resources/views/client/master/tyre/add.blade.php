@@ -77,14 +77,6 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
-                                    <div class="form-group{{ $errors->has('tyre_status') ? ' has-error' : '' }}">
-                                        <div class="col-sm-12">
-                                            <label>Tyre Status</label>
-                                            <input type="text" class="form-control" value="{{ old('tyre_status') }}" placeholder="Enter Tyre Status" name="tyre_status">
-                                        </div>
-                                    </div>
-                                </div>
                             </div>
                             <br>
                             <div align="center">

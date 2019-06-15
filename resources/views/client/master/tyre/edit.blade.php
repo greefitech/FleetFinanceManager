@@ -81,7 +81,10 @@
                                     <div class="form-group{{ $errors->has('tyre_status') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Tyre Status</label>
-                                            <input type="text" class="form-control" value="{{ $Tyre->tyre_status }}" placeholder="Enter Tyre Status" name="tyre_status">
+                                            <select name="tyre_status" class="form-control">
+                                                <option value="1" {{ ($Tyre->tyre_status ==1)?'selected':'' }}>Not Sold</option>
+                                                <option value="0" {{ ($Tyre->tyre_status ==0)?'selected':'' }}>Sold</option>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

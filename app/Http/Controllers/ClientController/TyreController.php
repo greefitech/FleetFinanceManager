@@ -71,9 +71,6 @@ class TyreController extends Controller
             $Tyre->purchased_from = request('purchased_from');
             $Tyre->tyre_status = request('tyre_status');
             $Tyre->clientid=auth()->user()->id;
-//            if($Tyre->isDirty('tyre_number')){
-//                return 'tyre number changes! insert data to tyre log';
-//            }
             $Tyre->save();
 
 
