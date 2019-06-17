@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -46,7 +46,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveFinancialIndicators',$Vehicle->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.SaveFinancialIndicators',$Vehicle->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
 

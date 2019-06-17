@@ -1,6 +1,10 @@
 <?php
 
+use App\Client;
 use App\ExpenseType;
+use App\Manager;
+use App\Vehicle;
+use App\VehicleCredits;
 use Carbon\Carbon;
 
 if (! function_exists('DateDifference')) {
@@ -75,5 +79,19 @@ if (! function_exists('GetRTOMasterDataInputs')) {
         }catch (Exception $e){
             return 'error';
         }
+    }
+}
+
+
+if (! function_exists('GetClientManager')) {
+    function GetClientManager($ClientId){
+        return Client::where('id',$ClientId)->get()->first();
+    }
+}
+
+if (! function_exists('GetClientVehicle')) {
+    function GetClientVehicle($ClientId){
+        $clientid = Client::findorfail($ClientId);
+        return Vehicle::where('clientid',$clientid->id)->get();
     }
 }

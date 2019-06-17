@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
     <div class="row">
@@ -8,10 +8,10 @@
                     <h4>
                         <center>Add {{ $Vehicle->vehicleNumber }} Document</center>
                     </h4>
-                    <a href="{{ route('client.ViewDocuments',$Vehicle->id) }}" class="btn btn-info pull-right">View Documents</a>
+                    <a href="{{ route('manager.ViewDocuments',$Vehicle->id) }}" class="btn btn-info pull-right">View Documents</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveDocument',$Vehicle->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.SaveDocument',$Vehicle->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">

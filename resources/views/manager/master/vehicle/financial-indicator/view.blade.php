@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -15,7 +15,7 @@
                 <div class="box-header">
                     <h4>
                         <center>{{ $Vehicle->vehicleNumber }} View Financial Indicator</center>
-                        <a href="{{ route('client.EditFinancialIndicators',$FinancialIndicator->id) }}" class="btn btn-info btn-sm pull-right">Edit</a>
+                        <a href="{{ route('manager.EditFinancialIndicators',$FinancialIndicator->id) }}" class="btn btn-info btn-sm pull-right">Edit</a>
                     </h4>
                 </div>
 

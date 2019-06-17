@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
     <div class="row">
@@ -8,10 +8,10 @@
                     <h4>
                         <center>Edit Vehicle</center>
                     </h4>
-                    <a href="{{ route('client.ViewVehicles') }}" class="btn btn-info pull-right">View Vehicle</a>
+                    <a href="{{ route('manager.ViewVehicles') }}" class="btn btn-info pull-right">View Vehicle</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateVehicle',$Vehicle->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.UpdateVehicle',$Vehicle->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">

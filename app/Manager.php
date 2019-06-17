@@ -51,6 +51,10 @@ class Manager extends Authenticatable
         return $this->hasMany(Vehicle::class, 'clientid', 'clientid')->orderBy('updated_at','DESC');
     }
 
+    public function Vehicle(){
+        return $this->hasMany(Vehicle::class, 'clientid', 'id')->orderBy('updated_at','DESC');
+    }
+
     public function staffs(){
         return $this->hasMany(Staff::class, 'clientid', 'clientid')->orderBy('updated_at','DESC');
     }

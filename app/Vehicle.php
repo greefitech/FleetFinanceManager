@@ -38,4 +38,5 @@ class Vehicle extends Model
     public function DocumentsList($VehicleId){
         return Document::where([['vehicleId',$VehicleId]])->get();
     }
+
 }

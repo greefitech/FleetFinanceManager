@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -9,7 +9,7 @@
                     <h4>
                         <center>{{ $Vehicle->vehicleNumber }} Vehicle Document</center>
                     </h4>
-                    <a href="{{ route('client.AddDocument',$Vehicle->id) }}" class="btn btn-info pull-right">Add Document</a>
+                    <a href="{{ route('manager.AddDocument',$Vehicle->id) }}" class="btn btn-info pull-right">Add Document</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -34,11 +34,11 @@
                                         <td><span style="color: {{ (DateDifference($Document->duedate)<=$Document->notifyBefore)?'red':'green' }};font-weight: bold;">{{ DateDifference($Document->duedate) }}</span></td>
                                         <td>{{ $Document->amount }}</td>
                                         <td>
-                                            <form action="{{ route('client.DeleteDocument',$Document->id) }}" method="POST">
+                                            <form action="{{ route('manager.DeleteDocument',$Document->id) }}" method="POST">
                                                 {{ csrf_field() }}
                                                 <input type="hidden" name="_method" value="DELETE">
-                                                <a href="{{ route('client.EditDocument',$Document->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                <button onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
+                                                <a href="{{ route('manager.EditDocument',$Document->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+{{--                                                <button onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>--}}
                                             </form>
                                         </td>
                                     </tr>
