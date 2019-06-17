@@ -94,4 +94,8 @@ class Manager extends Authenticatable
     public function TripsAmount(){
         return $this->hasMany(TripAmount::class, 'managerid', 'id')->orderBy('date','DESC');
     }
+
+    public function ManagerLorries(){
+        return $this->hasMany(ManagerLorry::class, 'manager_login_id', 'id')->select('vehicleId')->pluck('vehicleId')->toArray();
+    }
 }
