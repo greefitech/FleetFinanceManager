@@ -3,20 +3,6 @@
 @section('content')
 
     <div class="row">
-        <div class="col-md-4 col-sm-6 col-xs-12"></div>
-        <div class="col-md-4 col-sm-6 col-xs-12">
-            <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-                <div class="info-box-content">
-                    <span class="info-box-text">Balance Vehicle Count</span>
-                    <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ GetClientManager(Auth::user()->clientid)->vehicleCredit - count(GetClientManager(Auth::user()->clientid)->vehicles) }}</span></center></span>
-                </div>
-            </div>
-        </div>
-        <div class="clearfix visible-sm-block"></div>
-        <div class="col-md-4 col-sm-6 col-xs-12"></div>
-    </div>
-    <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
@@ -27,7 +13,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!empty(GetClientVehicle(Auth::user()->clientid)))
+                        @if(!Auth::user()->vehicles()->isEmpty())
                             <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
@@ -39,7 +25,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(GetClientVehicle(Auth::user()->clientid) as $Vehicle)
+                                    @foreach(Auth::user()->vehicles() as $Vehicle)
                                         <tr>
                                             <td>{{ $Vehicle->ownerName }}</td>
                                             <td>{{ $Vehicle->vehicleNumber }}</td>
@@ -64,7 +50,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now added!!</p></blockquote>
+                            <blockquote><p>No Vehicle till now added!! Contact Owner!!</p></blockquote>
                         @endif
                     </div>
                 </div>
