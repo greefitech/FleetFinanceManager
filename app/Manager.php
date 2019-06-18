@@ -47,17 +47,9 @@ class Manager extends Authenticatable
         return $this->hasMany(Customer::class, 'clientid', 'clientid')->orderBy('updated_at','DESC');
     }
 
-    public function vehicles(){
-        return $this->hasMany(Vehicle::class, 'clientid', 'clientid')->whereIn('id',$this->ManagerLorry())->get();
-    }
-
-
-    public function Vehicle(){
-        return $this->hasMany(Vehicle::class, 'clientid', 'id')->orderBy('updated_at','DESC');
-    }
-
-    public function staffs(){
-        return $this->hasMany(Staff::class, 'clientid', 'clientid')->orderBy('updated_at','DESC');
+    public function Vehicles(){
+        $ManagerLorry = ManagerLorry::where('manager_login_id', auth()->user()->id)->pluck('vehicleId')->toArray();
+        return $this->hasMany(Vehicle::class, 'clientid', 'clientid')->whereIn('id',$ManagerLorry)->get();
     }
 
     public function entries(){
@@ -96,9 +88,6 @@ class Manager extends Authenticatable
         return $this->hasMany(TripAmount::class, 'managerid', 'id')->orderBy('date','DESC');
     }
 
-    public function ManagerLorry(){
-        return ManagerLorry::where('manager_login_id', auth()->user()->id)->pluck('vehicleId')->toArray();
-    }
 
     public function ManagerLorries(){
         return $this->hasMany(ManagerLorry::class, 'manager_login_id', 'id')->select('vehicleId')->pluck('vehicleId')->toArray();

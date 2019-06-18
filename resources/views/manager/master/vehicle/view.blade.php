@@ -13,7 +13,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!Auth::user()->vehicles()->isEmpty())
+                        @if(!Auth::user()->Vehicles()->isEmpty())
                             <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
@@ -25,7 +25,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    @foreach(Auth::user()->vehicles() as $Vehicle)
+                                    @foreach(Auth::user()->Vehicles() as $Vehicle)
                                         <tr>
                                             <td>{{ $Vehicle->ownerName }}</td>
                                             <td>{{ $Vehicle->vehicleNumber }}</td>
