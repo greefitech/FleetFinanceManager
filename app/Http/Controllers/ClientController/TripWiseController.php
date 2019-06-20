@@ -6,6 +6,7 @@ use App\Entry;
 use App\Expense;
 use App\Halt;
 use App\Trip;
+use App\TripAmount;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -58,6 +59,15 @@ class TripWiseController extends Controller
         try{
             $Data['Halts'] = Halt::where([['tripId',$TripId]])->get();
             return view('client.tripWise.HaltList',$Data);
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
+
+    public function ViewTripAdvanceList($TripId){
+        try{
+            $Data['TripAdvances'] = TripAmount::where([['tripId',$TripId]])->get();
+            return view('client.tripWise.TripAdvanceList',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }

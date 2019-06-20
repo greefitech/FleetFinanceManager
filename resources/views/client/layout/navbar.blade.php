@@ -35,6 +35,7 @@
                     <li><a href="{{ url('/client/trip/add') }}"><i class="fa fa-truck <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Trip</span></a></li>
                     <li><a href="{{ url('/client/entry/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Entry</span></a></li>
                     <li><a href="{{ url('/client/expense/add') }}"><i class="fa fa-pie-chart <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Expense</span></a></li>
+                    <li><a href="{{ url('/client/trip-advance/add') }}"><i class="fa fa-shield <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Trip Advance</span></a></li>
                     <li><a href="{{ url('/client/halt/add') }}"><i class="fa fa-shield <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Halt</span></a></li>
                 </ul>
             </li>
