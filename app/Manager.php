@@ -52,6 +52,10 @@ class Manager extends Authenticatable
         return $this->hasMany(Vehicle::class, 'clientid', 'clientid')->whereIn('id',$ManagerLorry)->get();
     }
 
+    public function Accounts(){
+        return $this->hasMany(Account::class, 'clientid', 'clientid');
+    }
+
     public function entries(){
         return $this->hasMany(Entry::class, 'managerid', 'id')->orderBy('updated_at','DESC');
     }
@@ -76,9 +80,7 @@ class Manager extends Authenticatable
         return $this->hasMany(Trip::class, 'clientid', 'id')->where('status',0);
     }
 
-    public function Accounts(){
-        return $this->hasMany(Account::class, 'clientid', 'id');
-    }
+
 
     public function ClientExpenses(){
         return $this->hasMany(ExpenseType::class, 'managerid', 'id');
