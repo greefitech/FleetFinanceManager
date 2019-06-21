@@ -41,7 +41,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody class="RTOMasterTableData">
-                                                        @if(!empty($RTOMasters))
+                                                        @if(!empty(unserialize($RTOMasters->description)))
                                                             <?php $RTOMasterDatas = unserialize($RTOMasters->description) ?>
                                                             @foreach($RTOMasterDatas['location'] as $RTOKey=>$RTO)
                                                             <tr>

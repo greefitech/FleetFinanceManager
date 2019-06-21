@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -9,7 +9,7 @@
                     <h4>
                         <center>RTO Master</center>
                     </h4>
-                    <a href="{{ route('client.AddRTOMaster') }}" class="btn btn-info pull-right">Add RTO Master</a>
+                    <a href="{{ route('manager.AddRTOMaster') }}" class="btn btn-info pull-right">Add RTO Master</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -26,11 +26,11 @@
                                         <tr>
                                             <td>{{ $RTOMaster->place }}</td>
                                             <td>
-                                                <form action="{{ route('client.DeleteRTOMaster',$RTOMaster->id) }}" method="POST">
+                                                <form action="{{ route('manager.DeleteRTOMaster',$RTOMaster->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('client.EditRTOMaster',$RTOMaster->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
+                                                    <a href="{{ route('manager.EditRTOMaster',$RTOMaster->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+{{--                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>--}}
                                                 </form>
                                             </td>
                                         </tr>

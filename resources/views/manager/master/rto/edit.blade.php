@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
     <div class="row">
@@ -8,10 +8,10 @@
                     <h4>
                         <center>Edit RTO Master</center>
                     </h4>
-                    <a href="{{ route('client.ViewRTOMasters') }}" class="btn btn-info pull-right">View RTO Master</a>
+                    <a href="{{ route('manager.ViewRTOMasters') }}" class="btn btn-info pull-right">View RTO Master</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateRTOMaster',$RTOMasters->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.UpdateRTOMaster',$RTOMasters->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -41,7 +41,7 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody class="RTOMasterTableData">
-                                                        @if(!empty($RTOMasters))
+                                                        @if(!empty(unserialize($RTOMasters->description)))
                                                             <?php $RTOMasterDatas = unserialize($RTOMasters->description) ?>
                                                             @foreach($RTOMasterDatas['location'] as $RTOKey=>$RTO)
                                                             <tr>
