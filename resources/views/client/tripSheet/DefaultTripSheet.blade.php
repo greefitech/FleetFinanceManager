@@ -565,10 +565,16 @@
                 <tr>
                     <td>&nbsp; அட்வான்ஸ்</td>
                     <td  style="text-align: right;">{{ $Trip->advance }}</td>
-                </tr>
+
+                @foreach($TripAdvanceAmounts as $TripAdvanceAmount)
+                    <tr>
+                        <td> &nbsp;அட்வான்ஸ் {{ date("d-m-Y", strtotime($TripAdvanceAmount->date)) }} - {{ ($TripAdvanceAmount->account_id ==1)?'Cash':$TripAdvanceAmount->Account->account }}</td>
+                        <td style="text-align: right;">{{ money_format('%!i', $TripAdvanceAmount->amount) }}</td>
+                    </tr>
+                @endforeach
 
                 <tr>
-                    <td> &nbsp;Cash Advance</td>
+                    <td> &nbsp;Entry Cash Advance</td>
                     <td style="text-align: right;">{{ money_format('%!i', $EntryCashAdvance->sum('advance')) }}</td>
                 </tr>
 
@@ -579,8 +585,9 @@
 
                 <tr>
                     <th>&nbsp; மீதி</th>
-                    <th>{{ money_format('%!i', (($Trip->advance + $EntryCashAdvance->sum('advance')) - $TotalDriverExpense)) }}</th>
+                    <th>{{ money_format('%!i', (($Trip->advance + $TripAdvanceAmounts->sum('amount') + $EntryCashAdvance->sum('advance')) - $TotalDriverExpense)) }}</th>
                 </tr>
+
 
 
 
