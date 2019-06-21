@@ -46,6 +46,7 @@
                                                             <li><a href="{{ route('client.ViewTripEntryList',$Trip->id) }}">Entries</a></li>
                                                             <li><a href="{{ route('client.ViewTripExpenseList',$Trip->id) }}">Expense</a></li>
                                                             <li><a href="{{ route('client.ViewTripHaltList',$Trip->id) }}">Halt</a></li>
+                                                            <li><a href="{{ route('client.ViewTripAdvanceList',$Trip->id) }}">Trip Advance</a></li>
                                                             <li class="divider"></li>
                                                             <li><a href="{{ route('client.EditTrip',$Trip->id) }}">Edit</a></li>
                                                         </ul>
