@@ -6,6 +6,7 @@ use App\Entry;
 use App\Expense;
 use App\RTOMaster;
 use App\Trip;
+use App\TripAmount;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -26,7 +27,7 @@ class MemoController extends Controller
 
 
     public function SaveMemo(){
-        $this->validate(request(),[
+         $this->validate(request(),[
             'vehicleId'=>'required|exists:vehicles,id',
             'dateFrom'=>'required|date',
             'dateTo'=>'required|date|after_or_equal:dateFrom',
@@ -134,6 +135,20 @@ class MemoController extends Controller
                 $PCValidator['PaalamToll.amount.'.$PaalamTollKey] = 'required|min:0|numeric';
             }
             $this->validate(request(), $PCValidator);
+        }
+
+
+
+        /*
+         * Driver Advance Validaor*/
+        if(!empty(request('DriverAdvance'))){
+            $DriverAdvanceValidator=[];
+            foreach(request('DriverAdvance')['amount'] as $DriverAdvanceKey=>$Driver){
+                $DriverAdvanceValidator['DriverAdvance.date.'.$DriverAdvanceKey] = 'required|date|after_or_equal:.'.request('dateFrom').'|before_or_equal:.'.request('dateTo');
+                $DriverAdvanceValidator['DriverAdvance.account_id.'.$DriverAdvanceKey] = 'required';
+                $DriverAdvanceValidator['DriverAdvance.amount.'.$DriverAdvanceKey] = 'required|min:0|numeric';
+            }
+            $this->validate(request(), $DriverAdvanceValidator);
         }
 
 //        dd(request()->all());
@@ -283,6 +298,19 @@ class MemoController extends Controller
                     $Expense->save();
                 }
             }
+
+            if(!empty(request('DriverAdvance'))){
+                foreach(request('DriverAdvance')['date'] as $DriverAdvanceKey=>$Driver){
+                    $TripAmount = new TripAmount;
+                    $TripAmount->date = request('DriverAdvance')['date'][$DriverAdvanceKey];
+                    $TripAmount->account_id = request('DriverAdvance')['account_id'][$DriverAdvanceKey];
+                    $TripAmount->amount = request('DriverAdvance')['amount'][$DriverAdvanceKey];
+                    $TripAmount->tripId=$Trip->id;
+                    $TripAmount->clientid = auth()->user()->id;
+                    $TripAmount->save();
+                }
+            }
+
             return back()->with('success',['Memo Entry','Added Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
