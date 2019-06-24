@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveTrip') }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.SaveTrip') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -38,7 +38,7 @@
                                             <label>Vehicle</label>
                                             <select class="form-control select2" name="vehicleId">
                                                 <option value="">Select Vehicle</option>
-                                                @foreach(Auth::user()->vehicles as $vehicle)
+                                                @foreach(Auth::user()->Vehicles() as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
                                                 @endforeach
                                             </select>
