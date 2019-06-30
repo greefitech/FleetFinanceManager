@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\ClientController;
 
 use App\Manager;
+use App\ManagerLorry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
@@ -36,8 +37,16 @@ class ManagerController extends Controller
             $manager->email = request('email');
             $manager->mobile = request('mobile');
             $manager->password = bcrypt(request('password'));
-            $manager->clientid = Auth::user()->id;
+            $manager->clientid = auth()->user()->id;
             $manager->save();
+            if(!empty(request('manager_vehicle_id'))){
+                foreach (request('manager_vehicle_id') as $MangerLorry){
+                    $ManagerLorry = new ManagerLorry;
+                    $ManagerLorry->vehicleId = $MangerLorry;
+                    $ManagerLorry->manager_login_id = $manager->id;
+                    $ManagerLorry->save();
+                }
+            }
             return redirect(route('client.ViewManagers'))->with('success',['Manager','Created Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
@@ -80,6 +89,23 @@ class ManagerController extends Controller
             }
             $manager->clientid = Auth::user()->id;
             $manager->save();
+            if(!empty(request('manager_vehicle_id'))){
+                foreach (request('manager_vehicle_id') as $MangerLorry){
+                    if(!in_array($MangerLorry,$manager->ManagerLorries())){
+                        $ManagerLorry = new ManagerLorry;
+                        $ManagerLorry->vehicleId = $MangerLorry;
+                        $ManagerLorry->manager_login_id = $manager->id;
+                        $ManagerLorry->save();
+                    }
+                }
+                foreach ($manager->ManagerLorries() as $MangerLorryDelete){
+                    if(!in_array($MangerLorryDelete,request('manager_vehicle_id'))){
+                        ManagerLorry::where([['vehicleId',$MangerLorryDelete],['manager_login_id',$manager->id]])->delete();
+                    }
+                }
+            }else{
+                ManagerLorry::where('manager_login_id',$manager->id)->delete();
+            }
             return redirect(route('client.ViewManagers'))->with('success',['Manager','Updated Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');

@@ -94,7 +94,7 @@
                                             <select class="form-control select2" name="staff2">
                                                  <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff1'))?'selected':'' }}>{{ $staff->name }}</option>
+                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff2'))?'selected':'' }}>{{ $staff->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -107,7 +107,7 @@
                                             <select class="form-control select2" name="staff3">
                                                  <option value="">Select Staff</option>
                                                 @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff1'))?'selected':'' }}>{{ $staff->name }}</option>
+                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff3'))?'selected':'' }}>{{ $staff->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>

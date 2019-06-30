@@ -1,6 +1,6 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
-@section('content')
+@section('content').
 
     <div class="row">
         <div class="col-xs-12">
@@ -9,10 +9,10 @@
                     <h4>
                         <center>Edit Expense Type</center>
                     </h4>
-                    <a href="{{ route('client.ViewExpenseTypes') }}" class="btn btn-info pull-right">View Expense Type</a>
+                    <a href="{{ route('manager.ViewExpenseTypes') }}" class="btn btn-info pull-right">View Expense Type</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateExpenseType',$ExpenseType->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.UpdateExpenseType',$ExpenseType->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">

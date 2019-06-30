@@ -43,6 +43,18 @@
                                         </div>
                                     </div>
                                 </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('manager_vehicle_id') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Vehicle</label>
+                                            <select name="manager_vehicle_id[]" class="form-control select2" multiple>
+                                                @foreach(Auth::user()->vehicles as $vehicle)
+                                                    <option value="{{ $vehicle->id }}" {{ !empty($Manager->ManagerLorries())?in_array($vehicle->id,$Manager->ManagerLorries())?'selected':'':'' }}>{{ $vehicle->vehicleNumber }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
 
                             <div class="row">
@@ -63,6 +75,7 @@
                                     </div>
                                 </div>
                             </div>
+
                             <br>
                             <div align="center">
                                 <button type="submit" class="btn btn-info">Update Manager</button>
