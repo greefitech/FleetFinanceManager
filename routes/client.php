@@ -166,6 +166,7 @@ Route::get('/Vehicle-trip/{tripid}/entry-list', 'ClientController\TripWiseContro
 Route::get('/Vehicle-trip/{tripid}/expense-list', 'ClientController\TripWiseController@ViewTripExpenseList')->name('ViewTripExpenseList');
 Route::get('/Vehicle-trip/{tripid}/halt-list', 'ClientController\TripWiseController@ViewTripHaltList')->name('ViewTripHaltList');
 Route::get('/Vehicle-trip/{tripid}/trip-advance-list', 'ClientController\TripWiseController@ViewTripAdvanceList')->name('ViewTripAdvanceList');
+Route::delete('/Vehicle-trip/{tripid}/delete-trip', 'ClientController\TripWiseController@DeleteTripSheetData')->name('DeleteTripSheetData');
 
 //Trip Sheet
 Route::get('/trip-sheet/{tripid}/download', 'ClientController\TripSheetController@DownloadTripSheet')->name('DownloadTripSheet');
