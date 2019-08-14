@@ -17,15 +17,15 @@ class CustomerController extends Controller
         $this->Customer = new Customer;
     }
 
-    public function view(){
+    public function index(){
         return view('client.master.customer.view');
     }
 
-    public function add(){
+    public function create(){
         return view('client.master.customer.add');
     }
 
-    public function Save(){
+    public function store(){
         $this->validate(request(),[
             'name'=>'required',
             'mobile'=>'required|regex:/[0-9]{10}/',
@@ -38,7 +38,7 @@ class CustomerController extends Controller
             return back()->with('sorry','Customer Already Exist!!')->withInput();
         }
         if($this->Customer->CreateUpdateCustomer('') == 'success'){
-            return redirect('client/customers')->with('success',['Customer','Created Successfully']);
+            return redirect(action('ClientController\CustomerController@index'))->with('success',['Customer','Created Successfully']);
         }else{
             return back()->with('danger','Something went wrong!');
         }
@@ -66,13 +66,13 @@ class CustomerController extends Controller
             return back()->with('danger','Customer Already Added!!')->withInput();
         }
         if($this->Customer->CreateUpdateCustomer($id) == 'success'){
-            return redirect('client/customers')->with('success',['Customer','Update Successfully']);
+            return redirect(action('ClientController\CustomerController@index'))->with('success',['Customer','Update Successfully']);
         }else{
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function delete($id){
+    public function destroy($id){
         return $this->Customer->DeleteCustomer($id);
     }
 }

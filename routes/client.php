@@ -16,12 +16,7 @@ Route::get('/dashboard/profit/{vehicleid}/{month}/{year}/list', 'ClientControlle
 Route::get('/dashboard/non-trip-expense/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleNonTripExpenseList')->name('DashboardVehicleNonTripExpenseList');
 
 //CUSTOMER
-Route::get('/customers', 'ClientController\CustomerController@View')->name('ViewCustomers');
-Route::get('/customer/add', 'ClientController\CustomerController@Add')->name('AddCustomer');
-Route::post('/customer/add', 'ClientController\CustomerController@Save')->name('SaveCustomer');
-Route::get('/customer/{id}/edit', 'ClientController\CustomerController@edit')->name('EditCustomer');
-Route::post('/customer/{id}/update', 'ClientController\CustomerController@update')->name('UpdateCustomer');
-Route::delete('/customer/{id}/delete', 'ClientController\CustomerController@delete')->name('DeleteCustomer');
+Route::resource('master/customers','ClientController\CustomerController');
 
 //Staff
 Route::get('/staffs', 'ClientController\StaffController@view')->name('ViewStaffs');
@@ -194,4 +189,8 @@ Route::post('/manager/{id}/update', 'ClientController\ManagerController@update')
 //Report
 Route::get('/report/expense-report', 'ClientController\ReportController@ExpenseReport')->name('ExpenseReport');
 Route::post('/report/expense-report/download', 'ClientController\ReportController@DownloadExpenseReport')->name('DownloadExpenseReport');
+
+
+//auditor
+
 
