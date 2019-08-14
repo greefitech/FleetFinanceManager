@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    <title>MyVehicle - One Stop Fleet Accounts Management Solution</title>
+    <title>One Stop Fleet Accounts Management Solution | MyVehicle</title>
     <!-- Styles -->
     <link href="/css/app.css" rel="stylesheet">
     <!-- Scripts -->
@@ -15,6 +15,15 @@
             'csrfToken' => csrf_token(),
         ]); ?>
     </script>
+    <style>
+        body {
+            background-image: url("https://www.tripsavvy.com/thmb/hmmkiNtlWHV46f5NqEKBbwpMilI=/4261x2824/filters:no_upscale():max_bytes(150000):strip_icc()/big-yellow-truck-115945525-582f261e5f9b58d5b1aba434.jpg");
+            background-color: #cccccc;
+            background-size:100%;
+
+            background-repeat: no-repeat;
+        }
+    </style>
 </head>
 <body>
     <nav class="navbar navbar-default navbar-static-top">
