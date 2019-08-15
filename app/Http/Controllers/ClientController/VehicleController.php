@@ -49,6 +49,11 @@ class VehicleController extends Controller
                 'vehicleType' => request('vehicleType'),
                 'vehicleLastKm' => request('vehicleLastKm'),
                 'modelNumber' => request('modelNumber'),
+                'engine_number' => request('engine_number'),
+                'chassis_number' => request('chassis_number'),
+                'manufacture_date' => request('manufacture_date'),
+                'fuel_tank_capacity' => request('fuel_tank_capacity'),
+                'vehicle_purchased_date' => request('vehicle_purchased_date'),
                 'VehicleProfit' => request('VehicleProfit'),
                 'clientid' => auth()->user()->id,
             ]);
@@ -82,6 +87,11 @@ class VehicleController extends Controller
             $vehicle->vehicleName = request('vehicleName');
             $vehicle->vehicleType = request('vehicleType');
             $vehicle->modelNumber = request('modelNumber');
+            $vehicle->engine_number = request('engine_number');
+            $vehicle->chassis_number = request('chassis_number');
+            $vehicle->manufacture_date = request('manufacture_date');
+            $vehicle->fuel_tank_capacity = request('fuel_tank_capacity');
+            $vehicle->vehicle_purchased_date = request('vehicle_purchased_date');
             $vehicle->VehicleProfit = request('VehicleProfit');
             $vehicle->save();
             return back()->with('success',['Vehicle','Updated Successfully']);

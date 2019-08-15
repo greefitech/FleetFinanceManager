@@ -72,4 +72,21 @@ class TripWiseController extends Controller
             return back()->with('danger','Something went wrong!');
         }
     }
+
+
+    public function DeleteTripSheetData($TripId){
+        try{
+            $EntryData = $this->Entry::where([['tripId',$TripId]])->get();
+            $ExpenseData = Expense::where([['tripId',$TripId]])->get();
+            $HaltData = Halt::where([['tripId',$TripId]])->get();
+            $TripAmountData = TripAmount::where([['tripId',$TripId]])->get();
+            if($EntryData->isEmpty() && $ExpenseData->isEmpty() && $HaltData->isEmpty() && $TripAmountData->isEmpty()){
+                $this->Trip::findorfail($TripId)->delete();
+                return back()->with('success',['Trip Sheet','Deleted Successfully']);
+            }
+            return back()->with('sorry','Some Data are in Entry,Expense,Halt Delete that data on that!!');
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
 }

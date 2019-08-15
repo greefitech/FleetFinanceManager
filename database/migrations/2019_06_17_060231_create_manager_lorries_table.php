@@ -27,6 +27,8 @@ class CreateManagerLorriesTable extends Migration
             $table->string('chassis_number')->nullable()->after('engine_number');
             $table->string('manufacture_date')->nullable()->after('chassis_number');
             $table->string('fuel_tank_capacity')->nullable()->after('manufacture_date');
+            $table->string('vehicle_purchased_date')->nullable()->after('fuel_tank_capacity');
+            $table->boolean('isSold')->default(0)->after('vehicle_purchased_date');
         });
 
         Schema::table('clients', function($table)

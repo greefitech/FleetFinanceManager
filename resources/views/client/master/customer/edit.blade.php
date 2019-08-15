@@ -10,7 +10,8 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateCustomer', $Customer->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ action('ClientController\CustomerController@update', $Customer->id) }}">
+                        <input type="hidden" name="_method" value="PUT">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
