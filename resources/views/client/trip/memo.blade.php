@@ -20,7 +20,7 @@
                                         <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Vehicle / வண்டி எண் </label>
-                                                <select class="form-control select2" name="vehicleId">
+                                                <select class="form-control select2 VehicleChange GetLastKm" name="vehicleId">
                                                     <option value="">Select Vehicle</option>
                                                     @foreach(Auth::user()->vehicles as $vehicle)
                                                         <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
@@ -49,7 +49,7 @@
                                         <div class="form-group{{ $errors->has('advance') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Advance / அட்வான்ஸ்</label>
-                                                <input type="numbere" min="0" class="form-control" value="{{ old('advance') }}" placeholder="Enter Advance" name="advance">
+                                                <input type="numbere" min="0" class="form-control" value="{{ old('advance') }}" placeholder="Enter Advance" name="advance" id="advance">
                                             </div>
                                         </div>
                                     </div>
@@ -60,7 +60,7 @@
                                         <div class="form-group{{ $errors->has('startKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Starting KM / ஆரம்ப கிமீ</label>
-                                                <input type="text" id="entry-startkm" class="form-control CalculateKm" value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm">
+                                                <input type="text" id="entry-startkm" class="form-control CalculateKm"  value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm" >
                                             </div>
                                         </div>
                                     </div>
@@ -85,7 +85,7 @@
                                         <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>First Driver / டிரைவர் பெயர் 1</label>
-                                                <select name="staff[]" class="form-control select2" id="entry-staff1">
+                                                <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
                                                     <option value="">Select Staff</option>
                                                     @foreach(Auth::user()->staffs as $staff)
                                                         <option value="{{ $staff->id }}" {{ ($staff->id==old('staff')[0])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
@@ -703,7 +703,6 @@
                 });
             });
 
-
             $('body').on('change','.RTOMasterDatas',function () {
                 if($(this).val() != ''){
                     $.ajax({
@@ -718,6 +717,24 @@
                     });
                 }
             });
+
+            $('.VehicleChange').on('change',function(){
+                var VehicleId = $('.VehicleChange').val();
+                 $.ajax({
+                        type: "get",
+                        url: '/client/getendingkm',
+                        data:{VehicleId:VehicleId},
+                        success: function(data) {
+                            console.log(data);
+                            $('#entry-startkm').val(data.endKm);
+                        }
+                    });
+            })
+
+
+
+
+
         });
     </script>
 

@@ -9,6 +9,7 @@ use App\Trip;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use DB;
 
 class MemoController extends Controller
 {
@@ -21,6 +22,7 @@ class MemoController extends Controller
 
     public function memo(){
         $Data['RTOMasters'] = $this->RTOMaster::where([['clientid',auth()->user()->id]])->get();
+        // $Data['RTOMasters'] = Trip::all()->sortBy("startKm");
         return view('client.trip.memo',$Data);
     }
 
@@ -288,5 +290,10 @@ class MemoController extends Controller
             return back()->with('danger','Something went wrong!');
         }
 
+    }
+
+
+    public function getendingkm(){
+        return Trip::where('vehicleId',request('VehicleId'))->get()->sortByDesc('dateTo')->first();
     }
 }

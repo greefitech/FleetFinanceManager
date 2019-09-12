@@ -186,3 +186,4 @@ Route::post('/manager/{id}/update', 'ClientController\ManagerController@update')
 Route::get('/report/expense-report', 'ClientController\ReportController@ExpenseReport')->name('ExpenseReport');
 Route::post('/report/expense-report/download', 'ClientController\ReportController@DownloadExpenseReport')->name('DownloadExpenseReport');
 
+Route::get('getendingkm','ClientController\MemoController@getendingkm');
