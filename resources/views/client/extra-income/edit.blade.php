@@ -78,7 +78,7 @@
                             </div>
 
                             <div class="row">
-                                <div class="col-sm-6">
+                            {{--     <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Payment Status</label>
@@ -88,7 +88,7 @@
                                             </select>
                                         </div>
                                     </div>
-                                </div>
+                                </div> --}}
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">

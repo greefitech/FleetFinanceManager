@@ -19,7 +19,7 @@
                                         <th>Date</th>
                                         <th>Income Type</th>
                                         <th>Amount</th>
-                                        <th>Status</th>
+                                        {{-- <th>Status</th> --}}
                                         <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
@@ -30,7 +30,7 @@
                                             <td>{{ date("d-m-Y", strtotime($ExtraIncome->date)) }}</td>
                                             <td>{{ $ExtraIncome->ExpenseType->expenseType }}</td>
                                             <td>{{ $ExtraIncome->amount }}</td>
-                                            <td><span class="label label-{{ ($ExtraIncome->status == 0)?'danger':'success' }}">{{ ($ExtraIncome->status == 0)?'Not Paid':'Paid' }}</span></td>
+                                            {{-- <td><span class="label label-{{ ($ExtraIncome->status == 0)?'danger':'success' }}">{{ ($ExtraIncome->status == 0)?'Not Paid':'Paid' }}</span></td> --}}
                                             <td>{{ (!empty($ExtraIncome->managerid))?$ExtraIncome->manager->name:auth()->user()->name }}</td>
                                             <td>
                                                 <form action="{{ route('client.DeleteExtraIncome',$ExtraIncome->id) }}" method="POST">
