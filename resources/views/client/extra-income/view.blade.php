@@ -9,7 +9,6 @@
                     <h4>
                         <center>Extra Income List <span style="color: green;">{{ $Vehicle->vehicleNumber }}</span></center>
                     </h4>
-                    <a href="{{ route('client.AddCustomer') }}" class="btn btn-info pull-right">Add Customer</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
