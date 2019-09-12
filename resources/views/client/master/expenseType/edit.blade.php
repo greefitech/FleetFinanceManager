@@ -7,9 +7,9 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Edit Expense Type</center>
+                        <center>Edit Expense / Income Type</center>
                     </h4>
-                    <a href="{{ route('client.ViewExpenseTypes') }}" class="btn btn-info pull-right">View Expense Type</a>
+                    <a href="{{ route('client.ViewExpenseTypes') }}" class="btn btn-info pull-right">View Expense/Income Type</a>
                 </div>
                 <div class="box-body">
                     <form class="form-horizontal" method="post" action="{{ route('client.UpdateExpenseType',$ExpenseType->id) }}">

@@ -7,9 +7,9 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Expense Types</center>
+                        <center>Expense / Income Types</center>
                     </h4>
-                    <a href="{{ route('client.AddExpenseType') }}" class="btn btn-info pull-right">Add Expense Type</a>
+                    <a href="{{ route('client.AddExpenseType') }}" class="btn btn-info pull-right">Add Type</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -17,7 +17,7 @@
                             <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
-                                        <th>Expense Type</th>
+                                        <th>Expense / Income Type</th>
                                         <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
