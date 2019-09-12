@@ -5,6 +5,7 @@ namespace App;
 use App\Notifications\ManagerResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
+use Illuminate\Support\Facades\Auth;
 
 class Manager extends Authenticatable
 {
@@ -45,6 +46,10 @@ class Manager extends Authenticatable
 
     public function Customers(){
         return $this->hasMany(Customer::class, 'clientid', 'clientid')->orderBy('updated_at','DESC');
+    }
+
+    public function Staffs(){
+        return $this->hasMany(Staff::class, 'clientid', 'clientid')->orderBy('name');
     }
 
     public function Vehicles(){
@@ -93,5 +98,39 @@ class Manager extends Authenticatable
 
     public function ManagerLorries(){
         return $this->hasMany(ManagerLorry::class, 'manager_login_id', 'id')->select('vehicleId')->pluck('vehicleId')->toArray();
+    }
+
+    public function TripTotalIncome($tripId){
+        @$total_entry_amount = Entry::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('billAmount');
+//        @$total_income_amount = Income::where([['clientid', Auth::user()->id],['tripId',$tripId]])->sum('recevingAmount');
+//        return $total_entry_amount+$total_income_amount;
+        return $total_entry_amount;
+    }
+
+    public function TripTotalExpense($tripId){
+        @$total_comission_amount = Entry::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('comission');
+        @$total_loadingMamool_amount = Entry::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('loadingMamool');
+        @$total_unLoadingMamool_amount = Entry::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('unLoadingMamool');
+        @$total_expense_amount = Expense::where([['clientid', auth()->user()->owner->id],['tripId',$tripId], ['status',1]])->sum('amount');
+        $entryDatas = Entry::where([['tripId',$tripId]])->get();
+        $Trip= Trip::findorfail($tripId);
+        return $total_comission_amount+$total_loadingMamool_amount+$total_unLoadingMamool_amount+$total_expense_amount + @$entryDatas->sum('driverPadiAmount')  + @$entryDatas->sum('cleanerPadiAmount');
+    }
+
+    public function TripTotalBalance($tripId){
+        @$total_entry_Bill_amount = Entry::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('billAmount');
+        @$total_entry_Advance_amount = Entry::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('advance');
+        @$total_income_receving_amount = Income::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('recevingAmount');
+        @$total_income_discount_amount = Income::where([['clientid', auth()->user()->owner->id],['tripId',$tripId]])->sum('discountAmount');
+        return $total_entry_Bill_amount-($total_entry_Advance_amount+$total_income_receving_amount+$total_income_discount_amount);
+    }
+
+    public function getVehicleTotalProfitAmount($VehicleId){
+        $Trips= Trip::where([['clientid', auth()->user()->owner->id],['vehicleId',$VehicleId]])->get();
+        $total_income =0;
+        foreach ($Trips as $Trip){
+            $total_income += ($this->TripTotalIncome($Trip->id) - $this->TripTotalExpense($Trip->id));
+        }
+        return $total_income+ExtraIncome::where([['clientid', auth()->user()->id],['vehicleId',$VehicleId]])->sum('amount')-Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId]])->where('tripId', NULL)->sum('amount')+Vehicle::findorfail($VehicleId)->VehicleProfit;
     }
 }

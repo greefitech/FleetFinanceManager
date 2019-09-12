@@ -90,10 +90,10 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group{{ $errors->has('discription') ? ' has-error' : '' }}">
+                                    <div class="form-group{{ $errors->has('description') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Description</label>
-                                            <textarea class="form-control" name="discription">{{ old('discription') }}</textarea>
+                                            <textarea class="form-control" name="description">{{ old('description') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

@@ -7,7 +7,7 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Expense List</center>
+                        <center>{{ $Vehicle->vehicleNumber }} Expense List</center>
                     </h4>
                 </div>
                 <div class="box-body">

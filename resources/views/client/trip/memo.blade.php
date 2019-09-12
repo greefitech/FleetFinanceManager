@@ -584,6 +584,63 @@
                             </div>
                             <!-- Paalam / Tolls Data Stop -->
 
+
+                            <!-- Paalam / Tolls Data Start -->
+                            <div class="row">
+                                <div class="col-sm-12">
+                                    <div class="panel-group">
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading"><span style="font-weight: bold;">Driver Advance
+                                                <button type="button" class="btn btn-primary btn-sm pull-right AddDriverAdvanceAmountInput"><i class="fa fa-plus"></i></button>
+                                                </span></div>
+                                            <div class="panel-body table-responsive">
+                                                <table  class="table table-bordered">
+                                                    <thead>
+                                                    <tr>
+                                                        <th>Date</th>
+                                                        <th>Amount / ரூ.</th>
+                                                        <th>Account</th>
+                                                        <th>Action</th>
+                                                    </tr>
+                                                    </thead>
+                                                    <tbody class="DriverAdvanceTableData">
+                                                    @if(!empty(old('DriverAdvance')))
+                                                        @foreach(old('DriverAdvance')['date'] as $DriverAdvanceKey=>$Driver)
+                                                            <tr>
+                                                                <td class="{{ $errors->has('DriverAdvance.date.'.$DriverAdvanceKey) ? ' has-error' : '' }}">
+                                                                    <input type="date" class="form-control DateValue" name="DriverAdvance[date][]" value="{{ old('DriverAdvance')['date'][$DriverAdvanceKey] }}">
+                                                                </td>
+                                                                <td class="{{ $errors->has('DriverAdvance.amount.'.$DriverAdvanceKey) ? ' has-error' : '' }}">
+                                                                    <input type="number" min="0" class="form-control DriverAdvanceAmountValue" name="DriverAdvance[amount][]" value="{{ old('DriverAdvance')['amount'][$DriverAdvanceKey] }}">
+                                                                </td>
+                                                                <td class="{{ $errors->has('DriverAdvance.account_id.'.$DriverAdvanceKey) ? ' has-error' : '' }}">
+                                                                    <select name="DriverAdvance[account_id][]" class="form-control">
+                                                                        <option value="1">Cash</option>
+                                                                        @foreach(Auth::user()->Accounts as $Account)
+                                                                            <option value="{{ $Account->id }}" {{ ($Account->id == old('DriverAdvance')['account_id'][$DriverAdvanceKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                        @endforeach
+                                                                    </select>
+                                                                </td>
+                                                                <td><i style="color: red;" class="fa fa-close RemoveDriverAdvanceInput"></i></td>
+                                                            </tr>
+                                                        @endforeach
+                                                    @endif
+
+                                                    </tbody>
+                                                    <tr>
+                                                        <th>Total</th>
+                                                        <th id="DriverAdvanceTotalAmount"></th>
+                                                        <th></th>
+                                                        <th></th>
+                                                    </tr>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Paalam / Tolls Data Stop -->
+
                             <br>
                             <div align="center">
                                 <button type="submit" class="btn btn-info submit">Add Memo</button>

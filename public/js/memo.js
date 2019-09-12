@@ -370,8 +370,52 @@ $(document).ready(function() {
     });
 
 
+
+/*
+* ============================
+* Driver Advance Module
+* ============================*/
+
+    $('body').on('click', '.AddDriverAdvanceAmountInput', function (e) {
+        var AccountsDataOption = GetAccountOptionData();
+        e.preventDefault();
+        var DriverAdvanceData ='<tr>\n' +
+            '    <td>\n' +
+            '        <input type="date" class="form-control DateValue" name="DriverAdvance[date][]" value="">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <input type="number" min="0" class="form-control DriverAdvanceAmountValue" name="DriverAdvance[amount][]" value="">\n' +
+            '    </td>\n' +
+            '    <td>\n' +
+            '        <select name="DriverAdvance[account_id][]" class="form-control">\n' +
+            '            <option value="1">Cash</option>' +AccountsDataOption+
+            '        </select>\n' +
+            '    </td>\n' +
+            '    <td><i style="color: red;" class="fa fa-close RemoveDriverAdvanceInput"></i></td>\n' +
+            '</tr>';
+
+        $('.DriverAdvanceTableData').append(DriverAdvanceData);
+        $('.DateChanges').trigger('change');
+        $('.select2').select2();
+    });
+
+    $('body').on('click','.RemoveDriverAdvanceInput',function (e) {
+        e.preventDefault();
+        $(this).parent().parent().remove();
+        CalculateDriverAdvanceAmountTotal();
+    });
+
+    $('body').on('keyup change','.DriverAdvanceAmountValue',function (e) {
+        e.preventDefault();
+        CalculateDriverAdvanceAmountTotal();
+    });
+    /*
+    * ==================================
+    * Driver advance amount end
+    * =====================================*/
 });
 CalculateTotalExpenseMasterFunction();
+
 
 function CalculateTotalExpenseMasterFunction() {
     CalculatePcTotalAmount();
@@ -718,4 +762,16 @@ function CalculateTotalExpenseCalculationAmount() {
     });
     $('#TotalTotalSpentCalculationAmount').html(TOTALEXPENSE);
     $('#TotalBalanceCalculationAmount').html(parseFloat($('#TotalTotalIncomeCalculationAmount').text()) - parseFloat(TOTALEXPENSE));
+}
+
+
+CalculateDriverAdvanceAmountTotal();
+function CalculateDriverAdvanceAmountTotal() {
+    var DriverAdvanceTotalAmount = 0;
+    $('.DriverAdvanceAmountValue').each(function(){
+        if($(this).val() !='' && !isNaN($(this).val())){
+            DriverAdvanceTotalAmount += parseFloat($(this).val());
+        }
+    });
+    $('#DriverAdvanceTotalAmount').html(DriverAdvanceTotalAmount);
 }

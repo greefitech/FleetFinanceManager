@@ -114,18 +114,17 @@
                         <p> Greefi Technologies <br>
                             <span class="small">Room No : 9, First Floor, <br>
 							Sri Shanmugha College of Engineering and Technology,<br>
-							Sankari - Tiruchengode Main Road, Pullipalayam,<br> Sankari, Salem - 637304.</span>
+							Sankari - Tiruchengode Main Road, Pullipalayam,<br> Sankari, Salem (Dt), Tamil Nadu - 637304.</span>
                         </p>
                         <p>Mail us
                             - <a href="#">hello@myvehicle.biz</a></p>
                         <p>Call us
                             - + 91 9092473334</p>
-                        <em><small>© {{ date("Y") }} <a href="https://greefitech.com" target="_blank">Greefi</a> | <a href="terms" target="_blank" title="Terms Of Service">Terms Of Service</a> | <a href="privacy" target="_blank" title="Privacy Statement">Privacy Statement</a></small></em>
+                        <em><small>© {{ date("Y") }} <a href="https://greefitech.com" target="_blank">Greefi Technologies</a> | <a href="terms" target="_blank" title="Terms Of Service">Terms Of Service</a> | <a href="privacy" target="_blank" title="Privacy Statement">Privacy Statement</a></small></em>
                     </address>
                 </div>
             </div>
         </div>
-
         <footer>
             <div class="container">
                 <div class="row text-right">

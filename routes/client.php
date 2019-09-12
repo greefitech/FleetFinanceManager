@@ -16,12 +16,7 @@ Route::get('/dashboard/profit/{vehicleid}/{month}/{year}/list', 'ClientControlle
 Route::get('/dashboard/non-trip-expense/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleNonTripExpenseList')->name('DashboardVehicleNonTripExpenseList');
 
 //CUSTOMER
-Route::get('/customers', 'ClientController\CustomerController@View')->name('ViewCustomers');
-Route::get('/customer/add', 'ClientController\CustomerController@Add')->name('AddCustomer');
-Route::post('/customer/add', 'ClientController\CustomerController@Save')->name('SaveCustomer');
-Route::get('/customer/{id}/edit', 'ClientController\CustomerController@edit')->name('EditCustomer');
-Route::post('/customer/{id}/update', 'ClientController\CustomerController@update')->name('UpdateCustomer');
-Route::delete('/customer/{id}/delete', 'ClientController\CustomerController@delete')->name('DeleteCustomer');
+Route::resource('master/customers','ClientController\CustomerController');
 
 //Staff
 Route::get('/staffs', 'ClientController\StaffController@view')->name('ViewStaffs');
@@ -125,6 +120,7 @@ Route::delete('/expense/{id}/delete', 'ClientController\ExpenseController@delete
 Route::get('/expense-vehicle-list', 'ClientController\ExpenseController@ExpenseVehcleListNonTrip')->name('ExpenseVehcleListNonTrip');
 Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ClientController\ExpenseController@NonTripVehicleExpenseList')->name('NonTripVehicleExpenseList');
 Route::get('/expense/GetLastExpenseTypeDetail', 'ClientController\ExpenseController@GetLastExpenseTypeDetail');
+
 //Halt
 Route::get('/halt/add', 'ClientController\HaltController@add')->name('AddHalt');
 Route::post('/halt/add', 'ClientController\HaltController@save')->name('SaveHalt');
@@ -132,6 +128,12 @@ Route::get('/halt/{id}/edit', 'ClientController\HaltController@edit')->name('Edi
 Route::post('/halt/{id}/update', 'ClientController\HaltController@update')->name('UpdateHalt');
 Route::delete('/halt/{id}/delete', 'ClientController\HaltController@delete')->name('DeleteHalt');
 
+//Halt
+Route::get('/trip-advance/add', 'ClientController\TripAdvanceController@add')->name('AddTripAdvance');
+Route::post('/trip-advance/add', 'ClientController\TripAdvanceController@save')->name('SaveTripAdvance');
+Route::get('/trip-advance/{id}/edit', 'ClientController\TripAdvanceController@edit')->name('EditTripAdvance');
+Route::post('/trip-advance/{id}/update', 'ClientController\TripAdvanceController@update')->name('UpdateTripAdvance');
+Route::delete('/trip-advance/{id}/delete', 'ClientController\TripAdvanceController@delete')->name('DeleteTripAdvance');
 
 //Income
 Route::get('/income/add', 'ClientController\IncomeController@IncomeBalanceCustomerList')->name('IncomeBalanceCustomerList');
@@ -158,6 +160,8 @@ Route::get('/Vehicle-list/{vehicleid}/trip-list', 'ClientController\TripWiseCont
 Route::get('/Vehicle-trip/{tripid}/entry-list', 'ClientController\TripWiseController@ViewTripEntryList')->name('ViewTripEntryList');
 Route::get('/Vehicle-trip/{tripid}/expense-list', 'ClientController\TripWiseController@ViewTripExpenseList')->name('ViewTripExpenseList');
 Route::get('/Vehicle-trip/{tripid}/halt-list', 'ClientController\TripWiseController@ViewTripHaltList')->name('ViewTripHaltList');
+Route::get('/Vehicle-trip/{tripid}/trip-advance-list', 'ClientController\TripWiseController@ViewTripAdvanceList')->name('ViewTripAdvanceList');
+Route::delete('/Vehicle-trip/{tripid}/delete-trip', 'ClientController\TripWiseController@DeleteTripSheetData')->name('DeleteTripSheetData');
 
 //Trip Sheet
 Route::get('/trip-sheet/{tripid}/download', 'ClientController\TripSheetController@DownloadTripSheet')->name('DownloadTripSheet');
@@ -186,4 +190,9 @@ Route::post('/manager/{id}/update', 'ClientController\ManagerController@update')
 Route::get('/report/expense-report', 'ClientController\ReportController@ExpenseReport')->name('ExpenseReport');
 Route::post('/report/expense-report/download', 'ClientController\ReportController@DownloadExpenseReport')->name('DownloadExpenseReport');
 
+
 Route::get('getendingkm','ClientController\MemoController@getendingkm');
+
+
+//auditor
+

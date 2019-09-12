@@ -9,7 +9,7 @@
                     <h4>
                         <center>Customers</center>
                     </h4>
-                    <a href="{{ route('client.AddCustomer') }}" class="btn btn-info pull-right">Add Customer</a>
+                    <a href="{{ action('ClientController\CustomerController@create') }}" class="btn btn-info pull-right">Add Customer</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -34,10 +34,10 @@
                                             <td>{{ $Customer->type }}</td>
                                             <td>{{ (!empty($Customer->managerid))?$Customer->manager->name:auth()->user()->name }}</td>
                                             <td>
-                                                <form action="{{ route('client.DeleteCustomer',$Customer->id) }}" method="POST">
+                                                <form action="{{ action('ClientController\CustomerController@destroy',$Customer->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('client.EditCustomer',$Customer->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ action('ClientController\CustomerController@edit',$Customer->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ClientController;
 use App\Expense;
 use App\ExpenseType;
 use App\Trip;
+use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -146,6 +147,7 @@ class ExpenseController extends Controller
 
     public function NonTripVehicleExpenseList($VehicleId){
         try {
+            $Data['Vehicle'] = Vehicle::findorfail($VehicleId);
             $Data['Expenses'] = $this->Expense::where([['clientid', auth()->user()->id], ['vehicleId', $VehicleId]])->where('tripId', NULL)->orderBy('date', 'DESC')->get();
             return view('client.trip.expense.view-non-trip-expense',$Data);
         } catch (\Illuminate\Database\QueryException $e) {

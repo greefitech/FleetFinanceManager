@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -9,7 +9,7 @@
                     <h4>
                         <center>Expense Types</center>
                     </h4>
-                    <a href="{{ route('client.AddExpenseType') }}" class="btn btn-info pull-right">Add Expense Type</a>
+                    <a href="{{ route('manager.AddExpenseType') }}" class="btn btn-info pull-right">Add Expense Type</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -26,12 +26,12 @@
                                     @foreach($ExpenseTypes as $ExpenseType)
                                         <tr>
                                             <td>{{ $ExpenseType->expenseType }}</td>
-                                            <td>{{ (!empty($ExpenseType->managerid))?$ExpenseType->manager->name:auth()->user()->name }}</td>
+                                            <td>{{ (!empty($ExpenseType->managerid))?$ExpenseType->manager->name:GetClientManager(auth()->user()->clientid)->name }}</td>
                                             <td>
-                                                <form action="{{ route('client.DeleteExpenseType',$ExpenseType->id) }}" method="POST">
+                                                <form action="{{ route('manager.DeleteExpenseType',$ExpenseType->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('client.EditExpenseType',$ExpenseType->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ route('manager.EditExpenseType',$ExpenseType->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>

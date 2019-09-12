@@ -46,8 +46,16 @@
                                                             <li><a href="{{ route('client.ViewTripEntryList',$Trip->id) }}">Entries</a></li>
                                                             <li><a href="{{ route('client.ViewTripExpenseList',$Trip->id) }}">Expense</a></li>
                                                             <li><a href="{{ route('client.ViewTripHaltList',$Trip->id) }}">Halt</a></li>
+                                                            <li><a href="{{ route('client.ViewTripAdvanceList',$Trip->id) }}">Trip Advance</a></li>
                                                             <li class="divider"></li>
                                                             <li><a href="{{ route('client.EditTrip',$Trip->id) }}">Edit</a></li>
+                                                            <li>
+                                                                <form action="{{ route('client.DeleteTripSheetData',$Trip->id) }}" method="POST">
+                                                                    {{ csrf_field() }}
+                                                                    <input type="hidden" name="_method" value="DELETE">
+                                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn btn-danger"><i class="fa fa-trash-o"></i>Delete</button>
+                                                                </form>
+                                                            </li>
                                                         </ul>
                                                     </div>
                                                 </div>

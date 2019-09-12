@@ -87,6 +87,7 @@ if (! function_exists('VehicleCreditsClientWise')) {
         return VehicleCredits::where('clientid',$ClientId)->get();
     }
 }
+
 /*Vehicle Credit Payment Client Wise*/
 if (! function_exists('VehicleCreditPaymentClientWise')) {
     function VehicleCreditPaymentClientWise($ClientId){
