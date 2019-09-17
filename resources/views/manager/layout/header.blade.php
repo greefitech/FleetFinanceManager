@@ -1,7 +1,7 @@
 <header class="main-header">
     <a href="{{ url('manager/home') }}" class="logo">
         <span class="logo-mini">{{ auth()->user()->name }}</span>
-        <span class="logo-lg"> <img src="{{ url('/assets/img/greefi.jpg') }}" height="25px"> {{ auth()->user()->Owner->transportName }}</span>
+        <span class="logo-lg"> <img src="{{ auth()->user()->owner->profile_image? '/assets/logo/' .auth()->user()->owner->profile_image :'/assets/img/greefi.jpg'  }}" height="25px"> {{ auth()->user()->Owner->transportName }}</span>
     </a>
     <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
@@ -11,12 +11,12 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ url('/assets/img/avatar5.png') }}" class="user-image" alt="User Image">
+                        <img src="{{ auth()->user()->owner->profile_image? '/assets/logo/' .auth()->user()->owner->profile_image :'/assets/img/avatar5.png'  }}" class="user-image" alt="User Image">
                         <span class="hidden-xs">{{ auth()->user()->Owner->transportName }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img src="{{ url('/assets/img/avatar5.png') }}" class="img-circle" alt="User Image">
+                            <img src="{{ auth()->user()->owner->profile_image? '/assets/logo/' .auth()->user()->owner->profile_image :'/assets/img/avatar5.png'  }}" class="img-circle" alt="User Image">
                             <p>
                                 {{ auth()->user()->Owner->transportName }}
                                 <small>{{ auth()->user()->Owner->address }}</small>
