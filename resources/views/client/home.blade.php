@@ -2,6 +2,9 @@
 
 @section('content')
 
+
+
+{{-- <input type="month" min="{{ date("Y-m", strtotime(App\Expense::where([['clientid',auth()->user()->id]])->orderBy('date')->first()->date)) }}" name="" max="{{ strtotime ( '+1 month' , date("Y-m-01") ) }}" class="form-control"> --}}
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
