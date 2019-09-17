@@ -11,7 +11,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateProfile') }}">
+                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateProfile') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -62,8 +62,10 @@
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
-                                    <div class="form-group{{ $errors->has('gst') ? ' has-error' : '' }}">
+                                    <div class="form-group">
                                         <div class="col-sm-12">
+                                            <label>Profile Image</label>
+                                            <input type="file" name="profile_image">
                                         </div>
                                     </div>
                                 </div>

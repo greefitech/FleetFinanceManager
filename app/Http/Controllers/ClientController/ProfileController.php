@@ -21,7 +21,7 @@ class ProfileController extends Controller
      * Update Profile
      */
 
-    public function UpdateProfile(){
+    public function UpdateProfile(Request $request){
         $this->validate(request(),[
             'name'=>'required',
             'mobile'=>'required|min:10|max:10|unique:clients,mobile,'.auth()->user()->id,
@@ -31,11 +31,27 @@ class ProfileController extends Controller
             'mobile.unique'=>'Please Check Mobile Number and Update.Contact Admin!'
         ]);
         try {
+            if ($files = $request->file('profile_image')) {
+                $StoragePath = '/assets/logo/'; // upload path
+                $profileImage = date('YmdHis') .auth()->user()->name. "." . $files->getClientOriginalExtension();
+                $files->move(public_path() .$StoragePath, $profileImage);
+            }
+
             $Client = Client::findorfail(auth()->user()->id);
             $Client->name = request('name');
             $Client->mobile = request('mobile');
             $Client->transportName = request('transportName');
             $Client->address = request('address');
+            if(!empty($profileImage)) {
+                if (!empty($Client->profile_image)){
+                    unlink(public_path() . '/assets/logo/' . $Client->profile_image);
+                }
+                $Client->profile_image = $profileImage;
+            }
+            // else{
+            //     unlink(public_path() . '/assets/logo/' . $Client->profile_image);
+            //     $Client->profile_image = '';
+            // }
             $Client->save();
             return back()->with('success',['Profile','Updated Successfully!!']);
         }catch (Exception $e){
