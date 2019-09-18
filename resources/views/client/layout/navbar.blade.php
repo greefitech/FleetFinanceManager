@@ -97,21 +97,6 @@
                     <li><a href="{{ url('client/managers') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Manager</span></a></li>
                 </ul>
             </li>
-
-            <li class="treeview">
-                <a href="#">
-                    <i class="fa fa-file-pdf-o <?php echo $color[array_rand($color,1)] ?>"></i>
-                    <span>Auditor</span>
-                    <span class="pull-right-container">
-                         <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{ url('client/managers') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Category</span></a></li>
-                </ul>
-            </li>
-
-
         </ul>
     </section>
 </aside>
