@@ -166,6 +166,7 @@ return [
         Igoshev\Captcha\Providers\CaptchaServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
+        Collective\Html\HtmlServiceProvider::class, 
 
 
 
@@ -223,7 +224,8 @@ return [
         'SnappyImage' => Barryvdh\Snappy\Facades\SnappyImage::class,
         'Excel' => Maatwebsite\Excel\Facades\Excel::class,
 
-
+        'Form' => Collective\Html\FormFacade::class,
+        'Html' => Collective\Html\HtmlFacade::class,
     ],
 
 ];

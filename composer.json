@@ -16,6 +16,7 @@
         "laravel/framework": "5.7.*",
         "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
+        "laravelcollective/html": "^5.4",
         "maatwebsite/excel": "~2.1.0",
         "webpatser/laravel-uuid": "^3.0",
         "zircote/swagger-php": "2.0.9"
