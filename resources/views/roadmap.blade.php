@@ -6,7 +6,6 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Welcome to Road Map</title>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92345002-2"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -585,16 +584,16 @@
         <span class="sub">Working On Vehicle Document Notification</span>
         <span class="sub">Acquired users with 50 Vehicles</span>
     </li>
-    <li class="stage">Jul 2019 - Online Multiple Payment Integration Module
+    <li class="stage">Jul 2019 - Iterating Lorry owners to ease of usability
         <span class="sub">Tyre Service module integration Completed</span>
     </li>
-    <li class="stage active">Aug 2019 - Online Multiple Payment Integration Module
+    <li class="stage ">Aug 2019 - Iterating Lorry owners to ease of usability
         <span class="sub">Working on Exporting Data for Income Tax Filing</span>
         <span class="sub">Working on Report Analytics</span>
     </li>
-    <li class="stage">Sep 2019 - Have to Acquire 1K Vehicles</li>
-    <li class="stage">Nov 2019 - Better Reports and Analytics</li>
-    <li class="stage">Dec 2019 - Have to Acquire 2K Vehicles</li>
+    <li class="stage active">Sep 2019 - Custom service integration module</li>
+    <li class="stage">Nov 2019 - Iterating Lorry owners to ease of usability</li>
+    <li class="stage">Dec 2019 - Have to Acquire 1K Vehicles</li>
     <li class="stage">Jan 2020 - Integrate with 3rd Party Apps</li>
     <li class="stage">End of 2020 - Have to Acquire 100K Vehicles</li>
 </ol>
