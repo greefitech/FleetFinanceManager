@@ -19,6 +19,8 @@
                                     <tr>
                                         <th>Account / Bank Name</th>
                                         <th>Holder Name</th>
+                                        <th>Credit</th>
+                                        <th>Debit</th>
                                         <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
@@ -28,9 +30,11 @@
                                         <tr>
                                             <td>{{ $Account->account }}</td>
                                             <td>{{ $Account->HolderName }}</td>
+                                            <td style="color: green;">{{ VehicleCreditPaymentAccountWise($Account->id)['Credit'] }}
+                                            </td>
+                                            <td style="color: red;">{{ VehicleCreditPaymentAccountWise($Account->id)['Debit'] }}</td>
                                             <td>{{ (!empty($Account->manager))?$Account->manager->name:auth()->user()->name }}</td>
                                             <td>
-                                                
                                                     <a href="{{ route('client.EditAccount',$Account->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <a href="{{ route('client.ViewAccountDetail',$Account->id) }}"><i class="fa fa-eye"></i></a>
                                             </td>

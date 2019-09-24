@@ -30,17 +30,18 @@
                                 </thead>
                                 <tbody>
                                     @foreach($vehicles as $vehicle)
+                                        @if( VehicleCreditPaymentAccountVehicleWise($AccountId,$vehicle->id)['Debit'] >0 || VehicleCreditPaymentAccountVehicleWise($AccountId,$vehicle->id)['Credit'] >0)
+                                            <tr>
+                                                <td>{{ $vehicle->vehicleNumber }}</td>
+                                                <?php $VehicleId = $vehicle->id; ?>
+                                                <td style="color: red;">{{ VehicleCreditPaymentAccountVehicleWise($AccountId,$vehicle->id)['Debit'] }}</td>
 
-                                        <tr>
-                                            <td>{{ $vehicle->vehicleNumber }}</td>
-                                            <?php $VehicleId = $vehicle->id; ?>
-                                            <td style="color: red;">{{ empty(@$Expenses[$VehicleId])?0:@$Expenses[$VehicleId]->sum('amount') }}</td>
-
-                                            <td style="color: green;">{{ (empty(@$Entries[$VehicleId])?0:@$Entries[$VehicleId]->sum('advance'))  +  (empty(@$Incomes[$VehicleId])?0:@$Incomes[$VehicleId]->sum('recevingAmount')) + (empty(@$ExtraIncomes[$VehicleId])?0:@$ExtraIncomes[$VehicleId]->sum('amount')) }}</td>	
-                                            <td>
-                                            	<a href="{{ action('ClientController\AccountController@AccountDetailVehicleWise',[$AccountId,$vehicle->id]) }}" class="btn btn-primary brn-sm"><i class="fa fa-eye"></i></a>
-                                            </td>
-                                        </tr>
+                                                <td style="color: green;">{{ VehicleCreditPaymentAccountVehicleWise($AccountId,$vehicle->id)['Credit'] }}</td>	
+                                                <td>
+                                                	<a href="{{ action('ClientController\AccountController@AccountDetailVehicleWise',[$AccountId,$vehicle->id]) }}" class="btn btn-primary brn-sm"><i class="fa fa-eye"></i></a>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>

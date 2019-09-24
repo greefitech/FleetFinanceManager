@@ -7,6 +7,10 @@ use App\Admin;
 use App\Client;
 use App\VehicleCreditPayment;
 use App\VehicleCredits;
+use App\Entry;
+use App\Expense;
+use App\Income;
+use App\ExtraIncome;
 
 if (! function_exists('GetClientReferenceName')) {
     function GetClientReferenceName($ClientReferenceNumber){
@@ -92,5 +96,31 @@ if (! function_exists('VehicleCreditsClientWise')) {
 if (! function_exists('VehicleCreditPaymentClientWise')) {
     function VehicleCreditPaymentClientWise($ClientId){
         return VehicleCreditPayment::where('client_id',$ClientId)->get();
+    }
+}
+// /Bank Account Detail
+
+if (! function_exists('VehicleCreditPaymentAccountWise')) {
+    function VehicleCreditPaymentAccountWise($AccountId){
+        $Entries  = Entry::where([['account_id',$AccountId],['clientid',auth()->user()->id]])->get();
+        $Expenses = Expense::where([['account_id',$AccountId],['clientid',auth()->user()->id]])->get();
+        $Incomes = Income::where([['account_id',$AccountId],['clientid',auth()->user()->id]])->get();
+        $ExtraIncomes = ExtraIncome::where([['account_id',$AccountId],['clientid',auth()->user()->id]])->get();
+        $Final['Credit'] = $Entries->sum('advance') + $Incomes->sum('recevingAmount') + $ExtraIncomes->sum('amount');
+        $Final['Debit'] = $Expenses->sum('amount');
+        return $Final;
+    }
+}
+
+
+if (! function_exists('VehicleCreditPaymentAccountVehicleWise')) {
+    function VehicleCreditPaymentAccountVehicleWise($AccountId,$VehicleId){
+        $Entries  = Entry::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        $Expenses = Expense::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        $Incomes = Income::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        $ExtraIncomes = ExtraIncome::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        $Final['Credit'] = $Entries->sum('advance') + $Incomes->sum('recevingAmount') + $ExtraIncomes->sum('amount');
+        $Final['Debit'] = $Expenses->sum('amount');
+        return $Final;
     }
 }
