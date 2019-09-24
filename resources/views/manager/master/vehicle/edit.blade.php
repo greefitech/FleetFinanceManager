@@ -76,6 +76,51 @@
                             </div>
                             <div class="row">
                                 <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('engine_number') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Engine Number</label>
+                                            <input type="text" class="form-control" value="{{$Vehicle->engine_number }}" placeholder="Enter Engine Number" name="engine_number">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('chassis_number') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Chassis Number</label>
+                                            <input type="text" class="form-control" value="{{$Vehicle->chassis_number }}" placeholder="Enter Chassis Number" name="chassis_number">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('manufacture_date') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Manufacturing Year</label>
+                                            <input type="month" class="form-control" value="{{$Vehicle->manufacture_date }}" placeholder="Enter Manufacturing Year" name="manufacture_date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('fuel_tank_capacity') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Fuel Tank Capacity</label>
+                                            <input type="number" min="0" class="form-control" value="{{$Vehicle->fuel_tank_capacity }}" placeholder="Enter Fuel Tank Capacity" name="fuel_tank_capacity">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('vehicle_purchased_date') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Purchased Date</label>
+                                            <input type="date" min="0" class="form-control" value="{{$Vehicle->vehicle_purchased_date }}" placeholder="Enter Purchased Date" name="vehicle_purchased_date">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('VehicleProfit') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle Profit</label>

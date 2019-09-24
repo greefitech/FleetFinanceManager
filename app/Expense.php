@@ -53,4 +53,5 @@ class Expense extends Model
     public function Trip(){
         return $this->hasOne(Trip::class, 'id', 'tripId');
     }
+    
 }

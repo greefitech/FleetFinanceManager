@@ -42,7 +42,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle" id="entry-vehicle">
+                                            <select name="vehicleId" class="form-control LastExpense1 select2 expense-vehicle" id="entry-vehicle">
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles() as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id==old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
@@ -58,7 +58,7 @@
                                     <div class="form-group{{ $errors->has('expense_type') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Expense</label>
-                                            <select name="expense_type" class="form-control expense-type LastExpense select2" id="entry-type">
+                                            <select name="expense_type" class="form-control expense-type LastExpense1 select2" id="entry-type">
                                                 <option value="">Select Expense Type</option>
                                                 @foreach($ExpenseTypes as $ExpenseType)
                                                     <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id==old('expense_type'))?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
@@ -153,7 +153,7 @@
                         <div class="col-xs-12">
                             <div class="col-sm-12">
                                 <div class="c-field u-mb-medium">
-                                    <textarea class="form-control" id="expense-LastData" disabled=""></textarea>
+                                    <textarea class="form-control" id="expense-LastData" disabled="" rows="5"></textarea>
                                 </div>
                             </div>
                         </div>
@@ -165,4 +165,30 @@
 
 
 
+@endsection
+
+@section('script')
+    <script>
+        $(document).ready(function(){
+            $(".LastExpense1").on("change", function(e) {
+                e.preventDefault();
+                var ExpenseType = $('.expense-type option:selected').attr('value');
+                var vehicleID = $('.expense-vehicle option:selected').attr('value');
+                $('#expense-LastData').val('');
+                if(ExpenseType != '' && vehicleID!= ''){
+                    $('#expense-LastData').val('No Record Found!!');
+                    $.ajax({
+                        type:"get",
+                        url :'/manager/expense/GetLastExpenseTypeDetail',
+                        data: {vehicleID:vehicleID,ExpenseType:ExpenseType},
+                        success:function(data){
+                            if(data != ''){
+                                $('#expense-LastData').val(data);
+                            }
+                        }
+                    });
+                }
+            });
+        })
+    </script>
 @endsection

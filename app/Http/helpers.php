@@ -28,6 +28,17 @@ if (! function_exists('GetExpenseTypesOption')) {
     }
 }
 
+if (! function_exists('ManagerGetExpenseTypesOption')) {
+    function ManagerGetExpenseTypesOption(){
+        $ExpenseData='';
+        $ExpenseTypes = ExpenseType::where([['clientid',auth()->user()->Owner->id]])->orWhereNull('clientid')->where([['id' ,'!=',1],['id' ,'!=',2],['id' ,'!=',4],['id' ,'!=',6],['id' ,'!=',12]])->get();
+        foreach($ExpenseTypes as $ExpenseType){
+            $ExpenseData = $ExpenseData.'<option value="'.$ExpenseType->id.'">'.$ExpenseType->expenseType.'</option>';
+        }
+        return $ExpenseData;
+    }
+}
+
 if (! function_exists('GetExpenseTypes')) {
     function GetExpenseTypes(){
         return ExpenseType::where([['clientid',auth()->user()->id]])->orWhereNull('clientid')->where([['id' ,'!=',1],['id' ,'!=',2],['id' ,'!=',4],['id' ,'!=',6],['id' ,'!=',12]])->get();

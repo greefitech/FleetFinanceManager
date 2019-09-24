@@ -39,6 +39,9 @@ Route::post('/financial-indicator/{vehicleid}/{indicatorid}/update', 'ManagerCon
 //Route::post('/account/{id}/update', 'ManagerController\AccountController@update')->name('UpdateAccount');
 //Route::delete('/account/{id}/delete', 'ManagerController\AccountController@delete')->name('DeleteAccount');
 
+//Trip Advance Amount
+Route::resource('/trip-advance', 'ManagerController\TripAdvanceController');
+
 //Expense Type
 Route::get('/expense-types', 'ManagerController\ExpenseTypeController@view')->name('ViewExpenseTypes');
 Route::get('/expense-type/add', 'ManagerController\ExpenseTypeController@add')->name('AddExpenseType');
@@ -69,7 +72,7 @@ Route::post('/entry/memo', 'ManagerController\MemoController@SaveMemo')->name('S
 
 //GET AJAX DATA MEMO
 Route::get('/entry/memo/expense-type', function (){
-    return GetExpenseTypesOption();
+    return ManagerGetExpenseTypesOption();
 });
 Route::get('/entry/memo/accounts', function (){
     return GetAccountsOption();
@@ -167,6 +170,9 @@ Route::post('/manager/{id}/update', 'ManagerController\ManagerController@update'
 
 
 //Report
-Route::get('/report/expense-report', 'ManagerController\ReportController@ExpenseReport')->name('ExpenseReport');
-Route::post('/report/expense-report/download', 'ManagerController\ReportController@DownloadExpenseReport')->name('DownloadExpenseReport');
 
+Route::resource('/Report', 'ManagerController\ReportController');
+
+Route::get('/Report', 'ManagerController\ReportController@DownloadExpenseReport')->name('DownloadExpenseReport');
+
+Route::get('/expense/GetLastExpenseTypeDetail', 'ManagerController\ExpenseController@GetLastExpenseTypeDetail');

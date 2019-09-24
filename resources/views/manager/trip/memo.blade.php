@@ -23,7 +23,7 @@
                                             <select class="form-control select2" name="vehicleId">
                                                 <option value="">Select Vehicle</option>
                                                     @foreach(auth()->user()->Vehicles() as $vehicle)
-                                                        <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
+                                                        <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }} - {{ $vehicle->ownerName }}</option>
                                                     @endforeach
                                             </select>
                                         </div>
@@ -778,6 +778,6 @@
         });
     </script>
 
-    <script src="{{ url('/js/memo.js') }}"></script>
+    <script src="{{ url('/js/manager.js') }}"></script>
     <script src="{{ url('/js/rtomaster.js') }}"></script>
 @endsection

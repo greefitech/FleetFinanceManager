@@ -57,6 +57,8 @@ Route::post('/account/add', 'ClientController\AccountController@save')->name('Sa
 Route::get('/account/{id}/edit', 'ClientController\AccountController@edit')->name('EditAccount');
 Route::post('/account/{id}/update', 'ClientController\AccountController@update')->name('UpdateAccount');
 Route::delete('/account/{id}/delete', 'ClientController\AccountController@delete')->name('DeleteAccount');
+Route::get('/account/{id}/view', 'ClientController\AccountController@ViewAccountDetail')->name('ViewAccountDetail');
+Route::get('/accounts/{AccountId}/{VehicleId}/view', 'ClientController\AccountController@AccountDetailVehicleWise');
 
 //Expense Type
 Route::get('/expense-types', 'ClientController\ExpenseTypeController@view')->name('ViewExpenseTypes');

@@ -23,7 +23,7 @@
                                                 <select class="form-control select2 VehicleChange GetLastKm" name="vehicleId">
                                                     <option value="">Select Vehicle</option>
                                                     @foreach(Auth::user()->vehicles as $vehicle)
-                                                        <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
+                                                        <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }} - {{ $vehicle->ownerName }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>

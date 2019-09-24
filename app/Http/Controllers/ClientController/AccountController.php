@@ -3,6 +3,11 @@
 namespace App\Http\Controllers\ClientController;
 
 use App\Account;
+use App\Vehicle;
+use App\Entry;
+use App\Expense;
+use App\Income;
+use App\ExtraIncome;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -10,7 +15,11 @@ class AccountController extends Controller
 {
     public function __construct(){
         $this->middleware('client');
+        $this->Vehicle = new Vehicle;
         $this->Account = new Account;
+        $this->Expense = new Expense;       
+        $this->Incomes = new Income;
+        $this->ExtraIncome = new ExtraIncome;
     }
 
     public function view(){
@@ -68,5 +77,26 @@ class AccountController extends Controller
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
+   }
+
+   public function ViewAccountDetail($id){
+        $Data['AccountId'] = $id;
+        $Data['vehicles'] = $this->Vehicle::where([['clientid',auth()->user()->id]])->get();
+        $Data['Entries']  = Entry::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+        $Data['Expenses'] = $this->Expense::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+        $Data['Incomes'] = $this->Incomes::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+        $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+        return view('client.master.account.account_summery',$Data);
     }
-}
+
+    public function AccountDetailVehicleWise($AccountId,$VehicleId){
+        $Data['Entries']  = Entry::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        $Data['Expenses'] = $this->Expense::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        $Data['Incomes'] = $this->Incomes::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+
+        return view('client.master.account.AccountDetailVehicleWise',$Data);
+    }
+
+}   
+
