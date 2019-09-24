@@ -20,6 +20,7 @@
                                         <th>Name</th>
                                         <th>Mobile</th>
                                         <th>Email</th>
+                                        <th>Vehicle Number</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -29,6 +30,7 @@
                                             <td>{{ $Manager->name }}</td>
                                             <td>{{ $Manager->mobile }}</td>
                                             <td>{{ $Manager->email }}</td>
+                                            <td>{{ implode(',',App\Vehicle::whereIn('id',$Manager->ManagerLorries())->get()->pluck('vehicleNumber')->toArray()) }}</td>
                                             <td>
                                                 <form action="" method="POST">
                                                     {{ csrf_field() }}

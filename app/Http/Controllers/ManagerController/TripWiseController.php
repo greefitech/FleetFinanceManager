@@ -27,7 +27,7 @@ class TripWiseController extends Controller
     public function ViewTripListVehicleWise($VehicleID){
         try{
             $Data['Vehicle'] =  $this->Vehicle::findorfail($VehicleID);
-            $Data['Trips'] =  $this->Trip::where([['clientid',auth()->user()->id],['vehicleId',$VehicleID]])->orderBy('dateFrom','desc')->get();
+            $Data['Trips'] =  $this->Trip::where([['managerid',auth()->user()->id],['vehicleId',$VehicleID]])->orderBy('dateFrom','desc')->get();
             return view('manager.tripWise.viewTrips',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
