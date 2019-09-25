@@ -31,7 +31,7 @@
                                             <div class="panel-heading">Master Expense
                                                 <button type="button" class="btn btn-primary btn-sm pull-right AddRTOMasterInput"><i class="fa fa-plus"></i></button>
                                             </div>
-                                            <div class="panel-body">
+                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
