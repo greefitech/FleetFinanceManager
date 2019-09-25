@@ -23,11 +23,13 @@
                                         <th>Staff</th>
                                         <th>Profit</th>
                                         <th>Trip Status</th>
+                                        <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($Trips as $Trip)
+                                    <?php $a =1 ;?>
                                         <tr>
                                             <td>{{ date("d-m-Y", strtotime($Trip->dateFrom)) }}</td>
                                             <td>{{ date("d-m-Y", strtotime($Trip->dateTo)) }}</td>
@@ -36,6 +38,7 @@
                                             <td>{{ $Trip->Staff1->name }}</td>
                                             <td>{{ auth()->user()->TripTotalIncome($Trip->id) - auth()->user()->TripTotalExpense($Trip->id) }}</td>
                                             <td><span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span></td>
+                                            <td>{{ $Trip->managerid !='' ? $Trip->Manager->name: $Trip->Client->name }}</td>
                                             <td>
                                                 <a href="{{ route('client.DownloadTripSheet',$Trip->id) }}" class="btn btn-primary btn-sm">View Trip Sheet</a>
                                                 <div class="input-group input-group-sm">
@@ -74,3 +77,5 @@
     </div>
 
 @endsection
+ 
+
