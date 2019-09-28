@@ -196,5 +196,18 @@ Route::post('/report/expense-report/download', 'ClientController\ReportControlle
 Route::get('getendingkm','ClientController\MemoController@getendingkm');
 
 
+
+//ServiecType
+
+Route::resource('master/service-type','ClientController\Master\ServiceTypeController');
+
+
+//Service
+
+Route::get('/client/services','ClientController\ServiceController@viewvehicle');
+Route::get('/client/service/vehicle/{VehicleId}','ClientController\ServiceController@ViewVehicleServiceList');
+Route::get('/client/services/vehicle/{VehicleId}/{ServiceTypeId}','ClientController\ServiceController@UpdateServiceDetail');
+
+
 //auditor
 

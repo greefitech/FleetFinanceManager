@@ -3248,7 +3248,7 @@ input[type=search] {
     min-height: 20px;
     padding-left: 20px;
     margin-bottom: 0;
-    font-weight: 400;
+    font-weight: 600;
     cursor: pointer
 }
 
@@ -3258,7 +3258,7 @@ input[type=search] {
 .radio-inline input[type=radio] {
     position: absolute;
     margin-top: 4px\9;
-    margin-left: -20px
+    margin-left: 10px
 }
 
 .checkbox+.checkbox,

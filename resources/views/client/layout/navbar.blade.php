@@ -18,6 +18,7 @@
                     <li><a href="{{ url('/client/accounts') }}"><i class="fa fa-university <?php echo $color[array_rand($color,1)] ?>"></i> <span>Accounts</span></a></li>
                     <li><a href="{{ url('/client/expense-types') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense / Income Type</span></a></li>
                     <li><a href="{{ url('/client/rto-masters') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>RTO Master</span></a></li>
+                    <li><a href="{{ action('ClientController\Master\ServiceTypeController@index') }}"><i class="fa fa-magic <?php echo $color[array_rand($color,1)] ?>"></i> <span>Service Type</span></a></li>
                 </ul>
             </li>
 
@@ -67,6 +68,8 @@
                     <li><a href="{{ url('/client/extra-incomes') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Extra Income</span></a></li>
                 </ul>
             </li>
+
+            <li><a href="{{ action('ClientController\ServiceController@viewvehicle') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Service</span></a></li>
 
             <li><a href="{{ url('/client/expense-vehicle-list') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
 
