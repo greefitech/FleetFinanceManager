@@ -2,36 +2,17 @@
 
 @section('content')
 
+<?php 
+$TripDetails = App\Trip::where('clientid',auth()->user()->id)->orderby('dateFrom')->first();
+?>
 
-
-{{-- <input type="month" min="{{ date("Y-m", strtotime(App\Expense::where([['clientid',auth()->user()->id]])->orderBy('date')->first()->date)) }}" name="" max="{{ strtotime ( '+1 month' , date("Y-m-01") ) }}" class="form-control"> --}}
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-body">
                     <div class="col-sm-4">
-                        <label>Month</label>
-                        <select class="form-control dashboardDate" name="month" id="month" >
-                            <option value="1" {{ (date("m")==1)?'selected':'' }}>January</option>
-                            <option value="2" {{ (date("m")==2)?'selected':'' }}>February</option>
-                            <option value="3" {{ (date("m")==3)?'selected':'' }}>March</option>
-                            <option value="4" {{ (date("m")==4)?'selected':'' }}>April</option>
-                            <option value="5" {{ (date("m")==5)?'selected':'' }}>May</option>
-                            <option value="6" {{ (date("m")==6)?'selected':'' }}>June</option>
-                            <option value="7" {{ (date("m")==7)?'selected':'' }}>July</option>
-                            <option value="8" {{ (date("m")==8)?'selected':'' }}>August</option>
-                            <option value="9" {{ (date("m")==9)?'selected':'' }}>September</option>
-                            <option value="10" {{ (date("m")==10)?'selected':'' }}>October</option>
-                            <option value="11" {{ (date("m")==11)?'selected':'' }}>November</option>
-                            <option value="12" {{ (date("m")==12)?'selected':'' }}>December</option>
-                        </select>
-                    </div>
-                    <div class="col-sm-4">
                         <label>Year</label>
-                        <select class="form-control dashboardDate" name="year" id="year">
-                            <option value="{{ date("Y") }}">{{ date("Y") }}</option>
-                            <option value="{{ date("Y") -1 }}">{{ date("Y") -1 }}</option>
-                        </select>
+                        <input type="month" class="form-control dashboardDate" min="{{ date("Y-m", strtotime($TripDetails->dateFrom)) }}" max="{{ date('Y-m') }}" value="{{ date('Y-m') }}">
                     </div>
                 </div>
             </div>
@@ -85,10 +66,6 @@
         </div>
     </div>
 
-
-
-
-
     <?php
     $income = array();
     $Expense = array();
@@ -106,14 +83,14 @@
 
 
 @section('script')
+
     <script type="text/javascript">
         $(".dashboardDate").change(function() {
-            var month =$('#month').val();
-            var year =$('#year').val();
+            var MonthYear =$('.dashboardDate').val();
             $.ajax({
                 type : "get",
                 url : '/client/dashboard/total-income-expense',
-                data:{month:month,year:year},
+                data:{MonthYear:MonthYear},
                 success:function(data){
                     $('#DashboardIncome').html(data.Income);
                     $('#DashboardExpense').html(data.expense);
