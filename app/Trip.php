@@ -27,6 +27,9 @@ class Trip extends Model
     public function Manager(){
         return $this->hasOne(Manager::class, 'id', 'managerid');
     }
+    public function Client(){
+        return $this->hasOne(Client::class, 'id', 'clientid');
+    }
 
     public function Staff1(){
         return $this->hasOne(Staff::class, 'id', 'staff1');

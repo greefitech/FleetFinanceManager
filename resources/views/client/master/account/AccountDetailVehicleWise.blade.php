@@ -33,7 +33,7 @@
                                         <tr>
                                             <td>{{ $Expense->date }}</td>
                                             <td>{{ $Expense->ExpenseType->expenseType }}</td>
-                                            <td></td>
+                                            <td style="color: green;"></td>
                                             <td style="color: red;">{{ $Expense->amount }}</td>
                                             </td>
                                         </tr>
@@ -58,7 +58,7 @@
                                         <tr>
                                             <td>{{ $Income->date }}</td>
                                             <td>Receving Amount</td>
-                                            <td>{{ $Income->recevingAmount }}</td>
+                                            <td style="color: green;">{{ $Income->recevingAmount }}</td>
                                             <td></td>
                                         </tr>
                                     @endforeach

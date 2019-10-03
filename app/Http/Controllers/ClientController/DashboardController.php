@@ -13,20 +13,24 @@ use Illuminate\Support\Facades\Auth;
 class DashboardController extends Controller
 {
     public function DashboardTotalIncomeExpense(){
-        $month= date('F', mktime(0, 0, 0, request()->month, 10));
+        $MonthYear = explode('-',request('MonthYear'));
+        $Year = $MonthYear[0];
+        $Month = $MonthYear[1];
+        $month= date('F', mktime(0, 0, 0, $Month, 10));
         $final['Income'] = '<div class="inner">
-                                <p>'.$month.'-'.request('year').' Profit</p>
-                                <h3>'.auth()->user()->CalculateProfitAmountTotal('',request('month'),request('year')).'</h3>
+                                <p>'.$month.'-'.$Year.' Profit</p>
+                                <h3>'.auth()->user()->CalculateProfitAmountTotal('',$Month,$Year).'</h3>
                             </div>
                             <div class="icon"><i class="ion ion-stats-bars"></i></div>
-                            <a href="'.route('client.DashboardVehicleProfitTotal',[request('month'),request('year')]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
+                            <a href="'.route('client.DashboardVehicleProfitTotal',[$Month,$Year]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
         $final['expense'] = '<div class="inner">
-                                <p>'.$month.'-'.request('year').' Expense</p>
-                                <h3>'.auth()->user()->CalculateNonTripExpenseAmountTotal('',request('month'),request('year')).'</h3>
+                                <p>'.$month.'-'.$Year.' Expense</p>
+                                <h3>'.auth()->user()->CalculateNonTripExpenseAmountTotal('',$Month,$Year).'</h3>
                             </div>
                             <div class="icon"><i class="ion ion-pie-graph"></i></div>
-                            <a href="'.route('client.DashboardVehicleExpenseTotal',[request('month'),request('year')]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
+                            <a href="'.route('client.DashboardVehicleExpenseTotal',[$Month,$Year]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
         return $final;
+        
     }
 
 

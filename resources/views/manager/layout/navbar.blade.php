@@ -14,7 +14,6 @@
                 <ul class="treeview-menu" style="display: none;">
                     <li><a href="{{ url('/manager/customers') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Customers</span></a></li>
                     <li><a href="{{ url('/manager/vehicles') }}"><i class="fa fa-truck <?php echo $color[array_rand($color,1)] ?>"></i> <span>Vehicles</span></a></li>
-                    <li><a href="{{ url('/manager/accounts') }}"><i class="fa fa-university <?php echo $color[array_rand($color,1)] ?>"></i> <span>Accounts</span></a></li>
                     <li><a href="{{ url('/manager/expense-types') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense / Income Type</span></a></li>
                     <li><a href="{{ url('/manager/rto-masters') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>RTO Master</span></a></li>
                 </ul>
