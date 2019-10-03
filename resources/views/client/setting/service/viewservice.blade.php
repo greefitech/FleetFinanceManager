@@ -12,7 +12,7 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        {{-- @if(!$servicetypes->isEmpty()) --}}
+                        @if(!$ServiceTypes->isEmpty())
                             <table  class="table table-bordered table-striped DataTable table-hover">
                                 <thead>
                                     <tr>
@@ -37,9 +37,9 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        {{-- @else --}}
-                            {{-- <blockquote><p>No Services till now added!!</p></blockquote> --}}
-                        {{-- @endif --}}
+                        @else
+                            <blockquote><p>No Services till now added!!</p></blockquote>
+                        @endif
                     </div>
                 </div>
             </div>

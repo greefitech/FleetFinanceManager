@@ -207,7 +207,7 @@ Route::resource('master/service-type','ClientController\Master\ServiceTypeContro
 Route::get('/client/services','ClientController\ServiceController@viewvehicle');
 Route::get('/client/service/vehicle/{VehicleId}','ClientController\ServiceController@ViewVehicleServiceList');
 Route::get('/client/services/vehicle/{VehicleId}/{ServiceTypeId}','ClientController\ServiceController@UpdateServiceDetail');
-
+Route::post('/client/services/vehicle/{VehicleId}/{ServiceTypeId}/create','ClientController\ServiceController@SaveServiceStatus');
 
 //auditor
 

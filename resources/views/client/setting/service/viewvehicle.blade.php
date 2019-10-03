@@ -7,7 +7,7 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Services</center>
+                        <center>View Vehicle</center>
                     </h4>
                 </div>
                 <div class="box-body">
@@ -34,7 +34,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Services till now added!!</p></blockquote>
+                            <blockquote><p>No Vehicles till now added!!</p></blockquote>
                         @endif
                     </div>
                 </div>
