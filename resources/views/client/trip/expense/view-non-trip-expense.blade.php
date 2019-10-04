@@ -28,26 +28,26 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                @foreach($Expenses as $Expense)
-                                    <tr>
-                                        <td>{{ date("d-m-Y", strtotime($Expense->date)) }}</td>
-                                        <td>{{ $Expense->ExpenseType->expenseType }}</td>
-                                        <td>{{ $Expense->location }}</td>
-                                        <td>{{ $Expense->quantity }}</td>
-                                        <td>{{ $Expense->amount }}</td>
-                                        <td><span class="label label-{{ ($Expense->status == 0)?'danger':'success' }}">{{ ($Expense->status == 0)?'Not Paid':'Paid' }}</span></td>
-                                        <td>{{ $Expense->discription }}</td>
-                                        <td>--</td>
-                                        <td>
-                                            <form action="{{ route('client.DeleteExpense',$Expense->id) }}" method="POST">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="_method" value="DELETE">
-                                                <a href="{{ route('client.EditExpense',$Expense->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
-                                            </form>
-                                        </td>
-                                    </tr>
-                                @endforeach
+                                    @foreach($Expenses as $Expense)
+                                        <tr>
+                                            <td>{{ date("d-m-Y", strtotime($Expense->date)) }}</td>
+                                            <td>{{ $Expense->ExpenseType->expenseType }}</td>
+                                            <td>{{ $Expense->location }}</td>
+                                            <td>{{ $Expense->quantity }}</td>
+                                            <td>{{ $Expense->amount }}</td>
+                                            <td><span class="label label-{{ ($Expense->status == 0)?'danger':'success' }}">{{ ($Expense->status == 0)?'Not Paid':'Paid' }}</span></td>
+                                            <td>{{ $Expense->discription }}</td>
+                                            <td>--</td>
+                                            <td>
+                                                <form action="{{ route('client.DeleteExpense',$Expense->id) }}" method="POST">
+                                                    {{ csrf_field() }}
+                                                    <input type="hidden" name="_method" value="DELETE">
+                                                    <a href="{{ action('ClientController\ExpenseController@EditNonTripExpense',$Expense->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         @else

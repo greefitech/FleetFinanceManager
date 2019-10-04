@@ -29,7 +29,7 @@
                                             <td>{{ $Vehicle->vehicleNumber }}</td>
                                             <td>{{ $Vehicle->vehicleName }}</td>
                                             <td>
-                                                <a href="{{ route('client.NonTripVehicleExpenseList',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Expense</a>
+                                                <a href="{{ action('ClientController\ExpenseController@NonTripVehicleExpenseList',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Expense</a>
                                             </td>
                                         </tr>
                                     @endforeach
