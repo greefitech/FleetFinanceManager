@@ -2,18 +2,13 @@
 
 @section('content')
 
-
-
  <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
                     <h4>                         
                         <a href="{{ route('client.ViewAccounts') }}"><button class="btn btn-info pull-right">View Accounts</button></a>
-
-                    </h4>
-                    <h4>
-                        <center>View Accounts Detail</center>
+                        <center>{{ $Account->account }} {{ $Account->HolderName }} Summary</center>
                     </h4>
                 </div>
                 <div class="box-body">
@@ -24,7 +19,7 @@
                                     <tr>
                                         <th>Vehicle Number</th>
                                         <th>Debit</th>
-                                        <th>Credit	</th>
+                                        <th>Credit</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -35,7 +30,6 @@
                                                 <td>{{ $vehicle->vehicleNumber }}</td>
                                                 <?php $VehicleId = $vehicle->id; ?>
                                                 <td style="color: red;">{{ VehicleCreditPaymentAccountVehicleWise($AccountId,$vehicle->id)['Debit'] }}</td>
-
                                                 <td style="color: green;">{{ VehicleCreditPaymentAccountVehicleWise($AccountId,$vehicle->id)['Credit'] }}</td>	
                                                 <td>
                                                 	<a href="{{ action('ClientController\AccountController@AccountDetailVehicleWise',[$AccountId,$vehicle->id]) }}" class="btn btn-primary brn-sm"><i class="fa fa-eye"></i></a>

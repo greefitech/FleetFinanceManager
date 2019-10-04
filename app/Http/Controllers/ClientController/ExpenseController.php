@@ -31,7 +31,7 @@ class ExpenseController extends Controller
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
-            'tripId'=>'nullable|exists:trips,id|required_if:type,==,2|required_if:type,==,1',
+            'tripId'=>'required|exists:trips,id|required_if:type,==,2|required_if:type,==,1',
         ]);
         if (!empty(request('tripId'))) {
             $Trip =  $this->Trip::findOrfail(request('tripId'));
@@ -70,6 +70,7 @@ class ExpenseController extends Controller
         try {
             $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
             $Data['Expense'] = $this->Expense::findorfail($id);
+            $Data['Trips'] = $this->Trip::findorfail($Data['Expense']->tripId);
             return view('client.trip.expense.edit',$Data);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
@@ -84,7 +85,7 @@ class ExpenseController extends Controller
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
-            'tripId'=>'nullable|exists:trips,id|required_if:type,==,2|required_if:type,==,1',
+            'tripId'=>'required|exists:trips,id|required_if:type,==,2|required_if:type,==,1',
         ]);
         if (!empty(request('tripId'))) {
             $Trip =  $this->Trip::findOrfail(request('tripId'));

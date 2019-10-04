@@ -20,8 +20,8 @@
                                         <th>Vehicle Number</th>
                                         <th>Vehicle Name</th>
                                         <th>Total Km</th>
-                                        <th>Total Amount of Diesel</th>
-                                        <th>Total Income</th>
+                                        <th>Total Diesel Amount</th>
+                                        <th>Total Profit</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -33,7 +33,7 @@
                                             <td>{{ $Vehicle->vehicleName }}</td>
                                             <td>{{ $Vehicle->TripKm->sum('totalKm') }}</td>
                                             <td>{{ auth()->user()->getVehicleTotalDiesel($Vehicle->id)->sum('quantity') }}</td>
-                                            <th style="color: green;">{{ auth()->user()->getVehicleTotalProfitAmount($Vehicle->id) }}</th>
+                                            <th style="color: green;">{{ round(auth()->user()->getVehicleTotalProfitAmount($Vehicle->id)) }}</th>
                                             <td>
                                                 <a href="{{ route('client.ViewTripListVehicleWise',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Trips</a>
                                             </td>

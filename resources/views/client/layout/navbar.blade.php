@@ -70,13 +70,13 @@
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-gbp <?php echo $color[array_rand($color,1)] ?>"></i>
-                    <span>Expense</span>
+                    <span>Non Trip Expense</span>
                     <span class="pull-right-container">
-                         <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{ action('ClientController\ExpenseController@CreateNonTripExpense') }}"><i class="fa fa-pie-chart <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Expense</span></a></li>
+                    <li><a href="{{ action('ClientController\ExpenseController@CreateNonTripExpense') }}"><i class="fa fa-pie-chart <?php echo $color[array_rand($color,1)] ?>"></i> <span>Create Expense</span></a></li>
                      <li><a href="{{ url('/client/expense-vehicle-list') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
                 </ul>
             </li>

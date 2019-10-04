@@ -80,22 +80,33 @@ class AccountController extends Controller
    }
 
    public function ViewAccountDetail($id){
-        $Data['AccountId'] = $id;
-        $Data['vehicles'] = $this->Vehicle::where([['clientid',auth()->user()->id]])->get();
-        $Data['Entries']  = Entry::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
-        $Data['Expenses'] = $this->Expense::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
-        $Data['Incomes'] = $this->Incomes::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
-        $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
-        return view('client.master.account.account_summery',$Data);
+        try {
+            $Data['Account'] =$this->Account::findOrfail($id);
+            $Data['AccountId'] = $id;
+            $Data['vehicles'] = $this->Vehicle::where([['clientid',auth()->user()->id]])->get();
+            $Data['Entries']  = Entry::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+            $Data['Expenses'] = $this->Expense::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+            $Data['Incomes'] = $this->Incomes::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+            $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
+            return view('client.master.account.account_summery',$Data);
+         }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
     }
 
     public function AccountDetailVehicleWise($AccountId,$VehicleId){
-        $Data['Entries']  = Entry::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
-        $Data['Expenses'] = $this->Expense::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
-        $Data['Incomes'] = $this->Incomes::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
-        $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+        try {
+            $Data['Account'] =$this->Account::findOrfail($AccountId);
+            $Data['Vehicle'] =$this->Vehicle::findOrfail($VehicleId);
 
-        return view('client.master.account.AccountDetailVehicleWise',$Data);
+            $Data['Entries']  = Entry::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+            $Data['Expenses'] = $this->Expense::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+            $Data['Incomes'] = $this->Incomes::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+            $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
+            return view('client.master.account.AccountDetailVehicleWise',$Data);
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
     }
 
 }   

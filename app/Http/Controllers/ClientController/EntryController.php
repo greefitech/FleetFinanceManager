@@ -107,7 +107,7 @@ class EntryController extends Controller
     public function edit($id){
         try {
             $Data['Entry'] = Entry::findOrfail($id);
-            $Data['Trip'] = Trip::findorfail($Data['Entry']->tripId);
+            $Data['Trips'] = Trip::findorfail($Data['Entry']->tripId);
             return view('client.trip.entry.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
