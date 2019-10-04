@@ -588,14 +588,16 @@
         <span class="sub">Tyre Service module integration Completed</span>
     </li>
     <li class="stage ">Aug 2019 - Iterating Lorry owners to ease of usability
-        <span class="sub">Working on Exporting Data for Income Tax Filing</span>
+        <span class="sub">Exporting Data for Income Tax Filing</span>
         <span class="sub">Working on Report Analytics</span>
     </li>
-    <li class="stage active">Sep 2019 - Custom service integration module</li>
+    <li class="stage active">Oct 2019 - Custom Vehicle service Integration Module
+        <span class="sub">Acquired users with 100 Vehicles</span>
+    </li>
     <li class="stage">Nov 2019 - Iterating Lorry owners to ease of usability</li>
     <li class="stage">Dec 2019 - Have to Acquire 1K Vehicles</li>
     <li class="stage">Jan 2020 - Integrate with 3rd Party Apps</li>
-    <li class="stage">End of 2020 - Have to Acquire 100K Vehicles</li>
+    <li class="stage">End of 2020 - Have to Acquire 10K Vehicles</li>
 </ol>
 </body>
 </html>

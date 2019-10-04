@@ -34,11 +34,11 @@
                                             <div class="panel-body">
                                                 <table  class="table table-bordered">
                                                     <thead>
-                                                    <tr>
-                                                        <th>Place</th>
-                                                        <th>Amount</th>
-                                                        <th>Action</th>
-                                                    </tr>
+                                                        <tr>
+                                                            <th>Place</th>
+                                                            <th>Amount</th>
+                                                            <th>Action</th>
+                                                        </tr>
                                                     </thead>
                                                     <tbody class="RTOMasterTableData">
                                                         @if(!empty(unserialize($RTOMasters->description)))

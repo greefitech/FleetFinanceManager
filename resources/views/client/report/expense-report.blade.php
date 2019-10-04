@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
@@ -16,7 +15,7 @@
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date From</label>
@@ -24,7 +23,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group{{ $errors->has('dateTo') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date To</label>
@@ -32,7 +31,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
@@ -45,9 +44,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-sm-4">
+                                <div class="col-sm-3">
                                     <div class="form-group{{ $errors->has('expense_type') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Expense</label>
@@ -60,7 +57,6 @@
                                     </div>
                                 </div>
                             </div>
-
                             <br>
                             <div align="center">
                                 <button type="submit" class="btn btn-info">Download Report</button>
@@ -71,7 +67,5 @@
             </div>
         </div>
     </div>
-
-
 
 @endsection
