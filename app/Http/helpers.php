@@ -81,7 +81,7 @@ if (! function_exists('GetRTOMasterDataInputs')) {
                         <td>
                             <input type="text" class="form-control RTODataAmountValue" style="width: 15em" value="'.$RTOMasterDatas['amount'][$MasterKey].'" placeholder="Enter Amount" name="RTOData[amount][]">
                         </td>
-                        <td><i style="color: red;"  class="fa fa-close RemoveRToInput"></i></td>
+                        <td class="RemoveRToInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                     </tr>';
                     ;
             }

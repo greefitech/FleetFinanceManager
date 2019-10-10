@@ -24,7 +24,7 @@ $(document).ready(function() {
             '    <td>\n' +
             '        <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" placeholder="Enter Amount" name="PCData[amount][]">\n' +
             '    </td>\n' +
-            '    <td><i style="color: red;" class="fa fa-close RemovePcInput"></i></td>\n' +
+            '    <td class="RemovePcInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>\n' +
             '</tr>';
 
         $('.PCTableData').append(PCData);
@@ -39,7 +39,7 @@ $(document).ready(function() {
     /* Expense remove pc datas */
     $('body').on('click','.RemovePcInput',function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
         CalculatePcTotalAmount();
     });
 /*
@@ -66,7 +66,7 @@ $(document).ready(function() {
             ' <td>\n' +
             '     <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" name="RTOData[amount][]">\n' +
             ' </td>\n' +
-            ' <td><i style="color: red;"  class="fa fa-close RemoveRToInput"></i></td>\n' +
+            ' <td class="RemoveRToInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>\n' +
             '</tr>';
 
         $('.RTOTableData').append(RTOData);
@@ -81,7 +81,7 @@ $(document).ready(function() {
     /* Expense remove RTO datas */
     $('body').on('click','.RemoveRToInput',function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
         CalculateRTOTotalAmount();
     });
     /*
@@ -103,7 +103,7 @@ $(document).ready(function() {
         var AccountsDataOption = GetAccountOptionData();
         var ExtraExpenseInput ='<tr>\n' +
             '    <td>\n' +
-            '        <select name="ExtraExpense[expense_type][]" class="form-control select2">\n'+
+            '        <select name="ExtraExpense[expense_type][]" class="form-control select2" style="width:15em;">\n'+
             '           <option value="">Select Expense</option>'+ExpenseTypeDataOptions+
             '        </select>\n' +
             '    </td>\n' +
@@ -120,17 +120,17 @@ $(document).ready(function() {
             '       <input type="text" class="form-control" name="ExtraExpense[discription][]">\n' +
             '   </td>\n' +
             '   <td>\n' +
-            '        <select name="ExtraExpense[account_id][]" class="form-control">'+
+            '        <select name="ExtraExpense[account_id][]" class="form-control" style="width: 8em">'+
             '             <option value="1">Cash</option>\n'+AccountsDataOption+
             '        </select>\n' +
             '   </td>\n' +
             '   <td>\n' +
-            '    <select class="form-control" name="ExtraExpense[status][]">\n' +
+            '    <select class="form-control" name="ExtraExpense[status][]" style="width: 8em">\n' +
             '        <option value="1">Paid</option>\n' +
             '        <option value="0">Not Paid</option>\n' +
             '    </select>\n' +
             '</td>\n' +
-            '<td><i style="color: red;" class="fa fa-close RemoveExtraExpenseInput"></i></td>' +
+            '<td class="RemoveExtraExpenseInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>' +
             '</tr>';
         $('.ExtraExpenseTableData').append(ExtraExpenseInput);
         $('.select2').select2();
@@ -147,7 +147,7 @@ $(document).ready(function() {
     * remove extra expense module*/
     $('body').on('click','.RemoveExtraExpenseInput',function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
         CalculateExtraExpenseAmountTotal();
     });
     /*
@@ -166,24 +166,24 @@ $(document).ready(function() {
         var AccountsDataOption = GetAccountOptionData();
         var ExtraExpenseInput ='<tr>\n' +
             '   <td>\n' +
-            '       <input type="text" class="form-control" name="PaalamToll[location][]">\n' +
+            '       <input type="text" class="form-control" name="PaalamToll[location][]" style="width:18em;">\n' +
             '   </td>\n' +
             '   <td>\n' +
-            '       <input type="number" min="0" class="form-control PaalamTollAmountValue" name="PaalamToll[amount][]">\n' +
+            '       <input type="number" min="0" class="form-control PaalamTollAmountValue" name="PaalamToll[amount][]" style="width:18em;">\n' +
             '   </td>\n' +
             '   <td>\n' +
-            '        <select name="PaalamToll[account_id][]" class="form-control">'+
+            '        <select name="PaalamToll[account_id][]" class="form-control" style="width:18em;">'+
             '             <option value="1">Cash</option>'+AccountsDataOption+
             '        </select>\n' +
             '   </td>\n' +
-            '<td><i style="color: red;" class="fa fa-close RemovePaalamTollInput"></i></td>' +
+            '<td class="RemovePaalamTollInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>' +
             '</tr>';
         $('.PaalamTollTableData').append(ExtraExpenseInput);
     });
 
     $('body').on('click','.RemovePaalamTollInput',function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
         CalculatePaalamTollAmountTotal();
     });
 
@@ -235,7 +235,7 @@ $(document).ready(function() {
             '            <option value="0">Not Paid</option>\n' +
             '        </select>\n' +
             '    </td>\n' +
-            '    <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>\n' +
+            '    <td class="RemoveDieselInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>\n' +
             '</tr>';
         $('.DieselTableData').append(DieselInputData);
         $('.DateChanges').trigger('change');
@@ -243,7 +243,7 @@ $(document).ready(function() {
 
     $('body').on('click','.RemoveDieselInput',function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
         CalculateTotalDiselQuantityAmountValues();
     });
 
@@ -334,7 +334,7 @@ $(document).ready(function() {
             '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="1" checked><label>Paid</label>\n' +
             '        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status]['+EntryI+']" value="0"><label>Not Paid</label>\n' +
             '    </td>\n' +
-            '    <td><i style="color: red;" class="fa fa-close RemoveEntryDataInput"></i></td>\n' +
+            '    <td class="RemoveEntryDataInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>\n' +
             '</tr>';
 
         $('.EntryTableData').append(EntryData);
@@ -346,7 +346,7 @@ $(document).ready(function() {
 
     $('body').on('click','.RemoveEntryDataInput',function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
         CalculateEntryFullMasterFunctionCalculations();
     });
 
@@ -381,17 +381,17 @@ $(document).ready(function() {
         e.preventDefault();
         var DriverAdvanceData ='<tr>\n' +
             '    <td>\n' +
-            '        <input type="date" class="form-control DateValue" name="DriverAdvance[date][]" value="">\n' +
+            '        <input type="date" class="form-control DateValue" name="DriverAdvance[date][]" value="" style="width:18em;">\n' +
             '    </td>\n' +
             '    <td>\n' +
-            '        <input type="number" min="0" class="form-control DriverAdvanceAmountValue" name="DriverAdvance[amount][]" value="">\n' +
+            '        <input type="number" min="0" class="form-control DriverAdvanceAmountValue" name="DriverAdvance[amount][]" value="" style="width:18em;">\n' +
             '    </td>\n' +
             '    <td>\n' +
-            '        <select name="DriverAdvance[account_id][]" class="form-control">\n' +
+            '        <select name="DriverAdvance[account_id][]" class="form-control" style="width:18em;">\n' +
             '            <option value="1">Cash</option>' +AccountsDataOption+
             '        </select>\n' +
             '    </td>\n' +
-            '    <td><i style="color: red;" class="fa fa-close RemoveDriverAdvanceInput"></i></td>\n' +
+            '    <td class="RemoveDriverAdvanceInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>\n' +
             '</tr>';
 
         $('.DriverAdvanceTableData').append(DriverAdvanceData);
@@ -401,7 +401,7 @@ $(document).ready(function() {
 
     $('body').on('click','.RemoveDriverAdvanceInput',function (e) {
         e.preventDefault();
-        $(this).parent().parent().remove();
+        $(this).parent().remove();
         CalculateDriverAdvanceAmountTotal();
     });
 
