@@ -106,3 +106,10 @@ if (! function_exists('GetClientVehicle')) {
         return Vehicle::where('clientid',$clientid->id)->get();
     }
 }
+
+//RTO MASTER
+if (! function_exists('MemoMasterType')) {
+    function MemoMasterType(){
+        return array('rto' => 'RTO','pc'=>'PC' );
+    }
+}

@@ -16,6 +16,7 @@ class CreateRTOMastersTable extends Migration
         Schema::create('r_t_o_masters', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('place');
+            $table->string('type');
             $table->longText('description')->nullable();
             $table->integer('clientid')->unsigned();
             $table->foreign('clientid')->references('id')->on('clients');

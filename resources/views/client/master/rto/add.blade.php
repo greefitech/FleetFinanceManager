@@ -6,7 +6,7 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Add RTO Master</center>
+                        <center>Add RTO/PC Master</center>
                     </h4>
                     <a href="{{ route('client.ViewRTOMasters') }}" class="btn btn-info pull-right">View RTO Master</a>
                 </div>
@@ -19,7 +19,15 @@
                                     <div class="form-group{{ $errors->has('place') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Master Place</label>
-                                            <input type="text" class="form-control" min="0" value="{{ old('place') }}" placeholder="Enter place" name="place">
+                                            <input type="text" class="form-control" value="{{ old('place') }}" placeholder="Enter place" name="place">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Master Type</label>
+                                            {!! Form::select('type',MemoMasterType(),null,['class'=>'form-control']) !!}
                                         </div>
                                     </div>
                                 </div>
