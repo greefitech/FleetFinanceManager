@@ -351,7 +351,9 @@
                                                         <select class="form-control RTOMasterDatas">
                                                             <option value="">Master Data</option>
                                                             @foreach($RTOMasters as $RTOMaster)
-                                                                <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
+                                                                @if($RTOMaster->type == 'rto')
+                                                                    <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
@@ -401,9 +403,25 @@
                                     <div class="panel-group">
                                         <div class="panel panel-success">
                                             <div class="panel-heading">
-                                                <span style="font-weight: bold;">PC
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddPCInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
-                                                </span>
+
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <h5 style="font-weight: bold;">PC</h5>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control PCMasterDatas">
+                                                            <option value="">Master Data</option>
+                                                            @foreach($RTOMasters as $RTOMaster)
+                                                                @if($RTOMaster->type == 'pc')
+                                                                    <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button type="button" class="btn btn-success btn-sm pull-right AddPCInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
@@ -769,6 +787,21 @@
                         success: function(data) {
                             if(data !='error'){
                                 $('.RTOTableData').append(data);
+                            }
+                        }
+                    });
+                }
+            });     
+
+            $('body').on('change','.PCMasterDatas',function () {
+                if($(this).val() != ''){
+                    $.ajax({
+                        type: "get",
+                        url: '/client/entry/memo/RTOMasterData',
+                        data:{rtoid:$(this).val()},
+                        success: function(data) {
+                            if(data !='error'){
+                                $('.PCTableData').append(data);
                             }
                         }
                     });
