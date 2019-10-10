@@ -6,12 +6,12 @@ $('body').on('click','.AddRTOMasterInput',function () {
         '    <td>\n' +
         '        <input type="number" min="0" class="form-control" name="RTOData[amount][]" value="">\n' +
         '    </td>\n' +
-        '    <td><i style="color: red;" class="fa fa-close RemoveRTOMasterInput"></i></td>\n' +
+        '    <td class="RemoveRTOMasterInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>\n' +
         '</tr>';
     $('.RTOMasterTableData').append(RTOData);
 });
 
 $('body').on('click','.RemoveRTOMasterInput',function (e) {
     e.preventDefault();
-    $(this).parent().parent().remove();
+    $(this).parent().remove();
 });

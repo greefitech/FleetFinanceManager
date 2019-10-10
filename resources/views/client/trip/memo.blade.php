@@ -133,7 +133,7 @@
                                         <div class="panel panel-info">
                                             <div class="panel-heading">
                                                 <span style="font-weight: bold;">Entry Data
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddEntryInput"><i class="fa fa-plus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddEntryInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
@@ -263,7 +263,7 @@
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
                                                 <span style="font-weight: bold;">டீசல்
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddDiseleInput"><i class="fa fa-plus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddDiseleInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
@@ -348,7 +348,7 @@
                                                         <h5 style="font-weight: bold;">RTO</h5>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <select class="form-control RTOMasterDatas" style="width: 300px;">
+                                                        <select class="form-control RTOMasterDatas">
                                                             <option value="">Master Data</option>
                                                             @foreach($RTOMasters as $RTOMaster)
                                                                 <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
@@ -356,7 +356,7 @@
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <button type="button" class="btn btn-primary btn-sm pull-right AddRTOInput"><i class="fa fa-plus"></i></button>
+                                                        <button type="button" class="btn btn-primary btn-sm pull-right AddRTOInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,7 +379,7 @@
                                                                     <td class="{{ $errors->has('RTOData.amount.'.$RTOKey) ? ' has-error' : '' }}">
                                                                         <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveRToInput"></i></td>
+                                                                    <td class="RemoveRToInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -402,7 +402,7 @@
                                         <div class="panel panel-success">
                                             <div class="panel-heading">
                                                 <span style="font-weight: bold;">PC
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddPCInput"><i class="fa fa-plus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddPCInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
@@ -452,7 +452,7 @@
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
                                                 <span style="font-weight: bold;">Extra Expenses
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddExtraExpenseInput"><i class="fa fa-plus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddExtraExpenseInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
@@ -535,7 +535,7 @@
                                     <div class="panel-group">
                                         <div class="panel panel-warning">
                                             <div class="panel-heading"><span style="font-weight: bold;">Paalam / Tollgate
-                                                <button type="button" class="btn btn-primary btn-sm pull-right AddPalamTollInput"><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm pull-right AddPalamTollInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span></div>
                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
@@ -591,7 +591,7 @@
                                     <div class="panel-group">
                                         <div class="panel panel-info">
                                             <div class="panel-heading"><span style="font-weight: bold;">Driver Advance
-                                                <button type="button" class="btn btn-primary btn-sm pull-right AddDriverAdvanceAmountInput"><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm pull-right AddDriverAdvanceAmountInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span></div>
                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
