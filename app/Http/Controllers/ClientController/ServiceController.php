@@ -17,13 +17,13 @@ class ServiceController extends Controller
     public function ViewVehicleServiceList($id)
     {
         try{
-        $Data['VehicleId']  = $id;
-    	$Data['ServiceTypes'] = Servicetype::where([['clientid',auth()->user()->id]])->get();
-        $Data['Services'] = Service::all();
-    	return view('client.setting.service.viewservice',$Data);
+            $Data['VehicleId']  = $id;
+        	$Data['ServiceTypes'] = Servicetype::where([['clientid',auth()->user()->id]])->get();
+            $Data['Services'] = Service::all();
+        	return view('client.setting.service.viewservice',$Data);
         }catch (\Exception $e){
-                return redirect(url('/client/home'))->with('danger','Something went wrong!');
-            }
+            return redirect(url('/client/home'))->with('danger','Something went wrong!');
+        }
     }
 
 
