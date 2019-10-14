@@ -4,6 +4,7 @@ use App\Client;
 use App\ExpenseType;
 use App\Manager;
 use App\Vehicle;
+use App\Trip;
 use App\VehicleCredits;
 use Carbon\Carbon;
 
@@ -104,5 +105,22 @@ if (! function_exists('GetClientVehicle')) {
     function GetClientVehicle($ClientId){
         $clientid = Client::findorfail($ClientId);
         return Vehicle::where('clientid',$clientid->id)->get();
+    }
+}
+
+if (! function_exists('GetServiceDate')) {
+    function GetServiceDate($ServicetypeId,$VehicleId){
+        $servicetypes = App\Servicetype::findorfail($ServicetypeId);
+        if($servicetypes->type == 'date'){
+            return $Services = App\Service::where([['vehicle_id',$VehicleId],['service_type_id',$ServicetypeId]])->orderBy('next_service_date')->get()->last();
+        }else{
+            return $Services = App\Service::where([['vehicle_id',$VehicleId],['service_type_id',$ServicetypeId]])->get()->last();
+        }
+    }
+}
+
+if (! function_exists('GetVehicleCurrentKm')) {
+    function GetVehicleCurrentKm($VehicleId){
+        return Trip::where([['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->orderBy('endKm')->get()->first();
     }
 }

@@ -204,10 +204,10 @@ Route::resource('master/service-type','ClientController\Master\ServiceTypeContro
 
 //Service
 
-Route::get('/client/services','ClientController\ServiceController@viewvehicle');
-Route::get('/client/service/vehicle/{VehicleId}','ClientController\ServiceController@ViewVehicleServiceList');
-Route::get('/client/services/vehicle/{VehicleId}/{ServiceTypeId}','ClientController\ServiceController@UpdateServiceDetail');
-Route::post('/client/services/vehicle/{VehicleId}/{ServiceTypeId}/create','ClientController\ServiceController@SaveServiceStatus');
+Route::get('services','ClientController\ServiceController@viewvehicle');
+Route::get('service/vehicle/{VehicleId}','ClientController\ServiceController@ViewVehicleServiceList');
+Route::get('services/vehicle/{VehicleId}/{ServiceTypeId}','ClientController\ServiceController@UpdateServiceDetail');
+Route::post('services/vehicle/{VehicleId}/{ServiceTypeId}/create','ClientController\ServiceController@SaveServiceStatus');
 
 //auditor
 

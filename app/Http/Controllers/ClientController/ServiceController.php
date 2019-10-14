@@ -16,24 +16,23 @@ class ServiceController extends Controller
 
     public function ViewVehicleServiceList($id)
     {
-        try{
+        // try{
             $Data['VehicleId']  = $id;
         	$Data['ServiceTypes'] = Servicetype::where([['clientid',auth()->user()->id]])->get();
-            $Data['Services'] = Service::all();
         	return view('client.setting.service.viewservice',$Data);
-        }catch (\Exception $e){
-            return redirect(url('/client/home'))->with('danger','Something went wrong!');
-        }
+        // }catch (\Exception $e){
+        //     return redirect(url('/client/home'))->with('danger','Something went wrong!');
+        // }
     }
 
 
     public function UpdateServiceDetail($VehicleId,$ServiceId)
     {
         try{
-    	$Data['servicetypes'] = Servicetype::findorfail($ServiceId);
-        $Data['VehicleId']  = $VehicleId;
-        $Data['ServiceTypes'] = Servicetype::where([['clientid',auth()->user()->id]])->get();
-    	return view('client.setting.service.updateService',$Data);
+        	$Data['servicetypes'] = Servicetype::findorfail($ServiceId);
+            $Data['VehicleId']  = $VehicleId;
+            $Data['ServiceTypes'] = Servicetype::where([['clientid',auth()->user()->id]])->get();
+        	return view('client.setting.service.updateService',$Data);
         }catch (\Exception $e){
             return redirect(url('/client/home'))->with('danger','Something went wrong!');
         }

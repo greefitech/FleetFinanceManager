@@ -24,16 +24,32 @@
                                 </thead>
                                 <tbody>
                                     @foreach($ServiceTypes as $servicetype)
-                                    <tr>
-                                        <td>{{ $servicetype->name }}</td>
-                                        <td>{{ ucfirst($servicetype->type) }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>
-                                            <a href="{{ action('ClientController\ServiceController@UpdateServiceDetail',[$VehicleId,$servicetype->id])}}" class="btn btn-info">Update Service</a>
-                                        </td>
-
-                                    </tr>
+                                        <?php 
+                                            $date = \Carbon\Carbon::today()->subDays(30)->toDateString();
+                                            $GetServiceDetails = GetServiceDate(@$servicetype->id,$VehicleId); 
+                                            $CurrentKM = GetVehicleCurrentKm($VehicleId)->endKm;
+                                        ?>
+                                        @if($servicetype->type == 'date')
+                                            <tr style="color: {{ $GetServiceDetails->next_service_date > $date ? 'green' : 'red' }}">
+                                                <td>{{ $servicetype->name }}</td>
+                                                <td>{{ ucfirst($servicetype->type) }}</td>
+                                                <td>{{ $GetServiceDetails ? date('d-m-Y', strtotime($GetServiceDetails->next_service_date)) : '-' }}</td>
+                                                <td>{{ $GetServiceDetails ? date('d-m-Y', strtotime($GetServiceDetails->next_service_date)) : '-' }}</td>
+                                                <td>
+                                                    <a href="{{ action('ClientController\ServiceController@UpdateServiceDetail',[$VehicleId,$servicetype->id])}}" class="btn btn-info">Update Service</a>
+                                                </td>
+                                            </tr>
+                                        @else
+                                            <tr style="color: {{ $GetServiceDetails->next_service_km > $CurrentKM ? 'green' : 'red' }}">
+                                                <td>{{ $servicetype->name }}</td>
+                                                <td>{{ ucfirst($servicetype->type) }}</td>
+                                                <td>{{ $GetServiceDetails ? $GetServiceDetails->next_service_km : '-' }}</td>
+                                                <td>{{ $GetServiceDetails?$GetServiceDetails->next_service_km : '-' }}</td>
+                                                <td>
+                                                    <a href="{{ action('ClientController\ServiceController@UpdateServiceDetail',[$VehicleId,$servicetype->id])}}" class="btn btn-info">Update Service</a>
+                                                </td>
+                                            </tr>
+                                        @endif
                                     @endforeach
                                 </tbody>
                             </table>
