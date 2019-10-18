@@ -54,7 +54,7 @@ $TripDetails = App\Trip::where('clientid',auth()->user()->id)->orderby('dateFrom
                     <h3>{{ Auth::user()->CalculateNonTripExpenseAmountTotal('',date('m'),date('Y')) }}</h3>
                 </div>
                 <div class="icon"><i class="ion ion-pie-graph"></i></div>
-                <a href="{{ route('client.DashboardVehicleExpenseTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{ route('client.DashboardVehicleProfitTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
     </div>

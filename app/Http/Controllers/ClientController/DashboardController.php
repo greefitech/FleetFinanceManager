@@ -28,7 +28,7 @@ class DashboardController extends Controller
                                 <h3>'.auth()->user()->CalculateNonTripExpenseAmountTotal('',$Month,$Year).'</h3>
                             </div>
                             <div class="icon"><i class="ion ion-pie-graph"></i></div>
-                            <a href="'.route('client.DashboardVehicleExpenseTotal',[$Month,$Year]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
+                            <a href="'.route('client.DashboardVehicleProfitTotal',[$Month,$Year]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
         return $final;
         
     }
@@ -46,6 +46,7 @@ class DashboardController extends Controller
         $Data['Year']=$Year;
         $Data['ExtraIncomes'] =  ExtraIncome::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('date', '=', $Year)->whereMonth('date', '=', $Month)->get();
         $Data['Trips'] = Trip::where([['clientid', Auth::user()->id],['vehicleId',  $VehicleId]])->whereYear('dateTo', '=', $Year)->whereMonth('dateTo', '=', $Month)->get();
+        $Data['Expenses'] =  Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId]])->whereYear('date', '=', $Year)->whereMonth('date', '=', $Month)->whereNull('tripId')->get();
         return view('client.dashboard.ProfitListDetail',$Data);
     }
 
