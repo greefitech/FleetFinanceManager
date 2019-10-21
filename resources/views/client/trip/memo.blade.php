@@ -667,6 +667,8 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Calculation box start-->
             <div class="row">
                 <div class="col-sm-4">
                     <div class="panel-group">
@@ -740,6 +742,7 @@
                     </div>
                 </div>
             </div>
+            <!-- Calculation box end -->
 
         </div>
     </div>
@@ -810,21 +813,15 @@
 
             $('.VehicleChange').on('change',function(){
                 var VehicleId = $('.VehicleChange').val();
-                 $.ajax({
-                        type: "get",
-                        url: '/client/getendingkm',
-                        data:{VehicleId:VehicleId},
-                        success: function(data) {
-                            console.log(data);
-                            $('#entry-startkm').val(data.endKm);
-                        }
-                    });
+                $.ajax({
+                    type: "get",
+                    url: '/client/getendingkm',
+                    data:{VehicleId:VehicleId},
+                    success: function(data) {
+                        $('#entry-startkm').val(data.endKm);
+                    }
+                });
             })
-
-
-
-
-
         });
     </script>
 

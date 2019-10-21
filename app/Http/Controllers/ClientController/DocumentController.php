@@ -43,7 +43,7 @@ class DocumentController extends Controller
                 'vehicleId' => $vehicleId,
             ]);
             return redirect(route('client.ViewDocuments',$vehicleId))->with('success',['Document','Added Successfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -76,7 +76,7 @@ class DocumentController extends Controller
             $document->notes = request('notes');
             $document->save();
             return redirect(route('client.ViewDocuments',$document->vehicleId))->with('success',['Document','Updated Successfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -86,7 +86,7 @@ class DocumentController extends Controller
         try {
             Document::findOrfail($id)->delete();
             return redirect(route('client.ViewDocuments',$DeleteData->vehicleId))->with('success',['Document','Deleted Successfully!']);
-        } catch (\Illuminate\Database\QueryException $e) {
+        } catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }

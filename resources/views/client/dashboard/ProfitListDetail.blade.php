@@ -10,14 +10,14 @@
                         <h4>{{ $Vehicle->vehicleNumber }} {{ date('F', mktime(0, 0, 0, $Month, 10)) }} {{ $Year }} Profit / Expense</h4>
                         <div class="row">
                            <div class="col-sm-3">
-                              <div class="info-box bg-aqua">
+                              <div class="info-box bg-green">
                                  <span class="info-box-icon"><i class="fa fa-pie-chart"></i></span>
                                  <div class="info-box-content">
                                     <span class="info-box-text">Profit</span>
                                     <span class="info-box-number">{{ auth()->user()->CalculateProfitAmountTotal($Vehicle->id,$Month,$Year) }}</span>
-                                    <div class="progress">
+                                   {{--  <div class="progress">
                                        <div class="progress-bar" style="width: 70%"></div>
-                                    </div>
+                                    </div> --}}
                                     <span class="progress-description">
                                         
                                     </span>
@@ -25,14 +25,14 @@
                               </div>
                            </div>
                             <div class="col-sm-3">
-                              <div class="info-box bg-aqua">
+                              <div class="info-box bg-red">
                                  <span class="info-box-icon"><i class="fa fa-ils"></i></span>
                                  <div class="info-box-content">
                                     <span class="info-box-text">Expense</span>
                                     <span class="info-box-number">{{ auth()->user()->CalculateNonTripExpenseAmountTotal($Vehicle->id,$Month,$Year) }}</span>
-                                    <div class="progress">
+                                   {{--  <div class="progress">
                                        <div class="progress-bar" style="width: 50%"></div>
-                                    </div>
+                                    </div> --}}
                                     <span class="progress-description">
                                         
                                     </span>
@@ -47,12 +47,12 @@
     </div>
 
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-body">
-                    <div class="table-responsive">
-                        @if(!$Trips->isEmpty())
+    @if(!$Trips->isEmpty())
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="table-responsive">
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -77,21 +77,19 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        @else
-                            <blockquote><p>No Trip till now!!</p></blockquote>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-body">
-                    <div class="table-responsive">
-                        @if(!$ExtraIncomes->isEmpty())
+    @if(!$ExtraIncomes->isEmpty())
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="table-responsive">
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -110,21 +108,19 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        @else
-                            <blockquote><p>No Extra Income till now!!</p></blockquote>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
-     <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-body">
-                    <div class="table-responsive">
-                        @if(!$Expenses->isEmpty())
+    @if(!$Expenses->isEmpty())
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="table-responsive">
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -143,13 +139,11 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        @else
-                            <blockquote><p>No Expense till now!!</p></blockquote>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
 @endsection

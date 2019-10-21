@@ -30,7 +30,7 @@ class TripWiseController extends Controller
             $Data['Vehicle'] =  $this->Vehicle::findorfail($VehicleID);
             $Data['Trips'] =  $this->Trip::where([['clientid',auth()->user()->id],['vehicleId',$VehicleID]])->orderBy('dateFrom','desc')->get();
             return view('client.tripWise.viewTrips',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -40,7 +40,7 @@ class TripWiseController extends Controller
             $Data['Trip'] =  $this->Trip::findorfail($TripId);
             $Data['Entries'] =  $this->Entry::where([['tripId',$TripId]])->get();
             return view('client.tripWise.EntryList',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -50,7 +50,7 @@ class TripWiseController extends Controller
         try{
             $Data['Expenses'] = Expense::where([['tripId',$TripId]])->get();
             return view('client.tripWise.ExpenseList',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -59,7 +59,7 @@ class TripWiseController extends Controller
         try{
             $Data['Halts'] = Halt::where([['tripId',$TripId]])->get();
             return view('client.tripWise.HaltList',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -68,7 +68,7 @@ class TripWiseController extends Controller
         try{
             $Data['TripAdvances'] = TripAmount::where([['tripId',$TripId]])->get();
             return view('client.tripWise.TripAdvanceList',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -85,7 +85,7 @@ class TripWiseController extends Controller
                 return back()->with('success',['Trip Sheet','Deleted Successfully']);
             }
             return back()->with('sorry','Some Data are in Entry,Expense,Halt Delete that data on that!!');
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }

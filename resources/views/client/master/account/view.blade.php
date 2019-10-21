@@ -43,7 +43,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now added!!</p></blockquote>
+                            <blockquote><p>No Account till now added!!</p></blockquote>
                         @endif
                     </div>
                 </div>

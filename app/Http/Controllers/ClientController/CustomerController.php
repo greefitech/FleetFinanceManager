@@ -48,7 +48,7 @@ class CustomerController extends Controller
         try{
             $Data['Customer'] = $this->Customer::findOrfail($id);
             return view('client.master.customer.edit',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }

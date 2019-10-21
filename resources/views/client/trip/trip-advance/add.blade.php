@@ -2,7 +2,6 @@
 
 @section('content')
 
-
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
@@ -37,8 +36,8 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+                            
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">

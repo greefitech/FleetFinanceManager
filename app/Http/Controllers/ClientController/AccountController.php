@@ -48,7 +48,7 @@ class AccountController extends Controller
             $Account->clientid=auth()->user()->id;
             $Account->save();
             return redirect(route('client.ViewAccounts'))->with('success',['Account','Added Sucessfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -58,7 +58,7 @@ class AccountController extends Controller
         try {
             $Data['Account'] = $this->Account::findorfail($id);
             return view('client.master.account.edit',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -74,7 +74,7 @@ class AccountController extends Controller
             $Account->HolderName=request('HolderName');
             $Account->save();
             return redirect(route('client.ViewAccounts'))->with('success',['Account','Updated Sucessfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
    }
@@ -89,7 +89,7 @@ class AccountController extends Controller
             $Data['Incomes'] = $this->Incomes::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
             $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$id],['clientid',auth()->user()->id]])->get()->groupBy('vehicleId');
             return view('client.master.account.account_summery',$Data);
-         }catch (Exception $e){
+         }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -104,7 +104,7 @@ class AccountController extends Controller
             $Data['Incomes'] = $this->Incomes::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
             $Data['ExtraIncomes'] = $this->ExtraIncome::where([['account_id',$AccountId],['vehicleId',$VehicleId],['clientid',auth()->user()->id]])->get();
             return view('client.master.account.AccountDetailVehicleWise',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }

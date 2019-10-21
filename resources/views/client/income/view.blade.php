@@ -45,7 +45,7 @@
                             </tbody>
                         </table>
                         @else
-                            <blockquote><p>No Customer till now added!!</p></blockquote>
+                            <blockquote><p>No Customer Income Balance till now!!</p></blockquote>
                         @endif
                     </div>
                 </div>

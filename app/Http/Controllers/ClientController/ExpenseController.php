@@ -61,7 +61,7 @@ class ExpenseController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return back()->with('success',['Expense','Added Successfully!'])->withInput();
-        } catch (\Illuminate\Database\QueryException $e) {
+         }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -114,7 +114,7 @@ class ExpenseController extends Controller
                 'tripId' => request('tripId'),
             ]);
             return back()->with('success',['Expense','Updated Successfully!'])->withInput();
-        } catch (\Illuminate\Database\QueryException $e) {
+         }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -123,13 +123,13 @@ class ExpenseController extends Controller
         try {
             $this->Expense::findOrfail($id)->delete();
             return back()->with('success', ['Expense', 'Deleted Successfully!']);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong! Delete Not Allowed!');
         }
     }
 
     public function GetLastExpenseTypeDetail(){
-            $Expense= Expense::where([['clientid', auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
+            $Expense= $this->Expense::where([['clientid', auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
             return '        Date : '.date('d-m-Y', strtotime($Expense->date)).'
         Quantity : '.$Expense->quantity.'
         Amount : '.$Expense->amount.'
@@ -149,7 +149,7 @@ class ExpenseController extends Controller
             $Data['Vehicle'] = Vehicle::findorfail($VehicleId);
             $Data['Expenses'] = $this->Expense::where([['clientid', auth()->user()->id], ['vehicleId', $VehicleId]])->where('tripId', NULL)->orderBy('date', 'DESC')->get();
             return view('client.trip.expense.view-non-trip-expense',$Data);
-        } catch (\Illuminate\Database\QueryException $e) {
+         }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -185,7 +185,7 @@ class ExpenseController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return back()->with('success',['Expense','Added Successfully!'])->withInput();
-        } catch (\Illuminate\Database\QueryException $e) {
+         }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
         }
     }

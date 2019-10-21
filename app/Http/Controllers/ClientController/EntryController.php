@@ -99,7 +99,7 @@ class EntryController extends Controller
             $entry->clientid=auth()->user()->id;
             $entry->save();
             return back()->with('success',['Entry','Added Successfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -192,21 +192,18 @@ class EntryController extends Controller
             $entry->clientid=auth()->user()->id;
             $entry->save();
             return redirect(route('client.ViewTripEntryList',request('tripId')))->with('success',['Entry','Updated Successfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
     public function delete($id){
-        $StaffsWork= StaffsWork::where('entryId',$id)->get();
         try {
-            foreach ($StaffsWork as $key => $value) {
-                StaffsWork::find($value->id)->delete();
-            }
+            StaffsWork::where('entryId',$id)->get()->delete();
             $Entry = Entry::findOrfail($id);
             $Entry->delete();
             return redirect(route('client.ViewTripEntryList',$Entry->tripId))->with('success',['Entry','Deleted Successfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }

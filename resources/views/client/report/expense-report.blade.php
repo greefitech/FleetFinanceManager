@@ -38,7 +38,7 @@
                                             <select name="vehicleId" class="form-control select2" id="entry-vehicle">
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id==old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
+                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -50,7 +50,7 @@
                                             <label>Expense</label>
                                             <select name="expense_type[]" class="form-control" multiple id="entry-type">
                                                 @foreach($ExpenseTypes as $ExpenseType)
-                                                    <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id==old('expense_type'))?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
+                                                    <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id == old('expense_type'))?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
