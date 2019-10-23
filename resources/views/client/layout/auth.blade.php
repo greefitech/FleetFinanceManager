@@ -16,13 +16,13 @@
         ]); ?>
     </script>
     <style>
-        body {
+        /*body {
             background-image: url("https://www.tripsavvy.com/thmb/hmmkiNtlWHV46f5NqEKBbwpMilI=/4261x2824/filters:no_upscale():max_bytes(150000):strip_icc()/big-yellow-truck-115945525-582f261e5f9b58d5b1aba434.jpg");
             background-color: #cccccc;
             background-size:100%;
 
             background-repeat: no-repeat;
-        }
+        }*/
     </style>
 </head>
 <body>

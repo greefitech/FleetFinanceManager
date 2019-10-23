@@ -229,7 +229,7 @@
                                                                         <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
                                                                         <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveEntryDataInput"></i></td>
+                                                                    <td class="RemoveEntryDataInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -313,7 +313,7 @@
                                                                             <option value="0" {{ (old('DieselData')['status'][$DiselKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>
+                                                                    <td class="RemoveDieselInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -381,7 +381,7 @@
                                                                     <td class="{{ $errors->has('RTOData.amount.'.$RTOKey) ? ' has-error' : '' }}">
                                                                         <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
                                                                     </td>
-                                                                    <td class="RemoveRToInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
+                                                                    <td class="RemoveRToInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -442,7 +442,7 @@
                                                                     <td class="{{ $errors->has('PCData.amount.'.$PCKey) ? ' has-error' : '' }}">
                                                                         <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" value="{{ old('PCData')['amount'][$PCKey] }}" placeholder="Enter Amount" name="PCData[amount][]">
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemovePcInput"></i></td>
+                                                                    <td class="RemovePcInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -525,7 +525,7 @@
                                                                             <option value="0" {{ (old('ExtraExpense')['status'][$ExpenseKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveExtraExpenseInput"></i></td>
+                                                                    <td class="RemoveExtraExpenseInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -583,7 +583,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
-                                                                <td><i style="color: red;" class="fa fa-close RemovePaalamTollInput"></i></td>
+                                                                <td class="RemovePaalamTollInput"  style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                             </tr>
                                                             @endforeach
                                                         @endif
@@ -639,7 +639,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
-                                                                <td><i style="color: red;" class="fa fa-close RemoveDriverAdvanceInput"></i></td>
+                                                                <td class="RemoveDriverAdvanceInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                             </tr>
                                                         @endforeach
                                                     @endif
@@ -743,7 +743,6 @@
                 </div>
             </div>
             <!-- Calculation box end -->
-
         </div>
     </div>
 
@@ -756,6 +755,7 @@
             width:10em;
         }
     </style>
+
 
     <script>
         $('tbody').sortable();
@@ -827,4 +827,5 @@
 
     <script src="{{ url('/js/memo.js') }}"></script>
     <script src="{{ url('/js/rtomaster.js') }}"></script>
+    
 @endsection
