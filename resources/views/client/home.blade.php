@@ -2,9 +2,9 @@
 
 @section('content')
 
-<?php 
-$TripDetails = App\Trip::where('clientid',auth()->user()->id)->orderby('dateFrom')->first();
-?>
+@php
+    $TripDetails = App\Trip::where('clientid',auth()->user()->id)->orderby('dateFrom')->first();
+@endphp
 
     <div class="row">
         <div class="col-xs-12">
@@ -12,7 +12,11 @@ $TripDetails = App\Trip::where('clientid',auth()->user()->id)->orderby('dateFrom
                 <div class="box-body">
                     <div class="col-sm-4">
                         <label>Year</label>
-                        <input type="month" class="form-control dashboardDate" min="{{ date("Y-m", strtotime($TripDetails->dateFrom)) }}" max="{{ date('Y-m') }}" value="{{ date('Y-m') }}">
+                        @if(!empty($TripDetails))
+	                        <input type="month" class="form-control dashboardDate" min="{{ date("Y-m", strtotime($TripDetails->dateFrom)) }}" max="{{ date('Y-m') }}" value="{{ date('Y-m') }}">
+                        @else
+	                        <input type="month" class="form-control dashboardDate" min="{{ date('Y-m') }}" max="{{ date('Y-m') }}" value="{{ date('Y-m') }}">
+                        @endif
                     </div>
                 </div>
             </div>
