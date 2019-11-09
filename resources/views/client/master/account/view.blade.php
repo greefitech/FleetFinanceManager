@@ -30,20 +30,20 @@
                                         <tr>
                                             <td>{{ $Account->account }}</td>
                                             <td>{{ $Account->HolderName }}</td>
-                                            <td style="color: green;">{{ VehicleCreditPaymentAccountWise($Account->id)['Credit'] }}
+                                            <td style="color: green;">{{ round(VehicleCreditPaymentAccountWise($Account->id)['Credit']) }}
                                             </td>
-                                            <td style="color: red;">{{ VehicleCreditPaymentAccountWise($Account->id)['Debit'] }}</td>
+                                            <td style="color: red;">{{ round(VehicleCreditPaymentAccountWise($Account->id)['Debit']) }}</td>
                                             <td>{{ (!empty($Account->manager))?$Account->manager->name:auth()->user()->name }}</td>
                                             <td>
-                                                    <a href="{{ route('client.EditAccount',$Account->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                    <a href="{{ route('client.ViewAccountDetail',$Account->id) }}"><i class="fa fa-eye"></i></a>
+                                                <a href="{{ route('client.EditAccount',$Account->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                <a href="{{ route('client.ViewAccountDetail',$Account->id) }}"><i class="fa fa-eye"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now added!!</p></blockquote>
+                            <blockquote><p>No Account till now added!!</p></blockquote>
                         @endif
                     </div>
                 </div>

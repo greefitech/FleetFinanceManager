@@ -2,22 +2,69 @@
 
 @section('content')
 
-    <div class="row">
-        <div class="col-xs-12">
-            <center>
-                <h4>{{ $Vehicle->vehicleNumber }} {{ date('F', mktime(0, 0, 0, $Month, 10)) }} {{ $Year }} Profit</h4>
-                <h4><span style="color: green;font-size: 25px"><i class="fa fa-rupee"></i> {{ auth()->user()->CalculateProfitAmountTotal($Vehicle->id,$Month,$Year) }}</span></h4>
-            </center>
-        </div>
-    </div>
+@php
+    $PrevM =  Carbon\Carbon::parse($Year.'-'.$Month)->subMonth()->format('m'); 
+    $PrevY =  Carbon\Carbon::parse($Year.'-'.$Month)->subMonth()->format('Y'); 
+    $NextM =  Carbon\Carbon::parse($Year.'-'.$Month)->addMonthsNoOverflow(1)->format('m'); 
+    $NextY =  Carbon\Carbon::parse($Year.'-'.$Month)->addMonthsNoOverflow(1)->format('Y'); 
+@endphp
 
+    <ul class="pager">
+        <li class="previous"><a href="{{ action('ClientController\DashboardController@DashboardVehicleProfitList',[$Vehicle->id,$PrevM,$PrevY]) }}">&laquo; Previous</a></li>
+        <li class="next"><a href="{{ action('ClientController\DashboardController@DashboardVehicleProfitList',[$Vehicle->id,$NextM,$NextY]) }}">Next &raquo;</a></li>
+    </ul>
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-body">
-                    <div class="table-responsive">
-                        @if(!$Trips->isEmpty())
+                    <center>
+                        <h4>{{ $Vehicle->vehicleNumber }} {{ date('F', mktime(0, 0, 0, $Month, 10)) }} {{ $Year }} Profit / Expense</h4>
+                        <div class="row">
+                           <div class="col-sm-3">
+                              <div class="info-box bg-green">
+                                 <span class="info-box-icon"><i class="fa fa-pie-chart"></i></span>
+                                 <div class="info-box-content">
+                                    <span class="info-box-text">Profit</span>
+                                    <span class="info-box-number">{{ auth()->user()->CalculateProfitAmountTotal($Vehicle->id,$Month,$Year) }}</span>
+                                   {{--  <div class="progress">
+                                       <div class="progress-bar" style="width: 70%"></div>
+                                    </div> --}}
+                                    <span class="progress-description">
+                                        
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                            <div class="col-sm-3">
+                              <div class="info-box bg-red">
+                                 <span class="info-box-icon"><i class="fa fa-ils"></i></span>
+                                 <div class="info-box-content">
+                                    <span class="info-box-text">Expense</span>
+                                    <span class="info-box-number">{{ auth()->user()->CalculateNonTripExpenseAmountTotal($Vehicle->id,$Month,$Year) }}</span>
+                                   {{--  <div class="progress">
+                                       <div class="progress-bar" style="width: 50%"></div>
+                                    </div> --}}
+                                    <span class="progress-description">
+                                        
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                        </div>
+                    </center>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    @if(!$Trips->isEmpty())
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="table-responsive">
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -42,21 +89,19 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        @else
-                            <blockquote><p>No Trip till now!!</p></blockquote>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
 
-    <div class="row">
-        <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-body">
-                    <div class="table-responsive">
-                        @if(!$ExtraIncomes->isEmpty())
+    @if(!$ExtraIncomes->isEmpty())
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="table-responsive">
                             <table  class="table table-bordered table-striped">
                                 <thead>
                                     <tr>
@@ -75,13 +120,42 @@
                                     @endforeach
                                 </tbody>
                             </table>
-                        @else
-                            <blockquote><p>No Extra Income till now!!</p></blockquote>
-                        @endif
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
-    </div>
+    @endif
+
+    @if(!$Expenses->isEmpty())
+        <div class="row">
+            <div class="col-xs-12">
+                <div class="box box-info">
+                    <div class="box-body">
+                        <div class="table-responsive">
+                            <table  class="table table-bordered table-striped">
+                                <thead>
+                                    <tr>
+                                        <th>Date</th>
+                                        <th>Expense Type</th>
+                                        <th>Amount</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach($Expenses as $Expense)
+                                        <tr>
+                                            <td>{{ date("d-m-Y", strtotime($Expense->date)) }}</td>
+                                            <td>{{ $Expense->ExpenseType->expenseType }}</td>
+                                            <td>{{ $Expense->amount }}</td>
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    @endif
 
 @endsection

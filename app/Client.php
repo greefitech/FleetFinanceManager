@@ -225,4 +225,8 @@ class Client extends Authenticatable
         }
         return $total_income+ExtraIncome::where([['clientid', auth()->user()->id],['vehicleId',$VehicleId]])->sum('amount')-Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId]])->where('tripId', NULL)->sum('amount')+Vehicle::findorfail($VehicleId)->VehicleProfit;
     }
+
+    public function getVehicleTotalDiesel($VehicleId){
+        return $Expense= Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId],['expense_type','=', '2']])->get();
+    }
 }

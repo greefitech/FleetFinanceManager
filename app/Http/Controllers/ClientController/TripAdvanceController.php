@@ -29,7 +29,7 @@ class TripAdvanceController extends Controller
             $TripAmount->clientid=auth()->user()->id;
             $TripAmount->save();
             return back()->with('success',['Trip Advance','Added Successfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -56,7 +56,7 @@ class TripAdvanceController extends Controller
             $TripAmount->clientid = auth()->user()->id;
             $TripAmount->save();
             return redirect(route('client.ViewTripAdvanceList', request('tripId')))->with('success', ['Trip Advance', 'Updated Successfully!']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -67,7 +67,7 @@ class TripAdvanceController extends Controller
             $TripAmount = TripAmount::findorfail($id);
             $TripAmount->delete();
             return redirect(route('client.ViewTripAdvanceList',$TripAmount->id))->with('success',['Trip Advance','Deleted Successfully!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }

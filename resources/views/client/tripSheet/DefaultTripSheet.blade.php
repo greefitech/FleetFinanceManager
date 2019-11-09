@@ -588,10 +588,6 @@
                     <th>{{ money_format('%!i', (($Trip->advance + $TripAdvanceAmounts->sum('amount') + $EntryCashAdvance->sum('advance')) - $TotalDriverExpense)) }}</th>
                 </tr>
 
-
-
-
-
             </table>
         </div>
         <p class="pull-right">Exported From <a href="https://myvehicle.biz"></a>, Developed by <img src="https://greefitech.com/images/logo1.png" alt="Greefi Technologies" style="height: 35px;"> <img src="https://greefitech.com/images/logo.png" alt="Greefi Technologies" style="height: 25px;"></p>

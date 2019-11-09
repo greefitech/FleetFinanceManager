@@ -112,6 +112,13 @@ Route::post('/entry/{id}/update', 'ClientController\EntryController@update')->na
 Route::delete('/entry/{id}/delete', 'ClientController\EntryController@delete')->name('DeleteEntry');
 
 
+//Expense NON-Trip
+Route::get('/non-trip-expense/create', 'ClientController\ExpenseController@CreateNonTripExpense');
+Route::post('/non-trip-expense/create', 'ClientController\ExpenseController@SaveNonTripExpense');
+Route::get('/non-trip-expense/{id}/edit', 'ClientController\ExpenseController@EditNonTripExpense');
+Route::post('/non-trip-expense/{id}/update', 'ClientController\ExpenseController@UpdateNonTripExpense');
+
+
 //Expense
 Route::get('/expense/add', 'ClientController\ExpenseController@add');
 Route::post('/expense/add', 'ClientController\ExpenseController@save')->name('SaveExpense');
@@ -183,9 +190,6 @@ Route::get('/manager/add', 'ClientController\ManagerController@add')->name('AddM
 Route::post('/manager/save', 'ClientController\ManagerController@save')->name('SaveManager');
 Route::get('/manager/{id}/edit', 'ClientController\ManagerController@edit')->name('EditManager');
 Route::post('/manager/{id}/update', 'ClientController\ManagerController@update')->name('UpdateManager');
-
-
-
 
 
 //Report

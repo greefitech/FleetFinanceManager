@@ -44,7 +44,7 @@ class VehicleController extends Controller
         try {
             $this->Vehicle::create([
                 'ownerName' => request('ownerName'),
-                'vehicleNumber' => strtoupper(request('vehicleNumber')),
+                'vehicleNumber' => str_replace(' ', '',strtoupper(request('vehicleNumber'))),
                 'vehicleName' => request('vehicleName'),
                 'vehicleType' => request('vehicleType'),
                 'vehicleLastKm' => request('vehicleLastKm'),
@@ -58,7 +58,7 @@ class VehicleController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return redirect(route('client.ViewVehicles'))->with('success',['Vehicle','Created Successfully']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -68,7 +68,7 @@ class VehicleController extends Controller
             $Data['Vehicle'] = $this->Vehicle::findOrfail($id);
             $Data['VehicleTypes']=VehicleType::get()->all();
             return view('client.master.vehicle.edit',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -83,7 +83,7 @@ class VehicleController extends Controller
         try{
             $vehicle = $this->Vehicle::findOrfail($id);
             $vehicle->ownerName = request('ownerName');
-            $vehicle->vehicleNumber = strtoupper(request('vehicleNumber'));
+            $vehicle->vehicleNumber = str_replace(' ', '',strtoupper(request('vehicleNumber')));
             $vehicle->vehicleName = request('vehicleName');
             $vehicle->vehicleType = request('vehicleType');
             $vehicle->modelNumber = request('modelNumber');
@@ -95,7 +95,7 @@ class VehicleController extends Controller
             $vehicle->VehicleProfit = request('VehicleProfit');
             $vehicle->save();
             return back()->with('success',['Vehicle','Updated Successfully']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }

@@ -10,10 +10,7 @@
                 <div class="box-header">
                 	<h4>                         
                         <a href="{{ route('client.ViewAccounts') }}"><button class="btn btn-info pull-right">View Accounts</button></a>
-
-                    </h4>
-                    <h4>
-                        <center>View Vehicle Expense Detail</center>
+                        <center>{{ $Account->account }} {{ $Vehicle->vehicleNumber }} Detail</center>
                     </h4>
                 </div>
                 <div class="box-body">
@@ -31,7 +28,7 @@
                                 <tbody>
                                     @foreach($Expenses as $Expense)
                                         <tr>
-                                            <td>{{ $Expense->date }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($Expense->date)) }}</td>
                                             <td>{{ $Expense->ExpenseType->expenseType }}</td>
                                             <td style="color: green;"></td>
                                             <td style="color: red;">{{ $Expense->amount }}</td>
@@ -40,7 +37,7 @@
                                     @endforeach
                                     @foreach($Entries as $Entry)
                                         <tr>
-                                            <td>{{ $Entry->dateFrom }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($Entry->dateFrom)) }}</td>
                                             <td>Advance Amount</td>
                                             <td>{{ $Entry->advance }}</td>
                                             <td></td>
@@ -48,7 +45,7 @@
                                     @endforeach
                                     @foreach($ExtraIncomes as $ExtraIncome)
                                         <tr>
-                                            <td>{{ $ExtraIncome->date }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($ExtraIncome->date)) }}</td>
                                             <td>{{ $ExtraIncome->ExpenseType->expenseType }}</td>
                                             <td>{{ $ExtraIncome->amount }}</td>
                                             <td></td>
@@ -56,7 +53,7 @@
                                     @endforeach
                                     @foreach($Incomes as $Income)
                                         <tr>
-                                            <td>{{ $Income->date }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($Income->date)) }}</td>
                                             <td>Receving Amount</td>
                                             <td style="color: green;">{{ $Income->recevingAmount }}</td>
                                             <td></td>
@@ -65,7 +62,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now added!!</p></blockquote>
+                            <blockquote><p>No Account till now added!!</p></blockquote>
                         @endif
                     </div>
                 </div>

@@ -7,9 +7,9 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>RTO Master</center>
+                        <center>RTO / PC Master</center>
                     </h4>
-                    <a href="{{ route('client.AddRTOMaster') }}" class="btn btn-info pull-right">Add RTO Master</a>
+                    <a href="{{ route('client.AddRTOMaster') }}" class="btn btn-info pull-right">Add RTO/PC Master</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -18,6 +18,7 @@
                                 <thead>
                                     <tr>
                                         <th>Place</th>
+                                        <th>Type</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -25,6 +26,7 @@
                                     @foreach($RTOMasters as $RTOMaster)
                                         <tr>
                                             <td>{{ $RTOMaster->place }}</td>
+                                            <td>{{ ucfirst($RTOMaster->type) }}</td>
                                             <td>
                                                 <form action="{{ route('client.DeleteRTOMaster',$RTOMaster->id) }}" method="POST">
                                                     {{ csrf_field() }}

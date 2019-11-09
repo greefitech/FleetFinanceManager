@@ -11,28 +11,9 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateExpense',$Expense->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@UpdateNonTripExpense',$Expense->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <div class="form-group{{ $errors->has('tripId') ? ' has-error' : '' }}">
-                                        <div class="col-sm-12">
-                                            <label>Trip</label>
-                                            <select name="tripId" class="form-control select2"  id="entry-trip">
-                                                @if($Trips->status ==0)
-                                                   <option value="">Select Trip</option>
-                                                    @foreach(Auth::user()->NotCompletedTrips as $Trip)
-                                                        <option value="{{ $Trip->id }}" {{ ($Trip->id == $Expense->tripId)?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} | {{ $Trip->tripName }} | {{ date("d-m-Y", strtotime($Trip->dateFrom)) }}</option>
-                                                    @endforeach
-                                                @else
-                                                    <option value="{{ $Trips->id }}">{{ $Trips->vehicle->vehicleNumber }} | {{ $Trips->tripName }} | {{ date("d-m-Y", strtotime($Trips->dateFrom)) }}</option>
-                                                @endif
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
@@ -149,11 +130,9 @@
                                 </div>
                             </div>
                             <br>
-                            @if($Trips->status ==0)
-                                <div align="center">
-                                    <button type="submit" class="btn btn-info">Update Expense</button>
-                                </div>
-                            @endif
+                            <div align="center">
+                                <button type="submit" class="btn btn-info">Update Expense</button>
+                            </div>
                         </div>
                     </form>
                     <div class="row">

@@ -133,7 +133,7 @@
                                         <div class="panel panel-info">
                                             <div class="panel-heading">
                                                 <span style="font-weight: bold;">Entry Data
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddEntryInput"><i class="fa fa-plus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddEntryInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
@@ -229,7 +229,7 @@
                                                                         <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
                                                                         <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveEntryDataInput"></i></td>
+                                                                    <td class="RemoveEntryDataInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -263,7 +263,7 @@
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
                                                 <span style="font-weight: bold;">டீசல்
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddDiseleInput"><i class="fa fa-plus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddDiseleInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
@@ -313,7 +313,7 @@
                                                                             <option value="0" {{ (old('DieselData')['status'][$DiselKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveDieselInput"></i></td>
+                                                                    <td class="RemoveDieselInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -348,15 +348,17 @@
                                                         <h5 style="font-weight: bold;">RTO</h5>
                                                     </div>
                                                     <div class="col-sm-6">
-                                                        <select class="form-control RTOMasterDatas" style="width: 300px;">
+                                                        <select class="form-control RTOMasterDatas">
                                                             <option value="">Master Data</option>
                                                             @foreach($RTOMasters as $RTOMaster)
-                                                                <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
+                                                                @if($RTOMaster->type == 'rto')
+                                                                    <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
+                                                                @endif
                                                             @endforeach
                                                         </select>
                                                     </div>
                                                     <div class="col-sm-3">
-                                                        <button type="button" class="btn btn-primary btn-sm pull-right AddRTOInput"><i class="fa fa-plus"></i></button>
+                                                        <button type="button" class="btn btn-primary btn-sm pull-right AddRTOInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                     </div>
                                                 </div>
                                             </div>
@@ -379,7 +381,7 @@
                                                                     <td class="{{ $errors->has('RTOData.amount.'.$RTOKey) ? ' has-error' : '' }}">
                                                                         <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveRToInput"></i></td>
+                                                                    <td class="RemoveRToInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -401,9 +403,25 @@
                                     <div class="panel-group">
                                         <div class="panel panel-success">
                                             <div class="panel-heading">
-                                                <span style="font-weight: bold;">PC
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddPCInput"><i class="fa fa-plus"></i></button>
-                                                </span>
+
+                                                <div class="row">
+                                                    <div class="col-sm-3">
+                                                        <h5 style="font-weight: bold;">PC</h5>
+                                                    </div>
+                                                    <div class="col-sm-6">
+                                                        <select class="form-control PCMasterDatas">
+                                                            <option value="">Master Data</option>
+                                                            @foreach($RTOMasters as $RTOMaster)
+                                                                @if($RTOMaster->type == 'pc')
+                                                                    <option value="{{ $RTOMaster->id }}">{{ $RTOMaster->place }}</option>
+                                                                @endif
+                                                            @endforeach
+                                                        </select>
+                                                    </div>
+                                                    <div class="col-sm-3">
+                                                        <button type="button" class="btn btn-success btn-sm pull-right AddPCInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
+                                                    </div>
+                                                </div>
                                             </div>
                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
@@ -424,7 +442,7 @@
                                                                     <td class="{{ $errors->has('PCData.amount.'.$PCKey) ? ' has-error' : '' }}">
                                                                         <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" value="{{ old('PCData')['amount'][$PCKey] }}" placeholder="Enter Amount" name="PCData[amount][]">
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemovePcInput"></i></td>
+                                                                    <td class="RemovePcInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -452,7 +470,7 @@
                                         <div class="panel panel-primary">
                                             <div class="panel-heading">
                                                 <span style="font-weight: bold;">Extra Expenses
-                                                    <button type="button" class="btn btn-success btn-sm pull-right AddExtraExpenseInput"><i class="fa fa-plus"></i></button>
+                                                    <button type="button" class="btn btn-success btn-sm pull-right AddExtraExpenseInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
@@ -507,7 +525,7 @@
                                                                             <option value="0" {{ (old('ExtraExpense')['status'][$ExpenseKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
-                                                                    <td><i style="color: red;" class="fa fa-close RemoveExtraExpenseInput"></i></td>
+                                                                    <td class="RemoveExtraExpenseInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
                                                             @endforeach
                                                         @endif
@@ -535,7 +553,7 @@
                                     <div class="panel-group">
                                         <div class="panel panel-warning">
                                             <div class="panel-heading"><span style="font-weight: bold;">Paalam / Tollgate
-                                                <button type="button" class="btn btn-primary btn-sm pull-right AddPalamTollInput"><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm pull-right AddPalamTollInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span></div>
                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
@@ -565,7 +583,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
-                                                                <td><i style="color: red;" class="fa fa-close RemovePaalamTollInput"></i></td>
+                                                                <td class="RemovePaalamTollInput"  style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                             </tr>
                                                             @endforeach
                                                         @endif
@@ -591,7 +609,7 @@
                                     <div class="panel-group">
                                         <div class="panel panel-info">
                                             <div class="panel-heading"><span style="font-weight: bold;">Driver Advance
-                                                <button type="button" class="btn btn-primary btn-sm pull-right AddDriverAdvanceAmountInput"><i class="fa fa-plus"></i></button>
+                                                <button type="button" class="btn btn-primary btn-sm pull-right AddDriverAdvanceAmountInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span></div>
                                             <div class="panel-body table-responsive">
                                                 <table  class="table table-bordered">
@@ -621,7 +639,7 @@
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
-                                                                <td><i style="color: red;" class="fa fa-close RemoveDriverAdvanceInput"></i></td>
+                                                                <td class="RemoveDriverAdvanceInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                             </tr>
                                                         @endforeach
                                                     @endif
@@ -649,6 +667,8 @@
                     </form>
                 </div>
             </div>
+
+            <!-- Calculation box start-->
             <div class="row">
                 <div class="col-sm-4">
                     <div class="panel-group">
@@ -722,7 +742,7 @@
                     </div>
                 </div>
             </div>
-
+            <!-- Calculation box end -->
         </div>
     </div>
 
@@ -735,6 +755,7 @@
             width:10em;
         }
     </style>
+
 
     <script>
         $('tbody').sortable();
@@ -773,28 +794,38 @@
                         }
                     });
                 }
+            });     
+
+            $('body').on('change','.PCMasterDatas',function () {
+                if($(this).val() != ''){
+                    $.ajax({
+                        type: "get",
+                        url: '/client/entry/memo/RTOMasterData',
+                        data:{rtoid:$(this).val()},
+                        success: function(data) {
+                            if(data !='error'){
+                                $('.PCTableData').append(data);
+                            }
+                        }
+                    });
+                }
             });
 
             $('.VehicleChange').on('change',function(){
                 var VehicleId = $('.VehicleChange').val();
-                 $.ajax({
-                        type: "get",
-                        url: '/client/getendingkm',
-                        data:{VehicleId:VehicleId},
-                        success: function(data) {
-                            console.log(data);
-                            $('#entry-startkm').val(data.endKm);
-                        }
-                    });
+                $.ajax({
+                    type: "get",
+                    url: '/client/getendingkm',
+                    data:{VehicleId:VehicleId},
+                    success: function(data) {
+                        $('#entry-startkm').val(data.endKm);
+                    }
+                });
             })
-
-
-
-
-
         });
     </script>
 
     <script src="{{ url('/js/memo.js') }}"></script>
     <script src="{{ url('/js/rtomaster.js') }}"></script>
+    
 @endsection

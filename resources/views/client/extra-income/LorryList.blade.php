@@ -36,7 +36,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now!!</p></blockquote>
+                            <blockquote><p>No Vehicle List till now!!</p></blockquote>
                         @endif
                     </div>
                 </div>

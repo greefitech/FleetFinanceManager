@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MyVehicle</title>
+    <title>MyVehicle | Greefi Technologies</title>
     <meta name="description" content="MyVehicle is One Stop Fleet Accounts Management Solution.To manage account for lorry.">
     <meta name="keywords" content="myvehicle,greefi technology,fleet finance management,sankari lorry owners association,tiruchengode lorry owners association">
     <meta name="author" content="Myvehicle INC">
@@ -34,15 +34,17 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92345002-2"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag(){dataLayer.push(arguments);}
-        gtag('js', new Date());
+     @if(env('APP_ENV') == 'production')
+        <!-- Global site tag (gtag.js) - Google Analytics -->
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92345002-2"></script>
+        <script>
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
 
-        gtag('config', 'UA-92345002-2');
-    </script>
+          gtag('config', 'UA-92345002-2');
+        </script>
+    @endif
 
     <script type="text/javascript" src="{{ url('design/js/app.min8558.js') }}"> </script>
     <!-- Include all compiled plugins (below), or include individual files as needed -->

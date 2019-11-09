@@ -81,7 +81,7 @@ if (! function_exists('GetRTOMasterDataInputs')) {
                         <td>
                             <input type="text" class="form-control RTODataAmountValue" style="width: 15em" value="'.$RTOMasterDatas['amount'][$MasterKey].'" placeholder="Enter Amount" name="RTOData[amount][]">
                         </td>
-                        <td><i style="color: red;"  class="fa fa-close RemoveRToInput"></i></td>
+                        <td class="RemoveRToInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                     </tr>';
                     ;
             }
@@ -104,5 +104,12 @@ if (! function_exists('GetClientVehicle')) {
     function GetClientVehicle($ClientId){
         $clientid = Client::findorfail($ClientId);
         return Vehicle::where('clientid',$clientid->id)->get();
+    }
+}
+
+//RTO MASTER
+if (! function_exists('MemoMasterType')) {
+    function MemoMasterType(){
+        return array('rto' => 'RTO','pc'=>'PC' );
     }
 }

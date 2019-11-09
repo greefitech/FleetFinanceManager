@@ -33,6 +33,7 @@ class RTOMasterController extends Controller
         try {
             $RTOMaster = new RTOMaster;
             $RTOMaster->place = request('place');
+            $RTOMaster->type = request('type');
             $RTOMaster->description = serialize(request('RTOData'));
             $RTOMaster->clientid=auth()->user()->id;
             $RTOMaster->save();
@@ -67,6 +68,7 @@ class RTOMasterController extends Controller
         try {
             $RTOMaster = RTOMaster::findorfail($id);
             $RTOMaster->place = request('place');
+            $RTOMaster->type = request('type');
             $RTOMaster->description = serialize(request('RTOData'));
             $RTOMaster->clientid=auth()->user()->id;
             $RTOMaster->save();

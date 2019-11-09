@@ -23,6 +23,10 @@ class Vehicle extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function TripKm(){
+        return $this->hasMany(Trip::class, 'vehicleId', 'id');
+    }
+
     public function documents(){
         return $this->hasMany(Document::class, 'vehicleId', 'id');
     }
