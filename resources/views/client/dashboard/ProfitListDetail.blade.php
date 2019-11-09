@@ -2,6 +2,18 @@
 
 @section('content')
 
+@php
+    $PrevM =  Carbon\Carbon::parse($Year.'-'.$Month)->subMonth()->format('m'); 
+    $PrevY =  Carbon\Carbon::parse($Year.'-'.$Month)->subMonth()->format('Y'); 
+    $NextM =  Carbon\Carbon::parse($Year.'-'.$Month)->addMonthsNoOverflow(1)->format('m'); 
+    $NextY =  Carbon\Carbon::parse($Year.'-'.$Month)->addMonthsNoOverflow(1)->format('Y'); 
+@endphp
+
+    <ul class="pager">
+        <li class="previous"><a href="{{ action('ClientController\DashboardController@DashboardVehicleProfitList',[$Vehicle->id,$PrevM,$PrevY]) }}">&laquo; Previous</a></li>
+        <li class="next"><a href="{{ action('ClientController\DashboardController@DashboardVehicleProfitList',[$Vehicle->id,$NextM,$NextY]) }}">Next &raquo;</a></li>
+    </ul>
+
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
