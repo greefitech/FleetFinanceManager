@@ -9,7 +9,7 @@
                     <h4>
                         <center>Staffs</center>
                     </h4>
-                    <a href="{{ route('client.AddStaff') }}" class="btn btn-info pull-right">Add Staff</a>
+                    <a href="{{ action('ClientController\StaffController@create') }}" class="btn btn-info pull-right">Add Staff</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -32,15 +32,15 @@
                                             <td>{{ $Staff->name }}</td>
                                             <td>{{ $Staff->mobile1 }}</td>
                                             <td>{{ $Staff->address }}</td>
-                                            <td>{{ $Staff->type }}</td>
+                                            <td>{{ ucfirst($Staff->type) }}</td>
                                             <td>{{ $Staff->licenceNumber }}</td>
                                             <th>@if(DateDifference($Staff->licenceRenewal) < 10)<span style="color: red;">{{ DateDifference($Staff->licenceRenewal) }}</span> @else {{ DateDifference($Staff->licenceRenewal) }} @endif</th>
                                             <td>
-                                                <form action="{{ route('client.DeleteStaff',$Staff->id) }}" method="POST">
+                                                <form action="{{ action('ClientController\StaffController@destroy',$Staff->id) }}" method="POST">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <a href="#" class="btn"><i class="fa fa-eye text-aqua"></i></a>
-                                                    <a href="{{ route('client.EditStaff',$Staff->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ action('ClientController\StaffController@edit',$Staff->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>

@@ -8,10 +8,10 @@
                     <h4>
                         <center>Add Staff</center>
                     </h4>
-                    <a href="{{ route('client.ViewStaffs') }}" class="btn btn-info pull-right">View Staff</a>
+                    <a href="{{ action('ClientController\StaffController@index') }}" class="btn btn-info pull-right">View Staff</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveStaff') }}">
+                    <form class="form-horizontal" method="post" action="{{ action('ClientController\StaffController@store') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">

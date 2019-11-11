@@ -20,16 +20,16 @@ class StaffController extends Controller
     }
 
 
-    public function view(){
+    public function index(){
         $Data['Helper'] = $this->Helper;
         return view('client.master.staff.view',$Data);
     }
 
-    public function add(){
+    public function create(){
         return view('client.master.staff.add');
     }
 
-    public function save(){
+    public function store(){
         $this->validate(request(),[
             'name'=>'required',
             'mobile1'=>'required|regex:/[0-9]{10}/',
@@ -53,7 +53,7 @@ class StaffController extends Controller
                 'type' => request('type'),
                 'clientid' => auth()->user()->id,
             ]);
-            return redirect(route('client.ViewStaffs'))->with('success',['Staff','Created Successfully']);
+            return redirect(action('ClientController\StaffController@index'))->with('success',['Staff','Created Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -91,13 +91,13 @@ class StaffController extends Controller
             $staff->licenceRenewal = request('licenceRenewal');
             $staff->type = request('type');
             $staff->save();
-            return redirect(route('client.ViewStaffs'))->with('success',['Staff','Updated Successfully']);
+            return redirect(action('ClientController\StaffController@index'))->with('success',['Staff','Updated Successfully']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
-    public function delete($id){
+    public function destroy($id){
         $StaffTrip=Trip::where([['staff1',$id]])->orwhere([['staff2',$id]])->orwhere([['staff3',$id]])->count();
         $StaffWorkCount=StaffsWork::where([['staffId',$id]])->count();
         $ExpenseCount=Expense::where([['staffId',$id]])->count();
@@ -107,7 +107,7 @@ class StaffController extends Controller
 
         try {
             $this->Staff::findOrfail($id)->delete();
-            return redirect(route('client.ViewStaffs'))->with('success',['Staff','Deleted Successfully']);
+            return redirect(action('ClientController\StaffController@index'))->with('success',['Staff','Deleted Successfully']);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger','Something went wrong! Delete Not Allowed!');
         }

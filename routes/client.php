@@ -17,14 +17,8 @@ Route::get('/dashboard/non-trip-expense/{vehicleid}/{month}/{year}/list', 'Clien
 
 //CUSTOMER
 Route::resource('master/customers','ClientController\CustomerController');
-
 //Staff
-Route::get('/staffs', 'ClientController\StaffController@view')->name('ViewStaffs');
-Route::get('/staff/add', 'ClientController\StaffController@add')->name('AddStaff');
-Route::post('/staff/add', 'ClientController\StaffController@save')->name('SaveStaff');
-Route::get('/staff/{id}/edit', 'ClientController\StaffController@edit')->name('EditStaff');
-Route::post('/staff/{id}/udate', 'ClientController\StaffController@update')->name('UpdateStaff');
-Route::delete('/staff/{id}/delete', 'ClientController\StaffController@delete')->name('DeleteStaff');
+Route::resource('master/staffs','ClientController\StaffController');
 
 //Vehicle
 Route::get('/vehicles', 'ClientController\VehicleController@view')->name('ViewVehicles');
