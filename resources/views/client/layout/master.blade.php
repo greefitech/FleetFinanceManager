@@ -31,6 +31,7 @@
         </div>
     </body>
     @if(env('APP_ENV') == 'production')
+        <script src="https://embed.small.chat/T432XN8QHG7CM1TEF5.js" async></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92345002-2"></script>
         <script>
