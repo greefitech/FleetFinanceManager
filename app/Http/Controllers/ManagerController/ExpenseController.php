@@ -170,7 +170,7 @@ class ExpenseController extends Controller
                 'location' => request('location'),
                 'status'=>request('status'),
                 'account_id' => request('account_id'),
-                'clientid' => auth()->user()->id,
+                'clientid' => auth()->user()->owner->id,
                 'managerid' => auth()->user()->id,
             ]);
             return back()->with('success',['Expense','Added Successfully!'])->withInput();
