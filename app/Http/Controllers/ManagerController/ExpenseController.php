@@ -130,8 +130,10 @@ class ExpenseController extends Controller
     }
 
 
+
+
     public function GetLastExpenseTypeDetail(){
-        $Expense= Expense::where([['clientid', auth()->user()->owner->id],['managerid',auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
+        $Expense= Expense::where([['managerid', auth()->user()->owner->id],['managerid',auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
         return '        Date : '.date('d-m-Y', strtotime($Expense->date)).'
         Quantity : '.$Expense->quantity.'
         Amount : '.$Expense->amount.'
@@ -142,6 +144,41 @@ class ExpenseController extends Controller
      * NON Trip Expense List
      */
 
+
+     public function CreateNonTripExpense(){
+        $Data['ExpenseTypes'] =  $this->ExpenseType::where('managerid',auth()->user()->id)->orWhereNull('managerid')->get();
+        return view('manager.trip.expense.nontrip.add',$Data);
+    }
+
+     public function SaveNonTripExpense(){
+        $this->validate(request(),[
+            'date'=>'required|date',
+            'amount'=>'required',
+            'expense_type'=>'required|exists:expense_types,id',
+            'staffId'=>'required_if:type,==,1',
+            'quantity'=>'required_if:type,==,2',
+        ]);
+        try {
+            $this->Expense::create([
+                'date' => request('date'),
+                'expense_type' => request('expense_type'),
+                'vehicleId' => request('vehicleId'),
+                'staffId' => request('staffId'),
+                'quantity' => request('quantity'),
+                'amount' => request('amount'),
+                'discription' => request('discription'),
+                'location' => request('location'),
+                'status'=>request('status'),
+                'account_id' => request('account_id'),
+                'clientid' => auth()->user()->id,
+                'managerid' => auth()->user()->id,
+            ]);
+            return back()->with('success',['Expense','Added Successfully!'])->withInput();
+         }catch (\Exception $e){
+            return back()->with('danger', 'Something went wrong!');
+        }
+    }
+
     public function ExpenseVehcleListNonTrip(){
         return view('manager.trip.expense.LorryList');
     }
@@ -149,8 +186,47 @@ class ExpenseController extends Controller
     public function NonTripVehicleExpenseList($VehicleId){
         try {
             $Data['Vehicle'] = Vehicle::findorfail($VehicleId);
-            $Data['Expenses'] = $this->Expense::where([['clientid', auth()->user()->owner->id], ['vehicleId', $VehicleId]])->where('tripId', NULL)->orderBy('date', 'DESC')->get();
+            $Data['Expenses'] = $this->Expense::where([['managerid', auth()->user()->owner->id], ['vehicleId', $VehicleId]])->where('tripId', NULL)->orderBy('date', 'DESC')->get();
             return view('manager.trip.expense.view-non-trip-expense',$Data);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return back()->with('danger', 'Something went wrong!');
+        }
+    }
+
+
+     public function EditNonTripExpense($id){
+        try {
+            $Data['ExpenseTypes'] =  $this->ExpenseType::where('managerid',auth()->user()->id)->orWhereNull('managerid')->get();
+            $Data['Expense'] = $this->Expense::findorfail($id);
+            return view('manager.trip.expense.nontrip.edit',$Data);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return back()->with('danger', 'Something went wrong!');
+        }
+    }
+
+    public function UpdateNonTripExpense($id){
+        $this->validate(request(),[
+            'date'=>'required|date',
+            'vehicleId'=>'required|exists:vehicles,id',
+            'amount'=>'required',
+            'expense_type'=>'required|exists:expense_types,id',
+            'staffId'=>'required_if:type,==,1',
+            'quantity'=>'required_if:type,==,2',
+        ]);
+        try {
+            $this->Expense::findorfail($id)->update([
+                'date' => request('date'),
+                'expense_type' => request('expense_type'),
+                'vehicleId' => request('vehicleId'),
+                'staffId' => request('staffId'),
+                'quantity' => request('quantity'),
+                'amount' => request('amount'),
+                'discription' => request('discription'),
+                'location' => request('location'),
+                'status'=>request('status'),
+                'account_id' => request('account_id'),
+            ]);
+            return back()->with('success',['Expense','Updated Successfully!'])->withInput();
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
         }
