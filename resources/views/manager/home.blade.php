@@ -15,7 +15,7 @@
           <!-- small box -->
           <div class="small-box bg-aqua">
             <div class="inner">
-              <h3>150</h3>
+              <h3>0</h3>
 
               <p>Out Standing Amount</p>
             </div>
@@ -30,7 +30,7 @@
           <!-- small box -->
           <div class="small-box bg-green">
             <div class="inner">
-              <h3>53<sup style="font-size: 20px">%</sup></h3>
+              <h3>0<sup style="font-size: 20px">%</sup></h3>
 
               <p>Profit</p>
             </div>
@@ -45,7 +45,7 @@
           <!-- small box -->
           <div class="small-box bg-red">
             <div class="inner">
-              <h3>65</h3>
+              <h3>0</h3>
 
               <p>Expense</p>
             </div>

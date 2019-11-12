@@ -18,7 +18,6 @@
                                 <thead>
                                     <tr>
                                         <th>Expense Type</th>
-                                        <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -26,14 +25,8 @@
                                     @foreach($ExpenseTypes as $ExpenseType)
                                         <tr>
                                             <td>{{ $ExpenseType->expenseType }}</td>
-                                            <td>{{ (!empty($ExpenseType->managerid))?$ExpenseType->manager->name:GetClientManager(auth()->user()->clientid)->name }}</td>
                                             <td>
-                                                <form action="{{ route('manager.DeleteExpenseType',$ExpenseType->id) }}" method="POST">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('manager.EditExpenseType',$ExpenseType->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                <a href="{{ route('manager.EditExpenseType',$ExpenseType->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach
