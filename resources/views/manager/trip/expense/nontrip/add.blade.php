@@ -11,7 +11,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@SaveNonTripExpense') }}">
+                    <form class="form-horizontal" method="post" action="{{ action('ManagerController\ExpenseController@SaveNonTripExpense') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -29,7 +29,7 @@
                                             <label>Vehicle</label>
                                             <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle" id="entry-vehicle">
                                                 <option value="">Select Vehicle</option>
-                                                @foreach(Auth::user()->vehicles as $vehicle)
+                                                @foreach(Auth::user()->vehicles() as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id==old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
                                                 @endforeach
                                             </select>

@@ -66,7 +66,21 @@
                 </ul>
             </li>
 
-            <li><a href="{{ url('/manager/expense-vehicle-list') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-gbp <?php echo $color[array_rand($color,1)] ?>"></i>
+                    <span>Non Trip Expense</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ action('ManagerController\ExpenseController@CreateNonTripExpense') }}"><i class="fa fa-pie-chart <?php echo $color[array_rand($color,1)] ?>"></i> <span>Create Expense</span></a></li>
+                     <li><a href="{{ url('/manager/expense-vehicle-list') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
+                </ul>
+            </li>
+
+
 
             <li><a href="{{ route('manager.ViewVehicleList') }}"><i class="fa fa-shopping-cart <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
 

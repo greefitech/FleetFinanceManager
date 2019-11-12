@@ -104,6 +104,11 @@ Route::delete('/expense/{id}/delete', 'ManagerController\ExpenseController@delet
 Route::get('/expense-vehicle-list', 'ManagerController\ExpenseController@ExpenseVehcleListNonTrip')->name('ExpenseVehcleListNonTrip');
 Route::get('/expense/vehicle/{vehicleid}/non-trip-expense', 'ManagerController\ExpenseController@NonTripVehicleExpenseList')->name('NonTripVehicleExpenseList');
 Route::get('/expense/GetLastExpenseTypeDetail', 'ManagerController\ExpenseController@GetLastExpenseTypeDetail');
+//Expense Non-Trip
+Route::get('/non-trip-expense/create', 'ManagerController\ExpenseController@CreateNonTripExpense');
+Route::post('/non-trip-expense/create', 'ManagerController\ExpenseController@SaveNonTripExpense');
+Route::get('/non-trip-expense/{id}/edit', 'ManagerController\ExpenseController@EditNonTripExpense');
+Route::post('/non-trip-expense/{id}/update', 'ManagerController\ExpenseController@UpdateNonTripExpense');
 
 //Halt
 Route::get('/halt/add', 'ManagerController\HaltController@add')->name('AddHalt');
@@ -176,3 +181,6 @@ Route::resource('/Report', 'ManagerController\ReportController');
 Route::get('/Report', 'ManagerController\ReportController@DownloadExpenseReport')->name('DownloadExpenseReport');
 
 Route::get('/expense/GetLastExpenseTypeDetail', 'ManagerController\ExpenseController@GetLastExpenseTypeDetail');
+
+
+
