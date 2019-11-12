@@ -54,9 +54,13 @@ class ExtraIncomeController extends Controller
     }
 
     public function ViewExtraIncomeVehicleWiseList($VehicleId){
-        $Data['Vehicle'] = $this->Vehicle::findorfail($VehicleId);
-        $Data['ExtraIncomes'] =  $this->ExtraIncome::where([['clientid', auth()->user()->owner->id],['vehicleId', $VehicleId]])->orderBy('date','desc')->get();
-        return view('manager.extra-income.view',$Data);
+        try {
+            $Data['Vehicle'] = $this->Vehicle::findorfail($VehicleId);
+            $Data['ExtraIncomes'] =  $this->ExtraIncome::where([['managerid', auth()->user()->id],['vehicleId', $VehicleId]])->orderBy('date','desc')->get();
+            return view('manager.extra-income.view',$Data);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return back()->with('danger','Something went wrong! Delete Not Allowed!');
+        }
     }
 
     public function edit($id){
@@ -87,8 +91,6 @@ class ExtraIncomeController extends Controller
             $ExtraIncome->description = request('description');
             $ExtraIncome->status = request('status');
             $ExtraIncome->account_id = request('account_id');
-            $ExtraIncome->clientid = auth()->user()->owner->id;
-            $ExtraIncome->managerid = auth()->user()->id;
             $ExtraIncome->save();
             return redirect(route('manager.ViewExtraIncomeVehicleWiseList',request('vehicleId')))->with('success', ['Extra Income','Updated Successfully!']);
         }catch (\Illuminate\Database\QueryException $e) {

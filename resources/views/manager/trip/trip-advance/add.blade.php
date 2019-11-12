@@ -30,7 +30,7 @@
                                             <label>Trip</label>
                                             <select name="tripId" class="form-control select2"  id="entry-trip">
                                                 <option value="">Select Trip</option>
-                                                @foreach(Auth::user()->NotCompletedTrips as $Trip)
+                                                @foreach(Auth::user()->NotCompletedTrips() as $Trip)
                                                     <option value="{{ $Trip->id }}" {{ ($Trip->id == old('tripId'))?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} | {{ $Trip->tripName }} | {{ date("d-m-Y", strtotime($Trip->dateFrom)) }}</option>
                                                 @endforeach
                                             </select>
