@@ -22,7 +22,7 @@
                                             <label>Trip</label>
                                             <select name="tripId" class="form-control select2"  id="entry-trip">
                                                 <option value="">Select Trip</option>
-                                                @foreach(Auth::user()->NotCompletedTrips as $Trip)
+                                                @foreach(Auth::user()->NotCompletedTrips() as $Trip)
                                                     <option value="{{ $Trip->id }}" {{ ($Trip->id == $Entry->tripId)?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} | {{ $Trip->tripName }} | {{ date("d-m-Y", strtotime($Trip->dateFrom)) }}</option>
                                                 @endforeach
                                             </select>
@@ -258,9 +258,11 @@
                                 </div>
                             </div>
                             <br>
-                            <div align="center">
-                                <button type="submit" class="btn btn-info">Update Entry</button>
-                            </div>
+                            @if($Trips->status ==0)
+                                <div align="center">
+                                    <button type="submit" class="btn btn-info">Update Entry</button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>

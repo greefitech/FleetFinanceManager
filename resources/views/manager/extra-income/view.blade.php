@@ -9,7 +9,7 @@
                     <h4>
                         <center>Extra Income List <span style="color: green;">{{ $Vehicle->vehicleNumber }}</span></center>
                     </h4>
-                    <a href="{{ route('manager.AddCustomer') }}" class="btn btn-info pull-right">Add Customer</a>
+                    <a href="{{ route('manager.ViewExtraIncomes') }}" class="btn btn-info pull-right">View Extra Income</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -21,7 +21,6 @@
                                         <th>Income Type</th>
                                         <th>Amount</th>
                                         <th>Status</th>
-                                        <th>Created By</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -32,14 +31,8 @@
                                             <td>{{ $ExtraIncome->ExpenseType->expenseType }}</td>
                                             <td>{{ $ExtraIncome->amount }}</td>
                                             <td><span class="label label-{{ ($ExtraIncome->status == 0)?'danger':'success' }}">{{ ($ExtraIncome->status == 0)?'Not Paid':'Paid' }}</span></td>
-                                            <td>{{ (!empty($ExtraIncome->managerid))?$ExtraIncome->manager->name:auth()->user()->name }}</td>
                                             <td>
-                                                <form action="{{ route('manager.DeleteExtraIncome',$ExtraIncome->id) }}" method="POST">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('manager.EditExtraIncome',$ExtraIncome->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
-                                                </form>
+                                                <a href="{{ route('manager.EditExtraIncome',$ExtraIncome->id) }}" class="btn"><i class="fa fa-edit text-aqua"></i></a>
                                             </td>
                                         </tr>
                                     @endforeach

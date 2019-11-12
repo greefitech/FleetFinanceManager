@@ -82,7 +82,8 @@ class Manager extends Authenticatable
     }
 
     public function NotCompletedTrips(){
-        return $this->hasMany(Trip::class, 'clientid', 'id')->where('status',0);
+        $ManagerLorry = ManagerLorry::where('manager_login_id', auth()->user()->id)->pluck('vehicleId')->toArray();
+        return Trip::where('status',0)->whereIn('vehicleId',$ManagerLorry)->get();
     }
 
 
