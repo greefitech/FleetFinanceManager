@@ -21,8 +21,8 @@ class IncomeController extends Controller
     {
         $Data['Customer'] = Customer::findOrfail($CustomerId);
         $customer = Customer::findOrfail($CustomerId);
-        $entryDatas = $customer->customerEntryData->groupBy('id');
-        $incomeDatas = $customer->customerIncomeData->groupBy('entryId');
+        $entryDatas = $customer->customerEntryData->whereIn('vehicleId',auth()->user()->Vehicles()->pluck('id'))->groupBy('id');
+        $incomeDatas = $customer->customerIncomeData->whereIn('vehicleId',auth()->user()->Vehicles()->pluck('id'))->groupBy('entryId');
         $vehicledatas = array();
         $total = 0;
         foreach ($entryDatas as $vehicleEntryId => $entryData) {

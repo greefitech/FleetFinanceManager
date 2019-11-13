@@ -22,9 +22,8 @@ class EntryController extends Controller
     }
 
     public function save(){
-        $Trip= $this->Trip::findOrfail(request('tripId'));
         $this->validate(request(),[
-            'dateFrom'=>'required|date|after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo,
+            'dateFrom'=>'required|date',
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'nullable|exists:customers,id',
             'customerMobile'=>'required_without:customerId',
@@ -45,6 +44,11 @@ class EntryController extends Controller
             'unloading_mamool_status'=>'required',
             'loadingMamool'=>'nullable|min:0|numeric',
             'unLoadingMamool'=>'nullable|min:0|numeric',
+        ]);
+        
+        $Trip= $this->Trip::findOrfail(request('tripId'));
+        $this->validate(request(),[
+            'dateFrom'=>'after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo,
         ]);
 
         if($Trip->vehicleId != request('vehicleId')){
@@ -139,7 +143,6 @@ class EntryController extends Controller
             'loadingMamool'=>'nullable|min:0|numeric',
             'unLoadingMamool'=>'nullable|min:0|numeric',
         ]);
-
 
         if($Trip->vehicleId != request('vehicleId')){
             return back()->with('sorry','Vehicle Trip and Vehicle Not Matched !!')->withInput();
