@@ -28,4 +28,8 @@ class ExtraIncome extends Model
     public function ExpenseType(){
         return $this->belongsTo(ExpenseType::class, 'expense_type');
     }
+
+    public function manager(){
+        return $this->hasOne(Manager::class, 'id', 'managerid');
+    }
 }
