@@ -11,7 +11,6 @@
                         <center>Income Balance</center>
                     </h4>
                 </div>
-
                 <div class="box-body">
                     <div class="table-responsive">
                         <table  class="table table-bordered table-striped DataTable">
@@ -27,13 +26,16 @@
                             </thead>
                             <tbody>
                                 @foreach(auth()->user()->customers as $Customer)
-                                    @if(($total = $Customer->customerEntryData->sum('balance')-$Customer->customerIncomeData->sum('recevingAmount')-$Customer->customerIncomeData->sum('discountAmount'))!= 0)
+                                @php
+                                    $CustomerBalance = $Customer->customerEntryData->whereIn('vehicleId',auth()->user()->Vehicles()->pluck('id'))->sum('balance') - $Customer->customerIncomeData->whereIn('vehicleId',auth()->user()->Vehicles()->pluck('id'))->sum('recevingAmount') - $Customer->customerIncomeData->whereIn('vehicleId',auth()->user()->Vehicles()->pluck('id'))->sum('discountAmount');
+                                @endphp
+                                    @if($CustomerBalance != 0)
                                         <tr>
                                             <td>{{ $Customer->name }}</td>
                                             <td>{{ $Customer->mobile }}</td>
                                             <td>{{ $Customer->address }}</td>
                                             <td>{{ $Customer->type }}</td>
-                                            <th>{{ $total }}</th>
+                                            <th>{{ $CustomerBalance }}</th>
                                             <td><a href="{{ route('manager.AddCustomerIncome',$Customer->id) }}" class="btn btn-info btn-sm">Add Income</a></td>
                                         </tr>
                                     @endif

@@ -2,14 +2,11 @@
 
 @section('content')
 
-
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
-                    <h4>
-                        <center>Add Entry</center>
-                    </h4>
+                    <h4><center>Add Entry</center></h4>
                 </div>
                 <div class="box-body">
                     <form class="form-horizontal" method="post" action="{{ route('manager.SaveEntry') }}">
@@ -53,13 +50,13 @@
                                         </div>
                                     </div>
                                 </div>
+
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('customerId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Customer</label>
                                             <select name="customerId" class="form-control select2">
                                                 <option value="">Select Customer</option>
-{{--                                                <option value="">ADD NEW CUSTOMER</option>--}}
                                                 @foreach(Auth::user()->customers as $customer)
                                                     <option value="{{ $customer->id }}" {{ ($customer->id==old('customerId'))?'selected':'' }}>{{ $customer->name }} | {{ $customer->mobile }}</option>
                                                 @endforeach
@@ -260,7 +257,7 @@
                             </div>
                             <br>
                             <div align="center">
-                                <button type="submit" class="btn btn-info">Add Entry</button>
+                                <button type="submit" class="btn btn-info">Save Entry</button>
                             </div>
                         </div>
                     </form>
