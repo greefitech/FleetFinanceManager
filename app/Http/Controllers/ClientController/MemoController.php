@@ -40,9 +40,9 @@ class MemoController extends Controller
             'staff.1' => 'nullable|exists:staff,id',
             'staff.2' => 'nullable|exists:staff,id',
         ],
-            [
-                'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
-            ]);
+        [
+            'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
+        ]);
 
 
         if(!empty(request('EntryData'))){

@@ -170,7 +170,7 @@ Route::post('/manager/save', 'ManagerController\ManagerController@save')->name('
 Route::get('/manager/{id}/edit', 'ManagerController\ManagerController@edit')->name('EditManager');
 Route::post('/manager/{id}/update', 'ManagerController\ManagerController@update')->name('UpdateManager');
 
-
+Route::get('getendingkm','ManagerController\MemoController@getendingkm');
 
 
 

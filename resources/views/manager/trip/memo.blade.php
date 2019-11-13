@@ -20,7 +20,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle / வண்டி எண் </label>
-                                            <select class="form-control select2" name="vehicleId">
+                                            <select class="form-control select2 VehicleChange" name="vehicleId">
                                                 <option value="">Select Vehicle</option>
                                                     @foreach(auth()->user()->Vehicles() as $vehicle)
                                                         <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }} - {{ $vehicle->ownerName }}</option>
@@ -775,6 +775,19 @@
                     });
                 }
             });
+
+            $('.VehicleChange').on('change',function(){
+                var VehicleId = $('.VehicleChange').val();
+                $.ajax({
+                    type: "get",
+                    url: '/manager/getendingkm',
+                    data:{VehicleId:VehicleId},
+                    success: function(data) {
+                        $('#entry-startkm').val(data.endKm);
+                    }
+                });
+            });
+
         });
     </script>
 

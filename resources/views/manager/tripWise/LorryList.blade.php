@@ -19,7 +19,6 @@
                                         <th>Owner Name</th>
                                         <th>Vehicle Number</th>
                                         <th>Vehicle Name</th>
-                                        <th>Total Income</th>
                                         <th>Action</th>
                                     </tr>
                                 </thead>
@@ -29,7 +28,6 @@
                                             <td>{{ $Vehicle->ownerName }}</td>
                                             <td>{{ $Vehicle->vehicleNumber }}</td>
                                             <td>{{ $Vehicle->vehicleName }}</td>
-                                            <th style="color: green;">{{ auth()->user()->getVehicleTotalProfitAmount($Vehicle->id) }}</th>
                                             <td>
                                                 <a href="{{ route('manager.ViewTripListVehicleWise',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Trips</a>
                                             </td>

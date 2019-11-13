@@ -323,4 +323,9 @@ class MemoController extends Controller
         }
 
     }
+
+    public function getendingkm(){
+        return Trip::where('vehicleId',request('VehicleId'))->get()->sortByDesc('dateTo')->first();
+    }
+    
 }
