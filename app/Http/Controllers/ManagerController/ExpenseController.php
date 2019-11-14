@@ -187,7 +187,7 @@ class ExpenseController extends Controller
     public function NonTripVehicleExpenseList($VehicleId){
         try {
             $Data['Vehicle'] = Vehicle::findorfail($VehicleId);
-            $Data['Expenses'] = $this->Expense::where([['clientid', auth()->user()->owner->id], ['vehicleId', $VehicleId]])->where('tripId', NULL)->orderBy('date', 'DESC')->get();
+            $Data['Expenses'] = $this->Expense::where([['managerid', auth()->user()->id], ['vehicleId', $VehicleId]])->where('tripId', NULL)->orderBy('date', 'DESC')->get();
             return view('manager.trip.expense.view-non-trip-expense',$Data);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
