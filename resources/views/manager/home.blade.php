@@ -1,7 +1,7 @@
 @extends('manager.layout.master')
 
 @section('content')
-    <div class="box box-info">
+   {{--  <div class="box box-info">
       <div class="box-body">
             <div class="col-sm-4">
                 <input type="month" class="form-control dashboardDate" id="year" value="{{ date("Y-m") }}" max="{{ date("Y-m") }}">
@@ -65,6 +65,6 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
 
 @endsection
