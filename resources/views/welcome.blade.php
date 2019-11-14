@@ -4,16 +4,18 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>MyVehicle | Greefi Technologies</title>
-    <meta name="description" content="MyVehicle is One Stop Fleet Accounts Management Solution.To manage account for lorry.">
+    <title>My Vehicle | Fleet Finance Manager | Greefi Technologies</title>
+    <meta name="description" content="MyVehicle is One Stop Fleet Accounts Management Solution.To manage account for lorry.It is managed by Greefi Technologies">
     <meta name="keywords" content="myvehicle,greefi technology,fleet finance management,sankari lorry owners association,tiruchengode lorry owners association">
     <meta name="author" content="Myvehicle INC">
-    <script src="https://embed.small.chat/T432XN8QHG7CM1TEF5.js" async></script>
-    <script>
-        window.__pushpro = {
-            site_uuid: "1f43eb66-a2bf-4959-bc43-0950b95afe25",
-        }
-    </script>
+    @if(env('APP_ENV') == 'production')
+        <script src="https://embed.small.chat/T432XN8QHG7CM1TEF5.js" async></script>
+        <script>
+            window.__pushpro = {
+                site_uuid: "1f43eb66-a2bf-4959-bc43-0950b95afe25",
+            }
+        </script>
+    @endif
     <script src="https://storage.googleapis.com/push-pro-java-scripts/pushpro-lib.js"></script>
     <link rel="stylesheet" media="screen" href="{{ url('design/css/bootstrap.css') }}"/>
     <link rel="apple-touch-icon" sizes="57x57" href="{{ url('design/fav/apple-icon-57x57.png') }}">
@@ -35,7 +37,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">
     -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.2/modernizr.js"></script>
-     @if(env('APP_ENV') == 'production')
+    @if(env('APP_ENV') == 'production')
         <!-- Global site tag (gtag.js) - Google Analytics -->
         <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92345002-2"></script>
         <script>

@@ -22,7 +22,7 @@
                                             <label>Trip</label>
                                             <select name="tripId" class="form-control" id="entry-trip">
                                                 <option value="">Select Trip</option>
-                                                @foreach(Auth::user()->NotCompletedTrips as $Trip)
+                                                @foreach(Auth::user()->NotCompletedTrips() as $Trip)
                                                     <option value="{{ $Trip->id }}" {{ ($Trip->id == $Income->tripId)?'selected':'' }}>{{ $Trip->vehicle->vehicleNumber }} - {{ $Trip->tripName }} - {{ $Trip->dateFrom }}</option>
                                                 @endforeach
                                             </select>
