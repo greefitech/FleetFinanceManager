@@ -1,22 +1,33 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="description" content="">
-    <script>
-        window.__pushpro = {
-            site_uuid: "1f43eb66-a2bf-4959-bc43-0950b95afe25",
-        }
-    </script>
+  <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TERMS OF SERVICE | My Vehicle | Greefi Technologies</title>
+    <meta name="description" content="MyVehicle TERMS OF SERVICE.This web site is owned and operated by the Greefi Technologies (GREEFI)">
+    <meta name="keywords" content="myvehicle,greefi technology,fleet finance management,sankari lorry owners association,tiruchengode lorry owners association">
+    <meta name="author" content="Myvehicle INC">
+    @if(env('APP_ENV') == 'production')
+        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-92345002-2"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'UA-92345002-2');
+        </script>
+
+        <script>
+            window.__pushpro = {
+                site_uuid: "1f43eb66-a2bf-4959-bc43-0950b95afe25",
+            }
+        </script>
+    @endif
     <script src="https://storage.googleapis.com/push-pro-java-scripts/pushpro-lib.js"></script>
     <meta name="author" content="Greefi Technologies">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-    <title>PRIVACY STATEMENT - Fleet Finance Manager</title>
 </head>
 <section class="container">
     <!-- main content start-->
