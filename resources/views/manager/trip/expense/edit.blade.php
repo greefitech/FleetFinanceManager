@@ -144,10 +144,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div align="center">
-                                <button type="submit" class="btn btn-info">Update Expense</button>
-                            </div>
+                            @if($Trips->status ==0)
+                                <br>
+                                <div align="center">
+                                    <button type="submit" class="btn btn-info">Update Expense</button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                     <div class="row">

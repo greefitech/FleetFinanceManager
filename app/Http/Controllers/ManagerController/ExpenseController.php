@@ -70,7 +70,8 @@ class ExpenseController extends Controller
     public function edit($id){
         try {
             $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->owner->id)->orWhereNull('clientid')->get();
-            $Data['Expense'] = $this->Expense::findorfail($id);
+            $Data['Expense'] = $this->Expense::findorfail($id); 
+            $Data['Trips'] = Trip::findorfail($Data['Expense']->tripId);
             return view('manager.trip.expense.edit',$Data);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\ManagerController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\TripAmount;
+use App\Trip;
 
 class TripAdvanceController extends Controller
 {
@@ -73,7 +74,13 @@ class TripAdvanceController extends Controller
      */
     public function edit($id)
     {
-        //
+        try {
+            $Data['TripAdvance'] = TripAmount::findOrfail($id);
+            $Data['Trips'] = Trip::findorfail($Data['TripAdvance']->tripId);
+            return view('manager.trip.trip-advance.edit',$Data);
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
     }
 
     /**
@@ -85,7 +92,25 @@ class TripAdvanceController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(), [
+            'date' => 'required|date',
+            'tripId' => 'required|exists:trips,id',
+            'account_id' => 'required',
+            'amount' => 'required',
+        ]);
+        try {
+            $TripAmount = TripAmount::findorfail($id);
+            $TripAmount->date=request()->date;
+            $TripAmount->tripId=request()->tripId;
+            $TripAmount->account_id=request()->account_id;
+            $TripAmount->amount=request()->amount;
+            $TripAmount->clientid=auth()->user()->Owner->id;
+            $TripAmount->managerid=auth()->user()->id;
+            $TripAmount->save();
+            return back()->with('success',['Trip Advance','Added Successfully!']);
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
     }
 
     /**
