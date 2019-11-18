@@ -4,7 +4,7 @@
         <ul class="sidebar-menu">
             <li><a href="{{ url('/client/home') }}"><i class="fa fa-dashboard <?php echo $color[array_rand($color,1)] ?>"></i> <span>Dashboard</span></a></li>
             <li class="treeview">
-                <a href="#">
+                <a href="#" style="text-decoration:none">
                     <i class="fa fa-book <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Master</span>
                     <span class="pull-right-container">

@@ -7,7 +7,7 @@
     </script>
     <script src="https://storage.googleapis.com/push-pro-java-scripts/pushpro-lib.js"></script> --}}
     @include('client.layout.headerScript')
-    <body class="hold-transition sidebar-mini skin-black-light">
+    <body class="hold-transition sidebar-mini skin-blue">
         <div class="wrapper">
             <!-- header -->
             @include('client.layout.header')

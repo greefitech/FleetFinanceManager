@@ -1,10 +1,10 @@
 <header class="main-header">
-    <a href="{{ url('client/home') }}" class="logo">
+    <a href="{{ url('client/home') }}" class="logo" style="text-decoration:none">
         <span class="logo-mini">{{ auth()->user()->name }}</span>
         <span class="logo-lg"> <img src="{{ auth()->user()->profile_image? url(auth()->user()->profile_image) :'/assets/img/greefi.jpg'  }}" height="25px"> {{ auth()->user()->transportName }}</span>
     </a>
     <nav class="navbar navbar-static-top">
-        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button">
+        <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="text-decoration:none">
             <span class="sr-only">Toggle navigation</span>
         </a>
         <div class="navbar-custom-menu">
