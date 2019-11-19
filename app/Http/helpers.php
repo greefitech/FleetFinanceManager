@@ -69,6 +69,11 @@ if (! function_exists('GetCustomersOption')) {
 
 if (! function_exists('GetRTOMasterDataInputs')) {
     function GetRTOMasterDataInputs(){
+        if (request('type') == 'rto') {
+            $name = 'RTO';
+        }else{
+             $name = 'PC';
+        }
         try {
             $RtoMasterInput='';
             $RTOMaster = \App\RTOMaster::findorfail(request('rtoid'));
@@ -76,10 +81,10 @@ if (! function_exists('GetRTOMasterDataInputs')) {
             foreach($RTOMasterDatas['location'] as $MasterKey=>$RTOMasterData){
                  $RtoMasterInput = $RtoMasterInput.'<tr>
                         <td>
-                            <input type="text" class="form-control" style="width: 15em" value="'.$RTOMasterDatas['location'][$MasterKey].'" placeholder="Enter Location" name="RTOData[location][]">
+                            <input type="text" class="form-control" style="width: 15em" value="'.$RTOMasterDatas['location'][$MasterKey].'" placeholder="Enter Location" name="'.$name.'Data[location][]">
                         </td>
                         <td>
-                            <input type="text" class="form-control RTODataAmountValue" style="width: 15em" value="'.$RTOMasterDatas['amount'][$MasterKey].'" placeholder="Enter Amount" name="RTOData[amount][]">
+                            <input type="text" class="form-control '.$name.'AmountValue" style="width: 15em" value="'.$RTOMasterDatas['amount'][$MasterKey].'" placeholder="Enter Amount" name="'.$name.'Data[amount][]">
                         </td>
                         <td class="RemoveRToInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                     </tr>';
