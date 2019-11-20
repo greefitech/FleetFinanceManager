@@ -49,7 +49,7 @@
                                         <div class="form-group{{ $errors->has('advance') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Advance / அட்வான்ஸ்</label>
-                                                <input type="numbere" min="0" class="form-control" value="{{ old('advance') }}" placeholder="Enter Advance" name="advance" id="advance">
+                                                <input type="number" min="0" class="form-control" value="{{ old('advance') }}" placeholder="Enter Advance" name="advance" id="advance">
                                             </div>
                                         </div>
                                     </div>
@@ -60,7 +60,7 @@
                                         <div class="form-group{{ $errors->has('startKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Starting KM / ஆரம்ப கிமீ</label>
-                                                <input type="text" id="entry-startkm" class="form-control CalculateKm"  value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm" >
+                                                <input type="number" id="entry-startkm" class="form-control CalculateKm"  value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm" >
                                             </div>
                                         </div>
                                     </div>
@@ -68,7 +68,7 @@
                                         <div class="form-group{{ $errors->has('endKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Ending KM / முடிவு கிமீ</label>
-                                                <input type="text" id="entry-endkm" class="form-control CalculateKm" value="{{ old('endKm') }}" placeholder="Enter Ending KM" name="endKm">
+                                                <input type="number" id="entry-endkm" class="form-control CalculateKm" value="{{ old('endKm') }}" placeholder="Enter Ending KM" name="endKm">
                                             </div>
                                         </div>
                                     </div>
@@ -76,7 +76,7 @@
                                         <div class="form-group{{ $errors->has('totalKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Total KM / ஓடிய கிமீ</label>
-                                                <input type="text" id="entry-totalkm" class="form-control" value="{{ old('totalKm') }}" placeholder="Enter Total KM" name="totalKm" readonly="">
+                                                <input type="number" id="entry-totalkm" class="form-control" value="{{ old('totalKm') }}" placeholder="Enter Total KM" name="totalKm" readonly="">
                                                 <span id="ErrorTotal"></span>
                                             </div>
                                         </div>
@@ -297,7 +297,7 @@
                                                                         <input type="number" min="0" step="0.01" class="form-control DieselDataQuantityValue" value="{{ old('DieselData')['quantity'][$DiselKey] }}" placeholder="Enter Quantity" name="DieselData[quantity][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.amount.'.$DiselKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control DieselDataAmountValue" placeholder="Enter Amount" value="{{ old('DieselData')['amount'][$DiselKey] }}" name="DieselData[amount][]">
+                                                                        <input type="number" class="form-control DieselDataAmountValue" placeholder="Enter Amount" value="{{ old('DieselData')['amount'][$DiselKey] }}" name="DieselData[amount][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.account_id.'.$DiselKey) ? ' has-error' : '' }}">
                                                                         <select name="DieselData[account_id][]" class="form-control select2">
@@ -379,7 +379,7 @@
                                                                         <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" value="{{ old('RTOData')['location'][$RTOKey] }}" name="RTOData[location][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('RTOData.amount.'.$RTOKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
+                                                                        <input type="number" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
                                                                     </td>
                                                                     <td class="RemoveRToInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                                                                 </tr>
@@ -786,7 +786,7 @@
                     $.ajax({
                         type: "get",
                         url: '/client/entry/memo/RTOMasterData',
-                        data:{rtoid:$(this).val()},
+                        data:{rtoid:$(this).val(),type:'RTO'},
                         success: function(data) {
                             if(data !='error'){
                                 $('.RTOTableData').append(data);
@@ -801,7 +801,7 @@
                     $.ajax({
                         type: "get",
                         url: '/client/entry/memo/RTOMasterData',
-                        data:{rtoid:$(this).val()},
+                        data:{rtoid:$(this).val(),type:'PC'},
                         success: function(data) {
                             if(data !='error'){
                                 $('.PCTableData').append(data);

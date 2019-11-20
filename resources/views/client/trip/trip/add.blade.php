@@ -51,7 +51,7 @@
                                     <div class="form-group{{ $errors->has('startKm') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Starting KM</label>
-                                            <input type="text" id="entry-startkm" class="form-control CalculateKm" value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm">
+                                            <input type="number" id="entry-startkm" class="form-control CalculateKm" value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm">
                                         </div>
                                     </div>
                                 </div>
@@ -59,7 +59,7 @@
                                     <div class="form-group{{ $errors->has('endKm') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Ending KM</label>
-                                            <input type="text" id="entry-endkm" class="form-control CalculateKm" value="{{ old('endKm') }}" placeholder="Enter Ending KM" name="endKm">
+                                            <input type="number" id="entry-endkm" class="form-control CalculateKm" value="{{ old('endKm') }}" placeholder="Enter Ending KM" name="endKm">
                                         </div>
                                     </div>
                                 </div>
@@ -67,7 +67,7 @@
                                     <div class="form-group{{ $errors->has('totalKm') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Total KM</label>
-                                            <input type="text" id="entry-totalkm" class="form-control" value="{{ old('totalKm') }}" placeholder="Enter Total KM" name="totalKm" readonly="">
+                                            <input type="number" id="entry-totalkm" class="form-control" value="{{ old('totalKm') }}" placeholder="Enter Total KM" name="totalKm" readonly="">
                                             <span id="ErrorTotal"></span>
                                         </div>
                                     </div>
@@ -119,7 +119,7 @@
                                     <div class="form-group{{ $errors->has('advance') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Advance</label>
-                                            <input type="numbere" min="0" class="form-control" value="{{ old('advance') }}" placeholder="Enter Advance" name="advance">
+                                            <input type="number" min="0" class="form-control" value="{{ old('advance') }}" placeholder="Enter Advance" name="advance">
                                         </div>
                                     </div>
                                 </div>

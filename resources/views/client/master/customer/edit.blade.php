@@ -27,7 +27,7 @@
                                     <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Mobile</label>
-                                            <input type="text" class="form-control" maxlength="10" minlength="10" onkeypress="return isNumber(event)" value="{{ $Customer->mobile }}" placeholder="Enter Mobile Number" name="mobile">
+                                            <input type="number" class="form-control" maxlength="10" minlength="10" onkeypress="return isNumber(event)" value="{{ $Customer->mobile }}" placeholder="Enter Mobile Number" name="mobile">
                                         </div>
                                     </div>
                                 </div>

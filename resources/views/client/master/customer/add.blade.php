@@ -29,7 +29,7 @@
                                     <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Mobile</label>
-                                            <input type="text" class="form-control" maxlength="10" minlength="10" onkeypress="return isNumber(event)" value="{{ old('mobile') }}" placeholder="Enter Mobile Number" name="mobile">
+                                            <input type="number" class="form-control" onkeypress="return isNumber(event)" oninput="maxLengthCheck(this)" maxlength = "10" value="{{ old('mobile') }}" placeholder="Enter Mobile Number" name="mobile">
                                         </div>
                                     </div>
                                 </div>
@@ -66,5 +66,19 @@
         </div>
     </div>
 
+
+@endsection
+
+
+@section('script')
+
+<script>
+ 
+  function maxLengthCheck(object)
+  {
+    if (object.value.length > object.maxLength)
+      object.value = object.value.slice(0, object.maxLength)
+  }
+</script>
 
 @endsection
