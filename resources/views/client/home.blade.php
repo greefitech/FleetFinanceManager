@@ -66,10 +66,9 @@
     <div class="row">
         <script src="//canvasjs.com/assets/script/canvasjs.min.js"></script>
         <div class="col-sm-12 col-lg-12 col-xs-12">
-            <div id="chartContainer" style="height: 400px; width: 100%;"></div>
+            <div id="columnchart_material" style="height: 400px; width: 100%;"></div>
         </div>
     </div>
-
     <?php
     $income = array();
     $Expense = array();
@@ -88,6 +87,7 @@
 
 @section('script')
 
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
         $(".dashboardDate").change(function() {
             var MonthYear =$('.dashboardDate').val();
@@ -101,62 +101,40 @@
                 }
             });
         });
-        var income = [];
-        var expense = [];
-        var chart = new CanvasJS.Chart("chartContainer", {
-            animationEnabled: true,
-            title:{
-                theme: "light2",
-                text: "Income & Expense Jan <?php echo (date('Y')-1).' - Dec '.date('Y')  ?>"
-            },
-            axisX:{
-                valueFormatString: "MMM Y"
-            },
-
-            axisY: {
-                title: "Amount",
-                valueFormatString: "0#",
-                titleFontColor: "brown",
-                lineColor: "#4F81BC",
-                labelFontColor: "#4F81BC",
-                tickColor: "#4F81BC"
-            },
-            toolTip: {
-                shared: true
-            },
-
-            data: [{
-                type: "column",
-                showInLegend: true,
-                dataPoints: income,
-                name: "Profit Amount",
-            },{
-                type: "column",
-                showInLegend: true,
-                dataPoints: expense,
-                name: "Expense Amount",
-            }]
-        });
-        var IncomeValue = [<?php echo ''.implode(',', $income).'' ?>];
-        var ExpenseValue = [<?php echo ''.implode(',', $Expense).'' ?>];
-
-        var i=0;
-        IncomeValue.forEach(function(element) {
-            income.push({
-                x:new Date(<?php echo date('Y')-1 ?>,i),
-                y:IncomeValue[i]
-            });
-            i++;
-        });
-
-        var i=0;
-        ExpenseValue.forEach(function(element) {
-            expense.push({
-                x:new Date(<?php echo date('Y')-1 ?>,i),
-                y:ExpenseValue[i]
-            });
-            i++;
-        });
-        chart.render();
     </script>
+
+    <script type="text/javascript">
+        google.charts.load('current', {'packages':['bar']});
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+            var data = google.visualization.arrayToDataTable([
+            ['Month', 'Sales', 'Expenses'],
+            @php
+                $monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+                $month = 1;
+                for($i=0;$i<12;$i++){
+                    $ProfitAmount =  auth()->user()->CalculateProfitAmountTotal('',$month,date('Y'));
+                    $ExpenseAmount =  auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,date('Y'));
+                    echo '["'.$monthNames[$i].'",'.$ProfitAmount.','.$ExpenseAmount.'],';
+                    $month++;
+                }  
+            @endphp
+            ]);
+
+            var options = {
+                chart: {
+                    title: 'Company Performance',
+                    subtitle: 'Sales, Expenses, and Profit: 2014-2017',
+                },
+                bar: { groupWidth: "35%" }
+            };
+
+            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
+
+            chart.draw(data, google.charts.Bar.convertOptions(options));
+        }
+
+  </script>
+
 @endsection
