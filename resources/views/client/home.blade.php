@@ -63,12 +63,28 @@
         </div>
     </div>
 
+    <style>
+        .chart {
+            width: 100%; 
+            min-height: 450px;
+        }
+        .row {
+            margin:0 !important;
+        }
+    </style>
+
     <div class="row">
         <script src="//canvasjs.com/assets/script/canvasjs.min.js"></script>
         <div class="col-sm-12 col-lg-12 col-xs-12">
-            <div id="columnchart_material" style="height: 400px; width: 100%;"></div>
+            <div id="columnchart_material"></div>
+        </div>
+
+        <div class="col-sm-12 col-lg-12 col-xs-12">
+            <div id="Main_Graph" class="chart"></div>
         </div>
     </div>
+
+    
     <?php
     $income = array();
     $Expense = array();
@@ -104,11 +120,11 @@
     </script>
 
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['bar']});
-        google.charts.setOnLoadCallback(drawChart);
 
+        google.load("visualization", "1", {packages:["corechart"]});
+        google.setOnLoadCallback(drawChart);
         function drawChart() {
-            var data = google.visualization.arrayToDataTable([
+          var data = google.visualization.arrayToDataTable([
             ['Month', 'Sales', 'Expenses'],
             @php
                 $monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -122,18 +138,19 @@
             @endphp
             ]);
 
-            var options = {
-                chart: {
-                    title: 'Company Performance',
-                    subtitle: 'Sales, Expenses, and Profit: 2014-2017',
-                },
-                bar: { groupWidth: "35%" }
-            };
+          var options = {
+            title: 'Company Performance',
+            hAxis: {title: 'Month', titleTextStyle: {color: 'Black'}},
+            
+         };
 
-            var chart = new google.charts.Bar(document.getElementById('columnchart_material'));
-
-            chart.draw(data, google.charts.Bar.convertOptions(options));
+        var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
+          chart.draw(data, options);
         }
+
+        $(window).resize(function(){
+            drawChart();
+        });
 
   </script>
 
