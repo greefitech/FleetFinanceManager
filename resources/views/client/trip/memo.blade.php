@@ -786,7 +786,7 @@
                     $.ajax({
                         type: "get",
                         url: '/client/entry/memo/RTOMasterData',
-                        data:{rtoid:$(this).val(),type:'rto'},
+                        data:{rtoid:$(this).val(),type:'RTO'},
                         success: function(data) {
                             if(data !='error'){
                                 $('.RTOTableData').append(data);
@@ -801,7 +801,7 @@
                     $.ajax({
                         type: "get",
                         url: '/client/entry/memo/RTOMasterData',
-                        data:{rtoid:$(this).val(),type:'pc'},
+                        data:{rtoid:$(this).val(),type:'PC'},
                         success: function(data) {
                             if(data !='error'){
                                 $('.PCTableData').append(data);
