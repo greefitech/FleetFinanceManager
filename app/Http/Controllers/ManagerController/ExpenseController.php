@@ -133,7 +133,7 @@ class ExpenseController extends Controller
 
 
     public function GetLastExpenseTypeDetail(){
-        $Expense= Expense::where([['managerid', auth()->user()->owner->id],['managerid',auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
+        $Expense= Expense::where([['clientid', auth()->user()->owner->id],['managerid',auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
         return '        Date : '.date('d-m-Y', strtotime($Expense->date)).'
         Quantity : '.$Expense->quantity.'
         Amount : '.$Expense->amount.'
