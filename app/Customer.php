@@ -60,7 +60,7 @@ class Customer extends Model
             }
             $customer->save();
             return 'success';
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return 'error';
         }
     }

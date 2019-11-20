@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateEntry',$Entry->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.UpdateEntry',$Entry->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">

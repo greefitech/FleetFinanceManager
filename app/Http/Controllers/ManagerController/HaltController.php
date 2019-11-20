@@ -52,6 +52,7 @@ class HaltController extends Controller
     public function edit($id){
         try {
             $Data['Halt']=$this->Halt::findOrfail($id);
+            $Data['Trips'] = Trip::findorfail($Data['Halt']->tripId);
             return view('manager.trip.halt.edit',$Data);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');

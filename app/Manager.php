@@ -83,7 +83,7 @@ class Manager extends Authenticatable
 
     public function NotCompletedTrips(){
         $ManagerLorry = ManagerLorry::where('manager_login_id', auth()->user()->id)->pluck('vehicleId')->toArray();
-        return Trip::where('status',0)->whereIn('vehicleId',$ManagerLorry)->get();
+        return Trip::whereIn('status',[0,1])->whereIn('vehicleId',$ManagerLorry)->get();
     }
 
 

@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+@extends('manager.layout.master')
 
 @section('content')
 
@@ -12,7 +12,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateTripAdvance',$TripAdvance->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ route('manager.UpdateTripAdvance',$TripAdvance->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -62,10 +62,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <br>
-                            <div align="center">
-                                <button type="submit" class="btn btn-info">Update Trip Advance</button>
-                            </div>
+                            @if($Trips->status ==0)
+                                <br>
+                                <div align="center">
+                                    <button type="submit" class="btn btn-info">Update Trip Advance</button>
+                                </div>
+                            @endif
                         </div>
                     </form>
                 </div>

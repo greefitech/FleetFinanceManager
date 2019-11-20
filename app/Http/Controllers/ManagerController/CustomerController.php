@@ -29,7 +29,7 @@ class CustomerController extends Controller
             'address'=>'required',
             'type'=>'required|in:broker,direct',
         ]);
-
+        // return request()->all();
         $CustomerData=$this->Customer::where([['managerid',Auth::user()->id],['mobile',request('mobile')]])->first();
         if(!empty($CustomerData->mobile)){
             return back()->with('sorry','Customer Already Exist!!')->withInput();
