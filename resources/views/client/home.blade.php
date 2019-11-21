@@ -42,7 +42,7 @@
             <div class="small-box bg-green" id="DashboardIncome">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Profit</p>
-                    <h3>{{ auth()->user()->CalculateProfitAmountTotal('',date('m'),date('Y')) }}</h3>
+                    <h3>.</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -55,7 +55,7 @@
             <div class="small-box bg-red" id="DashboardExpense">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Expense</p>
-                    <h3>{{ Auth::user()->CalculateNonTripExpenseAmountTotal('',date('m'),date('Y')) }}</h3>
+                    <h3>.</h3>
                 </div>
                 <div class="icon"><i class="ion ion-pie-graph"></i></div>
                 <a href="{{ route('client.DashboardVehicleProfitTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
@@ -84,73 +84,70 @@
         </div>
     </div>
 
-    
-    <?php
-    $income = array();
-    $Expense = array();
-    $years = array(date('Y')-1,date('Y'));
-    foreach ($years as $year){
-        for ($i=1;$i<=12;$i++){
-            $incomeData = auth()->user()->CalculateProfitAmountTotal('',$i,$year);
-            array_push($income,$incomeData);
-            $ExpenseData = auth()->user()->CalculateNonTripExpenseAmountTotal('',$i,$year);
-            array_push($Expense,$ExpenseData);
-        }
-    }
-    ?>
 @endsection
 
 
 @section('script')
 
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
-        $(".dashboardDate").change(function() {
+            DashboardChart('');
+        $(".dashboardDate").on('focus', function () {
+           var OldDate = $(this);
+            OldDate.data('previous', OldDate.val());
+        }).change(function() {
+            var OldDate = $(this);
+            DashboardChart(OldDate.data('previous'));
+        });
+
+        function DashboardChart(OldDate) {
             var MonthYear =$('.dashboardDate').val();
             $.ajax({
                 type : "get",
                 url : '/client/dashboard/total-income-expense',
                 data:{MonthYear:MonthYear},
+                beforeSend: function() {
+                    $('#DashboardIncome').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+                    $('#DashboardExpense').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+                },
                 success:function(data){
-                    $('#DashboardIncome').html(data.Income);
-                    $('#DashboardExpense').html(data.expense);
+                    setTimeout(function() {
+                        $('#DashboardIncome').html(data.Income);
+                        $('#DashboardExpense').html(data.expense);
+                        if(OldDate == '' || OldDate.split("-")[0] != MonthYear.split("-")[0]){
+                            $.ajax({
+                                url: 'https://www.google.com/jsapi?callback',
+                                cache: true,
+                                dataType: 'script',
+                                success: function(data){
+                                    google.load('visualization', '1', {packages:['corechart'], 'callback' : function(){
+                                        $.ajax({
+                                            type: "get",
+                                            dataType: "json",
+                                            data:{MonthYear:MonthYear},
+                                            url: '{{ action("ClientController\DashboardController@DashboardGetChartValues") }}',
+                                            success: function(jsondata) {
+                                                var data = google.visualization.arrayToDataTable(jsondata.data);
+                                                var options = {title: 'Income Expense '+jsondata.year};
+                                                var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
+                                                chart.draw(data, options);
+                                            }
+                                        }); 
+                                    }});
+                                }
+                            });
+                        }
+                        
+                    }, 1000);
                 }
             });
-        });
+        }
     </script>
 
     <script type="text/javascript">
 
-        google.load("visualization", "1", {packages:["corechart"]});
-        google.setOnLoadCallback(drawChart);
-        function drawChart() {
-          var data = google.visualization.arrayToDataTable([
-            ['Month', 'Sales', 'Expenses'],
-            @php
-                $monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
-                $month = 1;
-                for($i=0;$i<12;$i++){
-                    $ProfitAmount =  auth()->user()->CalculateProfitAmountTotal('',$month,date('Y'));
-                    $ExpenseAmount =  auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,date('Y'));
-                    echo '["'.$monthNames[$i].'",'.$ProfitAmount.','.$ExpenseAmount.'],';
-                    $month++;
-                }  
-            @endphp
-            ]);
-
-          var options = {
-            title: 'Company Performance',
-            hAxis: {title: 'Month', titleTextStyle: {color: 'Black'}},
-            
-         };
-
-        var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
-          chart.draw(data, options);
-        }
-
-        $(window).resize(function(){
-            drawChart();
-        });
+        // $(window).resize(function(){
+        //     drawChart();
+        // });
 
   </script>
 

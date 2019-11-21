@@ -14,6 +14,7 @@ Route::get('/dashboard/expense/{month}/{year}/vehicle-list', 'ClientController\D
 
 Route::get('/dashboard/profit/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleProfitList')->name('DashboardVehicleProfitList');
 Route::get('/dashboard/non-trip-expense/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleNonTripExpenseList')->name('DashboardVehicleNonTripExpenseList');
+Route::get('/dashboard/get-dashboard-chart-values', 'ClientController\DashboardController@DashboardGetChartValues');
 
 //CUSTOMER
 Route::resource('master/customers','ClientController\CustomerController');
