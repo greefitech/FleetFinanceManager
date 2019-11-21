@@ -114,18 +114,3 @@ if (! function_exists('MemoMasterType')) {
         return array('rto' => 'RTO','pc'=>'PC' );
     }
 }
-
-
-
-
-if (! function_exists('demoss')) {
-    function demoss(){
-        $FinalData = array();
-        array_push($FinalData,array('Month', 'Income', 'Expense'));
-        for ($i=1; $i <= 12; $i++) { 
-            $arrayName = array(date('F', mktime(0, 0, 0, $i, 10)),$i,rand(1,20));
-            array_push($FinalData,$arrayName);
-        }
-        return response()->json(['month'=>request('MonthYear'),'data'=>$FinalData]);
-    }
-}

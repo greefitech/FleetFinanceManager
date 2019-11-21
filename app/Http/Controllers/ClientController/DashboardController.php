@@ -63,4 +63,23 @@ class DashboardController extends Controller
         $Data['Expenses'] =  Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId]])->whereYear('date', '=', $Year)->whereMonth('date', '=', $Month)->whereNull('tripId')->get();
         return view('client.dashboard.NonTripExpenseDetail',$Data);
     }
+
+
+    public function DashboardGetChartValues(){
+        $MonthYear = explode('-',request('MonthYear'));
+        $Year = $MonthYear[0];
+        $Month = $MonthYear[1];
+
+        $FinalData = array();
+        array_push($FinalData,array('Month', 'Income', 'Expense'));
+        for ($i=1; $i <= 12; $i++) { 
+            $arrayName = array(
+                date('F', mktime(0, 0, 0, $i, 10)),
+                auth()->user()->CalculateProfitAmountTotal('',$i,$Year),
+                auth()->user()->CalculateNonTripExpenseAmountTotal('',$i,$Year)
+            );
+            array_push($FinalData,$arrayName);
+        }
+        return response()->json(['year'=>$Year,'data'=>$FinalData]);
+    }
 }

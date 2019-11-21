@@ -27,10 +27,6 @@ Route::get('/terms', function(){
     return view('terms');
 });
 
-Route::get('/demoss', function(){
-    return demoss();
-});
-
 Route::get('/entry/getTripDatas', 'customeController@getTripDatas');
 Route::get('/vehicle/getLastEntryKm', 'customeController@getVehicleData');
 
