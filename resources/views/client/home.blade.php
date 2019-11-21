@@ -90,12 +90,16 @@
 @section('script')
 
     <script type="text/javascript">
-            DashboardChart();
-        $(".dashboardDate").change(function() {
-            DashboardChart();
+            DashboardChart('');
+        $(".dashboardDate").on('focus', function () {
+           var OldDate = $(this);
+            OldDate.data('previous', OldDate.val());
+        }).change(function() {
+            var OldDate = $(this);
+            DashboardChart(OldDate.data('previous'));
         });
 
-        function DashboardChart() {
+        function DashboardChart(OldDate) {
             var MonthYear =$('.dashboardDate').val();
             $.ajax({
                 type : "get",
@@ -109,27 +113,30 @@
                     setTimeout(function() {
                         $('#DashboardIncome').html(data.Income);
                         $('#DashboardExpense').html(data.expense);
-                        $.ajax({
-                            url: 'https://www.google.com/jsapi?callback',
-                            cache: true,
-                            dataType: 'script',
-                            success: function(data){
-                                google.load('visualization', '1', {packages:['corechart'], 'callback' : function(){
-                                    $.ajax({
-                                        type: "get",
-                                        dataType: "json",
-                                        data:{MonthYear:MonthYear},
-                                        url: '{{ action("ClientController\DashboardController@DashboardGetChartValues") }}',
-                                        success: function(jsondata) {
-                                            var data = google.visualization.arrayToDataTable(jsondata.data);
-                                            var options = {title: 'Income Expense '+jsondata.year};
-                                            var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
-                                            chart.draw(data, options);
-                                        }
-                                    }); 
-                                }});
-                            }
-                        });
+                        if(OldDate == '' || OldDate.split("-")[0] != MonthYear.split("-")[0]){
+                            $.ajax({
+                                url: 'https://www.google.com/jsapi?callback',
+                                cache: true,
+                                dataType: 'script',
+                                success: function(data){
+                                    google.load('visualization', '1', {packages:['corechart'], 'callback' : function(){
+                                        $.ajax({
+                                            type: "get",
+                                            dataType: "json",
+                                            data:{MonthYear:MonthYear},
+                                            url: '{{ action("ClientController\DashboardController@DashboardGetChartValues") }}',
+                                            success: function(jsondata) {
+                                                var data = google.visualization.arrayToDataTable(jsondata.data);
+                                                var options = {title: 'Income Expense '+jsondata.year};
+                                                var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
+                                                chart.draw(data, options);
+                                            }
+                                        }); 
+                                    }});
+                                }
+                            });
+                        }
+                        
                     }, 1000);
                 }
             });
