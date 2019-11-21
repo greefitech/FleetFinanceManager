@@ -114,6 +114,31 @@
                 success:function(data){
                     $('#DashboardIncome').html(data.Income);
                     $('#DashboardExpense').html(data.expense);
+                    $.ajax({
+                        url: 'https://www.google.com/jsapi?callback',
+                        cache: true,
+                        dataType: 'script',
+                        success: function(data){
+                            google.load('visualization', '1', {packages:['corechart'], 'callback' : function(){
+                                $.ajax({
+                                    type: "get",
+                                    dataType: "json",
+                                    data:{MonthYear:MonthYear},
+                                    url: '{{ url("demoss") }}',
+                                    success: function(jsondata) {
+
+                                        var data = google.visualization.arrayToDataTable(jsondata.data);
+                                        console.log(data);
+
+                                        var options = {title: jsondata.month};
+
+                                        var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
+                                        chart.draw(data, options);
+                                    }
+                                }); 
+                            }});
+                        }
+                    });
                 }
             });
         });
