@@ -74,7 +74,7 @@ class ReportController extends Controller
         $merged = collect($FinalExpenseDatas)->merge($FinalIncomeDatas)->merge($FinalNonTripExpenseDatas)->merge($FinalExtraIncomeDatas);
 
 
-        $FinalSelectDatas = $merged->all();
+        $FinalSelectDatas = $merged->sortBy('date');
 
         foreach ($FinalSelectDatas as $key => $DataValue) {
             //income
@@ -87,7 +87,7 @@ class ReportController extends Controller
                         'Debit' => '',
                         'Quantity' => @$DataValue->quantity,
                         'Staff Name' => '',
-                        'Location' => @$DataValue->location,
+                        'Location' => @$DataValue->locationFrom.' - '.@$DataValue->locationTo.' ( '.@$DataValue->loadType.' )',
                         'Payment Status' => '',
                     );
                 }
@@ -97,9 +97,9 @@ class ReportController extends Controller
                         'Description' => @$DataValue->customer->name.'  -  '.@$DataValue->Trip->tripName,
                         'Credit' => @$DataValue->recevingAmount,
                         'Debit' => '',
-                        'Quantity' => @$DataValue->quantity,
+                        'Quantity' => '',
                         'Staff Name' => '',
-                        'Location' => @$DataValue->location,
+                        'Location' => '',
                         'Payment Status' => '',
                     );
                 }
@@ -131,7 +131,7 @@ class ReportController extends Controller
                         'Quantity' => '',
                         'Staff Name' => '',
                         'Location' => @$DataValue->location,
-                        'Payment Status' => '',
+                        'Payment Status' => (@$DataValue->status == 0)?'Not Paid':'',
                     );
                 }
             }
@@ -147,7 +147,7 @@ class ReportController extends Controller
                         'Quantity' => @$DataValue->quantity,
                         'Staff Name' => '',
                         'Location' => @$DataValue->location,
-                        'Payment Status' => '',
+                        'Payment Status' => (@$DataValue->status == 0)?'Not Paid':'',
                     );
                 }    
 
@@ -189,7 +189,7 @@ class ReportController extends Controller
                             'Quantity' => '',
                             'Staff Name' => '',
                             'Location' => '',
-                            'Payment Status' => '',
+                            'Payment Status' => (@$DataValue->loading_mamool_status == 0)?'Not Paid':'',
                         );
                     }
                 }  
@@ -204,7 +204,7 @@ class ReportController extends Controller
                             'Quantity' => '',
                             'Staff Name' => '',
                             'Location' => '',
-                            'Payment Status' => '',
+                            'Payment Status' => (@$DataValue->unloading_mamool_status == 0)?'Not Paid':'',
                         );
                     }
                 }
@@ -219,7 +219,7 @@ class ReportController extends Controller
                             'Quantity' => '',
                             'Staff Name' => '',
                             'Location' => '',
-                            'Payment Status' => '',
+                            'Payment Status' => (@$DataValue->commission_status == 0)?'Not Paid':'',
                         );
                     }
                 }
@@ -227,10 +227,9 @@ class ReportController extends Controller
         }
 
         if(!empty($finalData)){
-            Excel::create($Vehicle->vehicleNumber.' - Report - '.date('Y-m-d'),function($excel) use ($finalData,$Vehicle){
+            Excel::create($Vehicle->vehicleNumber.' - Report - '. date("d-m-Y", strtotime(date('Y-m-d'))),function($excel) use ($finalData,$Vehicle){
                 $excel->sheet('Sheet 1',function($sheet) use ($finalData,$Vehicle){
                     $sheet->setTitle($Vehicle->vehicleNumber.' Report');
-
                     $sheet->fromArray($finalData);
                 });
             })->export('xlsx');
