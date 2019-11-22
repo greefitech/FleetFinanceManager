@@ -54,9 +54,7 @@ class ReportController extends Controller
 
         if(in_array('income',request('report_wise'))){
             $Entry =  Entry::select(['dateFrom AS date'])->where([['clientid',auth()->user()->id],['vehicleId',request('vehicleId')]])->whereBetween('dateFrom', [request('dateFrom'), request('dateTo')])->whereNotNull('advance')->select(['*','dateFrom as date'])->orderBy('dateFrom')->get();
-
             $Incomes =  Income::where([['clientid',auth()->user()->id],['vehicleId',request('vehicleId')]])->whereBetween('date', [request('dateFrom'), request('dateTo')])->whereNotNull('recevingAmount')->orderBy('date')->get();
-
             $FinalIncomeDatas = new \Illuminate\Database\Eloquent\Collection; //Create empty collection which we know has the merge() method
             $FinalIncomeDatas = $FinalIncomeDatas->merge($Entry)->merge($Incomes);
         }
@@ -83,7 +81,7 @@ class ReportController extends Controller
             if(in_array('income',request('report_wise'))){
                 if(isset($DataValue->advance)){
                     $finalData[] =array(
-                        'Date' => @$DataValue->date,
+                        'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                         'Description' => @$DataValue->customer->name.'  -  '.@$DataValue->Trip->tripName,
                         'Credit' => @$DataValue->advance,
                         'Debit' => '',
@@ -95,7 +93,7 @@ class ReportController extends Controller
                 }
                 if(isset($DataValue->recevingAmount)){
                     $finalData[] =array(
-                        'Date' => @$DataValue->date,
+                        'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                         'Description' => @$DataValue->customer->name.'  -  '.@$DataValue->Trip->tripName,
                         'Credit' => @$DataValue->recevingAmount,
                         'Debit' => '',
@@ -110,7 +108,7 @@ class ReportController extends Controller
             if(in_array('extra_income',request('report_wise'))){
                 if(isset($DataValue->extraincome)){
                     $finalData[] =array(
-                        'Date' => @$DataValue->date,
+                        'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                         'Description' => @$DataValue->ExpenseType->expenseType,
                         'Credit' => @$DataValue->extraincome,
                         'Debit' => '',
@@ -126,7 +124,7 @@ class ReportController extends Controller
             if(in_array('non_trip_expense',request('report_wise'))){
                 if(isset($DataValue->amount) && empty($DataValue->tripId)){
                     $finalData[] =array(
-                        'Date' => @$DataValue->date,
+                        'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                         'Description' => @$DataValue->ExpenseType->expenseType,
                         'Credit' => '',
                         'Debit' => @$DataValue->amount,
@@ -142,7 +140,7 @@ class ReportController extends Controller
             if(in_array('expense',request('report_wise'))){
                 if(isset($DataValue->amount) && !empty($DataValue->tripId)){
                     $finalData[] =array(
-                        'Date' => @$DataValue->date,
+                        'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                         'Description' => @$DataValue->ExpenseType->expenseType,
                         'Credit' => '',
                         'Debit' => @$DataValue->amount,
@@ -153,12 +151,10 @@ class ReportController extends Controller
                     );
                 }    
 
-// if(in_array('cleaner_padi',request('expense_type')) || in_array('driver_padi',request('expense_type'))|| in_array('export',request('expense_type'))|| in_array('import',request('expense_type'))|| in_array('commission',request('expense_type'))){
-
                 if(in_array('cleaner_padi',request('expense_type'))){
                     if(isset($DataValue->cleanerPadiAmount) && !empty($DataValue->cleanerPadiAmount)){
                         $finalData[] =array(
-                            'Date' => @$DataValue->date,
+                            'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                             'Description' => 'Cleaner Padi  -  '.@$DataValue->Trip->tripName,
                             'Credit' => '',
                             'Debit' => @$DataValue->cleanerPadiAmount,
@@ -172,7 +168,7 @@ class ReportController extends Controller
                 if(in_array('driver_padi',request('expense_type'))){
                     if(isset($DataValue->driverPadiAmount) && !empty($DataValue->driverPadiAmount)){
                         $finalData[] =array(
-                            'Date' => @$DataValue->date,
+                            'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                             'Description' => 'Driver Padi  -  '.@$DataValue->Trip->tripName,
                             'Credit' => '',
                             'Debit' => @$DataValue->driverPadiAmount,
@@ -186,7 +182,7 @@ class ReportController extends Controller
                 if(in_array('export',request('expense_type'))){
                     if(isset($DataValue->loadingMamool) && !empty($DataValue->loadingMamool)){
                         $finalData[] =array(
-                            'Date' => @$DataValue->date,
+                            'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                             'Description' => 'Loading Momool  -  '.@$DataValue->Trip->tripName,
                             'Credit' => '',
                             'Debit' => @$DataValue->loadingMamool,
@@ -201,7 +197,7 @@ class ReportController extends Controller
                 if(in_array('import',request('expense_type'))){
                     if(isset($DataValue->unLoadingMamool) && !empty($DataValue->unLoadingMamool)){
                         $finalData[] =array(
-                            'Date' => @$DataValue->date,
+                            'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                             'Description' => 'UnLoading Momool  -  '.@$DataValue->Trip->tripName,
                             'Credit' => '',
                             'Debit' => @$DataValue->unLoadingMamool,
@@ -216,7 +212,7 @@ class ReportController extends Controller
                 if(in_array('commission',request('expense_type'))){
                     if(isset($DataValue->comission) && !empty($DataValue->comission)){
                         $finalData[] =array(
-                            'Date' => @$DataValue->date,
+                            'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
                             'Description' => 'Comission  -  '.@$DataValue->Trip->tripName,
                             'Credit' => '',
                             'Debit' => @$DataValue->comission,

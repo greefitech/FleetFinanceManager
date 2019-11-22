@@ -49,11 +49,11 @@
                                         <div class="col-sm-12">
                                             <label>Expense</label>
                                             <select name="expense_type[]" class="form-control" multiple id="entry-type">
-                                                <option value="cleaner_padi" {{ !empty(old('expense_type'))? in_array($ExpenseType->id,'cleaner_padi') ? 'selected' : '' : '' }}>Cleaner Padi</option>
-                                                <option value="driver_padi" {{ !empty(old('expense_type'))? in_array($ExpenseType->id,'driver_padi') ? 'selected' : '' : '' }}>Driver Padi</option>
-                                                <option value="export" {{ !empty(old('expense_type'))? in_array($ExpenseType->id,'export') ? 'selected' : '' : '' }}> Export ஏற்றுமதிக்கூலி</option>
-                                                <option value="import" {{ !empty(old('expense_type'))? in_array($ExpenseType->id,'import') ? 'selected' : '' : '' }}>Import இறக்குமதிக்கூலி</option>
-                                                <option value="commission" {{ !empty(old('expense_type'))? in_array($ExpenseType->id,'commission') ? 'selected' : '' : '' }}>Commission</option>
+                                                <option value="cleaner_padi" {{ !empty(old('expense_type'))? in_array('cleaner_padi',old('expense_type')) ? 'selected' : '' : '' }}>Cleaner Padi</option>
+                                                <option value="driver_padi" {{ !empty(old('expense_type'))? in_array('driver_padi',old('expense_type')) ? 'selected' : '' : '' }}>Driver Padi</option>
+                                                <option value="export" {{ !empty(old('expense_type'))? in_array('export',old('expense_type')) ? 'selected' : '' : '' }}> Export ஏற்றுமதிக்கூலி</option>
+                                                <option value="import" {{ !empty(old('expense_type'))? in_array('import',old('expense_type')) ? 'selected' : '' : '' }}>Import இறக்குமதிக்கூலி</option>
+                                                <option value="commission" {{ !empty(old('expense_type'))? in_array('commission',old('expense_type')) ? 'selected' : '' : '' }}>Commission</option>
                                                 @foreach($ExpenseTypes as $ExpenseType)
                                                     <option value="{{ $ExpenseType->id }}" {{ !empty(old('expense_type'))? in_array($ExpenseType->id,old('expense_type')) ? 'selected' : '' : '' }}>{{ $ExpenseType->expenseType }}</option>
                                                 @endforeach
