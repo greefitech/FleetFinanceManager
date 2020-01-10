@@ -40,6 +40,9 @@ class Customer extends Model
         return $this->hasOne(Manager::class, 'id', 'managerid');
     }
 
+    public function Client(){
+        return $this->hasOne(Client::class, 'id', 'clientid');
+    }
 
     public static function CreateUpdateCustomer($id=NULL){
         try {
