@@ -6,8 +6,11 @@ use App\Expense;
 use App\ExpenseType;
 use App\Trip;
 use App\Vehicle;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class ExpenseController extends Controller
 {
@@ -16,6 +19,7 @@ class ExpenseController extends Controller
         $this->ExpenseType = new ExpenseType;
         $this->Expense = new Expense;
         $this->Trip = new Trip;
+        $this->Vehicle = new Vehicle;
     }
 
     public function add(){
@@ -141,6 +145,14 @@ class ExpenseController extends Controller
      */
 
     public function ExpenseVehcleListNonTrip(){
+        if (request()->ajax()) {
+            $NonTrips =  $this->Vehicle::where('clientid',auth()->user()->id);
+            return DataTables::of($NonTrips)
+            ->addColumn('action',
+                '<a href="{{ action(\'ClientController\ExpenseController@NonTripVehicleExpenseList\',[$id]) }}" class="btn btn-md" data-toggle="tooltip" data-placement="right"><i class="fa fa-eye"></i></a>'
+            )
+            ->rawColumns(['action'])->make(true);
+        }
         return view('client.trip.expense.LorryList');
     }
 
@@ -227,4 +239,31 @@ class ExpenseController extends Controller
             return back()->with('danger', 'Something went wrong!');
         }
     }
+
+    public function AutoExpense(Request $request){   
+        $data = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $data = DB::table("expense_types")
+                    ->select("id","expenseType")
+                    ->where('expenseType','LIKE',"%$search%")
+                    ->get();    
+        }
+        return response()->json($data);
+    }  
+
+    public function AutoVehicle(Request $request){ 
+        $data = [];
+        if($request->has('q')){
+            $search = $request->q;
+            // $vehicle = Vehicle::where('clientid',auth()->user()->id)->get('vehicleNumber');
+            $data = DB::table("vehicles")
+                    ->select("id","vehicleNumber")
+                    ->where('vehicleNumber','LIKE',"%$search%")
+                    ->where('clientid','LIKE',auth()->user()->id)
+                    ->get();    
+        }
+        return response()->json($data);
+    }
+
 }

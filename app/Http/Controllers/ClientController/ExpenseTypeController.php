@@ -7,6 +7,8 @@ use App\ExpenseType;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
+
 
 class ExpenseTypeController extends Controller
 {
@@ -18,8 +20,18 @@ class ExpenseTypeController extends Controller
     }
 
     public function view(){
-        $Data['ExpenseTypes'] = $this->ExpenseType::where([['clientid',auth()->user()->id]])->get();
-        return view('client.master.expenseType.view',$Data);
+        if (request()->ajax()) {
+            $ExpenseTypes = $this->ExpenseType::where('clientid',auth()->user()->id);
+            return DataTables::of($ExpenseTypes)
+            ->addColumn('action',
+                '<a href="{{ action(\'ClientController\CustomerController@edit\',[$id]) }}" class="btn btn-md" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit"></i></a>'
+            )
+            ->addColumn('created_by',function($ExpenseType){
+                    return $ExpenseType->client->name;
+            })
+            ->rawColumns(['action'])->make(true);
+        }
+        return view('client.master.expenseType.view');
     }
 
     public function add(){

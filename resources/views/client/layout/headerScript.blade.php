@@ -21,4 +21,9 @@
     <script src="{{ asset('/assets/js/datatable/dataTables.bootstrap.min.js') }}"></script>
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="{{ asset('/assets/css/select2.min.css') }}" rel="stylesheet" />
+
+
+     
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </head>

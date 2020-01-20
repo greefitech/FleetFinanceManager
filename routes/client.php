@@ -195,5 +195,9 @@ Route::post('/report/expense-report/download', 'ClientController\ReportControlle
 Route::get('getendingkm','ClientController\MemoController@getendingkm');
 
 
+Route::get('AutoExpense','ClientController\ExpenseController@AutoExpense')->name('AutoExpense');
+Route::get('AutoVehicle','ClientController\ExpenseController@AutoVehicle')->name('AutoVehicle');
+
+
 //auditor
 

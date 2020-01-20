@@ -9,43 +9,38 @@
                     <h4>
                         <center>Expense / Income Types</center>
                     </h4>
-                    <a href="{{ route('client.AddExpenseType') }}" class="btn btn-info pull-right">Add Type</a>
+                    <a href="{{ action('ClientController\ExpenseTypeController@add') }}" class="btn btn-info pull-right">Add Type</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!$ExpenseTypes->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Expense / Income Type</th>
-                                        <th>Created By</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach($ExpenseTypes as $ExpenseType)
-                                        <tr>
-                                            <td>{{ $ExpenseType->expenseType }}</td>
-                                            <td>{{ (!empty($ExpenseType->managerid))?$ExpenseType->manager->name:auth()->user()->name }}</td>
-                                            <td>
-                                                <form action="{{ route('client.DeleteExpenseType',$ExpenseType->id) }}" method="POST">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ route('client.EditExpenseType',$ExpenseType->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <blockquote><p>No Expense Type till now added!!</p></blockquote>
-                        @endif
+                        <table  class="table table-bordered table-striped table-hover" id="ExpenseTable">
+                            <thead>
+                                <tr>
+                                    <th>Expense / Income Type</th>
+                                    <th>Created By</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+@endsection
+
+@section('script')
+<script>
+    var Vehicles= $('#ExpenseTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ action('ClientController\ExpenseTypeController@view') }}',
+        "columns": [
+            {data: 'expenseType', name: 'expenseType'},
+            {data: 'created_by', name: 'created_by'},
+            {data: 'action', name: 'action'},
+        ]
+    });
+</script>
 @endsection

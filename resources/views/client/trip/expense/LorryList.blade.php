@@ -12,36 +12,36 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!auth()->user()->vehicles->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable">
-                                <thead>
-                                    <tr>
-                                        <th>Owner Name</th>
-                                        <th>Vehicle Number</th>
-                                        <th>Vehicle Name</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach(auth()->user()->vehicles as $Vehicle)
-                                        <tr>
-                                            <td>{{ $Vehicle->ownerName }}</td>
-                                            <td>{{ $Vehicle->vehicleNumber }}</td>
-                                            <td>{{ $Vehicle->vehicleName }}</td>
-                                            <td>
-                                                <a href="{{ action('ClientController\ExpenseController@NonTripVehicleExpenseList',$Vehicle->id) }}" class="btn btn-primary btn-sm">View Expense</a>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <blockquote><p>No Vehicle till now!!</p></blockquote>
-                        @endif
+                        <table  class="table table-bordered table-striped" id="NontripExpense">
+                            <thead>
+                                <tr>
+                                    <th>Owner Name</th>
+                                    <th>Vehicle Number</th>
+                                    <th>Vehicle Name</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
+@endsection
+
+@section('script')
+<script>
+    var Vehicles= $('#NontripExpense').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ action('ClientController\ExpenseController@ExpenseVehcleListNonTrip') }}',
+        "columns": [
+            {data: 'ownerName', name: 'ownerName'},
+            {data: 'vehicleNumber', name: 'vehicleNumber'},
+            {data: 'vehicleName', name: 'vehicleName'},
+            {data: 'action', name: 'action'},
+        ]
+    });
+</script>
 @endsection
