@@ -36,11 +36,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select class="form-control select2" name="vehicleId">
-                                                <option value="">Select Vehicle</option>
-                                                @foreach(Auth::user()->vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
-                                                @endforeach
+                                          <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
                                             </select>
                                         </div>
                                     </div>
@@ -78,11 +74,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Staff 1</label>
-                                            <select class="form-control select2" name="staff1">
-                                                 <option value="">Select Staff</option>
-                                                @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff1'))?'selected':'' }}>{{ $staff->name }}</option>
-                                                @endforeach
+                                            <select class="form-control select2 AutoStaff" name="staff1">
                                             </select>
                                         </div>
                                     </div>
@@ -91,11 +83,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Staff 2</label>
-                                            <select class="form-control select2" name="staff2">
-                                                 <option value="">Select Staff</option>
-                                                @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff2'))?'selected':'' }}>{{ $staff->name }}</option>
-                                                @endforeach
+                                         <select class="form-control select2 AutoStaff" name="staff2">
                                             </select>
                                         </div>
                                     </div>
@@ -104,11 +92,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Staff 3</label>
-                                            <select class="form-control select2" name="staff3">
-                                                 <option value="">Select Staff</option>
-                                                @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff3'))?'selected':'' }}>{{ $staff->name }}</option>
-                                                @endforeach
+                                       <select class="form-control select2 AutoStaff" name="staff3">
                                             </select>
                                         </div>
                                     </div>
@@ -135,5 +119,54 @@
         </div>
     </div>
 
+
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $('.AutoVehicle').select2({
+        placeholder: 'Select Vehicle',
+        ajax: {
+          url: '{{route("client.AutoVehicle")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.vehicleNumber,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+
+    $('.AutoStaff').select2({
+        placeholder: 'Select Staff',
+        ajax: {
+          url: '{{route("client.AutoStaff")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.name+ ' | ' +item.mobile1,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });  
+  });
+</script>
 
 @endsection

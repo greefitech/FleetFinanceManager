@@ -197,6 +197,8 @@ Route::get('getendingkm','ClientController\MemoController@getendingkm');
 
 Route::get('AutoExpense','ClientController\ExpenseController@AutoExpense')->name('AutoExpense');
 Route::get('AutoVehicle','ClientController\ExpenseController@AutoVehicle')->name('AutoVehicle');
+Route::get('AutoStaff','ClientController\TripController@AutoStaff')->name('AutoStaff');
+Route::get('AutoCustomer','ClientController\EntryController@AutoCustomer')->name('AutoCustomer');
 
 
 //auditor

@@ -43,11 +43,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select name="vehicleId" class="form-control select2" id="entry-vehicle">
-                                                <option value="">Select Vehicle</option>
-                                                @foreach(Auth::user()->vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id==old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
-                                                @endforeach
+                                            <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
                                             </select>
                                         </div>
                                     </div>
@@ -56,12 +52,7 @@
                                     <div class="form-group{{ $errors->has('customerId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Customer</label>
-                                            <select name="customerId" class="form-control select2">
-                                                <option value="">Select Customer</option>
-{{--                                                <option value="">ADD NEW CUSTOMER</option>--}}
-                                                @foreach(Auth::user()->customers as $customer)
-                                                    <option value="{{ $customer->id }}" {{ ($customer->id==old('customerId'))?'selected':'' }}>{{ $customer->name }} | {{ $customer->mobile }}</option>
-                                                @endforeach
+                                            <select name="customerId" class="form-control select2 AutoCustomer">
                                             </select>
                                         </div>
                                     </div>
@@ -72,11 +63,7 @@
                                     <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Staff 1</label>
-                                            <select name="staff[]" class="form-control select2" id="entry-staff1">
-                                                <option value="">Select Staff</option>
-                                                @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff')[0])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
-                                                @endforeach
+                                            <select name="staff[]" class="form-control select2 AutoStaff" id="entry-staff1">
                                             </select>
                                         </div>
                                     </div>
@@ -85,11 +72,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <label>Staff 2</label>
-                                            <select name="staff[]" class="form-control select2" id="entry-staff2">
-                                                <option value="">Select Staff</option>
-                                                @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff')[1])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
-                                                @endforeach
+                                            <select name="staff[]" class="form-control select2 AutoStaff" id="entry-staff2">
                                             </select>
                                         </div>
                                     </div>
@@ -98,11 +81,7 @@
                                     <div class="form-group">
                                         <div class="col-sm-12">
                                             <label>Staff 3</label>
-                                            <select name="staff[]" class="form-control select2" id="entry-staff3">
-                                                <option value="">Select Staff</option>
-                                                @foreach(Auth::user()->staffs as $staff)
-                                                    <option value="{{ $staff->id }}" {{ ($staff->id==old('staff')[2])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
-                                                @endforeach
+                                            <select name="staff[]" class="form-control select2 AutoStaff" id="entry-staff3">
                                             </select>
                                         </div>
                                     </div>
@@ -264,5 +243,74 @@
         </div>
     </div>
 
+
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $('.AutoVehicle').select2({
+        placeholder: 'Select Vehicle',
+        ajax: {
+          url: '{{route("client.AutoVehicle")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.vehicleNumber,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+
+    $('.AutoStaff').select2({
+        placeholder: 'Select Staff',
+        ajax: {
+          url: '{{route("client.AutoStaff")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.name+ ' | ' +item.mobile1,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      }); 
+
+    $('.AutoCustomer').select2({
+        placeholder: 'Select Customer',
+        ajax: {
+          url: '{{route("client.AutoCustomer")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.name+ ' | ' +item.mobile,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      }); 
+  });
+</script>
 
 @endsection

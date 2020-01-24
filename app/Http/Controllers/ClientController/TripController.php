@@ -6,7 +6,7 @@ use App\Trip;
 use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-
+use DB;
 class TripController extends Controller
 {
     /*
@@ -142,5 +142,20 @@ class TripController extends Controller
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
+    }
+
+    public function AutoStaff(Request $request){
+        $data = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $data = DB::table("staff")
+                    ->select("id","name","mobile1")
+                    ->where('name','LIKE',"%$search%")
+                    ->orWhere('mobile1','LIKE',"%$search%")
+                    ->where('clientid','LIKE',auth()->user()->id)
+                    ->get();    
+        }
+        return response()->json($data);
+      
     }
 }

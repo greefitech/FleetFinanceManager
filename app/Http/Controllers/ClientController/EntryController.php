@@ -7,6 +7,7 @@ use App\Entry;
 use App\StaffsWork;
 use App\Trip;
 use App\Vehicle;
+use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -209,5 +210,20 @@ class EntryController extends Controller
         }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
+    }
+
+    public function AutoCustomer(Request $request){
+        $data = [];
+        if($request->has('q')){
+            $search = $request->q;
+            $data = DB::table("customers")
+                    ->select("id","name","mobile")
+                    ->where('name','LIKE',"%$search%")
+                    ->orWhere('mobile','LIKE',"%$search%")
+                    ->where('clientid','LIKE',auth()->user()->id)
+                    ->get();    
+        }
+        return response()->json($data);
+        
     }
 }
