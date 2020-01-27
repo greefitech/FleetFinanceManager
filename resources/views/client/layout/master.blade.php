@@ -18,6 +18,7 @@
             <!-- Content -->
                 <div class="content-wrapper">
                     <section class="content">
+                        {{-- @include('sweetalert::alert') --}}
                         @include('errors')
                         @yield('content')
 

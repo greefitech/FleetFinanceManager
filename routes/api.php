@@ -63,7 +63,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/trip/{id}/edit', 'API\TripController@EditTrip');
     Route::post('/trip/{id}/update', 'API\TripController@UpdateTrip');
 
-
 //    ENTRY
     Route::post('/entry/create', 'API\EntryController@CreateEntry');
 

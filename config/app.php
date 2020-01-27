@@ -65,7 +65,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => env('APP_TIMEZONE', 'UTC'),
 
     /*
     |--------------------------------------------------------------------------
@@ -167,6 +167,9 @@ return [
         Maatwebsite\Excel\ExcelServiceProvider::class,
 
         Collective\Html\HtmlServiceProvider::class, 
+        Yajra\DataTables\DataTablesServiceProvider::class,
+
+        // RealRashid\SweetAlert\SweetAlertServiceProvider::class,
 
 
 
@@ -226,6 +229,10 @@ return [
 
         'Form' => Collective\Html\FormFacade::class,
         'Html' => Collective\Html\HtmlFacade::class,
+        'DataTables' => Yajra\DataTables\Facades\DataTables::class,
+        // 'Alert' => RealRashid\SweetAlert\Facades\Alert::class,
+
+
     ],
 
 ];

@@ -5,9 +5,11 @@ namespace App\Http\Controllers\ClientController;
 use App\Customer;
 use App\Entry;
 use App\Income;
+use App\Client;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Yajra\DataTables\Facades\DataTables;
 
 
 class CustomerController extends Controller
@@ -18,6 +20,20 @@ class CustomerController extends Controller
     }
 
     public function index(){
+        if (request()->ajax()) {
+            $Customers = $this->Customer::where('clientid',auth()->user()->id);
+            return DataTables::of($Customers)
+            ->addColumn('action',
+                '<a href="{{ action(\'ClientController\CustomerController@edit\',[$id]) }}" class="btn btn-md" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit"></i></a>'
+            )
+            ->addColumn('created_by',function($Customer){
+                if(!empty($Customer->managerid)){
+                    return $Customer->manager->name;
+                }
+                return auth()->user()->name;
+            })
+            ->rawColumns(['action'])->make(true);
+        }
         return view('client.master.customer.view');
     }
 

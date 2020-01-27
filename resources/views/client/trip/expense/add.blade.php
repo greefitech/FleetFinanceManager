@@ -42,11 +42,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle" id="entry-vehicle">
-                                                <option value="">Select Vehicle</option>
-                                                @foreach(Auth::user()->vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id==old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
-                                                @endforeach
+                                            <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
                                             </select>
                                         </div>
                                     </div>
@@ -58,11 +54,7 @@
                                     <div class="form-group{{ $errors->has('expense_type') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Expense</label>
-                                            <select name="expense_type" class="form-control expense-type LastExpense select2" id="entry-type">
-                                                <option value="">Select Expense Type</option>
-                                                @foreach($ExpenseTypes as $ExpenseType)
-                                                    <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id==old('expense_type'))?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
-                                                @endforeach
+                                                <select name="expense_type" class="form-control expense-type LastExpense select2 AutoExpense" id="entry-type">
                                             </select>
                                         </div>
                                     </div>
@@ -164,5 +156,55 @@
     </div>
 
 
+
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $('.AutoVehicle').select2({
+        placeholder: 'Select Vehicle',
+        ajax: {
+          url: '{{route("client.AutoVehicle")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.vehicleNumber,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+
+    $('.AutoExpense').select2({
+        placeholder: 'Select Expense Type',
+        ajax: {
+          url: '{{route("client.AutoExpense")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.expenseType,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });   
+
+  });
+</script>
 
 @endsection

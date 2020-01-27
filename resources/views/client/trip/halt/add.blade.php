@@ -45,11 +45,7 @@
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
-                                            <select name="vehicleId" class="form-control select2" id="entry-vehicle">
-                                                <option value="">Select Vehicle</option>
-                                                @foreach(Auth::user()->vehicles as $vehicle)
-                                                    <option value="{{ $vehicle->id }}" {{ ($vehicle->id==old('vehicleId'))?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
-                                                @endforeach
+                                            <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
                                             </select>
                                         </div>
                                     </div>
@@ -97,5 +93,34 @@
         </div>
     </div>
 
+
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+$(document).ready(function(){
+    
+    $('.AutoVehicle').select2({
+        placeholder: 'Select Vehicle',
+        ajax: {
+          url: '{{route("client.AutoVehicle")}}',
+          dataType: 'json',
+          delay: 250,
+          processResults: function (data) {
+            return {
+              results:  $.map(data, function (item) {
+                    return {
+                        text: item.vehicleNumber,
+                        id: item.id
+                    }
+                })
+            };
+          },
+          cache: true
+        }
+      });
+  });
+</script>
 
 @endsection

@@ -13,45 +13,42 @@
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
-                        @if(!auth()->user()->customers->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable table-hover">
-                                <thead>
-                                    <tr>
-                                        <th>Name</th>
-                                        <th>Mobile</th>
-                                        <th>Address</th>
-                                        <th>Type</th>
-                                        <th>Created By</th>
-                                        <th>Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach(auth()->user()->customers as $Customer)
-                                        <tr>
-                                            <td>{{ $Customer->name }}</td>
-                                            <td>{{ $Customer->mobile }}</td>
-                                            <td>{{ $Customer->address }}</td>
-                                            <td>{{ $Customer->type }}</td>
-                                            <td>{{ (!empty($Customer->managerid))?$Customer->manager->name:auth()->user()->name }}</td>
-                                            <td>
-                                                <form action="{{ action('ClientController\CustomerController@destroy',$Customer->id) }}" method="POST">
-                                                    {{ csrf_field() }}
-                                                    <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ action('ClientController\CustomerController@edit',$Customer->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                        @else
-                            <blockquote><p>No Customer till now added!!</p></blockquote>
-                        @endif
+                        <table  class="table table-bordered table-striped table-hover" id="CustomerTable">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Mobile</th>
+                                    <th>Address</th>
+                                    <th>Type</th>
+                                    <th>Created By</th>
+                                    <th>Action</th>
+                                </tr>
+                            </thead>
+                        </table>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+@endsection
+
+@section('script')
+<script>
+    var Customer= $('#CustomerTable').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: '{{ action('ClientController\CustomerController@index') }}',
+        "columns": [
+            {data: 'name', name: 'name'},
+            {data: 'mobile', name: 'mobile'},
+            {data: 'address', name: 'address'},
+            {data: 'type', name: 'type'},
+            {data: 'created_by', name: 'created_by'},
+            {data: 'action', name: 'action'},
+        ]
+
+    });
+</script>
 
 @endsection
+
