@@ -8,6 +8,8 @@ use App\VehicleCredits;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Hash;
+use DB;
+
 
 class ClientControllers extends Controller
 {
@@ -78,7 +80,6 @@ class ClientControllers extends Controller
         }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
-
     }
 
     public function ClientVehicleCreditDetails($ClientId){
@@ -91,6 +92,53 @@ class ClientControllers extends Controller
             }
             $Data['VehicleCredits'] = VehicleCredits::where([['clientid',$ClientId]])->get();
             return view('admin.ClientList.ClientVehicleCreditDetails',$Data);
+        }catch (\Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
+
+
+    // public function delete($id){
+    //     $Client=Client::findorfail($id);
+    //     // $Client->SoftDeletes();
+
+    //     return redirect('admin.ClientList.ClientList');    
+    // }
+
+    public function ClientIncomeAmount(){
+        try {
+            if(auth()->user()->id == 1){
+                $Data['Clients']=Client::get();
+            }else{
+                $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
+            }
+            return view('admin.ClientList.ClientIncomeAmount',$Data);
+        }catch (\Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
+
+    public function ClientTotalAmount(){
+        try {
+            if(auth()->user()->id == 1){
+                $Data['Clients']=Client::get();
+            }else{
+                $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
+            }
+            return view('admin.ClientList.ClientTotalAmount', $Data);
+        }catch (\Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
+
+    public function ClientOutstandingAmount(){
+        try {
+            if(auth()->user()->id == 1){
+                $Data['Clients']=Client::get();
+            }else{
+                $Data['Clients']=Client::where([['referral_number',auth()->user()->mobile]])->get();
+            }
+            return view('admin.ClientList.ClientOutstandingAmount', $Data);
         }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }

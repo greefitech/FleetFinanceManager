@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     @include('admin.layout.headerScript')
-    <body class="hold-transition sidebar-mini skin-black-light">
+    <body class="hold-transition sidebar-mini skin-blue">
         <div class="wrapper">
             <!-- header -->
             @include('admin.layout.header')

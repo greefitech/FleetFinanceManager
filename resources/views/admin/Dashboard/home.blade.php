@@ -13,7 +13,7 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('admin.ClientList') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -25,7 +25,7 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('admin.ClientTotalAmount') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -37,7 +37,7 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('admin.ClientIncomeAmount') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">
@@ -49,7 +49,7 @@
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('admin.ClientOutstandingAmount') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
         </div>
@@ -98,13 +98,13 @@
             <div class="col-lg-3 col-xs-6">
                 <div class="small-box bg-green">
                     <div class="inner">
-                        <p>Income </p>
+                        <p>Payments </p>
                         <h3 id="total_amount">{{ AdminVehicleCredits(auth()->user()->id)->sum('paid_amount') + AdminVehicleCreditPayment(auth()->user()->id)->sum('PaidAmount') }}</h3>
                     </div>
                     <div class="icon">
                         <i class="ion ion-bag"></i>
                     </div>
-                    <a href="" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                    <a href="{{ route('admin.ClientIncomeAmount') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
                 </div>
             </div>
             <div class="col-lg-3 col-xs-6">

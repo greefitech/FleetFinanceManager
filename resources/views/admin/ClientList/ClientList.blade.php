@@ -52,7 +52,7 @@
                                                 <a href="{{ route('admin.VehicleListClientWise',$Client->id) }}"><button type="button" class="btn btn-success btn-sm">Vehicle List</button></a>
                                                 <a href="{{ route('admin.EditClientList',$Client->id) }}"><button type="button" class="btn btn-primary btn-sm">Edit Client</button></a>
                                                 <a href="{{ route('admin.ClientVehicleCreditDetails',$Client->id) }}"><button type="button" class="btn btn-info btn-sm">Vehicle Credit</button></a>
-{{--                                                <a href="#"><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>--}}
+                                                <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>
                                             </td>
                                         </tr>
                                     @endforeach

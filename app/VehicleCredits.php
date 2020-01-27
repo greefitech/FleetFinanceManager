@@ -11,4 +11,8 @@ class VehicleCredits extends Model
     public function Admin(){
         return $this->hasOne(Admin::class, 'id', 'created_by');
     }
+
+    public function Client(){
+        return $this->hasOne(Client::class, 'id', 'clientid');
+    }
 }

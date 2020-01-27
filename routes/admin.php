@@ -53,6 +53,13 @@ Route::post('/Client/{id}/update-details', 'AdminControllers\ClientControllers@U
 //ClientVehicle
 Route::get('/Clients/{id}/VehicleList', 'AdminControllers\ClientControllers@VehicleLists')->name('VehicleListClientWise');
 Route::get('/Client/{id}/credit-details', 'AdminControllers\ClientControllers@ClientVehicleCreditDetails')->name('ClientVehicleCreditDetails');
+Route::get('/Client/ClientIncomeAmount', 'AdminControllers\ClientControllers@ClientIncomeAmount')->name('ClientIncomeAmount');
+Route::get('/Client/ClientTotalAmount', 'AdminControllers\ClientControllers@ClientTotalAmount')->name('ClientTotalAmount');
+Route::get('/Client/ClientOutstandingAmount', 'AdminControllers\ClientControllers@ClientOutstandingAmount')->name('ClientOutstandingAmount');
+
+
+
+// Route::get('/Client/{id}/delete', 'AdminControllers\ClientControllers@delete')->name('deleteClient');
 
 
 

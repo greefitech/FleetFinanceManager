@@ -101,6 +101,7 @@ class Client extends Authenticatable
         return $this->hasMany(Admin::class, 'mobile', 'referral_number');
     }
 
+   
 
 
     public function get_outstanding_amount(){
@@ -228,5 +229,10 @@ class Client extends Authenticatable
 
     public function getVehicleTotalDiesel($VehicleId){
         return $Expense= Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId],['expense_type','=', '2']])->get();
+    }
+
+
+    public function VehicleCredits(){
+        return $this->hasMany(VehicleCredits::class, 'clientid', 'id');
     }
 }
