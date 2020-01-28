@@ -8,6 +8,7 @@ use App\Vehicle;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+
 class ExtraIncomeController extends Controller
 {
     public function __construct(){
@@ -31,6 +32,7 @@ class ExtraIncomeController extends Controller
         ],[
             'expense_type.required'=>'The income type is required'
         ]);
+
         try {
             $ExtraIncome = $this->ExtraIncome;
             $ExtraIncome->date = request('date');

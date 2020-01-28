@@ -21,7 +21,7 @@
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date</label>
-                                            <input type="date" class="form-control" value="{{ old('date') }}" placeholder="Enter Date" name="date"  id="entry-dateFrom">
+                                            <input type="date" class="form-control" value="{{ old('date') }}" placeholder="Enter Date" name="date"  id="entry-dateFrom" max="{{ date('Y-m-d')}}">
                                         </div>
                                     </div>
                                 </div>

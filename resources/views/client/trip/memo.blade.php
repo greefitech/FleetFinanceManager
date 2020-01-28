@@ -33,7 +33,7 @@
                                         <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி </label>
-                                                <input type="date" class="form-control DateChanges dateFrom" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom">
+                                                <input type="date" class="form-control DateChanges dateFrom" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom" max="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
                                     </div>
@@ -41,7 +41,7 @@
                                         <div class="form-group{{ $errors->has('dateTo') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி </label>
-                                                <input type="date" class="form-control DateChanges dateTo" value="{{ old('dateTo') }}" placeholder="Enter Date To" name="dateTo">
+                                                <input type="date" class="form-control DateChanges dateTo" value="{{ old('dateTo') }}" placeholder="Enter Date To" name="dateTo" max="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
                                     </div>
