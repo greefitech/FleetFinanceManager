@@ -83,6 +83,8 @@
 
             <li><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-shopping-cart <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
 
+             <li><a href="{{ route('client.ViewMemoList') }}"><i class="fa fa-sticky-note-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Memo Sheet</span></a></li>
+
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-pdf-o <?php echo $color[array_rand($color,1)] ?>"></i>

@@ -661,7 +661,8 @@
 
                             <br>
                             <div align="center">
-                                <button type="submit" class="btn btn-info submit">Add Memo</button>
+                                <button type="submit" name = "btnSubmit" value="save_memo" class="btn btn-info submit">Add Memo</button>
+                                <button type="submit" name = "btnSubmit" value="add_partially_memo" class="btn btn-info submit">Add Partially</button>
                             </div>
                         </div>
                     </form>
