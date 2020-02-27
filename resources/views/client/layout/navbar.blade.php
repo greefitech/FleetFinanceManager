@@ -1,9 +1,34 @@
-<?php $color = array('text-green', 'text-aqua', 'text-yellow','text-primary','text-purple','text-indigo'); ?>
+<?php $color = array( 'text-aqua', 'text-yellow','text-white'); ?>
 <aside class="main-sidebar">
+
+    <div class="user-panel">
+        <div class="pull-left image">
+            <img src="{{ auth()->user()->profile_image? url(auth()->user()->profile_image):url('/assets/img/greefi.jpg') }}" class="img-circle" alt="User Image">
+        </div>
+        <div class="pull-left info">
+            <p>{{ auth()->user()->transportName }}</p>
+            <a href="#"><i class="fa fa-circle text-success"></i> Online</a>
+        </div>
+    </div>
+
+    <form action="#" method="get" class="sidebar-form">
+        <div class="input-group">
+            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <span class="input-group-btn">
+                <button type="submit" name="search" id="search-btn" class="btn btn-flat">
+                    <i class="fa fa-search"></i>
+                </button>
+            </span>
+        </div>
+    </form>
+
     <section class="sidebar">
         <ul class="sidebar-menu">
-            <li><a href="{{ url('/client/home') }}"><i class="fa fa-dashboard <?php echo $color[array_rand($color,1)] ?>"></i> <span>Dashboard</span></a></li>
-            <li class="treeview">
+            <li class="header">MAIN NAVIGATION</li>
+            <li class="@yield('DashboardMenu')"><a href="{{ url('/client/home') }}"><i class="fa fa-dashboard <?php echo $color[array_rand($color,1)] ?>"></i> <span>Dashboard</span></a></li>
+
+            <li class="header">MASTER</li>
+            <li class="treeview @yield('MasterMenu')">
                 <a href="#" style="text-decoration:none">
                     <i class="fa fa-book <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Master</span>
@@ -11,7 +36,7 @@
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
+                <ul class="treeview-menu">
                     <li><a href="{{ action('ClientController\CustomerController@index') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Customers</span></a></li>
                     <li><a href="{{ url('/client/vehicles') }}"><i class="fa fa-truck <?php echo $color[array_rand($color,1)] ?>"></i> <span>Vehicles</span></a></li>
                     <li><a href="{{ action('ClientController\StaffController@index') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Staffs</span></a></li>
@@ -21,6 +46,7 @@
                 </ul>
             </li>
 
+            <li class="header">ENTRY</li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cab <?php echo $color[array_rand($color,1)] ?>"></i>
@@ -83,8 +109,9 @@
 
             <li><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-shopping-cart <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
 
-             <li><a href="{{ route('client.ViewMemoList') }}"><i class="fa fa-sticky-note-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Memo Sheet</span></a></li>
+             <li><a href="{{ action('ClientController\MemoController@ViewTempMemo') }}"><i class="fa fa-sticky-note-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Temp Memo Sheet</span></a></li>
 
+             <li class="header">REPORT</li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-file-pdf-o <?php echo $color[array_rand($color,1)] ?>"></i>
@@ -97,7 +124,7 @@
                     <li><a href="{{ url('/client/report/expense-report') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Report</span></a></li>
                 </ul>
             </li>
-
+            <li class="header">SETTING</li>
             <li class="treeview">
                 <a href="#">
                     <i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i>

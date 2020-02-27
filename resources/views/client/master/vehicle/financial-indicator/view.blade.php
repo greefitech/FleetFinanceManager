@@ -1,13 +1,13 @@
 @extends('client.layout.master')
 
+@section('MasterMenu','active')
+
 @section('content')
 
     <?php
-    $IncomeDatas = unserialize($FinancialIndicator->income);
-    $ExpenseDatas = unserialize($FinancialIndicator->expense);
-
+        $IncomeDatas = unserialize($FinancialIndicator->income);
+        $ExpenseDatas = unserialize($FinancialIndicator->expense);
     ?>
-
 
     <div class="row">
         <div class="col-xs-12">

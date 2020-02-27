@@ -30,7 +30,6 @@ class CreateTripTempsTable extends Migration
             $table->foreign('staff2')->references('id')->on('staff');
             $table->uuid('staff3')->nullable();
             $table->foreign('staff3')->references('id')->on('staff');
-            $table->string('status')->default(0);
             $table->integer('clientid')->unsigned();
             $table->foreign('clientid')->references('id')->on('clients');
             $table->integer('managerid')->unsigned()->nullable();
@@ -42,7 +41,6 @@ class CreateTripTempsTable extends Migration
             $table->longText('extraExpense')->nullable();
             $table->longText('tollgate')->nullable();
             $table->longText('driverAdvance')->nullable();
-            $table->softDeletes();
             $table->timestamps();
         });
     }

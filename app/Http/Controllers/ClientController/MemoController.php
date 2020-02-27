@@ -322,9 +322,22 @@ class MemoController extends Controller
             }
 
         } else if(request()->get('btnSubmit') == 'add_partially_memo') {
+            $this->validate(request(),[
+                'vehicleId'=>'required|exists:vehicles,id',
+                'dateFrom'=>'required|date',
+                'dateTo'=>'required|date|after_or_equal:dateFrom',
+                'advance'=>'nullable|numeric|min:0',
+                'startKm'=>'required|numeric|min:0',
+                'endKm'=>'required|numeric|min:'.(int)request('startKm'),
+                'staff.0' => 'required|exists:staff,id',
+                'staff.1' => 'nullable|exists:staff,id',
+                'staff.2' => 'nullable|exists:staff,id',
+            ],
+            [
+                'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
+            ]);
             
             try {
-                
                 $TripTemp = $this->TripTemp;
                 $TripTemp->vehicleId = request('vehicleId');
                 $TripTemp->tripName = 'Trip';
@@ -354,13 +367,13 @@ class MemoController extends Controller
 
     }
 
-    public function ViewMemoList(){
+    public function ViewTempMemo(){
         try {
-             $Data['TripTemps'] =  $this->TripTemp::where([['clientid',auth()->user()->id]])->get();
-             return view('client.trip.memo.viewmemolist',$Data);
+            $Data['TripTemps'] =  $this->TripTemp::where([['clientid',auth()->user()->id]])->get();
+            return view('client.trip.memo.list-temp-memo',$Data);
         }catch (Exception $e){
-                return back()->with('danger','Something went wrong!');
-            }
+            return back()->with('danger','Something went wrong!');
+        }
     }
 
 

@@ -1,4 +1,6 @@
-@extends('client.layout.master')
+@extends('client.layout.master'
+)
+@section('MasterMenu','active')
 
 @section('content')
 

@@ -1,5 +1,7 @@
 @extends('client.layout.master')
 
+@section('DashboardMenu','active')
+
 @section('content')
 
 @php

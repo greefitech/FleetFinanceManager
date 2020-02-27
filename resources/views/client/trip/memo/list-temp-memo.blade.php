@@ -29,16 +29,16 @@
                                     @foreach($TripTemps as $TripTemp)
                                         <tr> 
                                             <td>{{ $TripTemp->vehicle['vehicleNumber']}} - {{$TripTemp->vehicle['ownerName'] }}</td>
-                                            <td>{{ $TripTemp->dateFrom }}</td>
-                                            <td>{{ $TripTemp->dateTo }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($TripTemp->dateFrom)) }}</td>
+                                            <td>{{ date("d-m-Y", strtotime($TripTemp->dateTo)) }}</td>
                                             <td>{{ $TripTemp->advance }}</td>
                                             <td>{{ $TripTemp->totalKm }}</td>
                                             <td>{{ $TripTemp->Staff1['name'] }}</td>  
                                             <td>
-                                                <form action="" >
+                                                <form action="">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="{{ action('ClientController\MemoController@edit',$TripTemp->id)}}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>
@@ -47,7 +47,7 @@
                                 </tbody>
                             </table>
                         @else
-                            <blockquote><p>No Vehicle till now!!</p></blockquote>
+                            <blockquote><p>No Temp Memo Sheet till now!!</p></blockquote>
                         @endif
                     </div>
                 </div>
