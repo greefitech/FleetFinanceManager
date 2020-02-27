@@ -43,6 +43,12 @@ class CreateTripTempsTable extends Migration
             $table->longText('driverAdvance')->nullable();
             $table->timestamps();
         });
+
+        Schema::table('clients', function($table){
+            $table->string('firebase_token')->nullable()->after('referral_number');
+            $table->string('verified')->default(0)->after('firebase_token');
+            $table->string('mail_notification')->default(1)->after('verified');
+        });
     }
 
     /**
