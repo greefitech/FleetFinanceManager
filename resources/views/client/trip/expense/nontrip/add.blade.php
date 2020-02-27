@@ -1,6 +1,8 @@
 @extends('client.layout.master')
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 
+@section('EntryMenu','active')
+
 @section('content')
 
     <div class="row">

@@ -1,5 +1,7 @@
 @extends('client.layout.master')
 
+@section('EntryMenu','active')
+
 @section('content')
 
 

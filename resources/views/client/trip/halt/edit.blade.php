@@ -1,14 +1,15 @@
 @extends('client.layout.master')
 
-@section('content')
+@section('EntryMenu','active')
 
+@section('content')
 
     <div class="row">
         <div class="col-xs-12">
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>edit Halt</center>
+                        <center>Edit Halt</center>
                     </h4>
                 </div>
                 <div class="box-body">

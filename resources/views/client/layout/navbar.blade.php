@@ -47,15 +47,15 @@
             </li>
 
             <li class="header">ENTRY</li>
-            <li class="treeview">
+            <li class="treeview @yield('EntryMenu')">
                 <a href="#">
                     <i class="fa fa-cab <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Trip</span>
                     <span class="pull-right-container">
-                         <i class="fa fa-angle-left pull-right"></i>
+                        <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
+                <ul class="treeview-menu">
                     <li><a href="{{ url('/client/entry/memo') }}"><i class="fa fa-sticky-note-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Memo</span></a></li>
                     <li><a href="{{ url('/client/trip/add') }}"><i class="fa fa-truck <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Trip</span></a></li>
                     <li><a href="{{ url('/client/entry/add') }}"><i class="fa fa-paper-plane <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Entry</span></a></li>
