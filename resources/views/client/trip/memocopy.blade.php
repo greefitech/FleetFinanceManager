@@ -13,7 +13,7 @@
                     </h4>
                 </div>
                 <div class="box-body">
-                        {!! Form::open(['url' => route('client.SaveMemo'),'method' => 'post','class'=>'form-horizontal']) !!}
+                        {!! Form::open(['url' => route('client.SaveMemo'),'method' => 'post']) !!}
                         <div class="box-body">
                             <!-- Trip Start -->
                                 <div class="row">
@@ -21,7 +21,15 @@
                                         <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Vehicle / வண்டி எண் </label>
-                                                {!! Form::select('vehicleId', Auth::user()->vehicles->pluck('vehicleNumber','id'),null, ['class' => 'form-control select2 VehicleChange GetLastKm','placeholder'=>'Select Vehicle']) !!}
+
+                                                {!! Form::select('vehicleId', Auth::user()->vehicles->pluck('vehicleNumber','id'),null, ['class' => 'form-control select2 VehicleChange GetLastKm']) !!}
+
+                                                <select class="form-control select2 VehicleChange GetLastKm" name="vehicleId">
+                                                    <option value="">Select Vehicle</option>
+                                                    @foreach(Auth::user()->vehicles as $vehicle)
+                                                        <option value="{{ $vehicle->id }}" {{ ($vehicle->id == old('vehicleId')) ?'selected':'' }}>{{ $vehicle->vehicleNumber }} - {{ $vehicle->ownerName }}</option>
+                                                    @endforeach
+                                                </select>
                                             </div>
                                         </div>
                                     </div>
@@ -29,7 +37,7 @@
                                         <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி </label>
-                                                {!! Form::date('dateFrom', null, ['class' => 'form-control DateChanges dateFrom','max'=>date('Y-m-d')]) !!}
+                                                <input type="date" class="form-control DateChanges dateFrom" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom" max="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
                                     </div>
@@ -37,7 +45,7 @@
                                         <div class="form-group{{ $errors->has('dateTo') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி </label>
-                                                {!! Form::date('dateTo', null, ['class' => 'form-control DateChanges dateTo','max'=>date('Y-m-d')]) !!}
+                                                <input type="date" class="form-control DateChanges dateTo" value="{{ old('dateTo') }}" placeholder="Enter Date To" name="dateTo" max="{{date('Y-m-d')}}">
                                             </div>
                                         </div>
                                     </div>
@@ -45,7 +53,7 @@
                                         <div class="form-group{{ $errors->has('advance') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Advance / அட்வான்ஸ்</label>
-                                                {!! Form::number('advance', null, ['class' => 'form-control','id'=>'advance','min'=>0,'placeholder'=>'Advance']) !!}
+                                                <input type="number" min="0" class="form-control" value="{{ old('advance') }}" placeholder="Enter Advance" name="advance" id="advance">
                                             </div>
                                         </div>
                                     </div>
@@ -56,7 +64,7 @@
                                         <div class="form-group{{ $errors->has('startKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Starting KM / ஆரம்ப கிமீ</label>
-                                                {!! Form::number('startKm', null, ['class' => 'form-control CalculateKm','min'=>0,'placeholder'=>'Starting KM','id'=>'entry-startkm']) !!}
+                                                <input type="number" id="entry-startkm" class="form-control CalculateKm"  value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm" >
                                             </div>
                                         </div>
                                     </div>
@@ -64,7 +72,7 @@
                                         <div class="form-group{{ $errors->has('endKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Ending KM / முடிவு கிமீ</label>
-                                                {!! Form::number('endKm', null, ['class' => 'form-control CalculateKm','min'=>0,'placeholder'=>'Ending KM','id'=>'entry-endkm']) !!}
+                                                <input type="number" id="entry-endkm" class="form-control CalculateKm" value="{{ old('endKm') }}" placeholder="Enter Ending KM" name="endKm">
                                             </div>
                                         </div>
                                     </div>
@@ -72,7 +80,7 @@
                                         <div class="form-group{{ $errors->has('totalKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Total KM / ஓடிய கிமீ</label>
-                                                {!! Form::text('totalKm', null, ['class' => 'form-control','min'=>0,'placeholder'=>'Total KM','id'=>'entry-totalkm','readonly']) !!}
+                                                <input type="number" id="entry-totalkm" class="form-control" value="{{ old('totalKm') }}" placeholder="Enter Total KM" name="totalKm" readonly="">
                                                 <span id="ErrorTotal"></span>
                                             </div>
                                         </div>
