@@ -65,7 +65,7 @@
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview @yield('IncomeMenu')">
                 <a href="#">
                     <i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Income</span>
@@ -73,13 +73,13 @@
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
+                <ul class="treeview-menu">
                     <li><a href="{{ url('/client/income/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Income</span></a></li>
                     <li><a href="{{ url('/client/incomes') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Income</span></a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview @yield('ExtraIncomeMenu')">
                 <a href="#">
                     <i class="fa fa-ils <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Extra Income</span>
@@ -87,13 +87,13 @@
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
+                <ul class="treeview-menu">
                     <li><a href="{{ url('/client/extra-income/add') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Add Extra Income</span></a></li>
                     <li><a href="{{ url('/client/extra-incomes') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Extra Income</span></a></li>
                 </ul>
             </li>
 
-            <li class="treeview">
+            <li class="treeview @yield('NonTripExpenseMenu')">
                 <a href="#">
                     <i class="fa fa-gbp <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Non Trip Expense</span>
@@ -101,18 +101,18 @@
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
+                <ul class="treeview-menu">
                     <li><a href="{{ action('ClientController\ExpenseController@CreateNonTripExpense') }}"><i class="fa fa-pie-chart <?php echo $color[array_rand($color,1)] ?>"></i> <span>Create Expense</span></a></li>
                      <li><a href="{{ url('/client/expense-vehicle-list') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Expense</span></a></li>
                 </ul>
             </li>
 
-            <li><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-shopping-cart <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
+            <li class="@yield('TripSheetMenu')"><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-shopping-cart <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Trip Sheet</span></a></li>
 
-             <li><a href="{{ action('ClientController\MemoController@ViewTempMemo') }}"><i class="fa fa-sticky-note-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Temp Memo Sheet</span></a></li>
+             <li class="@yield('TempMemoSheetMenu')"><a href="{{ action('ClientController\MemoController@ViewTempMemo') }}"><i class="fa fa-sticky-note-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>View Temp Memo Sheet</span></a></li>
 
              <li class="header">REPORT</li>
-            <li class="treeview">
+            <li class="treeview @yield('ReportMenu')">
                 <a href="#">
                     <i class="fa fa-file-pdf-o <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Report</span>
@@ -120,12 +120,12 @@
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
-                    <li><a href="{{ url('/client/report/expense-report') }}"><i class="fa fa-user <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Report</span></a></li>
+                <ul class="treeview-menu">
+                    <li><a href="{{ url('/client/report/expense-report') }}"><i class="fa fa-file-excel-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Report</span></a></li>
                 </ul>
             </li>
             <li class="header">SETTING</li>
-            <li class="treeview">
+            <li class="treeview @yield('SettingMenu')">
                 <a href="#">
                     <i class="fa fa-cog <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Setting</span>
@@ -133,7 +133,7 @@
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
+                <ul class="treeview-menu">
                     <li><a href="{{ url('client/managers') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Manager</span></a></li>
                 </ul>
             </li>

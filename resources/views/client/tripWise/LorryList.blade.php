@@ -1,5 +1,7 @@
 @extends('client.layout.master')
 
+@section('TripSheetMenu','active')
+
 @section('content')
 
     <div class="row">
@@ -13,7 +15,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!auth()->user()->vehicles->isEmpty())
-                            <table  class="table table-bordered table-striped DataTable">
+                            <table  class="table table-bordered table-striped DataTableExport">
                                 <thead>
                                     <tr>
                                         <th>Owner Name</th>
@@ -49,5 +51,38 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('script')
+<script type="text/javascript">
+    $(document).ready(function() {
+        $(".DataTableExport").DataTable({
+            "order":[],
+            dom: 'lBfrtip',
+            lengthMenu: [ [10, 20, 50, -1], [10, 20, 50, "All"] ],
+            pageLength: 10,
+            responsive: false,
+            columnDefs: [{ type: 'date-dd-mmm-yyyy', targets: 0 }],
+            buttons: [
+                   {
+                      extend: 'excelHtml5',
+                      filename: '{{ auth()->user()->name }}',
+                      title:'{{ auth()->user()->transportName }}',
+                  },
+                  {
+                      extend: 'pdfHtml5',
+                      filename: '{{ auth()->user()->name }}',
+                      title:'{{ auth()->user()->transportName }}',
+                  },
+                  {
+                      extend: 'print',
+                      title:'{{ auth()->user()->transportName }}',
+                  }
+            ]
+        });
+        $('.dt-buttons a').addClass('btn btn-info btn-sm');
+    });
+</script>
 
 @endsection

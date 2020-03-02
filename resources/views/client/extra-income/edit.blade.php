@@ -1,7 +1,8 @@
 @extends('client.layout.master')
 
-@section('content')
+@section('ExtraIncomeMenu','active')
 
+@section('content')
 
     <div class="row">
         <div class="col-xs-12">

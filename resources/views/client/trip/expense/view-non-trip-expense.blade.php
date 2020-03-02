@@ -1,6 +1,6 @@
 @extends('client.layout.master')
 
-@section('EntryMenu','active')
+@section('NonTripExpenseMenu','active')
 
 @section('content')
 
