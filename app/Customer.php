@@ -23,7 +23,7 @@ class Customer extends Model
 
     use SoftDeletes;
     
-    protected $fillable = ['name', 'mobile', 'address', 'type', 'clientid', 'managerid'];
+    // protected $fillable = ['name', 'mobile', 'address', 'type', 'clientid', 'managerid'];
     protected $guarded = ['id','created_at', 'updated_at'];
     
     protected $dates = ['deleted_at'];

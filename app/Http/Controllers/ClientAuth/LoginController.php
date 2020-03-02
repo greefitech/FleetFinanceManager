@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Hesto\MultiAuth\Traits\LogsoutGuard;
+use Carbon\Carbon;
+use App\ClientLogActivity;
 
 class LoginController extends Controller
 {
@@ -38,34 +40,36 @@ class LoginController extends Controller
      * @return void
      */
 
-    public function login(Request $request){
-        $this->validate($request, [
-            'email'           => 'required|max:255',
-            'password'           => 'required',
-//            'captcha'        => 'required|captcha'
-        ]);
+//     public function login(Request $request){
+//         $this->validate($request, [
+//             'email'           => 'required|max:255',
+//             'password'           => 'required',
+// //            'captcha'        => 'required|captcha'
+//         ]);
 
-        if(is_numeric(request('email'))){
-            if (Auth::guard('client')->attempt(['mobile' => $request->email, 'password' => $request->password])) {
-                return redirect()->intended('/client/home');
-            } else {
-                return redirect()->back();
-            }
-        }
-        elseif (filter_var(request('email'), FILTER_VALIDATE_EMAIL)) {
-            if (Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
-                return redirect()->intended('/client/home');
-            } else {
-                return redirect()->back();
-            }
-        }
-        if (Auth::guard('client')->attempt(['mobile' => $request->email, 'password' => $request->password])) {
-            return redirect()->intended('/client/home');
-        } else {
-            return redirect()->back();
-        }
+//         if(is_numeric(request('email'))){
+//             if (Auth::guard('client')->attempt(['mobile' => $request->email, 'password' => $request->password])) {
+//                 return redirect()->intended('/client/home');
+//             } else {
+//                 return redirect()->back();
+//             }
+//         }
+//         elseif (filter_var(request('email'), FILTER_VALIDATE_EMAIL)) {
+//             if (Auth::guard('client')->attempt(['email' => $request->email, 'password' => $request->password])) {
+//                 return redirect()->intended('/client/home');
+//             } else {
+//                 return redirect()->back();
+//             }
+//         }
+//         if (Auth::guard('client')->attempt(['mobile' => $request->email, 'password' => $request->password])) {
+//             return redirect()->intended('/client/home');
+//         } else {
+//             return redirect()->back();
+//         }
+//     }
 
-    }
+  
+
     public function __construct()
     {
         $this->middleware('client.guest', ['except' => 'logout']);
@@ -85,6 +89,22 @@ class LoginController extends Controller
             return ['email' => request()->get('email'), 'password'=>request()->get('password')];
         }
         return ['mobile' => request()->get('email'), 'password'=>request()->get('password')];
+    }
+
+    public function authenticated(Request $request, $user){
+        $user->update([
+            'last_login_at' => Carbon::now()->toDateTimeString(),
+            'last_login_ip' => $request->getClientIp()
+        ]);
+        ClientLogActivity::create([
+            'subject' => 'login',
+            'url' =>  $request->fullUrl(),
+            'method' =>  $request->method(),
+            'ip' =>  $request->ip(),
+            'agent' =>  $request->header('user-agent'),
+            'client_id' => $user->id,
+        ]);
+        return redirect()->intended($this->redirectPath());
     }
 
     public function showLoginForm()

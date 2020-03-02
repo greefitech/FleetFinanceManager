@@ -4,7 +4,7 @@
     toastr.options.closeButton = true;
 </script>
 @if(count($errors))
-    <div class="form-group">
+   {{--  <div class="form-group">
         <div class="alert alert-danger">
             <button type="button" class="close" data-dismiss="alert">×</button>
             <h4><i class="icon fa fa-ban"></i>Alert!</h4>
@@ -12,7 +12,14 @@
                 <p>{{ $error }}</p>
             @endforeach
         </div>
-    </div>
+    </div> --}}
+
+    @foreach($errors->all() as $error)
+          <script>
+            toastr.error('{{ $error }}');
+        </script>
+    @endforeach
+        
 @endif
 
 @if(Session::has('success'))
