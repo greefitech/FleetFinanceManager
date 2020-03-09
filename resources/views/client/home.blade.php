@@ -44,7 +44,7 @@
             <div class="small-box bg-green" id="DashboardIncome">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Profit</p>
-                    <h3>.</h3>
+                    <h3>0</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -57,7 +57,7 @@
             <div class="small-box bg-red" id="DashboardExpense">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Expense</p>
-                    <h3>.</h3>
+                    <h3>0</h3>
                 </div>
                 <div class="icon"><i class="ion ion-pie-graph"></i></div>
                 <a href="{{ route('client.DashboardVehicleProfitTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
