@@ -40,7 +40,8 @@
         },
         "files": [
             "app/Http/helpers.php",
-            "app/Http/AdminHelpers.php"
+            "app/Http/AdminHelpers.php",
+            "app/Http/clientHelper.php"
         ]
     },
     "autoload-dev": {

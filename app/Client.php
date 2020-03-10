@@ -8,6 +8,7 @@ use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
 use Laravel\Passport\HasApiTokens;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Client extends Authenticatable
 {
@@ -22,6 +23,9 @@ class Client extends Authenticatable
     //     'name', 'email', 'password', 'mobile', 'transportName', 'address', 'wallet', 'expires_on','referral_number'
     // ];
     protected $guarded = ['id','created_at', 'updated_at'];
+    
+    use SoftDeletes;
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that should be hidden for arrays.
