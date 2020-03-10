@@ -31,6 +31,24 @@
             "aaSorting": []
         });
         $('.select2').select2();
-    });
+
+        //Menu Filter on navbar
+	    $(".menuFilter").keyup(function () {
+	        var filter = $(this).val(),
+	            count = 0;
+	        $("li").each(function () {
+	            if (filter == "") {
+	                $(this).css("visibility", "visible");
+	                $(this).fadeIn();
+	            } else if ($(this).text().search(new RegExp(filter, "i")) < 0) {
+	                $(this).css("visibility", "hidden");
+	                $(this).fadeOut();
+	            } else {
+	                $(this).css("visibility", "visible");
+	                $(this).fadeIn();
+	            }
+	        });
+	    });
+	});
 </script>
 @yield('script')

@@ -47,10 +47,11 @@ class CreateTripTempsTable extends Migration
         Schema::table('clients', function($table){
             $table->string('firebase_token')->nullable()->after('referral_number')->comment('firebase Token');
             $table->string('verified')->default(0)->after('firebase_token')->comment('1-login email verified,0-email not verified');
-            $table->string('mail_notification')->default(1)->after('verified')->comment('1-send mail,0-not send mail');
+            $table->string('mail_notification')->default(0)->after('verified')->comment('1-send mail,0-not send mail');
             $table->string('client_status')->default(1)->after('mail_notification')->comment('1-active,0-inactive');
             $table->datetime('last_login_at')->nullable()->after('client_status')->comment('last login time');
             $table->string('last_login_ip')->nullable()->after('last_login_at')->comment('last login ip address');
+            $table->softDeletes()->after('last_login_ip')->comment('soft delete');
         });
 
         Schema::create('client_log_activities', function (Blueprint $table) {
@@ -62,6 +63,16 @@ class CreateTripTempsTable extends Migration
             $table->string('agent')->nullable(); 
             $table->integer('client_id')->nullable();
             $table->timestamps();
+        });
+
+        Schema::create('jobs', function (Blueprint $table) {
+            $table->bigIncrements('id');
+            $table->string('queue')->index();
+            $table->longText('payload');
+            $table->unsignedTinyInteger('attempts');
+            $table->unsignedInteger('reserved_at')->nullable();
+            $table->unsignedInteger('available_at');
+            $table->unsignedInteger('created_at');
         });
     }
 

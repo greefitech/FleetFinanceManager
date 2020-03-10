@@ -13,7 +13,7 @@
 
     <form action="#" method="get" class="sidebar-form">
         <div class="input-group">
-            <input type="text" name="q" class="form-control" placeholder="Search...">
+            <input type="text" class="form-control menuFilter" placeholder="Search...">
             <span class="input-group-btn">
                 <button type="submit" name="search" id="search-btn" class="btn btn-flat">
                     <i class="fa fa-search"></i>
