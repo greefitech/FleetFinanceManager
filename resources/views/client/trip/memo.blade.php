@@ -13,7 +13,14 @@
                     </h4>
                 </div>
                 <div class="box-body">
+ 
+                    @if(isset($TripTemp))
+                        {{ Form::model($TripTemp, ['route' => ['client.EditMemo', $TripTemp->id], 'method' => 'patch']) }}
+                    @else
                         {!! Form::open(['url' => route('client.SaveMemo'),'method' => 'post','class'=>'form-horizontal']) !!}
+                    @endif
+    
+                       <!--                      -->
                         <div class="box-body">
                             <!-- Trip Start -->
                                 <div class="row">

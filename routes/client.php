@@ -76,14 +76,15 @@ Route::get('/trip/add', 'ClientController\TripController@add');
 Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip');
 Route::get('/trip/{id}/edit', 'ClientController\TripController@edit')->name('EditTrip');
 Route::post('/trip/{id}/edit', 'ClientController\TripController@update')->name('UpdateTrip');
-Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateTripStatus')->name('UpdateTripStatus');
+// Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateTripStatus')->name('UpdateTripStatus');
 
 
 //Entry
 Route::get('/entry/memo', 'ClientController\MemoController@memo');
 Route::post('/entry/memo', 'ClientController\MemoController@SaveMemo')->name('SaveMemo');
 Route::get('/entry/memo/view', 'ClientController\MemoController@ViewTempMemo')->name('ViewMemoList');
-// Route::get('/entry/memo/{id}/edit', 'ClientController\MemoController@edit')->name('EditMemo');
+Route::get('/entry/memo/{id}/edit', 'ClientController\MemoController@edit')->name('EditMemo');
+Route::get('/entry/memo/{id}/update', 'ClientController\MemoController@updateMemo')->name('updateMemo');
 
 //GET AJAX DATA MEMO
 Route::get('/entry/memo/expense-type', function (){

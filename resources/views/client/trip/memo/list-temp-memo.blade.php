@@ -38,7 +38,7 @@
                                                 <form action="">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
-                                                    <a href="" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ route('client.EditMemo',$TripTemp->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
                                                     <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>

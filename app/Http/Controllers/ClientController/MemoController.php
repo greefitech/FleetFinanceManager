@@ -360,7 +360,7 @@ class MemoController extends Controller
                 $TripTemp->clientid = auth()->user()->id;
                 $TripTemp->save();
                 return back()->with('success',['Memo Entry','Added Partially!']);
-            }catch (Exception $e){
+            }catch (\Exception $e){
                 return back()->with('danger','Something went wrong!');
             }
         }
@@ -371,7 +371,7 @@ class MemoController extends Controller
         try {
             $Data['TripTemps'] =  $this->TripTemp::where([['clientid',auth()->user()->id]])->get();
             return view('client.trip.memo.list-temp-memo',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -379,5 +379,15 @@ class MemoController extends Controller
 
     public function getendingkm(){
         return Trip::where('vehicleId',request('VehicleId'))->get()->sortByDesc('dateTo')->first();
+    }
+
+    public function edit($id){
+        try {
+            $Data['TripTemp'] = $this->TripTemp::findOrfail($id);
+            $Data['RTOMasters'] = $this->RTOMaster::where([['clientid',auth()->user()->id]])->get();
+            return view('client.trip.memo',$Data);
+        }catch (\Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
     }
 }
