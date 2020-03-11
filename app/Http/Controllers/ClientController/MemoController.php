@@ -30,7 +30,6 @@ class MemoController extends Controller
     }
 
 
-
     /*
     /----------------------------------------
     /Save Memo function
@@ -325,8 +324,8 @@ class MemoController extends Controller
                         $TripAmount->save();
                     }
                 }
-                return back()->with('success',['Memo Entry','Added Successfully!']);
-             }catch (Exception $e){
+                return redirect(action('ClientController\TripWiseController@ViewVehicleList'))->with('success',['Memo Entry','Added Successfully!']);
+             }catch (\Exception $e){
                 return back()->with('danger','Something went wrong!');
             }
 
@@ -371,7 +370,7 @@ class MemoController extends Controller
                 $TripTemp->driverAdvance = serialize(request('DriverAdvance'));
                 $TripTemp->clientid = auth()->user()->id;
                 $TripTemp->save();
-                return back()->with('success',['Memo Entry','Added Partially!']);
+                return redirect(action('ClientController\MemoController@ViewTempMemo'))->with('success',['Memo Entry','Added Partially!']);
             }catch (\Exception $e){
                 return back()->with('danger','Something went wrong!');
             }
@@ -411,6 +410,8 @@ class MemoController extends Controller
     /-------------------------------------
     /Update Memo Function 
     /-------------------------------------
+    / This function is for update the temp memo sheet and if saved Permanently
+    / if save as temp -> this will update the old temp memo sheet on it. 
     */
      public function updateMemo($id){
          if(request()->get('btnSubmit') == 'save_memo') {
@@ -428,7 +429,11 @@ class MemoController extends Controller
             [
                 'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
             ]);
-         }
 
+           
+        }
     }
+
+
+
 }
