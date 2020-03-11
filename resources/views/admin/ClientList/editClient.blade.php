@@ -108,6 +108,30 @@
                                     </div>
                                 </div>
                             @endif
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('mail_notification') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Mail Notification</label><br>
+                                            <input type="radio" id="0" name="mail_notification" value="0" {{$Client->mail_notification  == 0? 'checked' : ''}}>
+                                             <label for="0">Disable</label>
+                                             <input type="radio" id="1" name="mail_notification" value="1" {{ $Client->mail_notification == '1' ? 'checked' : ''}}>
+                                                <label for="1">Enable</label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group{{ $errors->has('client_status') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Client Status</label><br>
+                                            <input type="radio" id="0" name="client_status" value="0" {{$Client->client_status ==0 ? 'checked' : ''}}>
+                                             <label for="0">Disable</label>
+                                             <input type="radio" id="1" name="client_status" value="1" {{$Client->client_status ==1 ? 'checked' : ''}}>
+                                                <label for="1">Enable</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <br>
                             <div align="center">
                                 <button type="submit" class="btn btn-success">Update Client</button>
