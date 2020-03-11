@@ -74,6 +74,10 @@ class CreateTripTempsTable extends Migration
             $table->unsignedInteger('available_at');
             $table->unsignedInteger('created_at');
         });
+
+        Schema::table('document_types', function($table){
+            $table->string('mail_notification')->default(0)->after('documentType')->comment('1-send;0-not now');
+        });
     }
 
     /**
