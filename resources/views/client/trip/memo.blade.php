@@ -15,12 +15,11 @@
                 <div class="box-body">
  
                     @if(isset($TripTemp))
-                        {{ Form::model($TripTemp, ['route' => ['client.EditMemo', $TripTemp->id], 'method' => 'patch']) }}
+                        {{ Form::model($TripTemp, ['url' => action('ClientController\MemoController@updateMemo',$TripTemp->id), 'method' => 'put','class'=>'form-horizontal']) }}
                     @else
                         {!! Form::open(['url' => route('client.SaveMemo'),'method' => 'post','class'=>'form-horizontal']) !!}
                     @endif
     
-                       <!--                      -->
                         <div class="box-body">
                             <!-- Trip Start -->
                                 <div class="row">
@@ -84,49 +83,94 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
-                                            <div class="col-sm-12">
-                                                <label>First Driver / டிரைவர் பெயர் 1</label>
-                                                <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
-                                                    <option value="">Select Staff</option>
-                                                    @foreach(Auth::user()->staffs as $staff)
-                                                        <option value="{{ $staff->id }}" {{ ($staff->id==old('staff')[0])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-                                    </div>
                                 </div>
 
-                                <div class="row">
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label>Second Driver / டிரைவர் பெயர் 2</label>
-                                                <select name="staff[]" class="form-control select2" id="entry-staff2">
-                                                    <option value="">Select Staff</option>
-                                                    @foreach(Auth::user()->staffs as $staff)
-                                                        <option value="{{ $staff->id }}"{{ ($staff->id==old('staff')[1])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
-                                                    @endforeach
-                                                </select>
+
+                                @if(isset($TripTemp) && empty(old('staff')))
+                                    <div class="row">
+                                         <div class="col-sm-3">
+                                            <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
+                                                <div class="col-sm-12">
+                                                    <label>First Driver / டிரைவர் பெயர் 1</label>
+                                                    <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
+                                                        <option value="">Select Staff</option>
+                                                        @foreach(Auth::user()->staffs as $staff)
+                                                            <option value="{{ $staff->id }}" {{ ($staff->id==$TripTemp->staff1)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label>Second Driver / டிரைவர் பெயர் 2</label>
+                                                    <select name="staff[]" class="form-control select2" id="entry-staff2">
+                                                        <option value="">Select Staff</option>
+                                                        @foreach(Auth::user()->staffs as $staff)
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id==$TripTemp->staff2)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label>Select Cleaner / கிளீனர் பெயர்</label>
+                                                    <select name="staff[]" class="form-control select2" id="entry-staff3">
+                                                        <option value="">Select Staff</option>
+                                                        @foreach(Auth::user()->staffs as $staff)
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id==$TripTemp->staff3)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-sm-3">
-                                        <div class="form-group">
-                                            <div class="col-sm-12">
-                                                <label>Select Cleaner / கிளீனர் பெயர்</label>
-                                                <select name="staff[]" class="form-control select2" id="entry-staff3">
-                                                    <option value="">Select Staff</option>
-                                                    @foreach(Auth::user()->staffs as $staff)
-                                                        <option value="{{ $staff->id }}"{{ ($staff->id==old('staff')[2])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
-                                                    @endforeach
-                                                </select>
+                                @else
+                                    <div class="row">
+                                         <div class="col-sm-3">
+                                            <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
+                                                <div class="col-sm-12">
+                                                    <label>First Driver / டிரைவர் பெயர் 1</label>
+                                                    <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
+                                                        <option value="">Select Staff</option>
+                                                        @foreach(Auth::user()->staffs as $staff)
+                                                            <option value="{{ $staff->id }}" {{ ($staff->id==old('staff')[0])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label>Second Driver / டிரைவர் பெயர் 2</label>
+                                                    <select name="staff[]" class="form-control select2" id="entry-staff2">
+                                                        <option value="">Select Staff</option>
+                                                        @foreach(Auth::user()->staffs as $staff)
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id==old('staff')[1])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-sm-3">
+                                            <div class="form-group">
+                                                <div class="col-sm-12">
+                                                    <label>Select Cleaner / கிளீனர் பெயர்</label>
+                                                    <select name="staff[]" class="form-control select2" id="entry-staff3">
+                                                        <option value="">Select Staff</option>
+                                                        @foreach(Auth::user()->staffs as $staff)
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id==old('staff')[2])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                        @endforeach
+                                                    </select>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
+                                @endif
                             <!-- Trip End -->
 
                             <!-- Entry Data Start -->
@@ -140,6 +184,20 @@
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
+
+                                                 @if(isset($TripTemp) && empty(old('EntryData')))
+                                                    @if(unserialize($TripTemp->diesel))
+                                                        @php
+                                                            $entryEditDatas = unserialize($TripTemp->entry);
+                                                        @endphp
+                                                    @endif
+                                                @else
+                                                    @php
+                                                        $entryEditDatas = old('EntryData');
+                                                    @endphp
+                                                @endif
+
+
 
                                                 <table  class="table table-bordered">
                                                     <thead>
@@ -164,73 +222,73 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="EntryTableData">
-                                                        @if(!empty(old('EntryData')))
-                                                            @foreach(old('EntryData')['dateFrom'] as $EntryKey=>$Entry)
+                                                        @if(!empty($entryEditDatas))
+                                                            @foreach($entryEditDatas['dateFrom'] as $EntryKey=>$Entry)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('EntryData.dateFrom.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="date" class="form-control DateValue" value="{{ old('EntryData')['dateFrom'][$EntryKey] }}" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">
+                                                                        <input type="date" class="form-control DateValue" value="{{ $entryEditDatas['dateFrom'][$EntryKey] }}" placeholder="Enter Date" name="EntryData[dateFrom][]" style="width:15em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.customerId.'.$EntryKey) ? ' has-error' : '' }}">
                                                                         <select name="EntryData[customerId][]" class="form-control select2" style="width:15em">
                                                                             <option value="">Select Customer</option>
                                                                             @foreach(auth()->user()->customers as $customer)
-                                                                                <option value="{{ $customer->id }}" {{ ($customer->id==old('EntryData')['customerId'][$EntryKey])?'selected':'' }}>{{ $customer->name }} | {{ $customer->mobile }}</option>
+                                                                                <option value="{{ $customer->id }}" {{ ($customer->id==$entryEditDatas['customerId'][$EntryKey])?'selected':'' }}>{{ $customer->name }} | {{ $customer->mobile }}</option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.locationFrom.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('EntryData')['locationFrom'][$EntryKey] }}" name="EntryData[locationFrom][]" style="width:15em">
+                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ $entryEditDatas['locationFrom'][$EntryKey] }}" name="EntryData[locationFrom][]" style="width:15em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.locationTo.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('EntryData')['locationTo'][$EntryKey] }}" name="EntryData[locationTo][]" style="width:15em">
+                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ $entryEditDatas['locationTo'][$EntryKey] }}" name="EntryData[locationTo][]" style="width:15em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.loadType.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" placeholder="Enter Load type" value="{{ old('EntryData')['loadType'][$EntryKey] }}" name="EntryData[loadType][]" style="width:15em">
+                                                                        <input type="text" class="form-control" placeholder="Enter Load type" value="{{ $entryEditDatas['loadType'][$EntryKey] }}" name="EntryData[loadType][]" style="width:15em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.ton.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" step="0.01" class="form-control" value="{{ old('EntryData')['ton'][$EntryKey] }}" placeholder="Enter Ton" name="EntryData[ton][]" style="width:10em">
+                                                                        <input type="number" min="0" step="0.01" class="form-control" value="{{ $entryEditDatas['ton'][$EntryKey] }}" placeholder="Enter Ton" name="EntryData[ton][]" style="width:10em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.account_id.'.$EntryKey) ? ' has-error' : '' }}">
                                                                         <select name="EntryData[account_id][]" class="form-control" style="width:10em">
                                                                             <option value="1">Cash</option>
                                                                             @foreach(Auth::user()->Accounts as $Account)
-                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == old('EntryData')['account_id'][$EntryKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == $entryEditDatas['account_id'][$EntryKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.billAmount.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0"  class="form-control BillAmountValue" placeholder="Enter Bill Amount" value="{{ old('EntryData')['billAmount'][$EntryKey] }}" name="EntryData[billAmount][]" style="width:10em">
+                                                                        <input type="number" min="0"  class="form-control BillAmountValue" placeholder="Enter Bill Amount" value="{{ $entryEditDatas['billAmount'][$EntryKey] }}" name="EntryData[billAmount][]" style="width:10em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.advance.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" class="form-control AdvanceAmountTotal" placeholder="Enter Advance" value="{{ old('EntryData')['advance'][$EntryKey] }}" name="EntryData[advance][]" style="width:10em">
+                                                                        <input type="number" min="0" class="form-control AdvanceAmountTotal" placeholder="Enter Advance" value="{{ $entryEditDatas['advance'][$EntryKey] }}" name="EntryData[advance][]" style="width:10em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.comission.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" class="form-control ComissionValue" placeholder="Enter Comission" value="{{ old('EntryData')['comission'][$EntryKey] }}" name="EntryData[comission][]" style="width:10em">
-                                                                        <input type="radio" class="commission_status_class" name="EntryData[commission_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['commission_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
-                                                                        <input type="radio" class="commission_status_class" name="EntryData[commission_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['commission_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
+                                                                        <input type="number" min="0" class="form-control ComissionValue" placeholder="Enter Comission" value="{{ $entryEditDatas['comission'][$EntryKey] }}" name="EntryData[comission][]" style="width:10em">
+                                                                        <input type="radio" class="commission_status_class" name="EntryData[commission_status][{{$EntryKey}}]" value="1" {{ ($entryEditDatas['commission_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
+                                                                        <input type="radio" class="commission_status_class" name="EntryData[commission_status][{{$EntryKey}}]" value="0" {{ ($entryEditDatas['commission_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.driverPadi.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" max="100" step="0.01" class="form-control DriverPadiPercentage" placeholder="Enter driver paadi" value="{{ old('EntryData')['driverPadi'][$EntryKey] }}" name="EntryData[driverPadi][]" style="width:10em">
+                                                                        <input type="number" min="0" max="100" step="0.01" class="form-control DriverPadiPercentage" placeholder="Enter driver paadi" value="{{ $entryEditDatas['driverPadi'][$EntryKey] }}" name="EntryData[driverPadi][]" style="width:10em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.cleanerPadi.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" max="100" step="0.01" class="form-control CleanerPadiPercentage"  placeholder="Enter cleaner paadi" value="{{ old('EntryData')['cleanerPadi'][$EntryKey] }}" name="EntryData[cleanerPadi][]" style="width:10em">
+                                                                        <input type="number" min="0" max="100" step="0.01" class="form-control CleanerPadiPercentage"  placeholder="Enter cleaner paadi" value="{{ $entryEditDatas['cleanerPadi'][$EntryKey] }}" name="EntryData[cleanerPadi][]" style="width:10em">
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.driverPadiAmount.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" value="{{ old('EntryData')['driverPadiAmount'][$EntryKey] }}" name="EntryData[driverPadiAmount][]" style="width:10em" readonly>
+                                                                        <input type="number" min="0" step="0.01"  class="form-control DriverPadiAmountValue" placeholder="Enter driver paadi amount" value="{{ $entryEditDatas['driverPadiAmount'][$EntryKey] }}" name="EntryData[driverPadiAmount][]" style="width:10em" readonly>
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.cleanerPadiAmount.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" value="{{ old('EntryData')['cleanerPadiAmount'][$EntryKey] }}" name="EntryData[cleanerPadiAmount][]" style="width:10em" readonly>
+                                                                        <input type="number" min="0" step="0.01" class="form-control CleanerPadiAmountValue" placeholder="Enter cleaner paadi amount" value="{{ $entryEditDatas['cleanerPadiAmount'][$EntryKey] }}" name="EntryData[cleanerPadiAmount][]" style="width:10em" readonly>
                                                                     </td>
 
                                                                     <td class="{{ $errors->has('EntryData.loadingMamool.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" class="form-control loadingMamoolValue" placeholder="Enter Loading" value="{{ old('EntryData')['loadingMamool'][$EntryKey] }}" name="EntryData[loadingMamool][]" style="width:10em">
-                                                                        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['loading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
-                                                                        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['loading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
+                                                                        <input type="number" min="0" class="form-control loadingMamoolValue" placeholder="Enter Loading" value="{{ $entryEditDatas['loadingMamool'][$EntryKey] }}" name="EntryData[loadingMamool][]" style="width:10em">
+                                                                        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status][{{$EntryKey}}]" value="1" {{ ($entryEditDatas['loading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
+                                                                        <input type="radio" class="loading_mamool_status_class" name="EntryData[loading_mamool_status][{{$EntryKey}}]" value="0" {{ ($entryEditDatas['loading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
                                                                     </td>
                                                                     <td class="{{ $errors->has('EntryData.unLoadingMamool.'.$EntryKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" class="form-control unLoadingMamoolValue" placeholder="Enter Unloading" value="{{ old('EntryData')['unLoadingMamool'][$EntryKey] }}" name="EntryData[unLoadingMamool][]" style="width:10em">
-                                                                        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="1" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
-                                                                        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="0" {{ (old('EntryData')['unloading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
+                                                                        <input type="number" min="0" class="form-control unLoadingMamoolValue" placeholder="Enter Unloading" value="{{ $entryEditDatas['unLoadingMamool'][$EntryKey] }}" name="EntryData[unLoadingMamool][]" style="width:10em">
+                                                                        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="1" {{ ($entryEditDatas['unloading_mamool_status'][$EntryKey] == 1)?'checked':'' }}><label>Paid</label>
+                                                                        <input type="radio" class="unloading_mamool_status_class" name="EntryData[unloading_mamool_status][{{$EntryKey}}]" value="0" {{ ($entryEditDatas['unloading_mamool_status'][$EntryKey] == 0)?'checked':'' }}><label>Not Paid</label>
                                                                     </td>
                                                                     <td class="RemoveEntryDataInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
@@ -270,6 +328,18 @@
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
+                                                 @if(isset($TripTemp) && empty(old('DieselData')))
+                                                    @if(unserialize($TripTemp->diesel))
+                                                        @php
+                                                            $diselEditDatas = unserialize($TripTemp->diesel);
+                                                        @endphp
+                                                    @endif
+                                                @else
+                                                    @php
+                                                        $diselEditDatas = old('DieselData');
+                                                    @endphp
+                                                @endif
+
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
@@ -284,35 +354,35 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody class="DieselTableData">
-                                                        @if(!empty(old('DieselData')))
-                                                            @foreach(old('DieselData')['date'] as $DiselKey=>$Dis)
+                                                        @if(!empty($diselEditDatas))
+                                                            @foreach($diselEditDatas['date'] as $DiselKey=>$Dis)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('DieselData.date.'.$DiselKey) ? ' has-error' : '' }}">
-                                                                        <input type="date" class="form-control DateValue" placeholder="Enter date" value="{{ old('DieselData')['date'][$DiselKey] }}" name="DieselData[date][]">
+                                                                        <input type="date" class="form-control DateValue" placeholder="Enter date" value="{{ $diselEditDatas['date'][$DiselKey] }}" name="DieselData[date][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.location.'.$DiselKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ old('DieselData')['location'][$DiselKey] }}" name="DieselData[location][]">
+                                                                        <input type="text" class="form-control" placeholder="Enter Location" value="{{ $diselEditDatas['location'][$DiselKey] }}" name="DieselData[location][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.discription.'.$DiselKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" placeholder="Enter Description" value="{{ old('DieselData')['discription'][$DiselKey] }}" name="DieselData[discription][]">
+                                                                        <input type="text" class="form-control" placeholder="Enter Description" value="{{ $diselEditDatas['discription'][$DiselKey] }}" name="DieselData[discription][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.quantity.'.$DiselKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" step="0.01" class="form-control DieselDataQuantityValue" value="{{ old('DieselData')['quantity'][$DiselKey] }}" placeholder="Enter Quantity" name="DieselData[quantity][]">
+                                                                        <input type="number" min="0" step="0.01" class="form-control DieselDataQuantityValue" value="{{ $diselEditDatas['quantity'][$DiselKey] }}" placeholder="Enter Quantity" name="DieselData[quantity][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.amount.'.$DiselKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" class="form-control DieselDataAmountValue" placeholder="Enter Amount" value="{{ old('DieselData')['amount'][$DiselKey] }}" name="DieselData[amount][]">
+                                                                        <input type="number" class="form-control DieselDataAmountValue" placeholder="Enter Amount" value="{{ $diselEditDatas['amount'][$DiselKey] }}" name="DieselData[amount][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.account_id.'.$DiselKey) ? ' has-error' : '' }}">
                                                                         <select name="DieselData[account_id][]" class="form-control select2">
                                                                             <option value="1">Cash</option>
                                                                             @foreach(Auth::user()->Accounts as $Account)
-                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == old('DieselData')['account_id'][$DiselKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == $diselEditDatas['account_id'][$DiselKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.status.'.$DiselKey) ? ' has-error' : '' }}">
                                                                         <select class="form-control" name="DieselData[status][]">
-                                                                            <option value="1" {{ (old('DieselData')['status'][$DiselKey]==1)?'selected':'' }}>Paid</option>
+                                                                            <option value="1" {{ ($diselEditDatas['status'][$DiselKey]==1)?'selected':'' }}>Paid</option>
                                                                             <option value="0" {{ (old('DieselData')['status'][$DiselKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
@@ -366,6 +436,20 @@
                                                 </div>
                                             </div>
                                             <div class="panel-body table-responsive">
+
+                                                @if(isset($TripTemp) && empty(old('RTOData')))
+                                                    @if(unserialize($TripTemp->rto))
+                                                        @php
+                                                            $rtoEditDatas = unserialize($TripTemp->rto);
+                                                        @endphp
+                                                    @endif
+                                                @else
+                                                    @php
+                                                        $rtoEditDatas = old('RTOData');
+                                                    @endphp
+                                                @endif
+
+
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
@@ -375,14 +459,14 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody class="RTOTableData">
-                                                        @if(!empty(old('RTOData')))
-                                                            @foreach(old('RTOData')['location'] as $RTOKey=>$PcD)
+                                                        @if(!empty($rtoEditDatas))
+                                                            @foreach($rtoEditDatas['location'] as $RTOKey=>$PcD)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('RTOData.location.'.$RTOKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" value="{{ old('RTOData')['location'][$RTOKey] }}" name="RTOData[location][]">
+                                                                        <input type="text" class="form-control" style="width: 15em" placeholder="Enter Location" value="{{ $rtoEditDatas['location'][$RTOKey] }}" name="RTOData[location][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('RTOData.amount.'.$RTOKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ old('RTOData')['amount'][$RTOKey] }}" name="RTOData[amount][]">
+                                                                        <input type="number" class="form-control RTODataAmountValue" style="width: 15em" placeholder="Enter Amount" value="{{ $rtoEditDatas['amount'][$RTOKey] }}" name="RTOData[amount][]">
                                                                     </td>
                                                                     <td class="RemoveRToInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close fa-10x"></i></td>
                                                                 </tr>
@@ -427,6 +511,20 @@
                                                 </div>
                                             </div>
                                             <div class="panel-body table-responsive">
+
+                                                @if(isset($TripTemp) && empty(old('PCData')))
+                                                    @if(unserialize($TripTemp->pc))
+                                                        @php
+                                                            $pcEditDatas = unserialize($TripTemp->pc);
+                                                        @endphp
+                                                    @endif
+                                                @else
+                                                    @php
+                                                        $pcEditDatas = old('PCData');
+                                                    @endphp
+                                                @endif
+
+
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                         <tr>
@@ -436,14 +534,14 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="PCTableData">
-                                                        @if(!empty(old('PCData')))
-                                                            @foreach(old('PCData')['location'] as $PCKey=>$PcD)
+                                                        @if(!empty($pcEditDatas))
+                                                            @foreach($pcEditDatas['location'] as $PCKey=>$PcD)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('PCData.location.'.$PCKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" style="width: 15em" value="{{ old('PCData')['location'][$PCKey] }}" placeholder="Enter Location" name="PCData[location][]">
+                                                                        <input type="text" class="form-control" style="width: 15em" value="{{ $pcEditDatas['location'][$PCKey] }}" placeholder="Enter Location" name="PCData[location][]">
                                                                     </td>
                                                                     <td class="{{ $errors->has('PCData.amount.'.$PCKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" value="{{ old('PCData')['amount'][$PCKey] }}" placeholder="Enter Amount" name="PCData[amount][]">
+                                                                        <input type="number" min="0" style="width: 15em" class="form-control PCAmountValue" value="{{ $pcEditDatas['amount'][$PCKey] }}" placeholder="Enter Amount" name="PCData[amount][]">
                                                                     </td>
                                                                     <td class="RemovePcInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
                                                                 </tr>
@@ -477,6 +575,20 @@
                                                 </span>
                                             </div>
                                             <div class="panel-body table-responsive">
+
+                                                @if(isset($TripTemp) && empty(old('ExtraExpense')))
+                                                    @if(unserialize($TripTemp->extraExpense))
+                                                        @php
+                                                            $extraExpenseEditDatas = unserialize($TripTemp->extraExpense);
+                                                        @endphp
+                                                    @endif
+                                                @else
+                                                    @php
+                                                        $extraExpenseEditDatas = old('ExtraExpense');
+                                                    @endphp
+                                                @endif
+
+
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                         <tr>
@@ -491,40 +603,40 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody class="ExtraExpenseTableData">
-                                                        @if(!empty(old('ExtraExpense')))
-                                                            @foreach(old('ExtraExpense')['expense_type'] as $ExpenseKey=>$PcD)
+                                                        @if(!empty($extraExpenseEditDatas))
+                                                            @foreach($extraExpenseEditDatas['expense_type'] as $ExpenseKey=>$PcD)
                                                                 <tr>
                                                                     <td class="{{ $errors->has('ExtraExpense.expense_type.'.$ExpenseKey) ? ' has-error' : '' }}">
                                                                         <select name="ExtraExpense[expense_type][]" class="form-control">
                                                                             <option value="">Select Expense</option>
                                                                             @foreach(GetExpenseTypes() as $ExpenseType)
-                                                                                <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id == old('ExtraExpense')['expense_type'][$ExpenseKey])?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
+                                                                                <option value="{{ $ExpenseType->id }}" {{ ($ExpenseType->id == $extraExpenseEditDatas['expense_type'][$ExpenseKey])?'selected':'' }}>{{ $ExpenseType->expenseType }}</option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>
                                                                     <td class="{{ $errors->has('ExtraExpense.quantity.'.$ExpenseKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" class="form-control" name="ExtraExpense[quantity][]" value="{{ old('ExtraExpense')['quantity'][$ExpenseKey] }}">
+                                                                        <input type="number" min="0" class="form-control" name="ExtraExpense[quantity][]" value="{{ $extraExpenseEditDatas['quantity'][$ExpenseKey] }}">
                                                                     </td>
                                                                     <td class="{{ $errors->has('ExtraExpense.location.'.$ExpenseKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" name="ExtraExpense[location][]" value="{{ old('ExtraExpense')['location'][$ExpenseKey] }}">
+                                                                        <input type="text" class="form-control" name="ExtraExpense[location][]" value="{{ $extraExpenseEditDatas['location'][$ExpenseKey] }}">
                                                                     </td>
                                                                     <td class="{{ $errors->has('ExtraExpense.amount.'.$ExpenseKey) ? ' has-error' : '' }}">
-                                                                        <input type="number" min="0" class="form-control ExtraExpenseAmountValue" name="ExtraExpense[amount][]" value="{{ old('ExtraExpense')['amount'][$ExpenseKey] }}">
+                                                                        <input type="number" min="0" class="form-control ExtraExpenseAmountValue" name="ExtraExpense[amount][]" value="{{ $extraExpenseEditDatas['amount'][$ExpenseKey] }}">
                                                                     </td>
                                                                     <td class="{{ $errors->has('ExtraExpense.discription.'.$ExpenseKey) ? ' has-error' : '' }}">
-                                                                        <input type="text" class="form-control" name="ExtraExpense[discription][]" value="{{ old('ExtraExpense')['discription'][$ExpenseKey] }}">
+                                                                        <input type="text" class="form-control" name="ExtraExpense[discription][]" value="{{ $extraExpenseEditDatas['discription'][$ExpenseKey] }}">
                                                                     </td>
                                                                     <td class="{{ $errors->has('ExtraExpense.account_id.'.$ExpenseKey) ? ' has-error' : '' }}">
                                                                         <select name="ExtraExpense[account_id][]" class="form-control">
                                                                             <option value="1">Cash</option>
                                                                             @foreach(Auth::user()->Accounts as $Account)
-                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == old('ExtraExpense')['account_id'][$ExpenseKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                                <option value="{{ $Account->id }}" {{ ($Account->id == $extraExpenseEditDatas['account_id'][$ExpenseKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
                                                                             @endforeach
                                                                         </select>
                                                                     </td>
                                                                     <td class="{{ $errors->has('ExtraExpense.status.'.$ExpenseKey) ? ' has-error' : '' }}">
                                                                         <select class="form-control" name="ExtraExpense[status][]">
-                                                                            <option value="1" {{ (old('ExtraExpense')['status'][$ExpenseKey]==1)?'selected':'' }}>Paid</option>
+                                                                            <option value="1" {{ ($extraExpenseEditDatas['status'][$ExpenseKey]==1)?'selected':'' }}>Paid</option>
                                                                             <option value="0" {{ (old('ExtraExpense')['status'][$ExpenseKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
@@ -559,6 +671,20 @@
                                                 <button type="button" class="btn btn-primary btn-sm pull-right AddPalamTollInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span></div>
                                             <div class="panel-body table-responsive">
+
+                                                @if(isset($TripTemp) && empty(old('PaalamToll')))
+                                                    @if(unserialize($TripTemp->tollgate))
+                                                        @php
+                                                            $tollPalamEditDatas = unserialize($TripTemp->tollgate);
+                                                        @endphp
+                                                    @endif
+                                                @else
+                                                    @php
+                                                        $tollPalamEditDatas = old('PaalamToll');
+                                                    @endphp
+                                                @endif
+
+
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
@@ -569,20 +695,20 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody class="PaalamTollTableData">
-                                                    @if(!empty(old('PaalamToll')))
-                                                        @foreach(old('PaalamToll')['location'] as $PaalamTollKey=>$PAlam)
+                                                    @if(!empty($tollPalamEditDatas))
+                                                        @foreach($tollPalamEditDatas['location'] as $PaalamTollKey=>$PAlam)
                                                             <tr>
                                                                 <td class="{{ $errors->has('PaalamToll.location.'.$PaalamTollKey) ? ' has-error' : '' }}">
-                                                                    <input type="text" class="form-control" name="PaalamToll[location][]" value="{{ old('PaalamToll')['location'][$PaalamTollKey] }}">
+                                                                    <input type="text" class="form-control" name="PaalamToll[location][]" value="{{ $tollPalamEditDatas['location'][$PaalamTollKey] }}">
                                                                 </td>
                                                                 <td class="{{ $errors->has('PaalamToll.amount.'.$PaalamTollKey) ? ' has-error' : '' }}">
-                                                                    <input type="number" min="0" class="form-control PaalamTollAmountValue" name="PaalamToll[amount][]" value="{{ old('PaalamToll')['amount'][$PaalamTollKey] }}">
+                                                                    <input type="number" min="0" class="form-control PaalamTollAmountValue" name="PaalamToll[amount][]" value="{{ $tollPalamEditDatas['amount'][$PaalamTollKey] }}">
                                                                 </td>
                                                                 <td class="{{ $errors->has('PaalamToll.account_id.'.$PaalamTollKey) ? ' has-error' : '' }}">
                                                                     <select name="PaalamToll[account_id][]" class="form-control">
                                                                         <option value="1">Cash</option>
                                                                         @foreach(Auth::user()->Accounts as $Account)
-                                                                            <option value="{{ $Account->id }}" {{ ($Account->id == old('PaalamToll')['account_id'][$PaalamTollKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                            <option value="{{ $Account->id }}" {{ ($Account->id == $tollPalamEditDatas['account_id'][$PaalamTollKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
@@ -615,6 +741,20 @@
                                                 <button type="button" class="btn btn-primary btn-sm pull-right AddDriverAdvanceAmountInput" style="margin-top:-5px;"><i class="fa fa-plus"></i></button>
                                                 </span></div>
                                             <div class="panel-body table-responsive">
+
+                                                @if(isset($TripTemp) && empty(old('DriverAdvance')))
+                                                    @if(unserialize($TripTemp->driverAdvance))
+                                                        @php
+                                                            $driverAdvanceEditDatas = unserialize($TripTemp->driverAdvance);
+                                                        @endphp
+                                                    @endif
+                                                @else
+                                                    @php
+                                                        $driverAdvanceEditDatas = old('DriverAdvance');
+                                                    @endphp
+                                                @endif
+
+
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
@@ -625,20 +765,20 @@
                                                     </tr>
                                                     </thead>
                                                     <tbody class="DriverAdvanceTableData">
-                                                    @if(!empty(old('DriverAdvance')))
-                                                        @foreach(old('DriverAdvance')['date'] as $DriverAdvanceKey=>$Driver)
+                                                    @if(!empty($driverAdvanceEditDatas))
+                                                        @foreach($driverAdvanceEditDatas['date'] as $DriverAdvanceKey=>$Driver)
                                                             <tr>
                                                                 <td class="{{ $errors->has('DriverAdvance.date.'.$DriverAdvanceKey) ? ' has-error' : '' }}">
-                                                                    <input type="date" class="form-control DateValue" name="DriverAdvance[date][]" value="{{ old('DriverAdvance')['date'][$DriverAdvanceKey] }}">
+                                                                    <input type="date" class="form-control DateValue" name="DriverAdvance[date][]" value="{{ $driverAdvanceEditDatas['date'][$DriverAdvanceKey] }}">
                                                                 </td>
                                                                 <td class="{{ $errors->has('DriverAdvance.amount.'.$DriverAdvanceKey) ? ' has-error' : '' }}">
-                                                                    <input type="number" min="0" class="form-control DriverAdvanceAmountValue" name="DriverAdvance[amount][]" value="{{ old('DriverAdvance')['amount'][$DriverAdvanceKey] }}">
+                                                                    <input type="number" min="0" class="form-control DriverAdvanceAmountValue" name="DriverAdvance[amount][]" value="{{ $driverAdvanceEditDatas['amount'][$DriverAdvanceKey] }}">
                                                                 </td>
                                                                 <td class="{{ $errors->has('DriverAdvance.account_id.'.$DriverAdvanceKey) ? ' has-error' : '' }}">
                                                                     <select name="DriverAdvance[account_id][]" class="form-control">
                                                                         <option value="1">Cash</option>
                                                                         @foreach(Auth::user()->Accounts as $Account)
-                                                                            <option value="{{ $Account->id }}" {{ ($Account->id == old('DriverAdvance')['account_id'][$DriverAdvanceKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
+                                                                            <option value="{{ $Account->id }}" {{ ($Account->id == $driverAdvanceEditDatas['account_id'][$DriverAdvanceKey])? 'selected':''}} >{{ $Account->account }} - {{ $Account->HolderName }}</option>
                                                                         @endforeach
                                                                     </select>
                                                                 </td>
