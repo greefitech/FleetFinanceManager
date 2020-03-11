@@ -27,6 +27,15 @@ Route::get('/terms', function(){
     return view('terms');
 });
 
+
+Route::get('/cache-clear',function(){
+    Artisan::call('cache:clear');
+    Artisan::call('config:cache');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+
+});
+
 Route::get('/entry/getTripDatas', 'customeController@getTripDatas');
 Route::get('/vehicle/getLastEntryKm', 'customeController@getVehicleData');
 
