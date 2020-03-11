@@ -30,6 +30,15 @@ class MemoController extends Controller
     }
 
 
+
+    /*
+    /----------------------------------------
+    /Save Memo function
+    /----------------------------------------
+    / This function will is used to save the memo sheet on (Trip , entry , expense table)
+    / on temp save the data will saved on the temp table.the data will be editable on future
+    */
+
     public function SaveMemo(){
 
         if(request()->get('btnSubmit') == 'save_memo') {
@@ -322,6 +331,9 @@ class MemoController extends Controller
             }
 
         } else if(request()->get('btnSubmit') == 'add_partially_memo') {
+
+            /*The partially filled data will be daved on temp table data*/
+
             $this->validate(request(),[
                 'vehicleId'=>'required|exists:vehicles,id',
                 'dateFrom'=>'required|date',
@@ -381,6 +393,8 @@ class MemoController extends Controller
         return Trip::where('vehicleId',request('VehicleId'))->get()->sortByDesc('dateTo')->first();
     }
 
+
+    /*Edit temp memo function*/
     public function edit($id){
         try {
             $Data['TripTemp'] = $this->TripTemp::findOrfail($id);
@@ -389,5 +403,32 @@ class MemoController extends Controller
         }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
+    }
+
+
+
+    /*
+    /-------------------------------------
+    /Update Memo Function 
+    /-------------------------------------
+    */
+     public function updateMemo($id){
+         if(request()->get('btnSubmit') == 'save_memo') {
+             $this->validate(request(),[
+                'vehicleId'=>'required|exists:vehicles,id',
+                'dateFrom'=>'required|date',
+                'dateTo'=>'required|date|after_or_equal:dateFrom',
+                'advance'=>'nullable|numeric|min:0',
+                'startKm'=>'required|numeric|min:0',
+                'endKm'=>'required|numeric|min:'.(int)request('startKm'),
+                'staff.0' => 'required|exists:staff,id',
+                'staff.1' => 'nullable|exists:staff,id',
+                'staff.2' => 'nullable|exists:staff,id',
+            ],
+            [
+                'staff.0.required'=>'Any One Staff Is needed.Select any one staff'
+            ]);
+         }
+
     }
 }
