@@ -64,6 +64,8 @@ class ClientControllers extends Controller
             'mobile' => 'required|min:10|max:10|unique:clients,mobile,'.$id,
             'address' => 'required|max:255',
             'password' => 'nullable|min:6|confirmed',
+            'mail_notification' => 'required',
+            'client_status' => 'required',
         ]);
         try {
             $Client=Client::findorfail($id);
@@ -75,6 +77,8 @@ class ClientControllers extends Controller
             if(!empty(request('password'))){
                 $Client->password = bcrypt(request('password'));
             }
+            $Client->mail_notification=request()->mail_notification;
+            $Client->client_status=request()->client_status;
             $Client->save();
             return back()->with('success',['Client','Updated Successfully!']);
         }catch (\Exception $e){
