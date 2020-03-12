@@ -78,6 +78,14 @@ class CreateTripTempsTable extends Migration
         Schema::table('document_types', function($table){
             $table->string('mail_notification')->default(0)->after('documentType')->comment('1-send;0-not now');
         });
+
+        Schema::create('verify_clients', function (Blueprint $table) {
+            $table->integer('client_id');
+            $table->string('token');
+            $table->timestamps();
+        });
+
+
     }
 
     /**
