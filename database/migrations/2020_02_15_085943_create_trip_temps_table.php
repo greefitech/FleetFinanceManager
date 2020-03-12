@@ -51,7 +51,7 @@ class CreateTripTempsTable extends Migration
             $table->string('client_status')->default(1)->after('mail_notification')->comment('1-active,0-inactive');
             $table->datetime('last_login_at')->nullable()->after('client_status')->comment('last login time');
             $table->string('last_login_ip')->nullable()->after('last_login_at')->comment('last login ip address');
-            $table->softDeletes()->after('last_login_ip')->comment('soft delete');
+            $table->softDeletes()->after('remember_token')->comment('soft delete');
         });
 
         Schema::create('client_log_activities', function (Blueprint $table) {
@@ -78,6 +78,14 @@ class CreateTripTempsTable extends Migration
         Schema::table('document_types', function($table){
             $table->string('mail_notification')->default(0)->after('documentType')->comment('1-send;0-not now');
         });
+
+        Schema::create('verify_clients', function (Blueprint $table) {
+            $table->integer('client_id');
+            $table->string('token');
+            $table->timestamps();
+        });
+
+
     }
 
     /**
