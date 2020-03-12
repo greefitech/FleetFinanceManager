@@ -56,10 +56,7 @@ Route::get('/Client/{id}/credit-details', 'AdminControllers\ClientControllers@Cl
 Route::get('/Client/ClientIncomeAmount', 'AdminControllers\ClientControllers@ClientIncomeAmount')->name('ClientIncomeAmount');
 Route::get('/Client/ClientTotalAmount', 'AdminControllers\ClientControllers@ClientTotalAmount')->name('ClientTotalAmount');
 Route::get('/Client/ClientOutstandingAmount', 'AdminControllers\ClientControllers@ClientOutstandingAmount')->name('ClientOutstandingAmount');
-
-
-
-// Route::get('/Client/{id}/delete', 'AdminControllers\ClientControllers@delete')->name('deleteClient');
+Route::get('/Client/{id}/delete', 'AdminControllers\ClientControllers@delete')->name('deleteClient');
 
 
 

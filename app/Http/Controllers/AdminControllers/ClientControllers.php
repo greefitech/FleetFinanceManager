@@ -147,4 +147,14 @@ class ClientControllers extends Controller
             return back()->with('danger','Something went wrong!');
         }
     }
+
+    public function delete($id)
+    {
+        try {
+            Client::findOrfail($id)->delete();
+            return redirect('admin/ClientList')->with('success',['Client','Deleted Successfully!']);
+        }catch (Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
 }
