@@ -79,6 +79,10 @@ class CreateTripTempsTable extends Migration
             $table->string('mail_notification')->default(0)->after('documentType')->comment('1-send;0-not now');
         });
 
+        Schema::table('vehicles', function($table){
+            $table->string('vehicle_status')->default(1)->after('VehicleProfit')->comment('1-active;0-inactive');
+        });
+
         Schema::create('verify_clients', function (Blueprint $table) {
             $table->integer('client_id');
             $table->string('token');
