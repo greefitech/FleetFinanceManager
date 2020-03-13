@@ -27,13 +27,16 @@ Route::get('/terms', function(){
     return view('terms');
 });
 
-
+/*
+/----------------------------------------
+/ Route cache clear view clear route
+/----------------------------------------
+*/
 Route::get('/cache-clear',function(){
     Artisan::call('cache:clear');
     Artisan::call('config:cache');
     Artisan::call('view:clear');
     Artisan::call('route:clear');
-
 });
 
 Route::get('/entry/getTripDatas', 'customeController@getTripDatas');
@@ -66,6 +69,7 @@ Route::group(['prefix' => 'client'], function () {
     Route::post('/password/reset', 'ClientAuth\ResetPasswordController@reset')->name('password.email');
     Route::get('/password/reset', 'ClientAuth\ForgotPasswordController@showLinkRequestForm')->name('password.reset');
     Route::get('/password/reset/{token}', 'ClientAuth\ResetPasswordController@showResetForm');
+    Route::get('/verify/{token}', 'ClientAuth\RegisterController@VerifyClient');
 });
 
 Route::group(['prefix' => 'manager'], function () {
@@ -89,3 +93,4 @@ Route::group(['prefix' => 'manager'], function () {
 
 
 Route::get('email', 'BasicController@ClientMonthlyIncomeExpenseMail');
+Route::get('document', 'BasicController@ClientDocumentExpireMail');

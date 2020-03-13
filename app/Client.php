@@ -106,6 +106,9 @@ class Client extends Authenticatable
         return $this->hasMany(Admin::class, 'mobile', 'referral_number');
     }
 
+    public function verifyClient() {
+        return $this->hasOne('App\VerifyClient');
+    }
    
 
 

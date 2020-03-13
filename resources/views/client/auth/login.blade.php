@@ -2,10 +2,24 @@
 
 @section('content')
 <div class="container">
+
+     @if (session('status'))
+      <div class="alert alert-success">
+        {{ session('status') }}
+      </div>
+    @endif
+    @if (session('warning'))
+      <div class="alert alert-warning">
+        {{ session('warning') }}
+      </div>
+    @endif
+
+                
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
                 <div class="panel-heading">Owner Login</div>
+               
                 <div class="panel-body">
                     <form class="form-horizontal" role="form" method="POST" action="{{ url('/client/login') }}">
                         {{ csrf_field() }}
