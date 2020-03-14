@@ -49,10 +49,14 @@
                                             <td>{{ $Client->vehicles->count() }}</td>
                                             <td>{{ GetClientReferenceName($Client->referral_number) }}</td>
                                             <td>
-                                                <a href="{{ route('admin.VehicleListClientWise',$Client->id) }}"><button type="button" class="btn btn-success btn-sm">Vehicle List</button></a>
-                                                <a href="{{ route('admin.EditClientList',$Client->id) }}"><button type="button" class="btn btn-primary btn-sm">Edit Client</button></a>
-                                                <a href="{{ route('admin.ClientVehicleCreditDetails',$Client->id) }}"><button type="button" class="btn btn-info btn-sm">Vehicle Credit</button></a>
-                                                <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>
+                                                <form action="{{ route('admin.DeleteClient', [$Client->id]) }}" method="POST">
+                                                {{ csrf_field() }}
+                                                <input type="hidden" name="_method" value="DELETE">
+                                                    <a href="{{ route('admin.VehicleListClientWise',$Client->id) }}"><button type="button" class="btn btn-success btn-sm">Vehicle List</button></a>
+                                                    <a href="{{ route('admin.EditClientList',$Client->id) }}"><button type="button" class="btn btn-primary btn-sm">Edit Client</button></a>
+                                                    <a href="{{ route('admin.ClientVehicleCreditDetails',$Client->id) }}"><button type="button" class="btn btn-info btn-sm">Vehicle Credit</button></a>
+                                                <button class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button>
+                                            </form>
                                             </td>
                                         </tr>
                                     @endforeach
