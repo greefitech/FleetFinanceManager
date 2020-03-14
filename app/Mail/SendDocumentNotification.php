@@ -10,15 +10,16 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 class SendDocumentNotification extends Mailable
 {
     use Queueable, SerializesModels;
+    public $detail;
 
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct()
+    public function __construct($detail)
     {
-        //
+        $this->detail = $detail;
     }
 
     /**
@@ -28,6 +29,6 @@ class SendDocumentNotification extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        return $this->view('mail.documentNotification');
     }
 }
