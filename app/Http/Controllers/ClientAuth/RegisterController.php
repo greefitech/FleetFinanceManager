@@ -9,6 +9,9 @@ use Validator;
 use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Auth;
+use App\VerifyClient;
+use App\Mail\VerifyClientMail;
+use Illuminate\Http\Request;
 
 class RegisterController extends Controller
 {
@@ -58,9 +61,36 @@ class RegisterController extends Controller
             'address' => 'required|max:255',
             'password' => 'required|min:6|confirmed',
             'referral_number' => 'nullable|min:10|max:10',
-//            'captcha' => 'required|captcha',
+            //'captcha' => 'required|captcha',
         ]);
     }
+
+
+    /*
+    *--------------------------------------------------------
+    * Verify User Function
+    *--------------------------------------------------------
+    *This function is used for an email verification for client on production state
+    */
+
+    public function VerifyClient($token){
+        $VerifyClient = VerifyClient::where('token', $token)->first();
+        if(isset($VerifyClient) ){
+            $Client = $VerifyClient->Client;
+            if(!$Client->verified) {
+                $Client->verified = 1;
+                $Client->save();
+                $status = "Your e-mail is verified. You can now login.";
+            }else{
+                $status = "Your e-mail is already verified. You can now login.";
+            }
+        }else{
+            return redirect('/client/login')->with('warning', "Sorry your email cannot be identified.");
+        }
+        return redirect('/client/login')->with('status', $status);
+    }
+
+
 
     /**
      * Create a new user instance after a valid registration.
@@ -70,7 +100,6 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-//         dd($data);
         $clients = Client::create([
             'name' => $data['name'],
             'email' => $data['email'],
@@ -86,7 +115,30 @@ class RegisterController extends Controller
             'HolderName'=>$data['name'],
             'clientid' => $clients->id,
         ]);
+
+        VerifyClient::create([
+            'client_id' => $clients->id,
+            'token' => sha1(time())
+        ]);
+        if(env('APP_ENV') =='production'){
+            \Mail::to($clients->email)->send(new VerifyClientMail($clients))->subject("Client Verification Myvehicle.biz");
+        }
+
         return $clients;
+    }
+
+    /*
+    *------------------------------------------------------
+    * Email Verification on register
+    *------------------------------------------------------
+    * On production state after client register the client will logout automatically
+    */
+
+    protected function registered(Request $request, $user){
+        if(env('APP_ENV') =='production'){
+            $this->guard('client')->logout();
+            return redirect('/client/login')->with('status', 'We sent you an activation code. Check your email and click on the link to verify.');
+        }
     }
 
     /**

@@ -40,6 +40,9 @@ class LoginController extends Controller
      * @return void
      */
 
+
+    /*Login Validation by mohan don't remove this code*/
+
 //     public function login(Request $request){
 //         $this->validate($request, [
 //             'email'           => 'required|max:255',
@@ -68,8 +71,6 @@ class LoginController extends Controller
 //         }
 //     }
 
-  
-
     public function __construct()
     {
         $this->middleware('client.guest', ['except' => 'logout']);
@@ -81,6 +82,12 @@ class LoginController extends Controller
      * @return \Illuminate\Http\Response
      */
 
+
+    /*
+    *------------------------------------------------------------
+    *This function is used for login with email and mobile number 
+    *------------------------------------------------------------
+    */
     protected function credentials(){
         if(is_numeric(request()->get('email'))){
             return ['mobile'=>request()->get('email'),'password'=>request()->get('password')];
@@ -91,7 +98,24 @@ class LoginController extends Controller
         return ['mobile' => request()->get('email'), 'password'=>request()->get('password')];
     }
 
+    /*
+    *-----------------------------------------------------------------------
+    *This function is used for authentication
+    *-----------------------------------------------------------------------
+    * This function validate the user is verified or not  && client status is approved this will login
+    */
+
     public function authenticated(Request $request, $user){
+        if (env('APP_ENV') =='production' && !$user->verified) {
+            auth('client')->logout();
+            return back()->with('warning', 'You need to confirm your account. We have sent you an activation code, please check your email.');
+        }
+
+        if (!$user->client_status) {
+            auth('client')->logout();
+            return back()->with('warning', 'Please Contact Admin !!');
+        }
+
         $user->update([
             'last_login_at' => Carbon::now()->toDateTimeString(),
             'last_login_ip' => $request->getClientIp()
