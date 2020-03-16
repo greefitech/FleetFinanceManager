@@ -80,11 +80,13 @@ class CreateTripTempsTable extends Migration
         });
 
         Schema::table('vehicles', function($table){
-            $table->string('vehicle_status')->default(1)->after('VehicleProfit')->comment('1-active;0-inactive');
+            $table->string('status')->default(1)->after('VehicleProfit')->comment('1-active;0-inactive');
+            $table->string('status_at')->nullable()->after('vehicle_status')->comment('status time stamp');
         });
 
         Schema::table('staff', function($table){
             $table->string('status')->default(1)->after('licenceRenewal')->comment('1-active;0-inactive');
+            $table->string('status_at')->nullable()->after('status')->comment('status time stamp');
         });
 
         Schema::create('verify_clients', function (Blueprint $table) {

@@ -28,7 +28,37 @@ class BasicController extends Controller
     }
 
 
+    public function ClientDocumentExpireMail() {
 
+        if(env('APP_ENV') =='localmohan'){
+            $data['client'] = Client::findorfail(3);
+            $data['clientVehicles'] = Vehicle::where([['clientid',$data['client']->id],['vehicle_status',1],['document_types.mail_notification',1]])->join('documents','documents.vehicleId','vehicles.id')->join('document_types','document_types.id','documents.documentType')->get();
+            $email = new SendDocumentNotification($data);
+            Mail::to($data['client']->email)->send($email);
+        }
+
+
+    	// foreach ($clientVehicles as $clientVehicleKey => $clientVehicle) {
+    	// 	// return $clientVehicle;
+    	// 	// return  DateDifference($clientVehicle->duedate);
+    	// 	// return (DateDifference($clientVehicle->duedate)<=$clientVehicle->notifyBefore)?'red':'green';
+    	// 	if(DateDifference($clientVehicle->duedate) <= $clientVehicle->notifyBefore){
+    	// 		echo $clientVehicle->vehicleNumber.' - '.$clientVehicle->documentType.'  -  '.$clientVehicle->amount.'  -  '.$clientVehicle->duedate.'<br>';
+    	// 	}
+    	// }
+           
+
+        if(env('APP_ENV') =='production'){
+            $clients =  Client::where('mail_notification',1)->get();
+            foreach ($clients as $key => $client) {
+                $data['client'] = $client;
+                $data['clientVehicles'] = Vehicle::where([['clientid',$client->id],['vehicle_status',1],['document_types.mail_notification',1]])->join('documents','documents.vehicleId','vehicles.id')->join('document_types','document_types.id','documents.documentType')->get();
+                $email = new SendDocumentNotification($data);
+                Mail::to($client->email)->send($email);
+            }
+        }
+        dd('done');
+    }
 
 
 
