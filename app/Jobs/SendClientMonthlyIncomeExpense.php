@@ -33,7 +33,7 @@ class SendClientMonthlyIncomeExpense implements ShouldQueue
     public function handle()
     {
         $email = new ClientMonthlyIncomeExpenseMail($this->details);
-        // dd($this->details['email']);
+        // Mail::to($this->details['email'])->cc(config('mohan.mail_income_expense_cc'))->bcc(config('mohan.mail_income_expense_bcc'))->send($email);
         Mail::to($this->details['email'])->send($email);
     }
 }

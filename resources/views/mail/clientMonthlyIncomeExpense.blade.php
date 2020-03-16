@@ -2,8 +2,11 @@ Welcome {{ $details['transportName'] }},
 <br><br>
 
 @php
-	$vehicles = App\Vehicle::where([['clientid',$details['id']]])->get()
+	$vehicles = App\Vehicle::where([['clientid',$details['id']]])->get();
+	$month = config('mohan.income_expense_send_mail_month');
+	$year = config('mohan.income_expense_send_mail_year');
 @endphp
+<p style="color: green;">Monthly Profit Expense {{ date("F", mktime(0, 0, 0, $month,10)) }} - {{ $year }}</p>
 
 <table border="1">
 	<thead>
@@ -17,14 +20,14 @@ Welcome {{ $details['transportName'] }},
 		@foreach($vehicles as $vehicle)
 			<tr>
 				<td>{{ $vehicle->vehicleNumber }}</td>
-				<td>{{ CalculateProfitAmountTotalVehicleWise($vehicle->id,02,2020,$details['id']) }}</td>
-				<td>{{ CalculateNonTripExpenseAmountTotalVehicleWise($vehicle->id,02,2020,$details['id']) }}</td>
+				<td>{{ CalculateProfitAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
+				<td>{{ CalculateNonTripExpenseAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
 			</tr>
 		@endforeach
 		<tr>
 			<th>Total</th>
-			<th>{{ CalculateProfitAmountTotalClientWise(02,2020,$details['id']) }}</th>
-			<th>{{ CalculateNonTripExpenseAmountTotalClientWise(02,2020,$details['id']) }}</th>
+			<th>{{ CalculateProfitAmountTotalClientWise($month,$year,$details['id']) }}</th>
+			<th>{{ CalculateNonTripExpenseAmountTotalClientWise($month,$year,$details['id']) }}</th>
 		</tr>
 
 	</tbody>
