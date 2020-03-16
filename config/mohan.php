@@ -9,8 +9,8 @@ return [
 
 	/*Website title*/
 	'website_title'=>'Fleet Finance',
-	'website_logo'=>url('/assets/img/greefi.jpg'),
-	'website_favicon'=>url('/assets/img/greefi.jpg'),
+	'website_logo'=>'/assets/img/greefi.jpg',
+	'website_favicon'=>'/assets/img/greefi.jpg',
 
 	'income_expense_send_mail_month'=>\Carbon\Carbon::now()->subMonth()->format('m'),
 	'income_expense_send_mail_year'=>\Carbon\Carbon::now()->subMonth()->format('Y'),

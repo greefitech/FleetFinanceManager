@@ -1,7 +1,7 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ auth()->user()->transportName }} | {{ config('mohan.website_title') }}</title>
+    <title>{{ auth()->user()->transportName }} | {{ url(config('mohan.website_logo')) }}</title>
     <link rel="icon" href="{{ auth()->user()->profile_image?url(auth()->user()->profile_image) :config('mohan.website_logo') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">

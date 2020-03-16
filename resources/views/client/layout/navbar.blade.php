@@ -4,7 +4,7 @@
 <aside class="main-sidebar">
     <div class="user-panel">
         <div class="pull-left image">
-            <img src="{{ auth()->user()->profile_image? url(auth()->user()->profile_image):config('mohan.website_logo') }}" class="img-circle" alt="User Image">
+            <img src="{{ auth()->user()->profile_image? url(auth()->user()->profile_image):url(config('mohan.website_logo')) }}" class="img-circle" alt="User Image">
         </div>
         <div class="pull-left info">
             <p>{{ auth()->user()->transportName }}</p>
