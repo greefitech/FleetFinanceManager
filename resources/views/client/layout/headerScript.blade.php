@@ -1,8 +1,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ auth()->user()->transportName }} | Fleet Finance</title>
-    <link rel="icon" href="{{ auth()->user()->profile_image?url(auth()->user()->profile_image) :'/assets/img/greefi.jpg' }}">
+    <title>{{ auth()->user()->transportName }} | {{ config('mohan.website_title') }}</title>
+    <link rel="icon" href="{{ auth()->user()->profile_image?url(auth()->user()->profile_image) :config('mohan.website_logo') }}">
     <link rel="stylesheet" href="{{ asset('/assets/css/bootstrap.min.css') }}">
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/font-awesome/4.5.0/css/font-awesome.min.css">
@@ -22,8 +22,7 @@
     <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet">
     <link href="{{ asset('/assets/css/select2.min.css') }}" rel="stylesheet" />
 
-
-     
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
+    
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/css/select2.min.css" rel="stylesheet" />
+   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.3/js/select2.min.js"></script>
 </head>

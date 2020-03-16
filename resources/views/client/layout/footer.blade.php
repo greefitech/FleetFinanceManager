@@ -1,5 +1,5 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2017- <?php echo date("Y"); ?> <a href="https://greefitech.com" target="_blank" style="text-decoration:none">Greefi Technologies Tiruchengode</a>.</strong> All rights reserved.
+    <strong>Copyright &copy; 2017- {{ date("Y") }} <a href="https://greefitech.com" target="_blank" style="text-decoration:none">Greefi Technologies Tiruchengode</a>.</strong> All rights reserved.
 </footer>
 </div>
 <script src="{{ asset('/assets/js/app.min.js') }}"></script>
