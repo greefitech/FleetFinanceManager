@@ -27,7 +27,7 @@
                     <h4>
                         <center>Vehicles</center>
                     </h4>
-                    <a href="{{ route('client.AddVehicle') }}" class="btn btn-info pull-right">Add Vehicle</a>
+                    <a href="{{ action('ClientController\VehicleController@create') }}" class="btn btn-info pull-right">Add Vehicle</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -59,7 +59,7 @@
                                                         <a href="{{ route('client.AddFinancialIndicators',$Vehicle->id) }}" class="btn"><i class="fa fa-truck text-aqua"></i></a>
                                                     @endif
                                                     <a href="{{ route('client.ViewDocuments',$Vehicle->id) }}" class="btn"><i class="fa fa-file text-aqua"></i></a>
-                                                    <a href="{{ route('client.EditVehicle',$Vehicle->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
+                                                    <a href="{{ action('ClientController\VehicleController@edit',$Vehicle->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
 {{--                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>--}}
 {{--                                                </form>--}}
                                             </td>

@@ -103,45 +103,47 @@
 
         function DashboardChart(OldDate) {
             var MonthYear =$('.dashboardDate').val();
-            $.ajax({
-                type : "get",
-                url : '/client/dashboard/total-income-expense',
-                data:{MonthYear:MonthYear},
-                beforeSend: function() {
-                    $('#DashboardIncome').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-                    $('#DashboardExpense').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
-                },
-                success:function(data){
-                    setTimeout(function() {
-                        $('#DashboardIncome').html(data.Income);
-                        $('#DashboardExpense').html(data.expense);
-                        if(OldDate == '' || OldDate.split("-")[0] != MonthYear.split("-")[0]){
-                            $.ajax({
-                                url: 'https://www.google.com/jsapi?callback',
-                                cache: true,
-                                dataType: 'script',
-                                success: function(data){
-                                    google.load('visualization', '1', {packages:['corechart'], 'callback' : function(){
-                                        $.ajax({
-                                            type: "get",
-                                            dataType: "json",
-                                            data:{MonthYear:MonthYear},
-                                            url: '{{ action("ClientController\DashboardController@DashboardGetChartValues") }}',
-                                            success: function(jsondata) {
-                                                var data = google.visualization.arrayToDataTable(jsondata.data);
-                                                var options = {title: 'Income Expense '+jsondata.year};
-                                                var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
-                                                chart.draw(data, options);
-                                            }
-                                        }); 
-                                    }});
-                                }
-                            });
-                        }
-                        
-                    }, 1000);
-                }
-            });
+            if(MonthYear !=''){
+                $.ajax({
+                    type : "get",
+                    url : '/client/dashboard/total-income-expense',
+                    data:{MonthYear:MonthYear},
+                    beforeSend: function() {
+                        $('#DashboardIncome').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+                        $('#DashboardExpense').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+                    },
+                    success:function(data){
+                        setTimeout(function() {
+                            $('#DashboardIncome').html(data.Income);
+                            $('#DashboardExpense').html(data.expense);
+                            if(OldDate == '' || OldDate.split("-")[0] != MonthYear.split("-")[0]){
+                                $.ajax({
+                                    url: 'https://www.google.com/jsapi?callback',
+                                    cache: true,
+                                    dataType: 'script',
+                                    success: function(data){
+                                        google.load('visualization', '1', {packages:['corechart'], 'callback' : function(){
+                                            $.ajax({
+                                                type: "get",
+                                                dataType: "json",
+                                                data:{MonthYear:MonthYear},
+                                                url: '{{ action("ClientController\DashboardController@DashboardGetChartValues") }}',
+                                                success: function(jsondata) {
+                                                    var data = google.visualization.arrayToDataTable(jsondata.data);
+                                                    var options = {title: 'Income Expense '+jsondata.year};
+                                                    var chart = new google.visualization.ColumnChart(document.getElementById('Main_Graph'));
+                                                    chart.draw(data, options);
+                                                }
+                                            }); 
+                                        }});
+                                    }
+                                });
+                            }
+                            
+                        }, 1000);
+                    }
+                });
+            }
         }
     </script>
 

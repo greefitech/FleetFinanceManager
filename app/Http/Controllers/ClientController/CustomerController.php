@@ -21,16 +21,19 @@ class CustomerController extends Controller
 
     public function index(){
         if (request()->ajax()) {
-            $Customers = $this->Customer::where('clientid',auth()->user()->id);
-            return DataTables::of($Customers)
+            $customers = $this->Customer::where('clientid',auth()->user()->id);
+            return DataTables::of($customers)
             ->addColumn('action',
                 '<a href="{{ action(\'ClientController\CustomerController@edit\',[$id]) }}" class="btn btn-md" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit"></i></a>'
             )
-            ->addColumn('created_by',function($Customer){
-                if(!empty($Customer->managerid)){
-                    return $Customer->manager->name;
+            ->addColumn('created_by',function($customer){
+                if(!empty($customer->managerid)){
+                    return $customer->manager->name;
                 }
                 return auth()->user()->name;
+            })
+            ->editColumn('type',function($customer){
+                return ucfirst($customer->type);
             })
             ->rawColumns(['action'])->make(true);
         }

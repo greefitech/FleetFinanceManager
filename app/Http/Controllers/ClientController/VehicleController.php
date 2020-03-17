@@ -16,17 +16,17 @@ class VehicleController extends Controller
         $this->Client = new Client;
     }
 
-    public function view(){
+    public function index(){
         return view('client.master.vehicle.view');
     }
 
-    public function add(){
+    public function create(){
         $Data['VehicleTypes']=VehicleType::get()->all();
         return view('client.master.vehicle.add',$Data);
     }
 
 
-    public function save(){
+    public function store(){
         $this->validate(request(),[
             'ownerName'=>'required',
             'vehicleNumber'=>'required',
@@ -57,7 +57,7 @@ class VehicleController extends Controller
                 'VehicleProfit' => request('VehicleProfit'),
                 'clientid' => auth()->user()->id,
             ]);
-            return redirect(route('client.ViewVehicles'))->with('success',['Vehicle','Created Successfully']);
+            return redirect(action('ClientController\VehicleController@index'))->with('success',['Vehicle','Created Successfully']);
         }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -94,12 +94,12 @@ class VehicleController extends Controller
             $vehicle->vehicle_purchased_date = request('vehicle_purchased_date');
             $vehicle->VehicleProfit = request('VehicleProfit');
             $vehicle->save();
-            return back()->with('success',['Vehicle','Updated Successfully']);
+            return redirect(action('ClientController\VehicleController@index'))->with('success',['Vehicle','Updated Successfully']);
         }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
-    public function delete($id){
+    public function destroy($id){
         return back()->with('sorry','Something went wrong! Contact Admin.');
     }
 }

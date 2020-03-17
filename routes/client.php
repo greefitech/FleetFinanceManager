@@ -16,18 +16,18 @@ Route::get('/dashboard/profit/{vehicleid}/{month}/{year}/list', 'ClientControlle
 Route::get('/dashboard/non-trip-expense/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleNonTripExpenseList')->name('DashboardVehicleNonTripExpenseList');
 Route::get('/dashboard/get-dashboard-chart-values', 'ClientController\DashboardController@DashboardGetChartValues');
 
+/*
+*------------------------------
+* Master Route list
+*------------------------------
+*/
+
 //CUSTOMER
 Route::resource('master/customers','ClientController\CustomerController');
 //Staff
 Route::resource('master/staffs','ClientController\StaffController');
-
 //Vehicle
-Route::get('/vehicles', 'ClientController\VehicleController@view')->name('ViewVehicles');
-Route::get('/vehicle/add', 'ClientController\VehicleController@add')->name('AddVehicle');
-Route::post('/vehicle/add', 'ClientController\VehicleController@save')->name('SaveVehicle');
-Route::get('/vehicle/{id}/edit', 'ClientController\VehicleController@edit')->name('EditVehicle');
-Route::post('/vehicle/{id}/update', 'ClientController\VehicleController@update')->name('UpdateVehicle');
-Route::delete('/vehicle/{id}/delete', 'ClientController\VehicleController@delete')->name('DeleteVehicle');
+Route::resource('master/vehicles','ClientController\VehicleController');
 
 //Documents
 Route::get('/documents/{vehicleid}/view', 'ClientController\DocumentController@view')->name('ViewDocuments');

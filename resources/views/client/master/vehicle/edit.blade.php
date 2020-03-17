@@ -10,11 +10,10 @@
                     <h4>
                         <center>Edit Vehicle</center>
                     </h4>
-                    <a href="{{ route('client.ViewVehicles') }}" class="btn btn-info pull-right">View Vehicle</a>
+                    <a href="{{ action('ClientController\VehicleController@index') }}" class="btn btn-info pull-right">View Vehicle</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateVehicle',$Vehicle->id) }}">
-                        {{ csrf_field() }}
+                    {!! Form::model($Vehicle,['url' => action('ClientController\VehicleController@update',$Vehicle->id),'method' => 'put','class'=>'form-horizontal']) !!}
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-6">
@@ -136,7 +135,7 @@
                                 <button type="submit" class="btn btn-info">Update Vehicle</button>
                             </div>
                         </div>
-                    </form>
+                    {{ Form::close() }}
                 </div>
             </div>
         </div>

@@ -10,10 +10,10 @@
                     <h4>
                         <center>Add Vehicle</center>
                     </h4>
-                    <a href="{{ route('client.ViewVehicles') }}" class="btn btn-info pull-right">View Vehicle</a>
+                    <a href="{{ action('ClientController\VehicleController@index') }}" class="btn btn-info pull-right">View Vehicle</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveVehicle') }}">
+                    <form class="form-horizontal" method="post" action="{{ action('ClientController\VehicleController@store') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
