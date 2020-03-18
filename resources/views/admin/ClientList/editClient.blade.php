@@ -23,7 +23,7 @@
                     <h4>
                         <center>Edit Client</center>
                     </h4>
-                    <a href="{{ route('admin.ClientList') }}" class="btn btn-info pull-right">View Client List</a>
+                    <a href="{{ route('admin.ClientList') }}" class="btn btn-info pull-right btn-sm">View Client List</a>
                 </div>
                 <div class="box-body">
                     <form class="form-horizontal" action="{{route('admin.UpdateClientDetails',$Client->id)}}" method="POST">

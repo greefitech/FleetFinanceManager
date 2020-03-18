@@ -77,3 +77,46 @@ if (! function_exists('CalculateNonTripExpenseAmountTotalClientWise')) {
     }
 }
 
+
+
+/*Vehicle Monthly vehicle wise trip count*/
+if (! function_exists('vehicleMontlyVehicleWiseTripDetail')) {
+    function vehicleMontlyVehicleWiseTripDetail($VehicleId,$month,$year,$ClientId){
+        $Trip = Trip::where([['clientid', $ClientId],['vehicleId',  $VehicleId]])->whereYear('dateTo', '=', $year)->whereMonth('dateTo', '=', $month)->get();
+        $Data['tripCount'] = $Trip->count();
+        $Data['tripTotalKm'] = $Trip->sum('totalKm');
+        return $Data;
+    }
+}
+
+/*Vehicle monthly client trip count*/
+if (! function_exists('vehicleMontlyClientWiseTripDetail')) {
+    function vehicleMontlyClientWiseTripDetail($month,$year,$ClientId){
+        $Trip = Trip::where([['clientid', $ClientId]])->whereYear('dateTo', '=', $year)->whereMonth('dateTo', '=', $month)->get();
+        $Data['tripCount'] = $Trip->count();
+        $Data['tripTotalKm'] = $Trip->sum('totalKm');
+        return $Data;
+    }
+}
+
+
+/*Vehicle Monthly Expense*/
+if (! function_exists('vehicleMontlyVehicleWiseNonTripExpenseDetail')) {
+    function vehicleMontlyVehicleWiseNonTripExpenseDetail($VehicleId,$month,$year,$ClientId,$ExpenseId){
+        $Expense = Expense::where([['clientid', $ClientId],['vehicleId',  $VehicleId],['tripId', NULL]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
+        $Data['quantity'] = $Expense->sum('quantity');
+        $Data['amount'] = $Expense->sum('amount');
+        return $Data;
+    }
+}
+
+/*Vehicle Client Monthly Expense */
+if (! function_exists('vehicleMontlyClientWiseNonTripExpenseDetail')) {
+    function vehicleMontlyClientWiseNonTripExpenseDetail($month,$year,$ClientId,$ExpenseId){
+        $Expense = Expense::where([['clientid', $ClientId],['tripId', NULL]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
+        $Data['quantity'] = $Expense->sum('quantity');
+        $Data['amount'] = $Expense->sum('amount');
+        return $Data;
+    }
+}
+

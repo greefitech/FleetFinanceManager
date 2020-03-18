@@ -29,6 +29,6 @@ class ClientMonthlyIncomeExpense extends Mailable
      */
     public function build()
     {
-        return $this->view('mail.clientMonthlyIncomeExpense')->subject("Monthly Profit Expense ".$this->details['transportName'].' - '.date("F", mktime(0, 0, 0, config('mohan.income_expense_send_mail_month'),10)).' - '.config('mohan.income_expense_send_mail_year'));
+        return $this->view('mail.clientMonthlyIncomeExpense')->subject("Monthly Report ".$this->details['transportName'].' - '.date("F", mktime(0, 0, 0, config('mohan.income_expense_send_mail_month'),10)).' - '.config('mohan.income_expense_send_mail_year'));
     }
 }
