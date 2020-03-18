@@ -62,7 +62,7 @@
                                             <td>{{ $VehicleCredit->base_price }}</td>
                                             <td>{{ $VehicleCredit->total_amount }}</td>
                                             <td>{{ $VehicleCredit->paid_amount }}</td>
-                                            <td>{{ $VehicleCredit->Admin->name }}</td>
+                                            <td>{{ @$VehicleCredit->Admin->name }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

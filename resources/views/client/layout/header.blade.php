@@ -1,7 +1,7 @@
 <header class="main-header">
     <a href="{{ url('client/home') }}" class="logo" style="text-decoration:none">
         <span class="logo-mini">{{ auth()->user()->name }}</span>
-        <span class="logo-lg"> <img src="{{ auth()->user()->profile_image? url(auth()->user()->profile_image) :url(config('mohan.website_logo'))  }}" height="25px"> {{ auth()->user()->transportName }}</span>
+        <span class="logo-lg"> <img src="{{ auth()->user()->profile_image? asset(auth()->user()->profile_image) :asset(config('mohan.website_logo'))  }}" height="25px"> {{ auth()->user()->transportName }}</span>
     </a>
     <nav class="navbar navbar-static-top">
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="text-decoration:none">
@@ -11,12 +11,12 @@
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                        <img src="{{ auth()->user()->profile_image? url(auth()->user()->profile_image) :url(config('mohan.website_logo'))  }}" class="user-image" alt="User Image">
+                        <img src="{{ auth()->user()->profile_image? asset(auth()->user()->profile_image) :asset(config('mohan.website_logo'))  }}" class="user-image" alt="User Image">
                         <span class="hidden-xs">{{ auth()->user()->transportName }}</span>
                     </a>
                     <ul class="dropdown-menu">
                         <li class="user-header">
-                            <img src="{{ auth()->user()->profile_image? url(auth()->user()->profile_image) :url(config('mohan.website_logo'))  }}" class="img-circle" alt="User Image">
+                            <img src="{{ auth()->user()->profile_image? asset(auth()->user()->profile_image) :asset(config('mohan.website_logo'))  }}" class="img-circle" alt="User Image">
                             <p>
                                 {{ auth()->user()->transportName }}
                                 <small>{{ auth()->user()->address }}</small>

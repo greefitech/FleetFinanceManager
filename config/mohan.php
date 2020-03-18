@@ -16,9 +16,13 @@ return [
 	'income_expense_send_mail_year'=>\Carbon\Carbon::now()->subMonth()->format('Y'),
 
 
+	'mail'=>[
+		'mail_income_expense_cc'=>array('sarathirangasamy@gmail.com'),
+		'mail_income_expense_bcc'=>array('sarathirangasamy@gmail.com','spmohansp@gmail.com'),
 
-	'mail_income_expense_cc'=>array('sarathirangasamy@gmail.com'),
-	'mail_income_expense_bcc'=>array('sarathirangasamy@gmail.com','spmohansp@gmail.com'),
+		'mail_document_expire_cc'=>array('sarathirangasamy@gmail.com'),
+		'mail_document_expire_bcc'=>array('sarathirangasamy@gmail.com','spmohansp@gmail.com'),
+	],
 
 
 	/*Uploads file location*/
