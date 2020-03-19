@@ -44,22 +44,24 @@ class UserController extends Controller
      */
 
     public function login(){
-        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){
+        if(Auth::attempt(['email' => request('email'), 'password' => request('password')])  || Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-            $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
-            $success['name'] =  $user->name;
-            $success['transportName'] =  $user->transportName;
-            return response()->json(['status'=>'success','data' => $success], $this->successStatus);
-        }else if(Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
-            $user = Auth::user();
-            $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
-            $success['name'] =  $user->name;
-            $success['transportName'] =  $user->transportName;
-            return response()->json(['status'=>'success','data' => $success], $this->successStatus);
-        } else{
-            $errormsg['msg'] = 'Invalid Email/Mobile or Password';
-            return response()->json(['status'=>'error','data'=>$errormsg], 401);
-        }
+            if($user->verified == 1){
+                 $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
+                 $success['user'] =  $user;
+                 $success['user']['profile_image'] = (!empty($user->profile_image) && PublicFolderFileExsits($user->profile_image))?url($user->profile_image):url(config('mohan.website_logo'));
+                 return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
+            }else{
+                return response()->json(['msg'=>'Account Not Yet Verified Check Email To Verify Account!!'], 401); 
+            }
+        } else{ 
+            $UserLogin = Client::where('email', request('email'))->orWhere('mobile', request('email'))->first();
+            if($UserLogin == null) {
+                return response()->json(['msg'=>'Incorrect Email / Mobile Number'], 401); 
+            } else {
+                return response()->json(['msg'=>'Incorrect Password'], 401); 
+            }  
+        } 
     }
 
 
@@ -136,7 +138,7 @@ class UserController extends Controller
             'c_password' => 'required|same:password',
         ]);
         if ($validator->fails()) {
-            $errormsg['msg'] = 'Email or Phonenumber already registered';
+            $errormsg['msg'] = 'Email or Mobile Number already registered';
             return response()->json(['status'=>'error','data'=>$errormsg], 401);
         }
         $input = $request->all();

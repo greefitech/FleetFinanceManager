@@ -114,3 +114,13 @@ if (! function_exists('MemoMasterType')) {
         return array('rto' => 'RTO','pc'=>'PC' );
     }
 }
+
+/*Check File is exsists or not*/
+if (! function_exists('PublicFolderFileExsits')) { 
+    function PublicFolderFileExsits($FileLocation) { 
+        if (!empty($FileLocation) && file_exists( public_path() . '/'.$FileLocation)) {
+            return 1;
+        } 
+        return 0; 
+    } 
+}
