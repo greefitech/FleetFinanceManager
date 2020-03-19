@@ -43,6 +43,7 @@
                                     <tr>
                                         <th>Owner Name</th>
                                         <th>Vehicle Number</th>
+                                        <th>Vehicle Name</th>
                                         <th>Model Number</th>
                                         <th>Vehicle Type</th>
                                         <th>Action</th>
@@ -53,11 +54,13 @@
                                         <tr class="c-table__row">
                                             <td>{{ $Vehicle->ownerName }}</td>
                                             <td>{{ $Vehicle->vehicleNumber }}</td>
+                                            <td>{{ $Vehicle->vehicleName }}</td>
                                             <td>{{ $Vehicle->modelNumber }}</td>
                                             <td>{{ @$Vehicle->GetVehicleType->vehicleType }}</td>
                                             <td>
-                                                <a href=""><button type="button" class="btn btn-success">Edit</button></a>
-                                                <a href=""><button type="button" class="btn btn-danger" onclick="return confirm('Are you sure?')">Delete</button></a>
+                                                <a href=""><button type="button" class="btn btn-info btn-sm"><i class="fa fa-eye"></i></button></a>
+                                                <a href=""><button type="button" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></button></a>
+                                                <a href=""><button type="button" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">Delete</button></a>
                                             </td>
                                         </tr>
                                     @endforeach
