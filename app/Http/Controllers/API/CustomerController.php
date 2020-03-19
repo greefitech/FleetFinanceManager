@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\API;
 
-use App\Entry;
-use App\Income;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Entry;
+use App\Income;
 use App\Customer;
 use Illuminate\Support\Facades\Auth; 
 use Validator;
@@ -68,7 +68,7 @@ class CustomerController extends Controller
      * )
      */
 
-    public function CreateCustomer(){
+    public function store(){
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'mobile' => 'required|min:10|max:10',
@@ -133,7 +133,7 @@ class CustomerController extends Controller
      */
 
 
-    public function GetCustomers(){
+    public function index(){
     	$finalData['customers']=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->get();
         return response()->json(['status'=>'success','data' => $finalData], $this-> successStatus);
     }
@@ -168,7 +168,7 @@ class CustomerController extends Controller
      * )
      */
 
-    public function EditCustomers($id){
+    public function edit($id){
     	try {
 	    	$finalData['customer'] = Customer::findOrfail($id);
             return response()->json(['status'=>'success','data' => $finalData], $this-> successStatus);
@@ -238,7 +238,7 @@ class CustomerController extends Controller
      * )
      */
 
-    public function UpdateCustomers($id){
+    public function update($id){
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'mobile' => 'required|min:10|max:10',
@@ -302,7 +302,7 @@ class CustomerController extends Controller
      */
 
 
-    public function DeleteCustomers($id){
+    public function destroy($id){
         $EntryCount=Entry::where([['customerId',$id]])->count();
         $IncomeCount=Income::where([['customerId',$id]])->count();
         if($EntryCount>0 ||$IncomeCount>0){

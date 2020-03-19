@@ -91,7 +91,7 @@ class StaffController extends Controller
      */
 
 
-    public function CreateStaff(Request $request){
+    public function store(Request $request){
     	$validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'mobile1' => 'required|max:10|min:10',
@@ -159,7 +159,7 @@ class StaffController extends Controller
      */
 
 
-    public function GetStaffs(){
+    public function index(){
     	$finalData['Staff']=Staff::select('id','name','mobile1','mobile2','address','type','licenceNumber')->where('clientid',auth()->user()->id)->get()->all();
         return response()->json(['status'=>'success','data' => $finalData], $this-> successStatus);
     }
@@ -195,7 +195,7 @@ class StaffController extends Controller
      */
 
 
-    public function EditStaff($id){
+    public function edit($id){
     	try{
             $finalData['staff'] = Staff::findOrfail($id);
             return response()->json(['status'=>'success','data' => $finalData], $this-> successStatus);
@@ -286,7 +286,7 @@ class StaffController extends Controller
 
 
 
-    public function UpdateStaff($id,Request $request){
+    public function update($id,Request $request){
     	$validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'mobile1' => 'required|max:10|min:10',
@@ -351,7 +351,7 @@ class StaffController extends Controller
      * )
      */
 
-    public function DeleteStaff($id){
+    public function destroy($id){
         $StaffTrip=Trip::where([['staff1',$id]])->orwhere([['staff2',$id]])->orwhere([['staff3',$id]])->count();
         $StaffWorkCount=StaffsWork::where([['staffId',$id]])->count();
         $ExpenseCount=Expense::where([['staffId',$id]])->count();

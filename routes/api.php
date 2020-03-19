@@ -22,26 +22,38 @@ Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function() {
 
+
+
+
+
+
+
+
 //    CUSTOMER
-    Route::get('/customers', 'API\CustomerController@GetCustomers');
-    Route::post('/customer/create', 'API\CustomerController@CreateCustomer');
-	Route::get('/customer/{id}/edit', 'API\CustomerController@EditCustomers');
-	Route::post('/customer/{id}/update', 'API\CustomerController@UpdateCustomers');
-	Route::delete('/customer/{id}/delete', 'API\CustomerController@DeleteCustomers');
+    Route::resource('/master/customer', 'API\Master\CustomerController');
+
+ //    Route::get('/customers', 'API\CustomerController@GetCustomers');
+ //    Route::post('/customer/create', 'API\CustomerController@CreateCustomer');
+	// Route::get('/customer/{id}/edit', 'API\CustomerController@EditCustomers');
+	// Route::post('/customer/{id}/update', 'API\CustomerController@UpdateCustomers');
+	// Route::delete('/customer/{id}/delete', 'API\CustomerController@DeleteCustomers');
 
 //	STAFF
-	Route::post('/staff/create', 'API\StaffController@CreateStaff');
-	Route::get('/staffs', 'API\StaffController@GetStaffs');
-	Route::get('/staff/{id}/edit', 'API\StaffController@EditStaff');
-	Route::post('/staff/{id}/update', 'API\StaffController@UpdateStaff');
-	Route::delete('/staff/{id}/delete', 'API\StaffController@DeleteStaff');
+	Route::resource('/master/staff', 'API\Master\StaffController');
+ //    Route::post('/staff/create', 'API\StaffController@CreateStaff');
+	// Route::get('/staffs', 'API\StaffController@GetStaffs');
+	// Route::get('/staff/{id}/edit', 'API\StaffController@EditStaff');
+	// Route::post('/staff/{id}/update', 'API\StaffController@UpdateStaff');
+	// Route::delete('/staff/{id}/delete', 'API\StaffController@DeleteStaff');
+
 
 //  VEHICLE
-	Route::get('/vehicle/types', 'API\VehicleController@VehicleType');
-	Route::post('/vehicle/create', 'API\VehicleController@CreateVehicle');
-	Route::get('/vehicles', 'API\VehicleController@GetVehicles');
-	Route::get('/vehicle/{id}/edit', 'API\VehicleController@EditVehicle');
-	Route::post('/vehicle/{id}/update', 'API\VehicleController@UpdateVehicle');
+	Route::resource('/master/vehicle', 'API\Master\VehicleController');
+ //    Route::get('/vehicle/types', 'API\VehicleController@VehicleType');
+	// Route::post('/vehicle/create', 'API\VehicleController@CreateVehicle');
+	// Route::get('/vehicles', 'API\VehicleController@GetVehicles');
+	// Route::get('/vehicle/{id}/edit', 'API\VehicleController@EditVehicle');
+	// Route::post('/vehicle/{id}/update', 'API\VehicleController@UpdateVehicle');
 
 //	ACCOUNT
     Route::post('/account/create', 'API\AccountController@CreateAccount');
