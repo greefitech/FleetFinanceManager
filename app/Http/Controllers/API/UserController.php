@@ -138,16 +138,19 @@ class UserController extends Controller
             'c_password' => 'required|same:password',
         ]);
         if ($validator->fails()) {
-            $errormsg['msg'] = 'Email or Mobile Number already registered';
-            return response()->json(['status'=>'error','data'=>$errormsg], 401);
+            $errorMsg['status'] = 'error';
+             foreach ($validator->errors()->toArray() as $value) {
+               $errorMsg['error'][]=$value[0];
+           }
+            return response()->json(['status'=>'error','data'=>$errorMsg], 401);
         }
+        
         $input = $request->all();
         $input['password'] = bcrypt($input['password']);
         $input['expires_on'] = Helper::get_expire_date(date('Y'));
         $user = Client::create($input);
         $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
-        $success['name'] =  $user->name;
-        return response()->json(['status'=>'success','data'=>$success], $this->successStatus);
+       return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
     }
 
 }

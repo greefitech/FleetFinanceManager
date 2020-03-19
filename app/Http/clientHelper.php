@@ -101,8 +101,8 @@ if (! function_exists('vehicleMontlyClientWiseTripDetail')) {
 
 
 /*Vehicle Monthly Expense*/
-if (! function_exists('vehicleMontlyVehicleWiseNonTripExpenseDetail')) {
-    function vehicleMontlyVehicleWiseNonTripExpenseDetail($VehicleId,$month,$year,$ClientId,$ExpenseId){
+if (! function_exists('vehicleMontlyVehicleWiseTripExpenseDetail')) {
+    function vehicleMontlyVehicleWiseTripExpenseDetail($VehicleId,$month,$year,$ClientId,$ExpenseId){
         $Expense = Expense::where([['clientid', $ClientId],['vehicleId',  $VehicleId],['tripId', NULL]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
         $Data['quantity'] = $Expense->sum('quantity');
         $Data['amount'] = $Expense->sum('amount');
@@ -111,8 +111,8 @@ if (! function_exists('vehicleMontlyVehicleWiseNonTripExpenseDetail')) {
 }
 
 /*Vehicle Client Monthly Expense */
-if (! function_exists('vehicleMontlyClientWiseNonTripExpenseDetail')) {
-    function vehicleMontlyClientWiseNonTripExpenseDetail($month,$year,$ClientId,$ExpenseId){
+if (! function_exists('vehicleMontlyClientWiseTripExpenseDetail')) {
+    function vehicleMontlyClientWiseTripExpenseDetail($month,$year,$ClientId,$ExpenseId){
         $Expense = Expense::where([['clientid', $ClientId],['tripId', NULL]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
         $Data['quantity'] = $Expense->sum('quantity');
         $Data['amount'] = $Expense->sum('amount');

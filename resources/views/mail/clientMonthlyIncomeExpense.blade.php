@@ -16,7 +16,8 @@ Hi <b>{{ $details['transportName'] }}</b>,
 			<th>Profit</th>
 			<th>Non-Trip Expense</th>
 			<th>KM</th>
-			<th>Diesel Total</th>
+			{{-- <th>Diesel (l)</th> --}}
+			<th>Diesel (₹)</th>
 		</tr>
 	</thead>
 	<tbody>
@@ -27,7 +28,8 @@ Hi <b>{{ $details['transportName'] }}</b>,
 				<td>{{ CalculateProfitAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
 				<td>{{ CalculateNonTripExpenseAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
 				<td>{{ vehicleMontlyVehicleWiseTripDetail($vehicle->id,$month,$year,$details['id'])['tripTotalKm'] }}</td>
-				<td>{{ vehicleMontlyVehicleWiseNonTripExpenseDetail($vehicle->id,$month,$year,$details['id'],2)['amount'] }}</td>
+				{{-- <td>{{ vehicleMontlyVehicleWiseTripExpenseDetail($vehicle->id,$month,$year,$details['id'],2)['quantity'] }}</td> --}}
+				<td>{{ vehicleMontlyVehicleWiseTripExpenseDetail($vehicle->id,$month,$year,$details['id'],2)['amount'] }}</td>
 			</tr>
 		@endforeach
 		<tr>
@@ -36,9 +38,9 @@ Hi <b>{{ $details['transportName'] }}</b>,
 			<th>{{ CalculateProfitAmountTotalClientWise($month,$year,$details['id']) }}</th>
 			<th>{{ CalculateNonTripExpenseAmountTotalClientWise($month,$year,$details['id']) }}</th>
 			<td>{{ vehicleMontlyClientWiseTripDetail($month,$year,$details['id'])['tripTotalKm'] }}</td>
-			<td>{{ vehicleMontlyClientWiseNonTripExpenseDetail($month,$year,$details['id'],2)['amount'] }}</td>
+			{{-- <td>{{ vehicleMontlyClientWiseTripExpenseDetail($month,$year,$details['id'],2)['quantity'] }}</td> --}}
+			<td>{{ vehicleMontlyClientWiseTripExpenseDetail($month,$year,$details['id'],2)['amount'] }}</td>
 		</tr>
-
 	</tbody>
 </table>
 
