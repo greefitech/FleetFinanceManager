@@ -47,7 +47,7 @@ class BasicController extends Controller
         /*Dont remove this code its for development checking for single client by mohan*/
         if(env('APP_ENV') =='localmohan'){
             $data['client'] = Client::findorfail(3);
-            $data['clientVehicles'] = Vehicle::where([['clientid',$data['client']->id],['vehicle_status',1],['document_types.mail_notification',1]])->join('documents','documents.vehicleId','vehicles.id')->join('document_types','document_types.id','documents.documentType')->get();
+            $data['clientVehicles'] = Vehicle::where([['clientid',$data['client']->id],['status',1],['document_types.mail_notification',1]])->join('documents','documents.vehicleId','vehicles.id')->join('document_types','document_types.id','documents.documentType')->get();
             SendClientDocumentNotification::dispatch( $data)->delay(now()->addSecond(10)); // Send mail 
             // $email = new SendDocumentNotification($data);
             // Mail::to($data['client']->email)->send($email);
@@ -68,7 +68,7 @@ class BasicController extends Controller
             $clients =  Client::where('mail_notification',1)->get();
             foreach ($clients as $key => $client) {
                 $data['client'] = $client;
-                $data['clientVehicles'] = Vehicle::where([['clientid',$client->id],['vehicle_status',1],['document_types.mail_notification',1]])->join('documents','documents.vehicleId','vehicles.id')->join('document_types','document_types.id','documents.documentType')->get();
+                $data['clientVehicles'] = Vehicle::where([['clientid',$client->id],['status',1],['document_types.mail_notification',1]])->join('documents','documents.vehicleId','vehicles.id')->join('document_types','document_types.id','documents.documentType')->get();
                 SendClientDocumentNotification::dispatch( $data)->delay(now()->addSecond(10));
                 // $email = new SendDocumentNotification($data);
                 // Mail::to($client->email)->send($email);
