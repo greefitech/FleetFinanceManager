@@ -44,6 +44,8 @@ class DashboardController extends Controller
      	$success['month'] =   $month;
      	$success['prevyear'] =   $prevyear;
      	$success['prevmonth'] =   $prevmonth;
+        $success['percentage'] =   mt_rand(-1000,1000)/10;
+        // $success['type'] =   ($success['percentage']>0) ?'success':'danger';
 
         $success['profit']['amount'] = auth()->user()->CalculateProfitAmountTotal('',$month,$year);
         $success['profit']['prevamount'] = auth()->user()->CalculateProfitAmountTotal('',$prevmonth,$prevyear);
