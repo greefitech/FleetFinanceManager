@@ -6,6 +6,9 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 use App\Client;
+use Carbon\Carbon;
+use App\ClientLogActivity;
+
 
 
 class UserController extends Controller
@@ -43,9 +46,35 @@ class UserController extends Controller
      * )
      */
 
-    public function login(){
+    public function login(Request $request){
+        $validator = Validator::make($request->all(), [
+            'email' => 'required',
+            'password' => 'required',
+        ]);
+        if ($validator->fails()) {
+            $errorMsg['status'] = 'error';
+             foreach ($validator->errors()->toArray() as $value) {
+               $errorMsg['error'][]=$value[0];
+           }
+            return response()->json(['status'=>'error','data'=>$errorMsg], 401);
+        }
+
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])  || Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
+
+            $user->update([
+                'last_login_at' => Carbon::now()->toDateTimeString(),
+                'last_login_ip' => $request->getClientIp()
+            ]);
+            ClientLogActivity::create([
+                'subject' => 'login_app',
+                'url' =>  $request->fullUrl(),
+                'method' =>  $request->method(),
+                'ip' =>  $request->ip(),
+                'agent' =>  $request->header('user-agent'),
+                'client_id' => $user->id,
+            ]);
+
             if($user->verified == 1){
                  $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
                  $success['user'] =  $user;

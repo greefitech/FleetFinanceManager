@@ -22,7 +22,7 @@ Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function() {
 
-
+    Route::get('/dashboard/dashboard-total', 'API\DashboardController\DashboardController@outstandingBalanceTotal');
 
 
 
