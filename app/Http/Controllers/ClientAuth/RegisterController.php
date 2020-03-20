@@ -121,7 +121,7 @@ class RegisterController extends Controller
             'token' => sha1(time())
         ]);
         if(env('APP_ENV') =='production'){
-            \Mail::to($clients->email)->send(new VerifyClientMail($clients))->subject("Client Verification Myvehicle.biz");
+            \Mail::to($clients->email)->send(new VerifyClientMail($clients));
         }
 
         return $clients;
