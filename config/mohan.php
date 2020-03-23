@@ -11,6 +11,7 @@ return [
 	'website_title'=>'Fleet Finance',
 	'website_logo'=>'/assets/img/greefi.jpg',
 	'website_favicon'=>'/assets/img/greefi.jpg',
+	'new_image'=>'https://static.wixstatic.com/media/c338c3_a71d72719cdb46f1adfbdd414f524d8f~mv2.gif',
 
 	'income_expense_send_mail_month'=>\Carbon\Carbon::now()->subMonth()->format('m'),
 	'income_expense_send_mail_year'=>\Carbon\Carbon::now()->subMonth()->format('Y'),
