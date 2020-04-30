@@ -804,8 +804,8 @@
 
                             <br>
                             <div align="center">
-                                <button type="submit" name="btnSubmit" value="save_memo" onclick="return confirm('Are you sure? Memo Completed!!')" class="btn btn-success submit" >Submit Memo</button>
-                                <button type="submit" name="btnSubmit" value="add_partially_memo" onclick="return confirm('Memo Saved!! You Can Edit Memo Later')" class="btn btn-danger submit">Save Partially Memo</button>
+                                <button type="submit" name="btnSubmit" value="save_memo" class="btn btn-success submit" >Submit Memo</button>
+                                <button type="submit" name="btnSubmit" value="add_partially_memo" class="btn btn-danger submit">Save Partially Memo</button>
                             </div>
                         </div>
                     {!! Form::close() !!}
