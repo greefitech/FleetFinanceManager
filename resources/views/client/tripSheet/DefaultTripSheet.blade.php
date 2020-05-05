@@ -138,7 +138,7 @@
                         @if($entryData->advance > 0)
                             <tr>
                                 <td colspan="2">{{ date("d-m-Y", strtotime($entryData->dateFrom)) }}</td>
-                                <td colspan="3">{{ money_format('%i', $entryData->advance) }}</td>
+                                <td colspan="3" style="text-align: right;">{{ money_format('%i', $entryData->advance) }}</td>
                                 <td colspan="2">{{ $entryData->customer->name }} ({{ ($entryData->account_id==1) ? 'cash':$entryData->Account->account }})</td>
                             </tr>
                         @endif()
@@ -146,7 +146,7 @@
                     @foreach($Incomes as $Income)
                         <tr>
                             <td colspan="2">{{ date("d-m-Y", strtotime($Income->date)) }}</td>
-                            <td colspan="3">{{ money_format('%i', $Income->recevingAmount) }}</td>
+                            <td colspan="3" style="text-align: right;">{{ money_format('%i', $Income->recevingAmount) }}</td>
                             <td colspan="2">{{ $Income->customer->name }} - ({{ ($Income->account_id==1) ? 'cash':$Income->Account->account }})</td>
                         </tr>
                     @endforeach
@@ -455,12 +455,12 @@
                 @foreach($PC as $pc)
                     <tr>
                         <td>{{ $pc->discription }} {{ $pc->location }}</td>
-                        <td style="text-align: right;">{{ $pc->amount }}</td>
+                        <td style="text-align: right;">{{  money_format('%i', $pc->amount) }}</td>
                     </tr>
                 @endforeach
                 <tr>
                     <th>மொத்தம்</th>
-                    <th style="text-align: right;">{{ $PC->sum('amount') }}</th>
+                    <th style="text-align: right;">{{  money_format('%i', $PC->sum('amount')) }}</th>
                 </tr>
             </table>
             <table border="1px" width="50%" style="float: left;">
@@ -474,12 +474,12 @@
                 @foreach($RTO as $rto)
                     <tr>
                         <td>{{ $rto->discription }} {{  $rto->location }}</td>
-                        <td style="text-align: right;">{{ $rto->amount }}</td>
+                        <td style="text-align: right;">{{  money_format('%i', $rto->amount) }}</td>
                     </tr>
                 @endforeach
                 <tr>
                     <th>மொத்தம்</th>
-                    <th style="text-align: right;">{{ $RTO->sum('amount') }}</th>
+                    <th style="text-align: right;">{{  money_format('%i', $RTO->sum('amount')) }}</th>
                 </tr>
             </table>
             <hr>
@@ -564,7 +564,7 @@
 
                 <tr>
                     <td>&nbsp; அட்வான்ஸ்</td>
-                    <td  style="text-align: right;">{{ $Trip->advance }}</td>
+                    <td  style="text-align: right;">{{  money_format('%i', $Trip->advance) }}</td>
 
                 @foreach($TripAdvanceAmounts as $TripAdvanceAmount)
                     <tr>
