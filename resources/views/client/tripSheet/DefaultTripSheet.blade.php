@@ -553,7 +553,7 @@
 
                 <tr>
                     <th>செலவு</th>
-                    <th style="text-align: right;">{{ $TotalDriverExpense = abs($DriverExpenses->sum('amount') + $ComissionPaid + $LoadingPaid + $UnloadingPaid + $paalamCash->sum('amount') + $entryDatas->sum('driverPadiAmount') + $entryDatas->sum('cleanerPadiAmount') +$RTO->sum('amount') + $PC->sum('amount')) }}</th>
+                    <th style="text-align: right;">{{ money_format('%i', $TotalDriverExpense = abs($DriverExpenses->sum('amount') + $ComissionPaid + $LoadingPaid + $UnloadingPaid + $paalamCash->sum('amount') + $entryDatas->sum('driverPadiAmount') + $entryDatas->sum('cleanerPadiAmount') +$RTO->sum('amount') + $PC->sum('amount'))) }}</th>
                 </tr>
 
 
