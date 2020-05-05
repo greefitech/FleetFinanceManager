@@ -32,7 +32,7 @@
             </tr>
             <tr>
                 <th>லாரி நெ : {{ $Trip->vehicle->vehicleNumber }}</th>
-                <th>அட்வான்ஸ் : {{ money_format('%!i', $Trip->advance) }}</th>
+                <th>அட்வான்ஸ் : {{ money_format('%i', $Trip->advance) }}</th>
                 <th>ட்ரிப் நெ : {{ $Trip->tripName }}</th>
                 <th>தேதி : {{ date("d-m-Y", strtotime($Trip->dateFrom)) }}</th>
                 <th>To : {{  date("d-m-Y", strtotime($Trip->dateTo)) }}</th>
@@ -78,21 +78,21 @@
                         <td>{{ $entryData->locationFrom }} To {{ $entryData->locationTo }}</td>
                         <td>{{ $entryData->loadType }}</td>
                         <td>{{ $entryData->ton }}</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryData->billAmount) }}</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryData->advance) }} </td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryData->comission) }}</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryData->loadingMamool) }}</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryData->unLoadingMamool) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryData->billAmount) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryData->advance) }} </td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryData->comission) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryData->loadingMamool) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryData->unLoadingMamool) }}</td>
                         <td style="text-align: right;">{{ @$entryData->customer->name }}</td>
                     </tr>
                 @endforeach
                 <tr>
                     <th colspan="4">Total</th>
-                    <th style="text-align: right;">&nbsp;{{ money_format('%!i', $entryDatas->sum('billAmount')) }}</th>
-                    <th style="text-align: right;">&nbsp;{{ money_format('%!i', $entryDatas->sum('advance')) }}</th>
-                    <th style="text-align: right;">&nbsp;{{ money_format('%!i', $entryDatas->sum('comission')) }}</th>
-                    <th style="text-align: right;">&nbsp;{{ money_format('%!i', $entryDatas->sum('loadingMamool')) }}</th>
-                    <th style="text-align: right;">&nbsp;{{ money_format('%!i', $entryDatas->sum('unLoadingMamool')) }}</th>
+                    <th style="text-align: right;">&nbsp;{{ money_format('%i', $entryDatas->sum('billAmount')) }}</th>
+                    <th style="text-align: right;">&nbsp;{{ money_format('%i', $entryDatas->sum('advance')) }}</th>
+                    <th style="text-align: right;">&nbsp;{{ money_format('%i', $entryDatas->sum('comission')) }}</th>
+                    <th style="text-align: right;">&nbsp;{{ money_format('%i', $entryDatas->sum('loadingMamool')) }}</th>
+                    <th style="text-align: right;">&nbsp;{{ money_format('%i', $entryDatas->sum('unLoadingMamool')) }}</th>
                     <th></th>
                 </tr>
             </table>
@@ -113,7 +113,7 @@
                             <td colspan="2">{{  date("d-m-Y", strtotime($Diesel->date)) }}</td>
                             <td colspan="3">{{ $Diesel->quantity }}</td>
                             <td colspan="3">{{ ($Diesel->account_id==1) ? 'cash':$Diesel->Account->account }}</td>
-                            <td colspan="2" style="text-align: right;">{{ money_format('%!i', $Diesel->amount) }} </td>
+                            <td colspan="2" style="text-align: right;">{{ money_format('%i', $Diesel->amount) }} </td>
                             <td colspan="3"> &nbsp; {{ $Diesel->discription }} {{ $Diesel->location }}</td>
                         </tr>
                     @endforeach
@@ -121,7 +121,7 @@
                         <th colspan="2">மொத்த (லி)</th>
                         <th colspan="3">{{ $Diesels->sum('quantity') }}</th>
                         <th colspan="3">மொத்தம்</th>
-                        <th colspan="2" style="text-align: right;">{{ money_format('%!i', $Diesels->sum('amount')) }}</th>
+                        <th colspan="2" style="text-align: right;">{{ money_format('%i', $Diesels->sum('amount')) }}</th>
                         <th colspan="3"></th>
                     </tr>
                 </table>
@@ -138,7 +138,7 @@
                         @if($entryData->advance > 0)
                             <tr>
                                 <td colspan="2">{{ date("d-m-Y", strtotime($entryData->dateFrom)) }}</td>
-                                <td colspan="3">{{ money_format('%!i', $entryData->advance) }}</td>
+                                <td colspan="3">{{ money_format('%i', $entryData->advance) }}</td>
                                 <td colspan="2">{{ $entryData->customer->name }} ({{ ($entryData->account_id==1) ? 'cash':$entryData->Account->account }})</td>
                             </tr>
                         @endif()
@@ -146,13 +146,13 @@
                     @foreach($Incomes as $Income)
                         <tr>
                             <td colspan="2">{{ date("d-m-Y", strtotime($Income->date)) }}</td>
-                            <td colspan="3">{{ money_format('%!i', $Income->recevingAmount) }}</td>
+                            <td colspan="3">{{ money_format('%i', $Income->recevingAmount) }}</td>
                             <td colspan="2">{{ $Income->customer->name }} - ({{ ($Income->account_id==1) ? 'cash':$Income->Account->account }})</td>
                         </tr>
                     @endforeach
                     <tr>
                         <th colspan="2">மொத்தம்</th>
-                        <th colspan="3">{{ money_format('%!i', ($Incomes->sum('recevingAmount') + $entryDatas->sum('advance'))) }}</th>
+                        <th colspan="3">{{ money_format('%i', ($Incomes->sum('recevingAmount') + $entryDatas->sum('advance'))) }}</th>
                         <th colspan="2"></th>
                     </tr>
                 </table>
@@ -192,13 +192,13 @@
                         @foreach($ExpenseNotPaid as $NotPaid)
                             <tr>
                                 <td>{{ $NotPaid->ExpenseType->expenseType }}</td>
-                                <td style="text-align: right;">{{ money_format('%!i', $NotPaid->amount) }}</td>
+                                <td style="text-align: right;">{{ money_format('%i', $NotPaid->amount) }}</td>
                                 <td>{{ $NotPaid->discription }} {{ $NotPaid->location }}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <th>மொத்தம்</th>
-                            <th style="text-align: right;">{{ money_format('%!i', $ExpenseNotPaid->sum('amount')) }}</th>
+                            <th style="text-align: right;">{{ money_format('%i', $ExpenseNotPaid->sum('amount')) }}</th>
                             <th></th>
                         </tr>
                     </table>
@@ -231,79 +231,79 @@
                     </tr>
                     <tr>
                         <td> &nbsp; டீசல்</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $Diesels->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $Diesels->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; கமிசன்</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('comission')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryDatas->sum('comission')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; ஏற்று கூலி </td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('loadingMamool')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryDatas->sum('loadingMamool')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; இறக்கு கூலி </td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('unLoadingMamool')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryDatas->sum('unLoadingMamool')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; இதரசெலவுகள்</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $otherExpenses->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $otherExpenses->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; RTO செலவு</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $RTO->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $RTO->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; PC செலவு</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $PC->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $PC->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; நாக்கா</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $Naakka->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $Naakka->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; பில் படி</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $BillPadi->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $BillPadi->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; செக்போஸ்ட்</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $checkPost->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $checkPost->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; பாலம் / டோல்கேட்</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $paalam->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $paalam->sum('amount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; டிரைவர் படி </td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('driverPadiAmount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryDatas->sum('driverPadiAmount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; கிளீனர் படி</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('cleanerPadiAmount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $entryDatas->sum('cleanerPadiAmount')) }}</td>
                     </tr>
                     <tr>
                         <td> &nbsp; பட்டறை செலவு</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $pattarai->sum('amount')) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $pattarai->sum('amount')) }}</td>
                     </tr>
 
                     <tr>
                         <th>  &nbsp; மொத்த செலவு</th>
-                        <th style="text-align: right;">{{ money_format('%!i', @$total_expense = $Diesels->sum('amount') + @$entryDatas->sum('comission') + @$entryDatas->sum('loadingMamool') + @$entryDatas->sum('unLoadingMamool') + $RTO->sum('amount') + @$PC->sum('amount') + @$paalam->sum('amount') + @$Naakka->sum('amount') + @$checkPost->sum('amount') + $otherExpenses->sum('amount') + @$BillPadi->sum('amount') +  @$entryDatas->sum('driverPadiAmount')  + @$entryDatas->sum('cleanerPadiAmount') + @$pattarai->sum('amount'))  }}</th>
+                        <th style="text-align: right;">{{ money_format('%i', @$total_expense = $Diesels->sum('amount') + @$entryDatas->sum('comission') + @$entryDatas->sum('loadingMamool') + @$entryDatas->sum('unLoadingMamool') + $RTO->sum('amount') + @$PC->sum('amount') + @$paalam->sum('amount') + @$Naakka->sum('amount') + @$checkPost->sum('amount') + $otherExpenses->sum('amount') + @$BillPadi->sum('amount') +  @$entryDatas->sum('driverPadiAmount')  + @$entryDatas->sum('cleanerPadiAmount') + @$pattarai->sum('amount'))  }}</th>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align: center">  &nbsp;செலவு</th>
                     </tr>
                     <tr>
                         <th>  &nbsp; மொத்த வாடகை </th>
-                        <th style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('billAmount')) }}</th>
+                        <th style="text-align: right;">{{ money_format('%i', $entryDatas->sum('billAmount')) }}</th>
                     </tr>
                     <tr>
                         <th>  &nbsp; மொத்த செலவு</th>
-                        <th style="text-align: right;">{{ money_format('%!i', @$total_expense = $Diesels->sum('amount') + @$entryDatas->sum('comission') + @$entryDatas->sum('loadingMamool') + @$entryDatas->sum('unLoadingMamool') + $RTO->sum('amount') + @$PC->sum('amount') + @$paalam->sum('amount') + @$Naakka->sum('amount') + @$checkPost->sum('amount') + $otherExpenses->sum('amount') + @$BillPadi->sum('amount') +  @$entryDatas->sum('driverPadiAmount')  + @$entryDatas->sum('cleanerPadiAmount') + @$pattarai->sum('amount'))  }}</th>
+                        <th style="text-align: right;">{{ money_format('%i', @$total_expense = $Diesels->sum('amount') + @$entryDatas->sum('comission') + @$entryDatas->sum('loadingMamool') + @$entryDatas->sum('unLoadingMamool') + $RTO->sum('amount') + @$PC->sum('amount') + @$paalam->sum('amount') + @$Naakka->sum('amount') + @$checkPost->sum('amount') + $otherExpenses->sum('amount') + @$BillPadi->sum('amount') +  @$entryDatas->sum('driverPadiAmount')  + @$entryDatas->sum('cleanerPadiAmount') + @$pattarai->sum('amount'))  }}</th>
                     </tr>
                     <tr>
                         <th>  &nbsp; வண்டி மீதி</th>
-                        <th style="text-align: right;">{{ money_format('%!i', ($VehicleRemainingAmount = ($entryDatas->sum('billAmount')-$total_expense))) }}</th>
+                        <th style="text-align: right;">{{ money_format('%i', ($VehicleRemainingAmount = ($entryDatas->sum('billAmount')-$total_expense))) }}</th>
                     </tr>
                     <tr>
                         <th colspan="2" style="text-align: center">  &nbsp;வரவேண்டிய தொகை </th>
@@ -311,7 +311,7 @@
                     <tr>
                         <?php $total_income = ((isset($Incomes))?$Incomes->sum('recevingAmount'):0) + $entryDatas->sum('advance') ?>
                         <th>  &nbsp; வரவேண்டிய தொகை </th>
-                        <th style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('billAmount')-$total_income) }}</th>
+                        <th style="text-align: right;">{{ money_format('%i', $entryDatas->sum('billAmount')-$total_income) }}</th>
                     </tr>
                 </table>
             </div>
@@ -331,13 +331,13 @@
                     @foreach($otherExpenses as $otherExpense)
                         <tr>
                             <td>{{ $otherExpense->ExpenseType->expenseType }}</td>
-                            <td style="text-align: right;" >{{ money_format('%!i', $otherExpense->amount) }}</td>
+                            <td style="text-align: right;" >{{ money_format('%i', $otherExpense->amount) }}</td>
                             <td>{{ $otherExpense->discription }} {{ $otherExpense->location }}</td>
                         </tr>
                     @endforeach
                     <tr>
                         <th>Total</th>
-                        <th style="text-align: right;" >{{ money_format('%!i', $otherExpenses->sum('amount')) }}</th>
+                        <th style="text-align: right;" >{{ money_format('%i', $otherExpenses->sum('amount')) }}</th>
                         <th></th>
                     </tr>
                 </table>
@@ -356,12 +356,12 @@
                             @foreach($paalam as $paalamData)
                                 <tr>
                                     <td>{{ $paalamData->location }} {{ $paalamData->discription }}</td>
-                                    <td style="text-align: right">{{ money_format('%!i', $paalamData->amount) }}</td>
+                                    <td style="text-align: right">{{ money_format('%i', $paalamData->amount) }}</td>
                                 </tr>
                             @endforeach
                             <tr>
                                 <th>மொத்தம்</th>
-                                <th style="text-align: right">{{ money_format('%!i', $paalam->sum('amount')) }}</th>
+                                <th style="text-align: right">{{ money_format('%i', $paalam->sum('amount')) }}</th>
                             </tr>
                         </table>
                     @endif
@@ -379,12 +379,12 @@
                             <tr>
                                 {{--<td colspan="2">{{  date("d-m-Y", strtotime($ckPost->date)) }}</td>--}}
                                 <td>{{ $ckPost->location }} {{ $ckPost->discription }}</td>
-                                <td style="text-align: right">{{ money_format('%!i', $ckPost->amount) }}</td>
+                                <td style="text-align: right">{{ money_format('%i', $ckPost->amount) }}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <th>மொத்தம்</th>
-                            <th style="text-align: right">{{ money_format('%!i', $checkPost->sum('amount')) }}</th>
+                            <th style="text-align: right">{{ money_format('%i', $checkPost->sum('amount')) }}</th>
                             {{--<th colspan="3"></th>--}}
                         </tr>
                     </table>
@@ -403,12 +403,12 @@
                             <tr>
                                 {{-- <td colspan="2">{{  date("d-m-Y", strtotime($NaakkaData->date)) }}</td>--}}
                                 <td>{{ $NaakkaData->discription }} {{ $NaakkaData->location }}</td>
-                                <td style="text-align: right">{{ money_format('%!i', $NaakkaData->amount) }}</td>
+                                <td style="text-align: right">{{ money_format('%i', $NaakkaData->amount) }}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <th>மொத்தம்</th>
-                            <th style="text-align: right">{{ money_format('%!i', $Naakka->sum('amount')) }}</th>
+                            <th style="text-align: right">{{ money_format('%i', $Naakka->sum('amount')) }}</th>
                             {{--<th colspan="2"></th>--}}
                         </tr>
                     </table>
@@ -425,12 +425,12 @@
                         @foreach($BillPadi as $Bill)
                             <tr>
                                 <td>{{ $Bill->discription }} {{ $Bill->location }}</td>
-                                <td style="text-align: right" >{{ money_format('%!i', $Bill->amount) }}</td>
+                                <td style="text-align: right" >{{ money_format('%i', $Bill->amount) }}</td>
                             </tr>
                         @endforeach
                         <tr>
                             <th>மொத்தம்</th>
-                            <th style="text-align: right" >{{ money_format('%!i', $BillPadi->sum('amount')) }}</th>
+                            <th style="text-align: right" >{{ money_format('%i', $BillPadi->sum('amount')) }}</th>
                         </tr>
 
 
@@ -493,23 +493,23 @@
                 </tr>
                 <tr>
                     <td> &nbsp;பாலம்</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $paalamCash->sum('amount')) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $paalamCash->sum('amount')) }}</td>
                 </tr>
                 <tr>
                     <td> &nbsp;டிரைவர் படி </td>
-                    <td style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('driverPadiAmount')) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $entryDatas->sum('driverPadiAmount')) }}</td>
                 </tr>
                 <tr>
                     <td> &nbsp;கிளீனர் படி</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $entryDatas->sum('cleanerPadiAmount')) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $entryDatas->sum('cleanerPadiAmount')) }}</td>
                 </tr>
                 <tr>
                     <td> &nbsp;RTO</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $RTO->sum('amount')) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $RTO->sum('amount')) }}</td>
                 </tr>
                 <tr>
                     <td> &nbsp;PC</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $PC->sum('amount')) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $PC->sum('amount')) }}</td>
                 </tr>
                 <?php $ComissionPaid=0;$ComissionNotPaid=0;$LoadingPaid=0;$LoadingNotPaid=0;$UnloadingPaid=0;$UnloadingNotPaid=0; ?>
                 @foreach($entryDatas as $entryData)
@@ -536,24 +536,24 @@
 
                 <tr>
                     <td> &nbsp;கமிசன்</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $ComissionPaid) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $ComissionPaid) }}</td>
                 </tr>
                 <tr>
                     <td> &nbsp;ஏற்றுமதிக்கூலி</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $LoadingPaid) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $LoadingPaid) }}</td>
                 </tr>
                 <tr>
                     <td> &nbsp;இறக்குக்கூலி</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $UnloadingPaid) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $UnloadingPaid) }}</td>
                 </tr>
                 <tr>
                     <td> &nbsp;இதரசெலவுகள்</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $DriverExpenses->sum('amount')) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $DriverExpenses->sum('amount')) }}</td>
                 </tr>
 
                 <tr>
                     <th>செலவு</th>
-                    <th>{{ $TotalDriverExpense = abs($DriverExpenses->sum('amount') + $ComissionPaid + $LoadingPaid + $UnloadingPaid + $paalamCash->sum('amount') + $entryDatas->sum('driverPadiAmount') + $entryDatas->sum('cleanerPadiAmount') +$RTO->sum('amount') + $PC->sum('amount')) }}</th>
+                    <th style="text-align: right;">{{ $TotalDriverExpense = abs($DriverExpenses->sum('amount') + $ComissionPaid + $LoadingPaid + $UnloadingPaid + $paalamCash->sum('amount') + $entryDatas->sum('driverPadiAmount') + $entryDatas->sum('cleanerPadiAmount') +$RTO->sum('amount') + $PC->sum('amount')) }}</th>
                 </tr>
 
 
@@ -569,23 +569,23 @@
                 @foreach($TripAdvanceAmounts as $TripAdvanceAmount)
                     <tr>
                         <td> &nbsp;அட்வான்ஸ் {{ date("d-m-Y", strtotime($TripAdvanceAmount->date)) }} - {{ ($TripAdvanceAmount->account_id ==1)?'Cash':$TripAdvanceAmount->Account->account }}</td>
-                        <td style="text-align: right;">{{ money_format('%!i', $TripAdvanceAmount->amount) }}</td>
+                        <td style="text-align: right;">{{ money_format('%i', $TripAdvanceAmount->amount) }}</td>
                     </tr>
                 @endforeach
 
                 <tr>
                     <td> &nbsp;Entry Cash Advance</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $EntryCashAdvance->sum('advance')) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $EntryCashAdvance->sum('advance')) }}</td>
                 </tr>
 
                 <tr>
                     <td>&nbsp; டிரைவர் செலவு</td>
-                    <td style="text-align: right;">{{ money_format('%!i', $TotalDriverExpense) }}</td>
+                    <td style="text-align: right;">{{ money_format('%i', $TotalDriverExpense) }}</td>
                 </tr>
 
                 <tr>
                     <th>&nbsp; மீதி</th>
-                    <th>{{ money_format('%!i', (($Trip->advance + $TripAdvanceAmounts->sum('amount') + $EntryCashAdvance->sum('advance')) - $TotalDriverExpense)) }}</th>
+                    <th style="text-align: right;">{{ money_format('%i', (($Trip->advance + $TripAdvanceAmounts->sum('amount') + $EntryCashAdvance->sum('advance')) - $TotalDriverExpense)) }}</th>
                 </tr>
 
             </table>
