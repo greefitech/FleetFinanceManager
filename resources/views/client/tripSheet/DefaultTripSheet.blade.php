@@ -51,7 +51,7 @@
                 <th colspan="2">டிரைவர்  1 : {{ @$Trip->Staff1->name }} - {{ @$Trip->Staff1->mobile1 }} ( {{ @$Trip->Staff1->licenceNumber }} - {{ date("d-m-Y", strtotime(@$Trip->Staff1->licenceRenewal)) }} ) </th>
                 <th colspan="2">டிரைவர்  2 : {{ (@$Trip->Staff2->name)?$Trip->Staff2->name.' - '.@$Trip->Staff2->mobile1.' ( '.@$Trip->Staff2->licenceNumber.' - '.date("d-m-Y", strtotime(@$Trip->Staff2->licenceRenewal)).' ) ':'Nil' }}</th>
                 <th colspan="1">கிளீனர் : {{ (@$Trip->Staff3->name)?$Trip->Staff3->name:'Nil' }} {{ (@$Trip->Staff3->mobile1)?$Trip->Staff3->mobile1:'' }}</th>
-                <th colspan="1">கி.மீ மீதி  : {{ @round((Auth::user()->TripTotalIncome($Trip->id) - Auth::user()->TripTotalExpense($Trip->id))/$runningkm, 2) }}</th>
+                <th colspan="1">கி.மீ மீதி  : {{ @round((Auth::user()->TripTotalIncome($Trip->id) - Auth::user()->TripTotalExpense($Trip->id))/round((@$Trip->endKm - @$Trip->startKm), 2) }}</th>
             </tr>
         </table>
         <div style="width: 70%; float: left;">
