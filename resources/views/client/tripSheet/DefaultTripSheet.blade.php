@@ -152,7 +152,7 @@
                     @endforeach
                     <tr>
                         <th colspan="2">மொத்தம்</th>
-                        <th colspan="3">{{ money_format('%i', ($Incomes->sum('recevingAmount') + $entryDatas->sum('advance'))) }}</th>
+                        <th colspan="3" style="text-align: right;">{{ money_format('%i', ($Incomes->sum('recevingAmount') + $entryDatas->sum('advance'))) }}</th>
                         <th colspan="2"></th>
                     </tr>
                 </table>
