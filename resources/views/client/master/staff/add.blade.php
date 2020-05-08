@@ -21,7 +21,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Name</label>
+                                            <label>Name <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" min="0" value="{{ old('name') }}" placeholder="Enter Name" name="name">
                                         </div>
                                     </div>
@@ -29,8 +29,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('mobile1') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Mobile 1</label>
-                                            <input type="number" class="form-control" oninput="maxLengthCheck(this)" maxlength = "10" value="{{ old('mobile1') }}" placeholder="Enter Mobile Number" name="mobile1">
+                                            <label>Mobile 1 <span style="color:red">*</span></label>
+                                            <input type="text" id="number-only" class="form-control" oninput="maxLengthCheck(this)" maxlength = "10" value="{{ old('mobile1') }}" placeholder="Enter Mobile Number" name="mobile1">
                                         </div>
                                     </div>
                                 </div>
@@ -40,14 +40,14 @@
                                     <div class="form-group{{ $errors->has('mobile2') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Mobile 2</label>
-                                            <input type="number" class="form-control" oninput="maxLengthCheck(this)" maxlength = "10" value="{{ old('mobile2') }}" placeholder="Enter Mobile Number" name="mobile2">
+                                            <input type="text" id="number-only" class="form-control" oninput="maxLengthCheck(this)" maxlength = "10" value="{{ old('mobile2') }}" placeholder="Enter Mobile Number" name="mobile2">
                                         </div>
                                     </div>
                                 </div>
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Address</label>
+                                            <label>Address <span style="color:red">*</span></label>
                                             <textarea name="address" class="form-control">{{ old('address') }}</textarea>
                                         </div>
                                     </div>
@@ -57,7 +57,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('licenceNumber') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Licence Number</label>
+                                            <label>Licence Number <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ old('licenceNumber') }}" placeholder="Enter Licence Number" name="licenceNumber">
                                         </div>
                                     </div>
@@ -65,8 +65,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('licenceRenewal') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Licence Reniwal</label>
-                                            <input type="date" class="form-control" value="{{ old('licenceRenewal') }}" placeholder="Enter Licence Number" name="licenceRenewal">
+                                            <label>Licence Renewal</label>
+                                            <input type="date" class="form-control" min="{{ date('Y-m-d') }}" value="{{ old('licenceRenewal') }}" placeholder="Enter Licence Number" name="licenceRenewal">
                                         </div>
                                     </div>
                                 </div>
@@ -75,7 +75,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('type') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Type</label>
+                                            <label>Type <span style="color:red">*</span></label>
                                             <select class="form-control" name="type">
                                                 <option value="">Select Type</option>
                                                 <option value="cleaner" {{ (old('type') == 'cleaner')?'selected':'' }}>Cleaner</option>

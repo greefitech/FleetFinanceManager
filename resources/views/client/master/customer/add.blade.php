@@ -22,7 +22,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Name</label>
+                                            <label>Name <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" min="0" value="{{ old('name') }}" placeholder="Enter Name" name="name">
                                         </div>
                                     </div>
@@ -30,8 +30,8 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('mobile') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Mobile</label>
-                                            <input type="number" class="form-control" onkeypress="return isNumber(event)" oninput="maxLengthCheck(this)" maxlength = "10" value="{{ old('mobile') }}" placeholder="Enter Mobile Number" name="mobile">
+                                            <label>Mobile <span style="color:red">*</span></label>
+                                            <input type="text" id="number-only" class="form-control" onkeypress="return isNumber(event)" oninput="maxLengthCheck(this)" maxlength = "10" value="{{ old('mobile') }}" placeholder="Enter Mobile Number" name="mobile">
                                         </div>
                                     </div>
                                 </div>
@@ -40,7 +40,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('address') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Address</label>
+                                            <label>Address <span style="color:red">*</span></label>
                                             <textarea name="address" class="form-control">{{ old('address') }}</textarea>
                                         </div>
                                     </div>

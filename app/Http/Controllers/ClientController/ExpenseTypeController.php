@@ -24,7 +24,7 @@ class ExpenseTypeController extends Controller
             $ExpenseTypes = $this->ExpenseType::where('clientid',auth()->user()->id);
             return DataTables::of($ExpenseTypes)
             ->addColumn('action',
-                '<a href="{{ action(\'ClientController\CustomerController@edit\',[$id]) }}" class="btn btn-md" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit"></i></a>'
+                '<a href="{{ action(\'ClientController\ExpenseTypeController@edit\',[$id]) }}" class="btn btn-md" data-toggle="tooltip" data-placement="right"><i class="fa fa-edit"></i></a>'
             )
             ->addColumn('created_by',function($ExpenseType){
                     return $ExpenseType->client->name;

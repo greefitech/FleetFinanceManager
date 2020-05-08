@@ -21,7 +21,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('place') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Master Place</label>
+                                            <label>Master Place <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ old('place') }}" placeholder="Enter place" name="place">
                                         </div>
                                     </div>
@@ -59,9 +59,9 @@
                                                                     <input type="text" class="form-control" name="RTOData[location][]" value="">
                                                                 </td>
                                                                 <td class="{{ $errors->has('RTOData.amount.'.$RTOKey) ? ' has-error' : '' }}">
-                                                                    <input type="number" min="0" class="form-control" name="RTOData[amount][]" value="">
+                                                                    <input type="text" id="number-only" min="0" class="form-control" name="RTOData[amount][]" value="">
                                                                 </td>
-                                                                <td><i style="color: red;" class="fa fa-close RemoveRTOMasterInput"></i></td>
+                                                                <td class="RemoveRTOMasterInput" style="font-size: 18px;"><i style="color: red;" class="fa fa-close fa-10xx"></i></td>
                                                             </tr>
                                                             @endforeach
                                                         @endif

@@ -31,6 +31,7 @@
         <!-- End Footer -->
         </div>
     </body>
+    <script src="{{ url('/js/commonscript.js') }}"></script>
     @if(env('APP_ENV') == 'production')
         <script src="https://embed.small.chat/T432XN8QHG7CM1TEF5.js" async></script>
         <!-- Global site tag (gtag.js) - Google Analytics -->

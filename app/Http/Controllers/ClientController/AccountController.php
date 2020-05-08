@@ -34,6 +34,7 @@ class AccountController extends Controller
     public function save(){
         $this->validate(request(),[
             'account'=>'required',
+            'HolderName'=>'required',
         ]);
 
         $CustomerData=$this->Account::where([['clientid',auth()->user()->id],['account',request('account')],['HolderName',request('HolderName')]])->first();
@@ -66,6 +67,7 @@ class AccountController extends Controller
     public function update($id){
         $this->validate(request(),[
             'account'=>'required',
+            'HolderName'=>'required',
         ]);
 
         try {

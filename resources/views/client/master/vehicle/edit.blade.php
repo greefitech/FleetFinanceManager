@@ -19,7 +19,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('ownerName') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Owner Name</label>
+                                            <label>Owner Name <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" min="0" value="{{ $Vehicle->ownerName }}" placeholder="Enter Owner Name" name="ownerName">
                                         </div>
                                     </div>
@@ -27,7 +27,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('vehicleNumber') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Vehicle Number</label>
+                                            <label>Vehicle Number <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ $Vehicle->vehicleNumber }}" placeholder="Enter Vehicle Number" name="vehicleNumber">
                                         </div>
                                     </div>
@@ -37,7 +37,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('vehicleName') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Vehicle Name</label>
+                                            <label>Vehicle Name <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ $Vehicle->vehicleName }}" placeholder="Enter Vehicle Name" name="vehicleName">
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('vehicleLastKm') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Vehicle Last KM</label>
+                                            <label>Vehicle Last KM <span style="color:red">*</span></label>
                                             <input type="number" class="form-control" min="0" value="{{ $Vehicle->vehicleLastKm }}" placeholder="Enter Vehicle Last KM" name="vehicleLastKm">
                                         </div>
                                     </div>
@@ -64,7 +64,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('vehicleType') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Vehicle Type</label>
+                                            <label>Vehicle Type <span style="color:red">*</span></label>
                                             <select class="form-control" name="vehicleType">
                                                 <option value="">Select Vehicle Type</option>
                                                 @foreach($VehicleTypes as $vehicleType)

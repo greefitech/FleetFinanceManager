@@ -21,7 +21,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('account') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Account / Bank Name</label>
+                                            <label>Account / Bank Name <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" min="0" value="{{ $Account->account }}" placeholder="Enter Account / Bank Name" name="account">
                                         </div>
                                     </div>
@@ -29,7 +29,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('HolderName') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Account Holder Name</label>
+                                            <label>Account Holder Name <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ $Account->HolderName }}" placeholder="Enter Account Holder Name" name="HolderName">
                                         </div>
                                     </div>
