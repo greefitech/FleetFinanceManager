@@ -20,7 +20,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Date From</label>
+                                            <label>Date From <span style="color:red">*</span></label>
                                             <input type="date" class="form-control" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom">
                                         </div>
                                     </div>
@@ -28,7 +28,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('dateTo') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Date To</label>
+                                            <label>Date To <span style="color:red">*</span></label>
                                             <input type="date" class="form-control" value="{{ old('dateTo') }}" placeholder="Enter Date To" name="dateTo">
                                         </div>
                                     </div>
@@ -36,7 +36,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Vehicle</label>
+                                            <label>Vehicle <span style="color:red">*</span></label>
                                           <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
                                             </select>
                                         </div>
@@ -47,7 +47,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('startKm') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Starting KM</label>
+                                            <label>Starting KM <span style="color:red">*</span></label>
                                             <input type="number" id="entry-startkm" class="form-control CalculateKm" value="{{ old('startKm') }}" placeholder="Enter Starting KM" name="startKm">
                                         </div>
                                     </div>
@@ -55,7 +55,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('endKm') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Ending KM</label>
+                                            <label>Ending KM <span style="color:red">*</span></label>
                                             <input type="number" id="entry-endkm" class="form-control CalculateKm" value="{{ old('endKm') }}" placeholder="Enter Ending KM" name="endKm">
                                         </div>
                                     </div>
@@ -74,7 +74,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Staff 1</label>
+                                            <label>Staff 1 <span style="color:red">*</span></label>
                                             <select class="form-control select2 AutoStaff" name="staff1">
                                             </select>
                                         </div>

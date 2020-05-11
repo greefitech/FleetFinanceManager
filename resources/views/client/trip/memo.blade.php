@@ -26,7 +26,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
-                                                <label>Vehicle / வண்டி எண் </label>
+                                                <label>Vehicle / வண்டி எண் <span style="color:red">*</span></label>
                                                 {!! Form::select('vehicleId', Auth::user()->vehicles->pluck('vehicleNumber','id'),null, ['class' => 'form-control select2 VehicleChange GetLastKm','placeholder'=>'Select Vehicle']) !!}
                                             </div>
                                         </div>
@@ -34,7 +34,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
-                                                <label>Date / தேதி </label>
+                                                <label>Date / தேதி <span style="color:red">*</span></label>
                                                 {!! Form::date('dateFrom', null, ['class' => 'form-control DateChanges dateFrom','max'=>date('Y-m-d')]) !!}
                                             </div>
                                         </div>
@@ -42,7 +42,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group{{ $errors->has('dateTo') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
-                                                <label>Date / தேதி </label>
+                                                <label>Date / தேதி <span style="color:red">*</span></label>
                                                 {!! Form::date('dateTo', null, ['class' => 'form-control DateChanges dateTo','max'=>date('Y-m-d')]) !!}
                                             </div>
                                         </div>
@@ -61,7 +61,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group{{ $errors->has('startKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
-                                                <label>Starting KM / ஆரம்ப கிமீ</label>
+                                                <label>Starting KM / ஆரம்ப கிமீ <span style="color:red">*</span></label>
                                                 {!! Form::number('startKm', null, ['class' => 'form-control CalculateKm','min'=>0,'placeholder'=>'Starting KM','id'=>'entry-startkm']) !!}
                                             </div>
                                         </div>
@@ -69,7 +69,7 @@
                                     <div class="col-sm-3">
                                         <div class="form-group{{ $errors->has('endKm') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
-                                                <label>Ending KM / முடிவு கிமீ</label>
+                                                <label>Ending KM / முடிவு கிமீ <span style="color:red">*</span></label>
                                                 {!! Form::number('endKm', null, ['class' => 'form-control CalculateKm','min'=>0,'placeholder'=>'Ending KM','id'=>'entry-endkm']) !!}
                                             </div>
                                         </div>
@@ -91,7 +91,7 @@
                                          <div class="col-sm-3">
                                             <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
                                                 <div class="col-sm-12">
-                                                    <label>First Driver / டிரைவர் பெயர் 1</label>
+                                                    <label>First Driver / டிரைவர் பெயர் 1 <span style="color:red">*</span></label>
                                                     <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
@@ -133,7 +133,7 @@
                                          <div class="col-sm-3">
                                             <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
                                                 <div class="col-sm-12">
-                                                    <label>First Driver / டிரைவர் பெயர் 1</label>
+                                                    <label>First Driver / டிரைவர் பெயர் 1 <span style="color:red">*</span></label>
                                                     <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
@@ -202,18 +202,18 @@
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>Date / தேதி</th>
-                                                            <th>Customer</th>
-                                                            <th>Source / புறப்படுமிடம்</th>
-                                                            <th>Destination / சேருமிடம்</th>
-                                                            <th>Load / லோடு</th>
-                                                            <th>Ton/டன்</th>
+                                                            <th>Date / தேதி <span style="color:red">*</span></th>
+                                                            <th>Customer <span style="color:red">*</span></th>
+                                                            <th>Source / புறப்படுமிடம் <span style="color:red">*</span></th>
+                                                            <th>Destination / சேருமிடம் <span style="color:red">*</span></th>
+                                                            <th>Load / லோடு <span style="color:red">*</span></th>
+                                                            <th>Ton/டன் <span style="color:red">*</span></th>
                                                             <th>Account Type</th>
-                                                            <th>Bill Amount</th>
+                                                            <th>Bill Amount <span style="color:red">*</span></th>
                                                             <th>Advance / வரவு</th>
                                                             <th>Commission / கமிஷன்</th>
-                                                            <th>Driver Padi (%)</th>
-                                                            <th>Cleaner Padi (%)</th>
+                                                            <th>Driver Padi (%) <span style="color:red">*</span></th>
+                                                            <th>Cleaner Padi (%) <span style="color:red">*</span></th>
                                                             <th>Driver Padi</th>
                                                             <th>Cleaner Padi</th>
                                                             <th>Export / ஏற்றுமதிக்கூலி</th>
@@ -343,11 +343,11 @@
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
-                                                        <th>Date / தேதி</th>
+                                                        <th>Date / தேதி <span style="color:red">*</span></th>
                                                         <th>Location / இடம்</th>
                                                         <th>Bunk / Description</th>
-                                                        <th>Litre / லிட்டர்</th>
-                                                        <th>Total Cost / விலை</th>
+                                                        <th>Litre / லிட்டர் <span style="color:red">*</span></th>
+                                                        <th>Total Cost / விலை <span style="color:red">*</span></th>
                                                         <th>Account Type</th>
                                                         <th>Payment Status</th>
                                                         <th>Action</th>
@@ -453,8 +453,8 @@
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
-                                                        <th>Location / இடம்</th>
-                                                        <th>Cost / ரூ.</th>
+                                                        <th>Location / இடம் <span style="color:red">*</span></th>
+                                                        <th>Cost / ரூ. <span style="color:red">*</span></th>
                                                         <th>Action</th>
                                                     </tr>
                                                     </thead>
@@ -528,8 +528,8 @@
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>Location / இடம்</th>
-                                                            <th>Cost / ரூ.</th>
+                                                            <th>Location / இடம் <span style="color:red">*</span></th>
+                                                            <th>Cost / ரூ. <span style="color:red">*</span> <span style="color:red">*</span></th>
                                                             <th>Action</th>
                                                         </tr>
                                                     </thead>
@@ -592,10 +592,10 @@
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                         <tr>
-                                                            <th>Expenses Type</th>
+                                                            <th>Expenses Type <span style="color:red">*</span></th>
                                                             <th>Quantity</th>
                                                             <th>Location</th>
-                                                            <th>Cost / ரூ.</th>
+                                                            <th>Cost / ரூ. <span style="color:red">*</span></th>
                                                             <th>Note</th>
                                                             <th>Account</th>
                                                             <th>Status</th>
@@ -689,7 +689,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Location</th>
-                                                        <th>Cost / ரூ.</th>
+                                                        <th>Cost / ரூ. <span style="color:red">*</span></th>
                                                         <th>Account</th>
                                                         <th>Action</th>
                                                     </tr>
@@ -758,8 +758,8 @@
                                                 <table  class="table table-bordered">
                                                     <thead>
                                                     <tr>
-                                                        <th>Date</th>
-                                                        <th>Amount / ரூ.</th>
+                                                        <th>Date <span style="color:red">*</span></th>
+                                                        <th>Amount / ரூ. <span style="color:red">*</span></th>
                                                         <th>Account</th>
                                                         <th>Action</th>
                                                     </tr>

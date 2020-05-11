@@ -20,7 +20,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Date From</label>
+                                            <label>Date From <span style="color:red">*</span></label>
                                             <input type="date" class="form-control" value="{{ old('date') }}" placeholder="Enter Date" name="date">
                                         </div>
                                     </div>
@@ -28,7 +28,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('tripId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Trip</label>
+                                            <label>Trip <span style="color:red">*</span></label>
                                             <select name="tripId" class="form-control select2"  id="entry-trip">
                                                 <option value="">Select Trip</option>
                                                 @foreach(Auth::user()->NotCompletedTrips as $Trip)
@@ -44,7 +44,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Advance</label>
+                                            <label>Advance <span style="color:red">*</span></label>
                                             <input type="number" min="0" class="form-control" value="{{ old('amount') }}" placeholder="Enter Amount" name="amount">
                                         </div>
                                     </div>

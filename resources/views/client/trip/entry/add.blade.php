@@ -1,4 +1,4 @@
-@extends('client.layout.master')
+ <span style="color:red">*</span>@extends('client.layout.master')
 
 @section('EntryMenu','active')
 
@@ -20,7 +20,7 @@
                                 <div class="col-sm-12">
                                     <div class="form-group{{ $errors->has('tripId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Trip</label>
+                                            <label>Trip <span style="color:red">*</span></label>
                                             <select name="tripId" class="form-control select2"  id="entry-trip">
                                                 <option value="">Select Trip</option>
                                                 @foreach(Auth::user()->NotCompletedTrips as $Trip)
@@ -36,7 +36,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Date</label>
+                                            <label>Date <span style="color:red">*</span></label>
                                             <input type="date" class="form-control" value="{{ old('dateFrom') }}" placeholder="Enter Date" name="dateFrom"  id="entry-dateFrom">
                                         </div>
                                     </div>
@@ -44,7 +44,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Vehicle</label>
+                                            <label>Vehicle <span style="color:red">*</span></label>
                                             <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
                                             </select>
                                         </div>
@@ -64,7 +64,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Staff 1</label>
+                                            <label>Staff 1 <span style="color:red">*</span></label>
                                             <select name="staff[]" class="form-control select2 AutoStaff" id="entry-staff1">
                                             </select>
                                         </div>
@@ -95,7 +95,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('locationFrom') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Location From</label>
+                                            <label>Location From <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ old('locationFrom') }}" placeholder="Enter Location From" name="locationFrom">
                                         </div>
                                     </div>
@@ -103,7 +103,7 @@
                                 <div class="col-sm-6">
                                     <div class="form-group{{ $errors->has('locationTo') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Location To</label>
+                                            <label>Location To <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ old('locationTo') }}" placeholder="Enter Location To" name="locationTo">
                                         </div>
                                     </div>
@@ -114,7 +114,7 @@
                                 <div class="col-sm-8">
                                     <div class="form-group{{ $errors->has('loadType') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Load Type</label>
+                                            <label>Load Type <span style="color:red">*</span></label>
                                             <input type="text" class="form-control" value="{{ old('loadType') }}" placeholder="Enter Load Type" name="loadType">
                                         </div>
                                     </div>
@@ -122,7 +122,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('ton') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Tons</label>
+                                            <label>Tons <span style="color:red">*</span></label>
                                             <input type="number" class="form-control" step="0.01" value="{{ old('ton') }}" placeholder="Enter Location To" name="ton">
                                         </div>
                                     </div>
@@ -148,7 +148,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('billAmount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Bill Amount</label>
+                                            <label>Bill Amount <span style="color:red">*</span></label>
                                             <input type="number" class="form-control calculateEntryValue CalculateComission" min="0" value="{{ old('billAmount') }}" placeholder="Enter Bill Amount" name="billAmount"  id="entry-billAmount">
                                         </div>
                                     </div>
@@ -164,7 +164,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('driverPadi') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Driver Padi (%)</label>
+                                            <label>Driver Padi (%) <span style="color:red">*</span></label>
                                             <input type="number" step="0.01" class="form-control" step="0.01" value="{{ old('driverPadi') }}" placeholder="Enter Driver Padi" name="driverPadi" id="entry-driverPadi">
                                         </div>
                                     </div>
@@ -176,7 +176,7 @@
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('cleanerPadi') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Cleaner Padi (%)</label>
+                                            <label>Cleaner Padi (%) <span style="color:red">*</span></label>
                                             <input type="number" step="0.01" class="form-control" min="0" value="{{ old('cleanerPadi') }}" placeholder="Enter Cleaner Padi" name="cleanerPadi" id="entry-cleanerPadi">
                                         </div>
                                     </div>
