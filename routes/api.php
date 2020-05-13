@@ -21,6 +21,7 @@ use Illuminate\Http\Request;
 Route::post('login', 'API\UserController@login');
 Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function() {
+    Route::post('/logout', 'API\UserController@logout');
 
     Route::get('/dashboard/dashboard-summary', 'API\DashboardController\DashboardController@DashboardIncomeExpenseSummary');
     Route::get('/dashboard/dashboard-summary-vehicle-wise-list', 'API\DashboardController\DashboardController@dashboardVehicleWiseList');

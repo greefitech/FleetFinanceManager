@@ -53,9 +53,9 @@ class UserController extends Controller
         ]);
         if ($validator->fails()) {
             $errorMsg['status'] = 'error';
-             foreach ($validator->errors()->toArray() as $value) {
+            foreach ($validator->errors()->toArray() as $value) {
                $errorMsg['error'][]=$value[0];
-           }
+            }
             return response()->json(['status'=>'error','data'=>$errorMsg], 401);
         }
 
@@ -155,8 +155,7 @@ class UserController extends Controller
      * )
      */
 
-    public function register(Request $request)
-    {
+    public function register(Request $request){
         $validator = Validator::make($request->all(), [
             'name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:clients',
@@ -168,9 +167,9 @@ class UserController extends Controller
         ]);
         if ($validator->fails()) {
             $errorMsg['status'] = 'error';
-             foreach ($validator->errors()->toArray() as $value) {
-               $errorMsg['error'][]=$value[0];
-           }
+            foreach ($validator->errors()->toArray() as $value) {
+                $errorMsg['error'][]=$value[0];
+            }
             return response()->json(['status'=>'error','data'=>$errorMsg], 401);
         }
         
@@ -178,8 +177,14 @@ class UserController extends Controller
         $input['password'] = bcrypt($input['password']);
         $input['expires_on'] = Helper::get_expire_date(date('Y'));
         $user = Client::create($input);
-        $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
-       return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
+        // $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
+       return response()->json(['msg'=>'User Registered Success'], $this->successStatus);
     }
 
+
+    /*Logout User */
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return response()->json(['msg'=>'Logout Success'], $this->successStatus);
+    }
 }
