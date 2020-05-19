@@ -8,7 +8,7 @@
         <div class="col-md-4 col-sm-6 col-xs-12"></div>
         <div class="col-md-4 col-sm-6 col-xs-12">
             <div class="info-box">
-                <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
+                <span class="info-box-icon bg-aqua"><i class="fa fa-truck"></i></span>
                 <div class="info-box-content">
                     <span class="info-box-text">Balance Vehicle Count</span>
                     <span class="info-box-number"><center><span style="color: green;font-size: 30px">{{ Auth::user()->vehicleCredit - count(Auth::user()->vehicles) }}</span></center></span>

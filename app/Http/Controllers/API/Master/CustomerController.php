@@ -22,7 +22,8 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        //
+        $success['customers']=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->get();
+        return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
     }
 
     /**
@@ -43,7 +44,41 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+         $validator = Validator::make(request()->all(), [
+            'name' => 'required',
+            'mobile' => 'required|min:10|max:10',
+            'address' => 'required',
+            'type' => 'required|in:broker,direct',
+        ]);
+
+        if ($validator->fails()) {
+//            foreach ($validator->errors()->toArray() as $value) {
+//                $errData['error'][]=$value[0];
+//            }
+            $errData['msg'] = 'Please check the data';
+            return response()->json($errData, 401);
+        }
+
+        // CHECK STAFF MOBILE ALREADY EXITS OR NOT
+        $customerData=Customer::where([['clientid', Auth::user()->id],['mobile',request('mobile')]])->first();
+        if(!empty($customerData->mobile)){
+            $errormsg['msg'] = 'Customer Already Exist';
+            return response()->json(['status'=>'error','data'=>$errormsg], 401);
+        }
+        try {
+            Customer::create([
+                'name' => request('name'),
+                'mobile' => request('mobile'),
+                'address' => request('address'),
+                'type' => request('type'),
+                'clientid' => auth()->user()->id,
+            ]);
+            $finalData['msg']='Customer Created Successfully';
+            return response()->json(['status'=>'success','data' => $finalData], $this-> successStatus);
+        } catch (\Illuminate\Database\QueryException $e) {
+            $errormsg['msg'] = 'Error On Insert';
+            return response()->json(['status'=>'error','data'=>$errormsg], 401);
+        } 
     }
 
     /**
