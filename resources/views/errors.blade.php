@@ -39,3 +39,4 @@
         toastr.warning('{{ Session::get('sorry') }}!');
     </script>
 @endif
+
