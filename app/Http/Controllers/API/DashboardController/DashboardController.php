@@ -64,18 +64,21 @@ class DashboardController extends Controller
         $prev2month=\Carbon\Carbon::now()->subMonth(2)->format('m');$prev2year=\Carbon\Carbon::now()->subMonth(2)->format('Y');
 
         $previous2month = date("M", mktime(0, 0, 0, $prev2month,10)).' - '.$prev2year;
-        $success['chart'][$previous2month]['profit'] = auth()->user()->CalculateProfitAmountTotal('',$prev2month,$prev2year);
-        $success['chart'][$previous2month]['expense'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$prev2month,$prev2year);
+        $success['chart'][0]['month'] = $previous2month;
+        $success['chart'][0]['profit'] = auth()->user()->CalculateProfitAmountTotal('',$prev2month,$prev2year);
+        $success['chart'][0]['expense'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$prev2month,$prev2year);
 
 
-   		$previousmonth = date("M", mktime(0, 0, 0, $prevmonth,10)).' - '.$prevyear;
-        $success['chart'][$previousmonth]['profit'] = auth()->user()->CalculateProfitAmountTotal('',$prevmonth,$prevyear);
-        $success['chart'][$previousmonth]['expense'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$prevmonth,$prevyear);
+        $previousmonth = date("M", mktime(0, 0, 0, $prevmonth,10)).' - '.$prevyear;
+        $success['chart'][1]['month'] = $previousmonth;
+        $success['chart'][1]['profit'] = auth()->user()->CalculateProfitAmountTotal('',$prevmonth,$prevyear);
+        $success['chart'][1]['expense'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$prevmonth,$prevyear);
 
 
         $currentmonth = date("M", mktime(0, 0, 0, $month,10)).' - '.$year;
-        $success['chart'][$currentmonth]['profit'] = auth()->user()->CalculateProfitAmountTotal('',$month,$year);
-        $success['chart'][$currentmonth]['expense'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,$year);
+        $success['chart'][2]['month'] = $currentmonth;
+        $success['chart'][2]['profit'] = auth()->user()->CalculateProfitAmountTotal('',$month,$year);
+        $success['chart'][2]['expense'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,$year);
 
 
 		$message = $previous2month.' to '.$currentmonth.' Report';
