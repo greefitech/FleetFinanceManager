@@ -23,8 +23,6 @@ class CustomerController extends Controller
     public function index()
     {
         $success['customers']=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->get();
-
-
         $success['customers']->map(function($customer) {
                 $total = ($customer->customerEntryData->sum('balance')-$customer->customerIncomeData->sum('recevingAmount')-$customer->customerIncomeData->sum('discountAmount'));
                 $customer->outStandingAmount=$total;
@@ -59,9 +57,9 @@ class CustomerController extends Controller
         ]);
 
         if ($validator->fails()) {
-//            foreach ($validator->errors()->toArray() as $value) {
-//                $errData['error'][]=$value[0];
-//            }
+            foreach ($validator->errors()->toArray() as $value) {
+               $errData['error'][]=$value[0];
+            }
             $errData['msg'] = 'Please check the data';
             return response()->json($errData, 401);
         }
@@ -69,8 +67,7 @@ class CustomerController extends Controller
         // CHECK STAFF MOBILE ALREADY EXITS OR NOT
         $customerData=Customer::where([['clientid', Auth::user()->id],['mobile',request('mobile')]])->first();
         if(!empty($customerData->mobile)){
-            $errormsg['msg'] = 'Customer Already Exist';
-            return response()->json(['status'=>'error','data'=>$errormsg], 401);
+            return response()->json(['msg'=>'Customer Already Exist'], 401);
         }
         try {
             Customer::create([
@@ -80,11 +77,9 @@ class CustomerController extends Controller
                 'type' => request('type'),
                 'clientid' => auth()->user()->id,
             ]);
-            $finalData['msg']='Customer Created Successfully';
-            return response()->json(['status'=>'success','data' => $finalData], $this-> successStatus);
+            return response()->json(['msg'=>'Customer Created Successfully'], $this-> successStatus);
         } catch (\Illuminate\Database\QueryException $e) {
-            $errormsg['msg'] = 'Error On Insert';
-            return response()->json(['status'=>'error','data'=>$errormsg], 401);
+            return response()->json(['msg'=>'Error On Insert'], 401);
         } 
     }
 

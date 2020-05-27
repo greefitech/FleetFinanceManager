@@ -157,18 +157,18 @@ Route::get('/trip-sheet/{tripid}/download', 'ManagerController\TripSheetControll
 
 
 //profile
-Route::get('/profile', 'ManagerController\ProfileController@profile')->name('profile');
-Route::post('/profile', 'ManagerController\ProfileController@UpdateProfile')->name('UpdateProfile');
-Route::get('/profile/change-password', 'ManagerController\ProfileController@ChangePassword')->name('ChangePassword');
-Route::post('/profile/update-password', 'ManagerController\ProfileController@UpdatePassword')->name('UpdatePassword');
+// Route::get('/profile', 'ManagerController\ProfileController@profile')->name('profile');
+// Route::post('/profile', 'ManagerController\ProfileController@UpdateProfile')->name('UpdateProfile');
+// Route::get('/profile/change-password', 'ManagerController\ProfileController@ChangePassword')->name('ChangePassword');
+// Route::post('/profile/update-password', 'ManagerController\ProfileController@UpdatePassword')->name('UpdatePassword');
 
 
 //profile
-Route::get('/managers', 'ManagerController\ManagerController@view')->name('ViewManagers');
-Route::get('/manager/add', 'ManagerController\ManagerController@add')->name('AddManager');
-Route::post('/manager/save', 'ManagerController\ManagerController@save')->name('SaveManager');
-Route::get('/manager/{id}/edit', 'ManagerController\ManagerController@edit')->name('EditManager');
-Route::post('/manager/{id}/update', 'ManagerController\ManagerController@update')->name('UpdateManager');
+// Route::get('/managers', 'ManagerController\ManagerController@view')->name('ViewManagers');
+// Route::get('/manager/add', 'ManagerController\ManagerController@add')->name('AddManager');
+// Route::post('/manager/save', 'ManagerController\ManagerController@save')->name('SaveManager');
+// Route::get('/manager/{id}/edit', 'ManagerController\ManagerController@edit')->name('EditManager');
+// Route::post('/manager/{id}/update', 'ManagerController\ManagerController@update')->name('UpdateManager');
 
 Route::get('getendingkm','ManagerController\MemoController@getendingkm');
 

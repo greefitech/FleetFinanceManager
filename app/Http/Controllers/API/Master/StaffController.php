@@ -24,9 +24,9 @@ class StaffController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        $success['staffs']=Staff::select('id','name','mobile1','mobile2','address','type','licenceNumber')->where([['clientid',auth()->user()->id]])->get();
+        return response()->json(['msg'=>'Staffs List','data' => $success], $this->successStatus);
     }
 
     /**
@@ -36,7 +36,7 @@ class StaffController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -47,7 +47,43 @@ class StaffController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|max:255',
+            'mobile1' => 'required|max:10|min:10',
+            'mobile2' => 'max:10|min:10|different:mobile1',
+            'address' => 'required',
+            'licenceNumber' => 'required',
+            'licenceRenewal' => 'date|date_format:Y-m-d',
+            'type' => 'required|in:manager,driver,cleaner',
+        ]);
+        if ($validator->fails()) {
+           foreach ($validator->errors()->toArray() as $value) {
+               $errData['error'][]=$value[0];
+           }
+            $errData['msg'] = 'Please check the data';
+            return response()->json($errData, 401);
+        }
+        $StaffData=Staff::where([['clientid',Auth::user()->id],['mobile1',request('mobile1')]])->first();
+        if(!empty($StaffData->mobile1)){
+            return response()->json(['msg'=>'Staff Already Exist','data'=>$errormsg], 401);
+        }
+
+         try {
+            Staff::create([
+                'name' => request('name'),
+                'mobile1' => request('mobile1'),
+                'mobile2' => request('mobile2'),
+                'address' => request('address'),
+                'licenceNumber' => strtoupper(request('licenceNumber')),
+                'licenceRenewal' => request('licenceRenewal'),
+                'type' => request('type'),
+                'clientid' => auth()->user()->id,
+            ]);
+            return response()->json(['msg'=>'Staff Created Successfully'], $this->successStatus);
+        }catch (Exception $e){
+             $errormsg['msg'] = 'Error On Insert';
+             return response()->json(['msg'=>'Error On Insert','data'=>$errormsg], 401);
+        }
     }
 
     /**
@@ -56,9 +92,13 @@ class StaffController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
-        //
+    public function show($id){
+        try{
+            $success['staff'] = Staff::findOrfail($id);
+            return response()->json(['msg'=>'Staff List','data' => $success], $this-> successStatus);
+        }catch (Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'], 401);
+        }
     }
 
     /**

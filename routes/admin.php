@@ -65,7 +65,7 @@ Route::post('/vehicleCredit/add', 'AdminControllers\VehicleCreditControllers@Sav
 
 
 //Vehicle Renewal
-Route::get('/VehicleRenewal', 'AdminControllers\ClientRenewalControllers@AddVehicleRenewal');
+// Route::get('/VehicleRenewal', 'AdminControllers\ClientRenewalControllers@AddVehicleRenewal');
 
 //VehicleCreditPayment
 Route::get('/Vehicle-Credit-Payment/add', 'AdminControllers\VehicleCreditPaymentController@add')->name('AddVehicleCreditPayment');
