@@ -58,10 +58,9 @@ class CustomerController extends Controller
 
         if ($validator->fails()) {
             foreach ($validator->errors()->toArray() as $value) {
-               $errData['error'][]=$value[0];
+               $errData[]=$value[0];
             }
-            $errData['msg'] = 'Please check the data';
-            return response()->json($errData, 401);
+            return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
         }
 
         // CHECK STAFF MOBILE ALREADY EXITS OR NOT

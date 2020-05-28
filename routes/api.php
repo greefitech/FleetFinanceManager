@@ -28,10 +28,6 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/dashboard/dashboard-summary-last-three-month-chart', 'API\DashboardController\DashboardController@dashboardLastThreeMonthChart');
 
 
-
-
-
-
 //    CUSTOMER
     Route::resource('/master/customer', 'API\Master\CustomerController');
 
