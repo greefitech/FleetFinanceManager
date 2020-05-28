@@ -54,6 +54,9 @@ Route::group(['middleware' => 'auth:api'], function() {
 	// Route::get('/vehicle/{id}/edit', 'API\VehicleController@EditVehicle');
 	// Route::post('/vehicle/{id}/update', 'API\VehicleController@UpdateVehicle');
 
+    //  VEHICLE Document
+    Route::get('/master/vehicle-document/{vehicleId}', 'API\Master\DocumentController@show');
+
 //	ACCOUNT
     Route::post('/account/create', 'API\AccountController@CreateAccount');
     Route::get('/accounts', 'API\AccountController@GetAccounts');
