@@ -181,6 +181,12 @@ class UserController extends Controller
        return response()->json(['msg'=>'User Registered Success'], $this->successStatus);
     }
 
+    /*User Profile */
+    public function profile(Request $request){
+        $success['client'] = auth()->user();
+        return response()->json(['msg'=>'Client List','data' =>$success], $this-> successStatus);
+    }
+
 
     /*Logout User */
     public function logout(Request $request){

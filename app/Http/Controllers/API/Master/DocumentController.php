@@ -53,7 +53,7 @@ class DocumentController extends Controller
     {
         try{
             $success['Documents'] = Document::with('DocumentType')->where('vehicleId',$id)->get();
-             $success['Documents']->map(function($Document) {
+            $success['Documents']->map(function($Document) {
                 $Document->dude_days=DateDifference($Document->duedate);
                 $Document->alert=(DateDifference($Document->duedate)<=$Document->notifyBefore)?'red':'green' ;
                 return $Document;
