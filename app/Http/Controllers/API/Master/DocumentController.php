@@ -87,7 +87,7 @@ class DocumentController extends Controller
 
     public function vehicleDocumentTypes($value=''){
          try{
-            
+           $success['DocumentTypes'] = DocumentType::select('id','documentType')->get();
            return response()->json(['msg'=>'Vehicle Document Type List','data' =>$success], $this->successStatus);
         }catch (Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
