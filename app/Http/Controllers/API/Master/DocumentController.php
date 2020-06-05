@@ -17,32 +17,6 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
-     */
-    public function store(Request $request)
-    {
-        //
-    }
-
     /**
      * Display the specified resource.
      *
@@ -52,6 +26,7 @@ class DocumentController extends Controller
     public function show($id)
     {
         try{
+            $success['DocumentTypes'] = DocumentType::select('id','documentType')->get();
             $success['Documents'] = Document::with('DocumentType')->where('vehicleId',$id)->get();
             $success['Documents']->map(function($Document) {
                 $Document->dude_days=DateDifference($Document->duedate);
@@ -73,7 +48,18 @@ class DocumentController extends Controller
      */
     public function edit($id)
     {
-        //
+        try{
+            $success['DocumentTypes'] = DocumentType::select('id','documentType')->get();
+            $success['Documents'] = Document::with('DocumentType')->where('vehicleId',$id)->get();
+            $success['Documents']->map(function($Document) {
+                $Document->dude_days=DateDifference($Document->duedate);
+                $Document->alert=(DateDifference($Document->duedate)<=$Document->notifyBefore)?'red':'green' ;
+                return $Document;
+            });
+           return response()->json(['msg'=>'Vehicle Document List','data' =>$success], $this-> successStatus);
+        }catch (Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],401);
+        }
     }
 
     /**
@@ -97,5 +83,14 @@ class DocumentController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function vehicleDocumentTypes($value=''){
+         try{
+            
+           return response()->json(['msg'=>'Vehicle Document Type List','data' =>$success], $this->successStatus);
+        }catch (Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],401);
+        }
     }
 }
