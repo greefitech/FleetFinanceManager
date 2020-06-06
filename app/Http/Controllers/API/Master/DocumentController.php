@@ -8,6 +8,8 @@ use App\Http\Controllers\Controller;
 use App\DocumentType;
 use App\Vehicle;
 use App\Document;
+use Illuminate\Support\Facades\Auth; 
+use Validator;
 
 class DocumentController extends Controller
 {
@@ -51,7 +53,7 @@ class DocumentController extends Controller
         try{
             $success['DocumentTypes'] = DocumentType::select('id','documentType')->get();
             $success['Document'] = Document::findorfail($id);
-           return response()->json(['msg'=>'Vehicle Document List','data' =>$success], $this-> successStatus);
+            return response()->json(['msg'=>'Vehicle Document List','data' =>$success], $this-> successStatus);
         }catch (Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
@@ -66,7 +68,34 @@ class DocumentController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+           'documentType'=>'required|exists:document_types,id',
+            'duedate'=>'required|date',
+            'notifyBefore'=>'required',
+            'issuingCompany'=>'required',
+            'interval'=>'required',
+            'amount'=>'required',
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+               $errData[]=$value[0];
+            }
+            return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
+        }
+        try{
+            $document = Document::findOrfail($id);
+            $document->documentType = request('documentType');
+            $document->duedate = request('duedate');
+            $document->notifyBefore = request('notifyBefore');
+            $document->interval = request('interval');
+            $document->issuingCompany = request('issuingCompany');
+            $document->amount = request('amount');
+            $document->notes = request('notes');
+            $document->save();
+            return response()->json(['msg'=>'Vehicle Document Updated Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],401);
+        }
     }
 
     /**

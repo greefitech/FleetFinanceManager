@@ -57,7 +57,7 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     //  VEHICLE Document
     Route::get('/master/vehicle-document-types', 'API\Master\DocumentController@vehicleDocumentTypes');
-    Route::get('/master/vehicle-document/{vehicleId}', 'API\Master\DocumentController@show');
+    Route::resource('/master/vehicle-document', 'API\Master\DocumentController');
 
 //	ACCOUNT
     Route::post('/account/create', 'API\AccountController@CreateAccount');
