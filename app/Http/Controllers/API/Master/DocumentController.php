@@ -50,12 +50,7 @@ class DocumentController extends Controller
     {
         try{
             $success['DocumentTypes'] = DocumentType::select('id','documentType')->get();
-            $success['Documents'] = Document::with('DocumentType')->where('vehicleId',$id)->get();
-            $success['Documents']->map(function($Document) {
-                $Document->dude_days=DateDifference($Document->duedate);
-                $Document->alert=(DateDifference($Document->duedate)<=$Document->notifyBefore)?'red':'green' ;
-                return $Document;
-            });
+            $success['Document'] = Document::findorfail($id);
            return response()->json(['msg'=>'Vehicle Document List','data' =>$success], $this-> successStatus);
         }catch (Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
