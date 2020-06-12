@@ -16,7 +16,7 @@ class CreateVehicleServicesTable extends Migration
         Schema::create('vehicle_services', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->longText('title');
-            $table->longText('notification')->default(0);
+            $table->string('notification')->default(0);
             $table->integer('clientid')->unsigned()->nullable();
             $table->foreign('clientid')->references('id')->on('clients');
             $table->softDeletes();
