@@ -83,6 +83,8 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::post('/entry/create', 'API\EntryController@CreateEntry');
 
     //Vehicle Services
+    Route::resource('/master/vehicle-service', 'API\Master\VehicleServiceController');
     Route::resource('/setting/vehicle-service', 'API\Setting\ServiceController');
+    Route::get('/setting/services/VehicleWise/{ServiceTypeId}/{VehicleId}', 'API\Setting\ServiceController@vehicleServiceData');
 });
 
