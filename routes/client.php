@@ -28,6 +28,8 @@ Route::resource('master/customers','ClientController\CustomerController');
 Route::resource('master/staffs','ClientController\StaffController');
 //Vehicle
 Route::resource('master/vehicles','ClientController\VehicleController');
+//VEHICLE SERVICE
+Route::resource('/master/vehicle-service', 'ClientController\Master\VehicleServiceController');
 
 //Documents
 Route::get('/documents/{vehicleid}/view', 'ClientController\DocumentController@view')->name('ViewDocuments');
@@ -206,3 +208,9 @@ Route::get('AutoCustomer','ClientController\EntryController@AutoCustomer')->name
 
 //auditor
 
+/*=====================
+         SETTING
+=======================*/
+Route::resource('/setting/service', 'ClientController\Setting\ServiceController');
+Route::get('/setting/services/VehicleWise/{VehicleId}', 'ClientController\Setting\ServiceController@VehicleWiseService');
+Route::get('/setting/services/VehicleWise/Service/{ServiceTypeId}/{VehicleId}', 'ClientController\Setting\ServiceController@editService');

@@ -45,6 +45,9 @@ Route::post('/documentType/{id}/update', 'AdminControllers\DocumentTypeControlle
 Route::get('/documentType/{id}/delete', 'AdminControllers\DocumentTypeController@delete')->name('DeleteDocumentType');
 
 
+//VEHICLE SERVICE
+Route::resource('/master/vehicle-service', 'AdminControllers\Master\VehicleServiceController');
+
 
 // CLIENT
 Route::get('/ClientList', 'AdminControllers\ClientControllers@ClientList')->name('ClientList');
@@ -79,6 +82,7 @@ Route::get('/Client/client-payment-balance-details', 'AdminControllers\VehicleCr
 Route::get('/Viewadminaccount', 'AdminControllers\AdminController@Viewadminaccount')->name('ViewAdminAccount');
 Route::get('/addadminaccount', 'AdminControllers\AdminController@addadminaccount')->name('adminAccountAdd');
 Route::POST('/SaveadminAccount', 'AdminControllers\AdminController@SaveadminAccount')->name('SaveadminAccount');
+
 
 
 

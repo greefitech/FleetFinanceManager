@@ -9,7 +9,7 @@
             @if(auth()->user()->id == 1)
 
 
-                <li class="treeview">
+                <li class="treeview @yield('masterMenu')">
                     <a href="#">
                         <i class="fa fa-book <?php echo $color[array_rand($color,1)] ?>"></i>
                         <span>Master</span>
@@ -17,10 +17,11 @@
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
                     </a>
-                    <ul class="treeview-menu" style="display: none;">
+                    <ul class="treeview-menu">
                         <li><a href="{{ url('/admin/vehicleType') }}"><i class="fa fa-car <?php echo $color[array_rand($color,1)] ?>"></i> <span>Vehicle Type</span></a></li>
                         <li><a href="{{ url('/admin/expenseType') }}"><i class="fa fa-money <?php echo $color[array_rand($color,1)] ?>"></i> <span>Expense Type</span></a></li>
                         <li><a href="{{ url('/admin/documentType') }}"><i class="fa fa-file <?php echo $color[array_rand($color,1)] ?>"></i> <span>Document Type</span></a></li>
+                        <li><a href="{{ action('AdminControllers\Master\VehicleServiceController@index') }}"><i class="fa fa-file <?php echo $color[array_rand($color,1)] ?>"></i> <span>Service Type</span></a></li>
                     </ul>
                 </li>
 
