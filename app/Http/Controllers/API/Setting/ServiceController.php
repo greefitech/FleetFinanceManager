@@ -89,4 +89,15 @@ class ServiceController extends Controller
     {
         //
     }
+
+
+    public function vehicleServiceData($VehicleServiceId,$VehicleId){
+        try {
+            $success['VehicleServices'] = Service::where([['vehicle_service_id',$VehicleServiceId],['vehicleId',$VehicleId]])->latest()->get();
+            return response()->json(['msg'=>'Service List','data' => $success], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],401);
+        }
+
+    }  
 }

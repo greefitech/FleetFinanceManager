@@ -123,7 +123,7 @@ class ServiceController extends Controller
     public function editService($VehicleServiceId,$VehicleId){
         try {
             if (request()->ajax()) {
-                $Services = Service::where([['vehicle_service_id',$VehicleServiceId],['vehicleId',$VehicleId]]);
+                $Services = Service::where([['vehicle_service_id',$VehicleServiceId],['vehicleId',$VehicleId]])->latest();
                 return DataTables::of($Services)
                     ->addColumn('action',
                         '<a href="{{ action(\'ClientController\Setting\ServiceController@destroy\',[$id]) }}" class="btn btn-md DeleteData" style="color:red"DeleteMessage="You will not be able to recover this Data!"><i class="fa fa-trash"></i></a>'
