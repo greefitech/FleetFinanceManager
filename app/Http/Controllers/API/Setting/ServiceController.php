@@ -31,7 +31,7 @@ class ServiceController extends Controller
      */
     public function create()
     {
-        //
+       
     }
 
     /**
@@ -42,7 +42,27 @@ class ServiceController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate(request(),[
+            'date' => 'required',
+            'service_station_name'=>'required',
+            'next_service_date'=>'required',
+        ]);
+        try {
+            $Service = new Service;
+            $Service->vehicleId = request('vehicleId');
+            $Service->vehicle_service_id = request('vehicle_service_id');
+            $Service->date = request('date');
+            $Service->next_service_date = request('next_service_date');
+            $Service->service_station_name = request('service_station_name');
+            $Service->service_km = request('service_km');
+            $Service->next_service_km = request('next_service_km');
+            $Service->note = request('note');
+            $Service->clientid = auth()->user()->id;
+            $Service->save();
+             response()->json(['msg'=>'Service List Created Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            response()->json(['msg'=>'error'], 404);
+        }
     }
 
     /**

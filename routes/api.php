@@ -28,36 +28,42 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/dashboard/dashboard-summary-last-three-month-chart', 'API\DashboardController\DashboardController@dashboardLastThreeMonthChart');
     Route::get('/profile', 'API\UserController@profile');
 
+    /*---------------------------
+          Master Route List
+    ---------------------------*/
+    Route::group(['prefix' => 'master'], function() {
+        Route::resource('/customer', 'API\Master\CustomerController');
+	    Route::resource('/staff', 'API\Master\StaffController');
+	    Route::resource('/vehicle', 'API\Master\VehicleController');
+        Route::get('/vehicle-document-types', 'API\Master\DocumentController@vehicleDocumentTypes');
+        Route::resource('/vehicle-document', 'API\Master\DocumentController');
+        Route::resource('/vehicle-service', 'API\Master\VehicleServiceController');
+    });
 
 //    CUSTOMER
-    Route::resource('/master/customer', 'API\Master\CustomerController');
 
  //    Route::get('/customers', 'API\CustomerController@GetCustomers');
  //    Route::post('/customer/create', 'API\CustomerController@CreateCustomer');
-	// Route::get('/customer/{id}/edit', 'API\CustomerController@EditCustomers');
-	// Route::post('/customer/{id}/update', 'API\CustomerController@UpdateCustomers');
-	// Route::delete('/customer/{id}/delete', 'API\CustomerController@DeleteCustomers');
+    // Route::get('/customer/{id}/edit', 'API\CustomerController@EditCustomers');
+    // Route::post('/customer/{id}/update', 'API\CustomerController@UpdateCustomers');
+    // Route::delete('/customer/{id}/delete', 'API\CustomerController@DeleteCustomers');
 
-//	STAFF
-	Route::resource('/master/staff', 'API\Master\StaffController');
+//  STAFF
  //    Route::post('/staff/create', 'API\StaffController@CreateStaff');
-	// Route::get('/staffs', 'API\StaffController@GetStaffs');
-	// Route::get('/staff/{id}/edit', 'API\StaffController@EditStaff');
-	// Route::post('/staff/{id}/update', 'API\StaffController@UpdateStaff');
-	// Route::delete('/staff/{id}/delete', 'API\StaffController@DeleteStaff');
+    // Route::get('/staffs', 'API\StaffController@GetStaffs');
+    // Route::get('/staff/{id}/edit', 'API\StaffController@EditStaff');
+    // Route::post('/staff/{id}/update', 'API\StaffController@UpdateStaff');
+    // Route::delete('/staff/{id}/delete', 'API\StaffController@DeleteStaff');
 
 
 //  VEHICLE
-	Route::resource('/master/vehicle', 'API\Master\VehicleController');
  //    Route::get('/vehicle/types', 'API\VehicleController@VehicleType');
-	// Route::post('/vehicle/create', 'API\VehicleController@CreateVehicle');
-	// Route::get('/vehicles', 'API\VehicleController@GetVehicles');
-	// Route::get('/vehicle/{id}/edit', 'API\VehicleController@EditVehicle');
-	// Route::post('/vehicle/{id}/update', 'API\VehicleController@UpdateVehicle');
+    // Route::post('/vehicle/create', 'API\VehicleController@CreateVehicle');
+    // Route::get('/vehicles', 'API\VehicleController@GetVehicles');
+    // Route::get('/vehicle/{id}/edit', 'API\VehicleController@EditVehicle');
+    // Route::post('/vehicle/{id}/update', 'API\VehicleController@UpdateVehicle');
 
     //  VEHICLE Document
-    Route::get('/master/vehicle-document-types', 'API\Master\DocumentController@vehicleDocumentTypes');
-    Route::resource('/master/vehicle-document', 'API\Master\DocumentController');
 
 //	ACCOUNT
     Route::post('/account/create', 'API\AccountController@CreateAccount');
@@ -82,9 +88,12 @@ Route::group(['middleware' => 'auth:api'], function() {
 //    ENTRY
     Route::post('/entry/create', 'API\EntryController@CreateEntry');
 
-    //Vehicle Services
-    Route::resource('/master/vehicle-service', 'API\Master\VehicleServiceController');
-    Route::resource('/setting/vehicle-service', 'API\Setting\ServiceController');
-    Route::get('/setting/services/VehicleWise/{ServiceTypeId}/{VehicleId}', 'API\Setting\ServiceController@vehicleServiceData');
+    /*---------------------------
+        Setting Routes list
+    ---------------------------*/
+    Route::group(['prefix' => 'setting'], function() {
+        Route::resource('/vehicle-service', 'API\Setting\ServiceController');
+        Route::get('/services/VehicleWise/{ServiceTypeId}/{VehicleId}', 'API\Setting\ServiceController@vehicleServiceData');
+    });
 });
 

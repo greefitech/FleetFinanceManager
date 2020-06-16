@@ -58,7 +58,7 @@ class ServiceController extends Controller
             $Service->clientid = auth()->user()->id;
             $Service->save();
             return redirect(action('ClientController\Setting\ServiceController@VehicleWiseService',request('vehicleId')))->with('success',['Service','Added Successfully']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('sorry','Sorry,Something went wrong!');
         }
     }
