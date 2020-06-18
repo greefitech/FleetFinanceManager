@@ -59,9 +59,9 @@ class ServiceController extends Controller
             $Service->note = request('note');
             $Service->clientid = auth()->user()->id;
             $Service->save();
-             response()->json(['msg'=>'Service List Created Successfully'], $this->successStatus);
+             return response()->json(['msg'=>'Service List Created Successfully'], $this->successStatus);
         }catch (\Exception $e){
-            response()->json(['msg'=>'error'], 404);
+            return response()->json(['msg'=>'error'], 404);
         }
     }
 
