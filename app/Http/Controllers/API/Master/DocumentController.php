@@ -46,7 +46,7 @@ class DocumentController extends Controller
             $document->vehicleId = request('vehicleId');
             $document->save();
             return response()->json(['msg'=>'Vehicle Document Created Successfully'], $this->successStatus);
-        }catch (\Exception $e){
+        }catch (Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
