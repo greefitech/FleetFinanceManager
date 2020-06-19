@@ -19,6 +19,37 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function store(Request $request){
+        $validator = Validator::make(request()->all(), [
+            'documentType'=>'required|exists:document_types,id',
+            'duedate'=>'required|date',
+            'notifyBefore'=>'required',
+            'issuingCompany'=>'required',
+            'interval'=>'required',
+            'amount'=>'required',
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+               $errData[]=$value[0];
+            }
+            return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
+        }
+        try{
+            $document = new Document;
+            $document->documentType = request('documentType');
+            $document->duedate = request('duedate');
+            $document->notifyBefore = request('notifyBefore');
+            $document->interval = request('interval');
+            $document->issuingCompany = request('issuingCompany');
+            $document->amount = request('amount');
+            $document->notes = request('notes');
+            $document->vehicleId = request('vehicleId');
+            $document->save();
+            return response()->json(['msg'=>'Vehicle Document Created Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],401);
+        }
+    }
     /**
      * Display the specified resource.
      *
