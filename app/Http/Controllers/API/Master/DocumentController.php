@@ -46,7 +46,7 @@ class DocumentController extends Controller
             $document->vehicleId = request('vehicleId');
             $document->save();
             return response()->json(['msg'=>'Vehicle Document Created Successfully'], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -67,7 +67,7 @@ class DocumentController extends Controller
                 return $Document;
             });
            return response()->json(['msg'=>'Vehicle Document List','data' =>$success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
 
@@ -85,7 +85,7 @@ class DocumentController extends Controller
             $success['DocumentTypes'] = DocumentType::select('id','documentType')->get();
             $success['Document'] = Document::findorfail($id);
             return response()->json(['msg'=>'Vehicle Document List','data' =>$success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -144,7 +144,7 @@ class DocumentController extends Controller
          try{
            $success['DocumentTypes'] = DocumentType::select('id','documentType')->get();
            return response()->json(['msg'=>'Vehicle Document Type List','data' =>$success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
