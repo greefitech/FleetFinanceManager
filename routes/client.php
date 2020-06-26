@@ -22,14 +22,14 @@ Route::get('/dashboard/get-dashboard-chart-values', 'ClientController\DashboardC
 *------------------------------
 */
 
-//CUSTOMER
-Route::resource('master/customers','ClientController\CustomerController');
-//Staff
-Route::resource('master/staffs','ClientController\StaffController');
-//Vehicle
-Route::resource('master/vehicles','ClientController\VehicleController');
-//VEHICLE SERVICE
-Route::resource('/master/vehicle-service', 'ClientController\Master\VehicleServiceController');
+/*Master route list*/
+Route::group(['prefix' => 'master'], function() {
+	Route::resource('/customers','ClientController\CustomerController');
+	Route::resource('/staffs','ClientController\StaffController');
+	Route::resource('/vehicles','ClientController\VehicleController');
+	Route::resource('/vehicle-service', 'ClientController\Master\VehicleServiceController');
+	Route::resource('/tyre', 'ClientController\Master\TyreController');
+});
 
 //Documents
 Route::get('/documents/{vehicleid}/view', 'ClientController\DocumentController@view')->name('ViewDocuments');
@@ -214,3 +214,10 @@ Route::get('AutoCustomer','ClientController\EntryController@AutoCustomer')->name
 Route::resource('/setting/service', 'ClientController\Setting\ServiceController');
 Route::get('/setting/services/VehicleWise/{VehicleId}', 'ClientController\Setting\ServiceController@VehicleWiseService');
 Route::get('/setting/services/VehicleWise/Service/{ServiceTypeId}/{VehicleId}', 'ClientController\Setting\ServiceController@editService');
+
+
+Route::resource('/setting/tyre', 'ClientController\Setting\TyreController');
+Route::get('/setting/tyre/vehicle/{vehicleid}/assign-tyre/{assignedtyreid}/edit',  'ClientController\Setting\TyreController@EditVehicleAssignTyre')->name('EditVehicleAssignTyre');
+Route::post('/setting/tyre/vehicle/{vehicleid}/assign-tyre/{assignedtyreid}/update',  'ClientController\Setting\TyreController@UpdateVehicleAssignTyre')->name('UpdateVehicleAssignTyre');
+Route::get('/setting/tyre/vehicle/{vehicleid}/status/{assignedtyreid}/add',  'ClientController\Setting\TyreController@AddTyreCurrentStatusVehicle')->name('AddTyreCurrentStatusVehicle');
+Route::post('/setting/tyre/vehicle/{vehicleid}/status/{assignedtyreid}/add',  'ClientController\Setting\TyreController@SaveTyreCurrentStatusVehicle')->name('SaveTyreCurrentStatusVehicle');
