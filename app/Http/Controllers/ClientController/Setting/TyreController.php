@@ -152,7 +152,7 @@ class TyreController extends Controller
             $AssignTyre->position = request('position');
             if ($AssignTyre->isDirty('position') && !$AssignTyre->isDirty('tyre_id')) {
                 TyreLog::create([
-                    'transaction' => 'Changed From ' . AssignTyre::findorfail($AssignedTyreId)->position . ' To ' . request('position'),
+                    'transaction' => 'Changed From ' . ucfirst(AssignTyre::findorfail($AssignedTyreId)->position) . ' To ' . ucfirst(request('position')),
                     'vehicleId' => $VehicleID,
                     'tyre_id' => request('tyre_id'),
                     'position' => request('position'),
