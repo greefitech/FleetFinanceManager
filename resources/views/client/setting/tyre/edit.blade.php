@@ -45,7 +45,7 @@
                                                 @for($i = 1;$i<=$Vehicle->GetVehicleType->wheel/2;$i++)
                                                     <option value="l{{ $i }}" {{ ($AssignTyre->position == 'l'.$i)?'selected':'' }}>Left {{ $i }}</option>
                                                 @endfor
-                                                <option value="Stepney" {{ ($AssignTyre->position == 'Stepney')?'selected':'' }}>Stepney</option>
+                                                <option value="stepney" {{ ($AssignTyre->position == 'Stepney')?'selected':'' }}>Stepney</option>
                                             </select>
                                         </div>
                                     </div>

@@ -95,5 +95,11 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::resource('/vehicle-service', 'API\Setting\ServiceController');
         Route::get('/services/VehicleWise/{ServiceTypeId}/{VehicleId}', 'API\Setting\ServiceController@vehicleServiceData');
     });
+
+    Route::group(['prefix' => 'tyre'], function() {
+        Route::resource('/tyre-service', 'API\Setting\TyreController');
+    });
+
+
 });
 

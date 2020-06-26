@@ -42,7 +42,7 @@ active menu-open
                                         @for($i = 1;$i<=$Vehicle->GetVehicleType->wheel/2;$i++)
                                             <option value="l{{ $i }}">Left {{ $i }}</option>
                                         @endfor
-                                        <option value="Stepney">Stepney</option>
+                                        <option value="stepney">Stepney</option>
                                     </select>
                                 </div>
                             </div>
