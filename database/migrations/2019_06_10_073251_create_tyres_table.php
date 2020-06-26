@@ -15,6 +15,7 @@ class CreateTyresTable extends Migration
     {
         Schema::create('tyres', function (Blueprint $table) {
             $table->uuid('id')->primary();
+            $table->string('date');
             $table->string('tyre_number');
             $table->string('model')->nullable();
             $table->string('manufacture_company')->nullable();

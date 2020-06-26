@@ -5,6 +5,7 @@ use App\ExpenseType;
 use App\Manager;
 use App\Vehicle;
 use App\VehicleCredits;
+use App\Tyre;
 use Carbon\Carbon;
 
 if (! function_exists('DateDifference')) {
@@ -123,4 +124,10 @@ if (! function_exists('PublicFolderFileExsits')) {
         } 
         return 0; 
     } 
+}
+
+if (! function_exists('GetNonUsedTyreList')) {
+    function GetNonUsedTyreList(){
+        return Tyre::where([['clientid',auth()->user()->id],['tyre_status','!=',0]])->WhereNull('vehicleId')->get();
+    }
 }

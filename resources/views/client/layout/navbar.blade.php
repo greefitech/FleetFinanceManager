@@ -45,6 +45,7 @@
                     <li><a href="{{ url('/client/expense-types') }}"><i class="fa fa-user {{ $color[array_rand($color,1)] }}"></i> <span>Expense / Income Type</span></a></li>
                     <li><a href="{{ url('/client/rto-masters') }}"><i class="fa fa-user {{ $color[array_rand($color,1)] }}"></i> <span>RTO/PC Master</span></a></li>
                     <li><a href="{{ action('ClientController\Master\VehicleServiceController@index') }}"><i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i> <span>Service</span></a></li>
+                    <li><a href="{{ action('ClientController\Master\TyreController@index') }}"><i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i> <span>Tyre</span></a></li>
                 </ul>
             </li>
 
@@ -147,6 +148,9 @@
                 <ul class="treeview-menu">
                     <li><a href="{{ action('ClientController\Setting\ServiceController@index') }}"><i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i>Service</a></li>
                     <li><a href=""><i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i>Service Report</a></li>
+                </ul>
+                 <ul class="treeview-menu">
+                    <li><a href="{{ action('ClientController\Setting\TyreController@index') }}"><i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i>Assign Tyre</a></li>
                 </ul>
             </li>
         </ul>
