@@ -9,6 +9,7 @@ use App\Vehicle;
 use App\AssignTyre;
 use App\Tyre;
 use App\TyreLog;
+use App\Staff;
 
 class TyreController extends Controller
 {
@@ -20,9 +21,10 @@ class TyreController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        //
+    public function index(){
+        $success['tyreList'] = GetNonUsedTyreList(auth()->user()->id);
+        $success['staff'] =Staff::where('clientid',auth()->user()->id)->get();
+        return response()->json(['msg'=>'Tyre List Data','data' => $success], $this->successStatus);
     }
 
     /**
