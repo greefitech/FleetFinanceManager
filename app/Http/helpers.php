@@ -128,6 +128,6 @@ if (! function_exists('PublicFolderFileExsits')) {
 
 if (! function_exists('GetNonUsedTyreList')) {
     function GetNonUsedTyreList(){
-        return Tyre::where([['clientid',auth()->user()->id],['tyre_status','!=',0]])->WhereNull('vehicleId')->get();
+        return Tyre::where([['clientid',auth()->user()->id],['tyre_status','!=',0],['is_sold',0]])->WhereNull('vehicleId')->get();
     }
 }

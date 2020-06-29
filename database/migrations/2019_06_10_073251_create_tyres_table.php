@@ -24,6 +24,7 @@ class CreateTyresTable extends Migration
             $table->string('current_depth')->nullable();
             $table->string('purchased_from')->nullable();
             $table->string('tyre_status')->nullable();
+            $table->string('is_sold')->default(0);
             $table->uuid('vehicleId')->nullable();
             $table->foreign('vehicleId')->references('id')->on('vehicles');
             $table->integer('clientid')->unsigned();

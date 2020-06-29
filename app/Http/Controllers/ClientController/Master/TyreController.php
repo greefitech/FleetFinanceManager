@@ -28,8 +28,11 @@ class TyreController extends Controller
                 <a href="'.action('ClientController\Master\TyreController@destroy',$Tyre->id).'" class="btn btn-md Delete" data-toggle="tooltip" data-placement="right" DeleteMessage="Delete Tyre" style="color:red"><i class="fa fa-trash"></i></a>
                 ';
             })
-            ->addColumn('vehicle',function($Tyre){
+            ->addColumn('vehicleNumber',function($Tyre){
                 return !empty($Tyre->vehicleId)?$Tyre->vehicle->vehicleNumber:'NA';
+            })
+            ->editColumn('date',function($Tyre){
+                return date("d-m-Y", strtotime($Tyre->date));
             })
             ->rawColumns(['action'])->make(true);
         }
@@ -91,6 +94,15 @@ class TyreController extends Controller
             return DataTables::of($TyreLogs)
             ->addColumn('manager',function($TyreLog){
                 return @$TyreLog->manager->name;
+            })
+            ->editColumn('created_at',function($TyreLog){
+                return date("d-m-Y h:m a", strtotime($TyreLog->created_at));
+            })
+            ->editColumn('position',function($TyreLog){
+                return ucfirst($TyreLog->position);
+            })
+            ->addColumn('vehicleNumber',function($TyreLog){
+                return @$TyreLog->vehicle->vehicleNumber;
             })
             ->addColumn('Staff',function($TyreLog){
                 return @$TyreLog->Staff->name;
