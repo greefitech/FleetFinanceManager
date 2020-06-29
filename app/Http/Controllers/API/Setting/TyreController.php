@@ -88,6 +88,7 @@ class TyreController extends Controller
     {
         try {
             $success['tyrePosition'] = AssignTyre::where([['vehicleId',$id]])->get()->pluck('position');
+            $success['tyreAssignedPosition'] = AssignTyre::where([['vehicleId',$id]])->whereNotNull('tyre_id')->get()->pluck('position');
             return response()->json(['msg'=>'Tyre Position List','data' => $success], $this->successStatus);
         }catch (Exception $e){
             return response()->json(['msg'=>'error'], 404);
@@ -114,7 +115,57 @@ class TyreController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $this->validate(request(), [
+            'position' => 'required',
+            'tyre_id' => 'required',
+        ]);
+        $AssignedTyre = AssignTyre::where([['vehicleId',$id],['position',request('position')]])->first();
+        if (AssignTyre::where([['vehicleId', $id], ['position', request('position')], ['id', '!=', @$AssignedTyre->id]])->first()) {
+            return back()->with('sorry', 'Vehicle Tyre Is Already Assigned on Position ' . ucfirst(request('position')))->withInput();
+        }
+        try {
+            $AssignTyre =AssignTyre::where([['vehicleId',$id],['position',request('position')]])->first();
+            $AssighedData = AssignTyre::where([['vehicleId',$id],['position',request('position')]])->first();
+            $AssignTyre->tyre_id = request('tyre_id');
+            $AssignTyre->position = request('position');
+            $AssignTyre->vehicleId = $id;
+            if (request('tyre_id') == 'remove') {
+                TyreLog::create([
+                    'transaction' => 'Removed',
+                    'vehicleId' => $id,
+                    'tyre_id' => $AssighedData->tyre_id,
+                    'position' => request('position'),
+                    'km' => request('km'),
+                    'current_depth' => request('current_depth'),
+                    'note' => request('note'),
+                    'staffId' => request('staffId'),
+                    'clientid' => auth()->user()->id,
+                ]);
+                $AssignTyre->tyre_id = NULL;
+                Tyre::findorfail($AssighedData->tyre_id)->update(['vehicleId' => NULL]);
+            }
+            if ($AssignTyre->isDirty('tyre_id') && request('tyre_id') != 'remove') {
+                if (request('tyre_id') != '') {
+                    TyreLog::create([
+                        'transaction' => 'Inserted',
+                        'vehicleId' => $id,
+                        'tyre_id' => request('tyre_id'),
+                        'position' => request('position'),
+                        'km' => request('km'),
+                        'current_depth' => request('current_depth'),
+                        'note' => request('note'),
+                        'staffId' => request('staffId'),
+                        'clientid' => auth()->user()->id,
+                    ]);
+                    Tyre::findorfail(request('tyre_id'))->update(['vehicleId' => $id]);
+                }
+            }
+
+            $AssignTyre->save();
+          return response()->json(['msg'=>'Tyre Position Updated Successfully'], $this->successStatus);
+        } catch (Exception $e) {
+            return response()->json(['msg'=>'error'], 404);
+        }
     }
 
     /**
@@ -126,5 +177,57 @@ class TyreController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function getTyreListEdit($vehicleId,$position){
+        try{
+            $AssignedTyre = AssignTyre::where([['vehicleId',$vehicleId],['position',$position]])->first();
+            if (empty($AssignedTyre)) {
+                $success['tyreList'] = GetNonUsedTyreList(auth()->user()->id);
+            }else {
+                if (!empty($AssignedTyre->tyre_id)) {
+                    $success['tyreList'][] = $AssignedTyre->Tyre;
+                    $tyreNew['id'] = 'remove';
+                    $tyreNew['tyre_number'] = 'Remove Tyre';
+                    $tyreNew['model'] = '';
+                    $success['tyreList'][] = $tyreNew;
+                }else{
+                    $success['tyreList'] = GetNonUsedTyreList(auth()->user()->id);
+                }
+            }
+            return response()->json(['msg'=>'Tyre Position List','data' => $success], $this->successStatus);
+        } catch (Exception $e) {
+            return response()->json(['msg'=>'error'], 404);
+        }
+    }
+
+
+    public function SaveTyreCurrentStatusVehicle(){
+        $this->validate(request(), [
+            'transaction' => 'required',
+            'position' => 'required',
+            'vehicleId' => 'required',
+        ]);
+        try{
+            $AssignedTyre = AssignTyre::where([['vehicleId',request('vehicleId')],['position',request('position')]])->first();
+            if (empty($AssignedTyre)) {
+                 if(!empty($AssignedTyre->tyre_id) && !empty($AssignedTyre->position)){
+                    TyreLog::create([
+                        'transaction' => request('transaction'),
+                        'vehicleId' => request('vehicleId'),
+                        'tyre_id' =>$AssignedTyre->tyre_id,
+                        'position' =>$AssignedTyre->position,
+                        'km' => request('km'),
+                        'current_depth' => request('current_depth'),
+                        'note' => request('note'),
+                        'staffId' => request('staffId'),
+                        'clientid' => auth()->user()->id,
+                    ]);
+                }
+            }
+           return response()->json(['msg'=>'Tyre Position Updated Successfully'], $this->successStatus);
+        } catch (Exception $e) {
+            return response()->json(['msg'=>'error'], 404);
+        }
     }
 }

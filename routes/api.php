@@ -98,6 +98,8 @@ Route::group(['middleware' => 'auth:api'], function() {
 
     Route::group(['prefix' => 'tyre'], function() {
         Route::resource('/tyre-service', 'API\Setting\TyreController');
+        Route::get('/tyre-assign-edit/{vehicleId}/{position}', 'API\Setting\TyreController@getTyreListEdit');
+        Route::post('/tyre-assign-update-status', 'API\Setting\TyreController@SaveTyreCurrentStatusVehicle');
     });
 
 
