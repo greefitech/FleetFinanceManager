@@ -22,10 +22,10 @@ active menu-open
                         <tr>
                             <th>Date</th>
                             <th>Tyre Number</th>
+                            <th>Vehicle</th>
                             <th>Manufacture Company</th>
                             <th>Purchased From</th>
                             <th>condition</th>
-                            <th>Vehicle</th>
                             <th>Action</th>
                         </tr>
                     </thead>
@@ -47,10 +47,10 @@ active menu-open
             "columns": [
                 {data: 'date', name: 'date'},
                 {data: 'tyre_number', name: 'tyre_number'},
+                {data: 'vehicleNumber', name: 'vehicleNumber'},
                 {data: 'manufacture_company', name: 'manufacture_company'},
                 {data: 'purchased_from',name: 'purchased_from'},
                 {data: 'condition', name: 'condition'},
-                {data: 'vehicle', name: 'vehicle'},
                 {data: 'action', name: 'action'},
             ],
         });

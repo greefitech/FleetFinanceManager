@@ -29,7 +29,7 @@ active menu-open
                             <tr>
                                 <td><a href="{{ !empty($AssignTyre->Tyre)?action('ClientController\Master\TyreController@show',$AssignTyre->Tyre->id):'#' }}">{{ !empty($AssignTyre->Tyre)?$AssignTyre->Tyre->tyre_number:'NA' }}</a></td>
                                 <td>{{ ucfirst($AssignTyre->position) }}</td>
-                                <td>{{ $AssignTyre->updated_at }}</td>
+                                <td>{{ date("d-m-Y h:m a", strtotime($AssignTyre->updated_at)) }}</td>
                                 <td>
                                     <a href="{{ route('client.AddTyreCurrentStatusVehicle',[$Vehicle->id,$AssignTyre->id]) }}" class="btn"><i class="fa fa-cog text-aqua"></i></a>
                                     <a href="{{ route('client.EditVehicleAssignTyre',[$Vehicle->id,$AssignTyre->id]) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
