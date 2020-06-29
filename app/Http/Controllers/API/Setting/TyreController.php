@@ -210,7 +210,7 @@ class TyreController extends Controller
         ]);
         try{
             $AssignedTyre = AssignTyre::where([['vehicleId',request('vehicleId')],['position',request('position')]])->first();
-            if (empty($AssignedTyre)) {
+            if (!empty($AssignedTyre)) {
                  if(!empty($AssignedTyre->tyre_id) && !empty($AssignedTyre->position)){
                     TyreLog::create([
                         'transaction' => request('transaction'),
