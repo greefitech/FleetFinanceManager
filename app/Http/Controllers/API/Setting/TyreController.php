@@ -63,7 +63,7 @@ class TyreController extends Controller
             Tyre::findorfail(request('tyre_id'))->update(['vehicleId'=>request('vehicleId')]);
             TyreLog::create([
                 'transaction'=>'Inserted',
-                'vehicleId'=>$id,
+                'vehicleId'=>request('vehicleId'),
                 'tyre_id'=>request('tyre_id'),
                 'position'=>request('position'),
                 'km'=>request('km'),
