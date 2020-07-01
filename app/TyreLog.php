@@ -20,6 +20,10 @@ class TyreLog extends Model
         return $this->hasOne(Vehicle::class, 'id', 'vehicleId');
     }
 
+    public function tyre(){
+        return $this->hasOne(Tyre::class, 'id', 'tyre_id');
+    }
+
     public function manager(){
         return $this->hasOne(Manager::class, 'id', 'managerid');
     }
