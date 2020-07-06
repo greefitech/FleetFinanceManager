@@ -233,8 +233,8 @@ class TyreController extends Controller
 
      public function getTyreListDetail($vehicleId,$position){
         try{
-            return TyreLog::where([['vehicleId',$vehicleId],['position',$position]])->with('tyre')->latest()->take(20)->get();
-           return response()->json(['msg'=>'Tyre Position List'], $this->successStatus);
+            $success['tyreLogList'] = TyreLog::where([['vehicleId',$vehicleId],['position',$position]])->with('tyre')->latest()->take(20)->get();
+           return response()->json(['msg'=>'Tyre Position List','data' => $success], $this->successStatus);
         } catch (Exception $e) {
             return response()->json(['msg'=>'error'], 404);
         }
