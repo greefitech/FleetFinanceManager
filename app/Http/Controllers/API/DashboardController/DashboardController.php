@@ -44,8 +44,6 @@ class DashboardController extends Controller
      	$success['month'] =   $month;
      	$success['prevyear'] =   $prevyear;
      	$success['prevmonth'] =   $prevmonth;
-        $success['percentage'] =   mt_rand(-1000,1000)/10;
-        // $success['type'] =   ($success['percentage']>0) ?'success':'danger';
 
         $success['profit']['amount'] = auth()->user()->CalculateProfitAmountTotal('',$month,$year);
         $success['profit']['prevamount'] = auth()->user()->CalculateProfitAmountTotal('',$prevmonth,$prevyear);
@@ -53,7 +51,20 @@ class DashboardController extends Controller
         $success['nonTripExpense']['amount'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,$year);
         $success['nonTripExpense']['prevamount'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$prevmonth,$prevyear);
 
-     	// return (1 - ($success['profit']['prevamount']-$success['nonTripExpense']['prevamount']) / ($success['profit']['amount'] - $success['nonTripExpense']['amount'])) * 100;
+         // $success['profit']['amount'] = 0;
+         // $success['profit']['prevamount']=0;
+
+        $amountbal = $success['profit']['amount'] - $success['profit']['prevamount'];
+        if($amountbal < 0 && $success['profit']['prevamount'] != 0){
+            $success['percentage']= ($amountbal / $success['profit']['prevamount']) * 100;
+        }else if($amountbal > 0 && $success['profit']['prevamount'] != 0){
+            $success['percentage']= ($amountbal / $success['profit']['amount']) * 100;
+        }else if($amountbal != 0 && $success['profit']['prevamount'] == 0){
+            $success['percentage'] = 100;
+        }else{
+            $success['percentage'] =   0;
+        }
+        $success['type'] =   ($success['percentage']>0) ?'success':'danger';
 
          return response()->json(['msg'=>$message,'data' => $success], $this->successStatus);
     }
