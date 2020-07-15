@@ -117,7 +117,6 @@ class DashboardController extends Controller
          	$success['nextmonth']=\Carbon\Carbon::now()->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::now()->addMonths(1)->format('Y');
         }
 
-
         $message = date("F", mktime(0, 0, 0, $month,10)).' - '.$year.' Profit / Expense';
 
         $success['profitAmount'] =  auth()->user()->CalculateProfitAmountTotal('',$month,$year);
@@ -132,11 +131,12 @@ class DashboardController extends Controller
 			$Profit = auth()->user()->CalculateProfitAmountTotal($vehicle->id,$month,$year);
 			$NonExpense = auth()->user()->CalculateNonTripExpenseAmountTotal($vehicle->id,$month,$year);
 			if($Profit > 0 || $NonExpense>0){
-				$success['vehicles'][$key]['id'] = $vehicle->id;
-				$success['vehicles'][$key]['vehicle_number'] = $vehicle->vehicleNumber;
-				$success['vehicles'][$key]['profitAmount'] = $Profit;
-				$success['vehicles'][$key]['nonTripExpenseAmount'] = $NonExpense;
-				$success['vehicles'][$key]['status'] = ($Profit>$NonExpense)?'success':'danger';
+				$ProfExp['id'] = $vehicle->id;
+				$ProfExp['vehicle_number'] = $vehicle->vehicleNumber;
+				$ProfExp['profitAmount'] = $Profit;
+				$ProfExp['nonTripExpenseAmount'] = $NonExpense;
+				$ProfExp['status'] = ($Profit>$NonExpense)?'success':'danger';
+                $success['vehicles'][] = $ProfExp;
 			}
 		}
         return response()->json(['msg'=>$message,'data' => $success], $this->successStatus);
