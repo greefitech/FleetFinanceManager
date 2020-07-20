@@ -40,13 +40,13 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::resource('/vehicle-service', 'API\Master\VehicleServiceController');
     });
 
-//    CUSTOMER
+    /*--------------------------------------
+    Income Route List
+    ----------------------------------------*/
+      Route::group(['prefix' => 'income'], function() {
+        Route::get('/customer-balance/{id}', 'API\Income\IncomeBalanceController@CustomerBalance');
+    });
 
- //    Route::get('/customers', 'API\CustomerController@GetCustomers');
- //    Route::post('/customer/create', 'API\CustomerController@CreateCustomer');
-    // Route::get('/customer/{id}/edit', 'API\CustomerController@EditCustomers');
-    // Route::post('/customer/{id}/update', 'API\CustomerController@UpdateCustomers');
-    // Route::delete('/customer/{id}/delete', 'API\CustomerController@DeleteCustomers');
 
 //  STAFF
  //    Route::post('/staff/create', 'API\StaffController@CreateStaff');
