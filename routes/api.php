@@ -38,6 +38,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/vehicle-document-types', 'API\Master\DocumentController@vehicleDocumentTypes');
         Route::resource('/vehicle-document', 'API\Master\DocumentController');
         Route::resource('/vehicle-service', 'API\Master\VehicleServiceController');
+        Route::resource('/account', 'API\Master\AccountController');
     });
 
     /*--------------------------------------
@@ -55,21 +56,13 @@ Route::group(['middleware' => 'auth:api'], function() {
     // Route::post('/staff/{id}/update', 'API\StaffController@UpdateStaff');
     // Route::delete('/staff/{id}/delete', 'API\StaffController@DeleteStaff');
 
-
-//  VEHICLE
- //    Route::get('/vehicle/types', 'API\VehicleController@VehicleType');
-    // Route::post('/vehicle/create', 'API\VehicleController@CreateVehicle');
-    // Route::get('/vehicles', 'API\VehicleController@GetVehicles');
-    // Route::get('/vehicle/{id}/edit', 'API\VehicleController@EditVehicle');
-    // Route::post('/vehicle/{id}/update', 'API\VehicleController@UpdateVehicle');
-
     //  VEHICLE Document
 
 //	ACCOUNT
-    Route::post('/account/create', 'API\AccountController@CreateAccount');
-    Route::get('/accounts', 'API\AccountController@GetAccounts');
-    Route::get('/account/{id}/edit', 'API\AccountController@EditAccount');
-    Route::post('/account/{id}/update', 'API\AccountController@UpdateAccount');
+    // Route::post('/account/create', 'API\AccountController@CreateAccount');
+    // Route::get('/accounts', 'API\AccountController@GetAccounts');
+    // Route::get('/account/{id}/edit', 'API\AccountController@EditAccount');
+    // Route::post('/account/{id}/update', 'API\AccountController@UpdateAccount');
 
 
 //    EXPENSE TYPE
