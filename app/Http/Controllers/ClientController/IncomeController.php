@@ -68,7 +68,6 @@ class IncomeController extends Controller
                 $income->customerId = $customerId;
                 $income->clientid= Auth::user()->id;
                 $income->vehicleId = $vehicleEntry->vehicleId;
-                $income->vehicleId = $vehicleEntry->vehicleId;
                 $income->entryId = $vehicleEntryId;
                 $income->tripId = $vehicleTrip->id;
                 $income->recevingAmount = $incomeDetail['recevingAmount'];
