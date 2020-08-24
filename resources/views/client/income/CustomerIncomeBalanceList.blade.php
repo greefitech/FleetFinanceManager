@@ -65,8 +65,8 @@
                                                                     <td>{{ $final['name'] }}</td>
                                                                     <td>{{ date("d-m-Y", strtotime($final['Entry']['dateFrom'])) }} - {{ $final['Entry']['loadType'] }} ( {{ $final['Entry']['locationFrom'] }} - {{ $final['Entry']['locationTo'] }} )</td>
                                                                     <td>{{ $final['balance'] }}</td>
-                                                                    <td><input class="form-control recevingAmountValues" type="number" value="{{ old('income')[$key]['recevingAmount'] }}" name="income[{{$key}}][recevingAmount]" min="1" max="{{ $final['balance'] }}"></td>
-                                                                    <td><input class="form-control discountAmountValues" type="number" value="{{ old('income')[$key]['discountAmount'] }}" name="income[{{$key}}][discountAmount]" min="1" max="{{ $final['balance'] }}"></td>
+                                                                    <td><input class="form-control recevingAmountValues" type="number" value="{{ @old('income')[$key]['recevingAmount'] }}" name="income[{{$key}}][recevingAmount]" min="1" max="{{ $final['balance'] }}"></td>
+                                                                    <td><input class="form-control discountAmountValues" type="number" value="{{ @old('income')[$key]['discountAmount'] }}" name="income[{{$key}}][discountAmount]" min="1" max="{{ $final['balance'] }}"></td>
                                                                 </tr>
                                                             @endif
                                                         @endforeach

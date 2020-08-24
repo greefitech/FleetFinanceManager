@@ -22,11 +22,16 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $success['customers']=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->get();
+        $success['customers']=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->get();
         $success['customers']->map(function($customer) {
-                $total = ($customer->customerEntryData->sum('balance')-$customer->customerIncomeData->sum('recevingAmount')-$customer->customerIncomeData->sum('discountAmount'));
+                $customerData = $customer;
+                $total = ($customerData->customerEntryData->sum('balance')-$customerData->customerIncomeData->sum('recevingAmount')-$customerData->customerIncomeData->sum('discountAmount'));
+
                 $customer->outStandingAmount=$total;
-                return $customer;
+                unset($customer->customerEntryData,$customer->customerIncomeData);
+                if (trim($total) != 0) {
+                    return $customer;
+                }
             });
         return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
     }
