@@ -52,9 +52,6 @@ class IncomeBalanceController extends Controller
         if (!empty(json_decode(request('income_datas'),true))) {
             foreach (json_decode(request('income_datas'),true) as $vehicleEntryId => $incomeDetail){
                 if(!empty($incomeDetail['recevingAmount']) || !empty($incomeDetail['discountAmount'])){
-                // return $incomeDetail;
-
-
                     $vehicleEntry = Entry::findOrfail($incomeDetail['entry_id']);
                     $vehicleTrip = Trip::findOrfail($vehicleEntry->tripId);
                     $income = new Income;
@@ -65,8 +62,8 @@ class IncomeBalanceController extends Controller
                     $income->vehicleId = $vehicleEntry->vehicleId;
                     $income->entryId = $incomeDetail['entry_id'];
                     $income->tripId = $vehicleTrip->id;
-                    $income->recevingAmount =(trim($incomeDetail['recevingAmount']) == '') ?0: $incomeDetail['recevingAmount'];
-                    $income->discountAmount =(trim($incomeDetail['discountAmount']) == '') ?0: $incomeDetail['discountAmount'];
+                    $income->recevingAmount =(trim($incomeDetail['recevingAmount']) == '' || (trim($incomeDetail['recevingAmount']) <=0)) ?0: $incomeDetail['recevingAmount'];
+                    $income->discountAmount =(trim($incomeDetail['discountAmount']) == '' || (trim($incomeDetail['discountAmount']) <=0)) ?0: $incomeDetail['discountAmount'];
                     $income->save();
                 }
             }
