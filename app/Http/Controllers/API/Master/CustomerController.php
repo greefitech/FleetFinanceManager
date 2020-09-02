@@ -20,19 +20,24 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $success['customers']=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->get();
-        $success['customers']->map(function($customer) {
+    public function index() {
+        $customers=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->get();
+        $customers->map(function($customer) {
                 $customerData = $customer;
                 $total = ($customerData->customerEntryData->sum('balance')-$customerData->customerIncomeData->sum('recevingAmount')-$customerData->customerIncomeData->sum('discountAmount'));
-
                 $customer->outStandingAmount=$total;
+
                 unset($customer->customerEntryData,$customer->customerIncomeData);
                 if (trim($total) != 0) {
                     return $customer;
                 }
             });
+        $success['customers'] = array();
+        foreach ($customers as $key => $customer) {
+            if ($customer->outStandingAmount !=0) {
+                $success['customers'][] = $customer;
+            }
+        }
         return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
     }
 
@@ -52,8 +57,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'mobile' => 'required|min:10|max:10',
@@ -81,7 +85,7 @@ class CustomerController extends Controller
                 'type' => request('type'),
                 'clientid' => auth()->user()->id,
             ]);
-            return response()->json(['msg'=>'Customer Created Successfully'], $this-> successStatus);
+            return response()->json(['msg'=>'Customer Created Successfully'], $this->successStatus);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json(['msg'=>'Error On Insert'], 401);
         } 
@@ -140,7 +144,7 @@ class CustomerController extends Controller
             $customer->mobile = request('mobile');
             $customer->type = request('type');
             $customer->save();
-            return response()->json(['msg'=>'Customer Updated Successfully'], $this-> successStatus);
+            return response()->json(['msg'=>'Customer Updated Successfully'], $this->successStatus);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json(['msg'=>'Error On Insert'], 401);
         } 
@@ -162,8 +166,7 @@ class CustomerController extends Controller
         }
         try {
             Customer::findOrfail($id)->delete();
-            $finalData['msg']='Customer Deleted Successfully';
-            return response()->json(['msg'=>'Customer Deleted Successfully!'], $this-> successStatus);
+            return response()->json(['msg'=>'Customer Deleted Successfully!'], $this->successStatus);
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json(['msg'=>'Error On Delete!'], 401);
         }  
