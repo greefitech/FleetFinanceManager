@@ -22,11 +22,11 @@
                  <h4>{{ date('F', mktime(0, 0, 0, $Month, 10)) }} {{ $Year }} Profit / Expense</h4>
                  <div class="row">
                     <div class="col-sm-3">
-                       <div class="info-box bg-green">
+                       <div class="info-box bg-blue">
                           <span class="info-box-icon"><i class="fa fa-pie-chart"></i></span>
                           <div class="info-box-content">
-                             <span class="info-box-text">Profit</span>
-                             <span class="info-box-number">{{ auth()->user()->CalculateProfitAmountTotal('',$Month,$Year) }}</span>
+                             <span class="info-box-text">Income</span>
+                             <span class="info-box-number">₹ {{ $IncomeAmount = auth()->user()->CalculateProfitAmountTotal('',$Month,$Year) }}</span>
                              {{-- <div class="progress">
                                 <div class="progress-bar" style="width: 70%"></div>
                              </div> --}}
@@ -40,7 +40,21 @@
                           <span class="info-box-icon"><i class="fa fa-ils"></i></span>
                           <div class="info-box-content">
                              <span class="info-box-text">Expense</span>
-                             <span class="info-box-number">{{ auth()->user()->CalculateNonTripExpenseAmountTotal('',$Month,$Year) }}</span>
+                             <span class="info-box-number">₹ {{ $ExpenaeAmount = auth()->user()->CalculateNonTripExpenseAmountTotal('',$Month,$Year) }}</span>
+                             {{-- <div class="progress">
+                                <div class="progress-bar" style="width: 50%"></div>
+                             </div> --}}
+                             <span class="progress-description">
+                             </span>
+                          </div>
+                       </div>
+                    </div>
+                    <div class="col-sm-3">
+                       <div class="info-box bg-green">
+                          <span class="info-box-icon"><i class="fa fa-money"></i></span>
+                          <div class="info-box-content">
+                             <span class="info-box-text">Profit</span>
+                             <span class="info-box-number">₹ {{ $IncomeAmount - $ExpenaeAmount }}</span>
                              {{-- <div class="progress">
                                 <div class="progress-bar" style="width: 50%"></div>
                              </div> --}}
@@ -71,14 +85,14 @@
                <div class="info-box bg-{{ ($Profit>$NonExpense)?'green':'red' }}" style="box-shadow: 7px -7px #ffffff;">
                   <span class="info-box-icon" style="height: 132px;font-size: 63px;"><i class="fa fa-{{$Icon[array_rand($Icon,1)]}}"></i></span>
                   <div class="info-box-content"><strong>{{ $vehicle->vehicleNumber }}</strong>
-                     <span class="info-box-text">Profit</span>
-                     <span class="info-box-number">{{ $Profit }}</span>
+                     <span class="info-box-text">Income</span>
+                     <span class="info-box-number">₹ {{ $Profit }}</span>
                      <div class="progress">
                         <div class="progress-bar" style="width: 100%"></div>
                      </div>
                      <span class="progress-description">
                         <span class="info-box-text">Expense</span>
-                        <span class="info-box-number">{{ $NonExpense }}</span>
+                        <span class="info-box-number">₹ {{ $NonExpense }}</span>
                      </span>
                   </div>
                </div>
