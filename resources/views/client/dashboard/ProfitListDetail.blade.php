@@ -22,11 +22,11 @@
                         <h4>{{ $Vehicle->vehicleNumber }} {{ date('F', mktime(0, 0, 0, $Month, 10)) }} {{ $Year }} Profit / Expense</h4>
                         <div class="row">
                            <div class="col-sm-3">
-                              <div class="info-box bg-green">
+                              <div class="info-box bg-blue">
                                  <span class="info-box-icon"><i class="fa fa-pie-chart"></i></span>
                                  <div class="info-box-content">
-                                    <span class="info-box-text">Profit</span>
-                                    <span class="info-box-number">{{ auth()->user()->CalculateProfitAmountTotal($Vehicle->id,$Month,$Year) }}</span>
+                                    <span class="info-box-text">Income</span>
+                                    <span class="info-box-number">₹ {{ $IncomeAmount = auth()->user()->CalculateProfitAmountTotal($Vehicle->id,$Month,$Year) }}</span>
                                    {{--  <div class="progress">
                                        <div class="progress-bar" style="width: 70%"></div>
                                     </div> --}}
@@ -41,7 +41,22 @@
                                  <span class="info-box-icon"><i class="fa fa-ils"></i></span>
                                  <div class="info-box-content">
                                     <span class="info-box-text">Expense</span>
-                                    <span class="info-box-number">{{ auth()->user()->CalculateNonTripExpenseAmountTotal($Vehicle->id,$Month,$Year) }}</span>
+                                    <span class="info-box-number">₹ {{ $ExpenseAmount = auth()->user()->CalculateNonTripExpenseAmountTotal($Vehicle->id,$Month,$Year) }}</span>
+                                   {{--  <div class="progress">
+                                       <div class="progress-bar" style="width: 50%"></div>
+                                    </div> --}}
+                                    <span class="progress-description">
+                                        
+                                    </span>
+                                 </div>
+                              </div>
+                           </div>
+                             <div class="col-sm-3">
+                              <div class="info-box bg-green">
+                                 <span class="info-box-icon"><i class="fa fa-money"></i></span>
+                                 <div class="info-box-content">
+                                    <span class="info-box-text">Expense</span>
+                                    <span class="info-box-number">₹ {{ $IncomeAmount - $ExpenseAmount }}</span>
                                    {{--  <div class="progress">
                                        <div class="progress-bar" style="width: 50%"></div>
                                     </div> --}}
@@ -81,7 +96,7 @@
                                             <td>{{ date("d-m-Y", strtotime($Trip->dateFrom)) }}</td>
                                             <td>{{ date("d-m-Y", strtotime($Trip->dateTo)) }}</td>
                                             <td>{{ $Trip->tripName }}</td>
-                                            <td>{{ auth()->user()->TripTotalIncome($Trip->id) - auth()->user()->TripTotalExpense($Trip->id) }}</td>
+                                            <td>₹ {{ number_format(auth()->user()->TripTotalIncome($Trip->id) - auth()->user()->TripTotalExpense($Trip->id)) }}</td>
                                             <td>
                                                 <a href="{{ route('client.DownloadTripSheet',$Trip->id) }}" class="btn btn-primary btn-sm">View Trip Sheet</a>
                                             </td>
@@ -115,7 +130,7 @@
                                         <tr>
                                             <td>{{ date("d-m-Y", strtotime($ExtraIncome->date)) }}</td>
                                             <td>{{ $ExtraIncome->ExpenseType->expenseType }}</td>
-                                            <td>{{ $ExtraIncome->amount }}</td>
+                                            <td>₹ {{ number_format($ExtraIncome->amount) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>
@@ -146,7 +161,7 @@
                                         <tr>
                                             <td>{{ date("d-m-Y", strtotime($Expense->date)) }}</td>
                                             <td>{{ $Expense->ExpenseType->expenseType }}</td>
-                                            <td>{{ $Expense->amount }}</td>
+                                            <td>₹ {{ number_format($Expense->amount) }}</td>
                                         </tr>
                                     @endforeach
                                 </tbody>

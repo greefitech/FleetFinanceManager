@@ -45,11 +45,15 @@ class DashboardController extends Controller
      	$success['prevyear'] =   $prevyear;
      	$success['prevmonth'] =   $prevmonth;
 
-        $success['profit']['amount'] = auth()->user()->CalculateProfitAmountTotal('',$month,$year);
-        $success['profit']['prevamount'] = auth()->user()->CalculateProfitAmountTotal('',$prevmonth,$prevyear);
+        $success['income']['amount'] = auth()->user()->CalculateProfitAmountTotal('',$month,$year);
+        $success['income']['prevamount'] = auth()->user()->CalculateProfitAmountTotal('',$prevmonth,$prevyear);
 
         $success['nonTripExpense']['amount'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,$year);
         $success['nonTripExpense']['prevamount'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$prevmonth,$prevyear);
+
+
+        $success['profit']['amount'] = $success['income']['amount'] - $success['nonTripExpense']['amount'];
+        $success['profit']['prevamount'] = $success['income']['prevamount'] - $success['nonTripExpense']['prevamount'];
 
          // $success['profit']['amount'] = 0;
          // $success['profit']['prevamount']=0;
@@ -64,6 +68,7 @@ class DashboardController extends Controller
         }else{
             $success['percentage'] =   0;
         }
+        $success['percentage'] =   round($success['percentage']);
         $success['type'] =   ($success['percentage']>0) ?'success':'danger';
 
          return response()->json(['msg'=>$message,'data' => $success], $this->successStatus);
@@ -118,6 +123,7 @@ class DashboardController extends Controller
         }
 
         $message = date("F", mktime(0, 0, 0, $month,10)).' - '.$year.' Profit / Expense';
+        $monthMessage =  date("F", mktime(0, 0, 0, $month,10)).' - '.$year;
 
         $success['profitAmount'] =  auth()->user()->CalculateProfitAmountTotal('',$month,$year);
         $success['nonTripExpenseAmount'] =  auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,$year);
@@ -133,12 +139,13 @@ class DashboardController extends Controller
 			if($Profit > 0 || $NonExpense>0){
 				$ProfExp['id'] = $vehicle->id;
 				$ProfExp['vehicle_number'] = $vehicle->vehicleNumber;
-				$ProfExp['profitAmount'] = $Profit;
+				$ProfExp['incomeAmount'] = $Profit;
 				$ProfExp['nonTripExpenseAmount'] = $NonExpense;
+                $ProfExp['profitAmount'] = $Profit - $NonExpense;
 				$ProfExp['status'] = ($Profit>$NonExpense)?'success':'danger';
                 $success['vehicles'][] = $ProfExp;
 			}
 		}
-        return response()->json(['msg'=>$message,'data' => $success], $this->successStatus);
+        return response()->json(['msg'=>$message,'month_msg'=>$monthMessage,'data' => $success], $this->successStatus);
     }
 }
