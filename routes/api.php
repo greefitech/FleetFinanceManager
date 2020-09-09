@@ -40,7 +40,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::resource('/vehicle-service', 'API\Master\VehicleServiceController');
         Route::resource('/account', 'API\Master\AccountController');
         Route::get('/vehicle-expense-type-list', 'API\Master\ExpenseController@GetExpenseType');
-        Route::resource('/expense', 'API\Master\ExpenseController');
+        Route::resource('/non-trip-expense', 'API\Master\ExpenseController');
     });
 
     /*--------------------------------------
