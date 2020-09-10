@@ -45,9 +45,39 @@ class ExpenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        //
+    public function store(Request $request){
+        $validator = Validator::make(request()->all(), [
+           'date'=>'required|date',
+            'vehicleId'=>'required|exists:vehicles,id',
+            'amount'=>'required',
+            'account_id'=>'required',
+            'expense_type'=>'required|exists:expense_types,id',
+            'quantity'=>'required_if:type,==,2',
+        ]);
+
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+               $errData[]=$value[0];
+            }
+            return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
+        }
+        try {
+            Expense::create([
+                'date' => request('date'),
+                'expense_type' => request('expense_type'),
+                'vehicleId' => request('vehicleId'),
+                'quantity' => request('quantity'),
+                'amount' => request('amount'),
+                'discription' => request('discription'),
+                'location' => request('location'),
+                'status'=>request('status'),
+                'account_id' => request('account_id'),
+                'clientid' => auth()->user()->id,
+            ]);
+            return response()->json(['msg'=>'Non Trip Expense Created Successfully'], $this->successStatus);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['msg'=>'Error On Insert'], 401);
+        }
     }
 
     /**
