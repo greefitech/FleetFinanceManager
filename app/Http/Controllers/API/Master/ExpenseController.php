@@ -22,7 +22,7 @@ class ExpenseController extends Controller
      */
     public function index(){
         try{
-            $success['Expenses'] =  Expense::with('ExpenseTypes')->where([['clientid',auth()->user()->id]])->WhereNull('tripId')->latest('date')->paginate(10);
+            $success['Expenses'] =  Expense::with('ExpenseTypes','Account')->where([['clientid',auth()->user()->id]])->WhereNull('tripId')->latest('date')->paginate(10);
            return response()->json(['msg'=>'Vehicle Non Trip Expense List','data' =>$success], $this->successStatus);
         }catch (Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
@@ -89,7 +89,7 @@ class ExpenseController extends Controller
     public function show($id)
     {
         try{
-            $success['Expenses'] =  Expense::with('ExpenseTypes')->where([['clientid',auth()->user()->id],['vehicleId',$id]])->WhereNull('tripId')->latest('date')->get();
+            $success['Expenses'] =  Expense::with('ExpenseTypes','Account')->where([['clientid',auth()->user()->id],['vehicleId',$id]])->WhereNull('tripId')->latest('date')->get();
            return response()->json(['msg'=>'Vehicle Non Trip Expense List','data' =>$success], $this->successStatus);
         }catch (Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);

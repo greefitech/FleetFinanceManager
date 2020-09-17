@@ -35,6 +35,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::resource('/customer', 'API\Master\CustomerController');
 	    Route::resource('/staff', 'API\Master\StaffController');
 	    Route::resource('/vehicle', 'API\Master\VehicleController');
+        Route::get('/vehicle-notification/{vehicleId}', 'API\Master\VehicleController@VehicleNotification');
         Route::get('/vehicle-document-types', 'API\Master\DocumentController@vehicleDocumentTypes');
         Route::resource('/vehicle-document', 'API\Master\DocumentController');
         Route::resource('/vehicle-service', 'API\Master\VehicleServiceController');
