@@ -73,7 +73,24 @@ class ServiceController extends Controller
      */
     public function show($id)
     {
-        
+        $success['VehicleServices'] = array();
+        $VehicleServices = VehicleService::select('id','title')->where([['clientid',auth()->user()->id]])->orWhereNull('clientid')->get();
+        foreach ($VehicleServices as $key => $VehicleService) {
+            $Service = Service::where([['vehicle_service_id',$VehicleService->id],['vehicleId',$id]])->latest()->first();
+            if (!empty($Service)) {
+                $VehicleService->last = date("d-m-Y", strtotime($Service->date));
+                $VehicleService->next = date("d-m-Y", strtotime($Service->next_service_date));
+                $VehicleService->last_km = $Service->service_km;
+                $VehicleService->next_km = $Service->next_service_km;
+            }else{
+                $VehicleService->last = ' - ';
+                $VehicleService->next = ' - ';
+                $VehicleService->last_km = ' - ';
+                $VehicleService->next_km = ' - ';
+            }
+            $success['VehicleServices'][] = $VehicleService;
+        }
+        return response()->json(['msg'=>'Service List','data' => $success], $this->successStatus);
     }
 
     /**
