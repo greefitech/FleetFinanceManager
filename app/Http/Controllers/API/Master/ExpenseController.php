@@ -116,7 +116,24 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'status'=>'required',
+        ]);
+
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+               $errData[]=$value[0];
+            }
+            return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
+        }
+        try {
+            Expense::findorfail($id)->update([
+                'status'=>request('status'),
+            ]);
+            return response()->json(['msg'=>'Non Trip Expense Updated Successfully'], $this->successStatus);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['msg'=>'Error On Insert'], 401);
+        }
     }
 
     /**
