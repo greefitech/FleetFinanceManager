@@ -104,6 +104,8 @@ Route::get('/entry/memo/RTOMasterData', function (){
     return GetRTOMasterDataInputs();
 });
 
+Route::get('/check-entry-already-present', 'ClientController\MemoController@checkEntryAlreadyPresent');
+
 
 Route::get('/entry/add', 'ClientController\EntryController@add');
 Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');
