@@ -18,20 +18,26 @@
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
-                                        <th>Date</th>
-                                        <th>Expense Type</th>
+                                        <th>
+                                            <input type="checkbox" id="deleteCheck">
+                                        </th>
+                                        <th style="width:100px">Date</th>
+                                        <th style="width:200px">Expense Type</th>
                                         <th>Location</th>
                                         <th>Quantity</th>
                                         <th>Amount</th>
                                         <th>Status</th>
                                         <th>Description</th>
-                                        <th>Created By</th>
+                                        {{-- <th>Created By</th> --}}
                                         <th>Action</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     @foreach($Expenses as $Expense)
                                         <tr>
+                                            <td>
+                                                <input type="checkbox" name="delete[]" class="deleteMultiple">
+                                            </td>
                                             <td>{{ date("d-m-Y", strtotime($Expense->date)) }}</td>
                                             <td>{{ $Expense->ExpenseType->expenseType }}</td>
                                             <td>{{ $Expense->location }}</td>
@@ -39,7 +45,7 @@
                                             <td>{{ $Expense->amount }}</td>
                                             <td><span class="label label-{{ ($Expense->status == 0)?'danger':'success' }}">{{ ($Expense->status == 0)?'Not Paid':'Paid' }}</span></td>
                                             <td>{{ $Expense->discription }}</td>
-                                            <td>--</td>
+                                            {{-- <td>--</td> --}}
                                             <td>
                                                 <form action="{{ route('client.DeleteExpense',$Expense->id) }}" method="POST">
                                                     {{ csrf_field() }}
@@ -60,4 +66,27 @@
             </div>
         </div>
     </div>
+
+@endsection
+
+@section('script')
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+    $('#deleteCheck').on('click',function(){
+        console.log($(this).is(':checked'));
+        if ($(this).is(':checked')) {
+            $(".deleteMultiple").each(function() {
+                $(this).prop('checked',true);
+            });
+        }else{
+            $(".deleteMultiple").each(function() {
+                $(this).prop('checked',false);
+            });
+        }
+    })
+});
+</script>
+
 @endsection
