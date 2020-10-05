@@ -36,13 +36,18 @@
                                             <td>{{ date("d-m-Y", strtotime($Trip->dateTo)) }}</td>
                                             <td>{{ $Trip->tripName }}</td>
                                             <td>{{ $Trip->totalKm }}</td>
-                                            <td>{{ $Trip->Staff1->name }}</td>
+                                            <td>{{ @$Trip->Staff1->name }}</td>
                                             @if(!$Trip->deleted_at)
                                                 <td>{{ auth()->user()->TripTotalIncome($Trip->id) - auth()->user()->TripTotalExpense($Trip->id) }}</td>
-                                                <td><span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span></td>
+                                                <td>
+                                                    <input type="checkbox" {{ ($Trip->status == 0)?'':'checked' }} data-toggle="toggle" data-onstyle="success" class="statusButton">
+                                                    <span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span> --}}
+                                                </td>
                                                 <td>{{ $Trip->managerid !='' ? $Trip->Manager->name: $Trip->Client->name }}</td>
                                             @else
-                                                <td colspan="3">
+                                                <td></td>
+                                                <td></td>
+                                                <td>
                                                     <span class="label label-primary">Trip Deleted on {{ date("d-M-Y", strtotime($Trip->deleted_at)) }}</span>
                                                 </td>
                                             @endif
@@ -89,4 +94,13 @@
         </div>
     </div>
 
+@endsection
+
+@section('script')
+    <script>
+        $('.statusButton').bootstrapToggle({
+            on: 'Completed',
+            off: 'Not Completed'
+        });
+    </script>
 @endsection
