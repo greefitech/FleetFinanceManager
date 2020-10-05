@@ -148,12 +148,7 @@ class TripController extends Controller
         $data = [];
         if($request->has('q')){
             $search = $request->q;
-            $data = DB::table("staff")
-                    ->select("id","name","mobile1")
-                    ->where('name','LIKE',"%$search%")
-                    ->orWhere('mobile1','LIKE',"%$search%")
-                    ->where('clientid','LIKE',auth()->user()->id)
-                    ->get();    
+            $data = DB::table("staff")->select("id","name","mobile1")->where('name','LIKE',"%$search%")->orWhere('mobile1','LIKE',"%$search%")->where('clientid','LIKE',auth()->user()->id)->get();    
         }
         return response()->json($data);
       

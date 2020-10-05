@@ -120,3 +120,15 @@ if (! function_exists('vehicleMontlyClientWiseTripExpenseDetail')) {
     }
 }
 
+
+/*Check Duplicate Trip Entry*/
+if (! function_exists('CheckTripDuplicateEntry')) {
+    function CheckTripDuplicateEntry($TripId,$VehicleId,$dateFrom,$DateTo){
+        $Trip = Trip::where([['dateFrom',$dateFrom],['dateTo',$DateTo],['vehicleId',$VehicleId],['clientid',auth()->user()->id],['id','!=',$TripId]])->first();
+        if (!empty($Trip)) {
+            return '<span class="label label-danger">Duplicate Entry</span>';
+        }
+        return '';
+    }
+}
+

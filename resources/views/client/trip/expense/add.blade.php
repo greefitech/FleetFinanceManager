@@ -56,8 +56,7 @@
                                     <div class="form-group{{ $errors->has('expense_type') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Expense <span style="color:red">*</span></label>
-                                                <select name="expense_type" class="form-control expense-type LastExpense select2 AutoExpense" id="entry-type">
-                                            </select>
+                                                <select name="expense_type" class="form-control expense-type LastExpense select2 AutoExpense" id="entry-type"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -168,6 +167,7 @@ $(document).ready(function(){
     
     $('.AutoVehicle').select2({
         placeholder: 'Select Vehicle',
+        allowClear: true,
         ajax: {
           url: '{{route("client.AutoVehicle")}}',
           dataType: 'json',
@@ -188,6 +188,7 @@ $(document).ready(function(){
 
     $('.AutoExpense').select2({
         placeholder: 'Select Expense Type',
+        allowClear: true,
         ajax: {
           url: '{{route("client.AutoExpense")}}',
           dataType: 'json',
@@ -205,7 +206,6 @@ $(document).ready(function(){
           cache: true
         }
       });   
-
   });
 </script>
 
