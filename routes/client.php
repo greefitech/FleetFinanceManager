@@ -174,6 +174,8 @@ Route::get('/Vehicle-trip/{tripid}/halt-list', 'ClientController\TripWiseControl
 Route::get('/Vehicle-trip/{tripid}/trip-advance-list', 'ClientController\TripWiseController@ViewTripAdvanceList')->name('ViewTripAdvanceList');
 Route::delete('/Vehicle-trip/{tripid}/delete-trip', 'ClientController\TripWiseController@DeleteTripSheetData')->name('DeleteTripSheetData');
 
+/*Undo Delete Trip*/
+Route::get('/Vehicle-list-trip-undo/{id}', 'ClientController\TripWiseController@TripUndoList');
 //Trip Sheet
 Route::get('/trip-sheet/{tripid}/download', 'ClientController\TripSheetController@DownloadTripSheet')->name('DownloadTripSheet');
 

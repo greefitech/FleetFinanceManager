@@ -23,7 +23,7 @@ class ExpenseController extends Controller
     }
 
     public function add(){
-        $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
+        $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->limit(10)->get();
         return view('client.trip.expense.add',$Data);
     }
 
@@ -242,26 +242,21 @@ class ExpenseController extends Controller
 
     public function AutoExpense(Request $request){   
         $data = [];
+        $data = DB::table("expense_types")->select("id","expenseType")->where([['clientid',auth()->user()->id]])->orWhereNull('clientid')->limit(10)->get();  
         if($request->has('q')){
             $search = $request->q;
-            $data = DB::table("expense_types")
-                    ->select("id","expenseType")
-                    ->where('expenseType','LIKE',"%$search%")
-                    ->get();    
+            $data = DB::table("expense_types")->select("id","expenseType")->where([['clientid',auth()->user()->id],['expenseType','LIKE',"%$search%"]])->orWhereNull('clientid')->get();
+            
         }
         return response()->json($data);
-    }  
+    }
 
     public function AutoVehicle(Request $request){ 
         $data = [];
+        $data = DB::table("vehicles")->select("id","vehicleNumber")->where('clientid',auth()->user()->id)->get();  
         if($request->has('q')){
             $search = $request->q;
-            // $vehicle = Vehicle::where('clientid',auth()->user()->id)->get('vehicleNumber');
-            $data = DB::table("vehicles")
-                    ->select("id","vehicleNumber")
-                    ->where('vehicleNumber','LIKE',"%$search%")
-                    ->where('clientid','LIKE',auth()->user()->id)
-                    ->get();    
+            $data = DB::table("vehicles")->select("id","vehicleNumber")->where('vehicleNumber','LIKE',"%$search%")->where('clientid','LIKE',auth()->user()->id)->get();    
         }
         return response()->json($data);
     }
