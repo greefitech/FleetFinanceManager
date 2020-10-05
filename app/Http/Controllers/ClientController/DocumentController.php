@@ -24,7 +24,7 @@ class DocumentController extends Controller
     public function save($vehicleId){
         $this->validate(request(),[
             'documentType'=>'required|exists:document_types,id',
-            'duedate'=>'required|date',
+            'duedate'=>'required|date|after:'.date('2010-01-01'),
             'notifyBefore'=>'required',
             'issuingCompany'=>'required',
             'interval'=>'required',
@@ -59,7 +59,7 @@ class DocumentController extends Controller
     public function update($id){
         $this->validate(request(),[
             'documentType'=>'required|exists:document_types,id',
-            'duedate'=>'required|date',
+            'duedate'=>'required|date|after:'.date('2010-01-01'),
             'notifyBefore'=>'required',
             'issuingCompany'=>'required',
             'interval'=>'required',

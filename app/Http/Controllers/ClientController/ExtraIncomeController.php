@@ -25,7 +25,7 @@ class ExtraIncomeController extends Controller
 
     public function save(){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required'

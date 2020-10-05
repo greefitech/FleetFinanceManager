@@ -54,7 +54,7 @@ class IncomeController extends Controller
 
     public function SaveCustomerIncome($customerId){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'account_id'=>'required',
         ]);
 
@@ -93,7 +93,7 @@ class IncomeController extends Controller
 
     public function update($id){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'required|exists:customers,id',
         ]);

@@ -24,6 +24,7 @@
 <script src="{{ asset('/js/entry.js') }}"></script>
 <script src="{{ asset('/js/expense.js') }}"></script>
 <script src="{{ asset('/js/income.js') }}"></script>
+<script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
     $(document).ready( function () {

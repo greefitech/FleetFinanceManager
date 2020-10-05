@@ -902,6 +902,7 @@
 
 
     <script>
+
         $('tbody').sortable();
         var EntryI = {{ isset($EntryKey)?++$EntryKey:0}};
 
@@ -923,6 +924,7 @@
                     "min" : $('.dateFrom').val(),
                     "max" : $('.dateTo').val()
                 });
+                getDataAlreadyPresent();
             });
 
             $('body').on('change','.RTOMasterDatas',function () {
@@ -965,8 +967,27 @@
                         $('#entry-startkm').val(data.endKm);
                     }
                 });
-            })
+                getDataAlreadyPresent();
+            });
         });
+
+        function getDataAlreadyPresent() {
+            var VehicleId = $('.VehicleChange').val();
+            var dateFrom = $('.dateFrom').val();
+            var dateTo = $('.dateTo').val();
+            setTimeout(function(){
+                $.ajax({
+                    type: "get",
+                    url: '{{ action("ClientController\MemoController@checkEntryAlreadyPresent") }}',
+                    data:{VehicleId:VehicleId,dateFrom:dateFrom,dateTo:dateTo},
+                    success: function(data) {
+                        if (data.status =='present') {
+                            swal("Check This Entry Date is already added", {buttons: false,timer: 10000,});
+                        }
+                    }
+                });
+             },3000);
+        }
     </script>
 
     <script src="{{ url('/js/memo.js') }}"></script>

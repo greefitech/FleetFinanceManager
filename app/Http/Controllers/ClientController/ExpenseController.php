@@ -29,7 +29,7 @@ class ExpenseController extends Controller
 
     public function save(){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
@@ -83,7 +83,7 @@ class ExpenseController extends Controller
 
     public function update($id){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
@@ -175,7 +175,7 @@ class ExpenseController extends Controller
 
      public function SaveNonTripExpense(){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
@@ -214,7 +214,7 @@ class ExpenseController extends Controller
 
     public function UpdateNonTripExpense($id){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',

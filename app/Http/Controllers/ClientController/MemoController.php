@@ -43,8 +43,8 @@ class MemoController extends Controller
         if(request()->get('btnSubmit') == 'save_memo') {
              $this->validate(request(),[
                 'vehicleId'=>'required|exists:vehicles,id',
-                'dateFrom'=>'required|date',
-                'dateTo'=>'required|date|after_or_equal:dateFrom',
+                'dateFrom'=>'required|date|after:'.date('2010-01-01'),
+                'dateTo'=>'required|date|after_or_equal:dateFrom|after:'.date('2010-01-01'),
                 'advance'=>'nullable|numeric|min:0',
                 'startKm'=>'required|numeric|min:0',
                 'endKm'=>'required|numeric|min:'.(int)request('startKm'),
@@ -335,8 +335,8 @@ class MemoController extends Controller
 
             $this->validate(request(),[
                 'vehicleId'=>'required|exists:vehicles,id',
-                'dateFrom'=>'required|date',
-                'dateTo'=>'required|date|after_or_equal:dateFrom',
+                'dateFrom'=>'required|date|after:'.date('2010-01-01'),
+                'dateTo'=>'required|date|after_or_equal:dateFrom|after:'.date('2010-01-01'),
                 'advance'=>'nullable|numeric|min:0',
                 'startKm'=>'required|numeric|min:0',
                 'endKm'=>'required|numeric|min:'.(int)request('startKm'),
@@ -752,6 +752,18 @@ class MemoController extends Controller
         }
     }
 
+
+    public function checkEntryAlreadyPresent(){
+        if (!empty(request('VehicleId')) && !empty(request('dateFrom')) && !empty(request('dateTo')) ) {
+            $Trip = Trip::where([['dateFrom',request('dateFrom')],['dateTo',request('dateTo')],['vehicleId',request('VehicleId')],['clientid',auth()->user()->id]])->first();
+            if (!empty($Trip)) {
+                return ['status'=>'present','msg'=>'Trip Data Already present'];
+            }
+            return ['status'=>'not'];
+        }else{
+            return ['status'=>'not'];
+        }
+    }
 
 
 }
