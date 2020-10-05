@@ -214,16 +214,11 @@ class EntryController extends Controller
 
     public function AutoCustomer(Request $request){
         $data = [];
+        $data = DB::table("customers")->select("id","name","mobile")->where('clientid',auth()->user()->id)->limit(5)->get();  
         if($request->has('q')){
             $search = $request->q;
-            $data = DB::table("customers")
-                    ->select("id","name","mobile")
-                    ->where('name','LIKE',"%$search%")
-                    ->orWhere('mobile','LIKE',"%$search%")
-                    ->where('clientid','LIKE',auth()->user()->id)
-                    ->get();    
+            $data = DB::table("customers")->select("id","name","mobile")->where('name','LIKE',"%$search%")->orWhere('mobile','LIKE',"%$search%")->where('clientid',auth()->user()->id)->get();    
         }
         return response()->json($data);
-        
     }
 }

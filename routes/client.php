@@ -180,15 +180,18 @@ Route::get('/Vehicle-list-trip-undo/{id}', 'ClientController\TripWiseController@
 Route::get('/trip-sheet/{tripid}/download', 'ClientController\TripSheetController@DownloadTripSheet')->name('DownloadTripSheet');
 
 
-
-//profile
+/*=======================
+    Profile
+=========================*/
 Route::get('/profile', 'ClientController\ProfileController@profile')->name('profile');
 Route::post('/profile', 'ClientController\ProfileController@UpdateProfile')->name('UpdateProfile');
 Route::get('/profile/change-password', 'ClientController\ProfileController@ChangePassword')->name('ChangePassword');
 Route::post('/profile/update-password', 'ClientController\ProfileController@UpdatePassword')->name('UpdatePassword');
 
 
-//profile
+/*=======================
+    Manager
+=========================*/
 Route::get('/managers', 'ClientController\ManagerController@view')->name('ViewManagers');
 Route::get('/manager/add', 'ClientController\ManagerController@add')->name('AddManager');
 Route::post('/manager/save', 'ClientController\ManagerController@save')->name('SaveManager');
@@ -204,6 +207,9 @@ Route::post('/report/expense-report/download', 'ClientController\ReportControlle
 Route::get('getendingkm','ClientController\MemoController@getendingkm');
 
 
+/*===============================
+    Auto Search for vehicle
+=================================*/
 Route::get('AutoExpense','ClientController\ExpenseController@AutoExpense')->name('AutoExpense');
 Route::get('AutoVehicle','ClientController\ExpenseController@AutoVehicle')->name('AutoVehicle');
 Route::get('AutoStaff','ClientController\TripController@AutoStaff')->name('AutoStaff');
