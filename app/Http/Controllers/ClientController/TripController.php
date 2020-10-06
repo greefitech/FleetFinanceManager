@@ -153,4 +153,18 @@ class TripController extends Controller
         }
         return response()->json($data);
     }
+
+    /*============================================
+    Update Trip status
+    ==============================================*/
+     public function UpdateTripStatusAjax(){
+        try {
+            $Trip= $this->Trip::findorfail(request('trip_id'));
+            $Trip->status = filter_var(request('status'), FILTER_VALIDATE_BOOLEAN)?1:0;
+            $Trip->save();
+            return ['status'=>'success','Trip Status Updated Successfully!!'];
+        } catch (\Illuminate\Database\QueryException $e) {
+            return ['status'=>'error','Trip Status Updated Error!!'];
+        }
+    }
 }

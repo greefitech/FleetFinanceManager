@@ -79,6 +79,7 @@ Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip
 Route::get('/trip/{id}/edit', 'ClientController\TripController@edit')->name('EditTrip');
 Route::post('/trip/{id}/edit', 'ClientController\TripController@update')->name('UpdateTrip');
 Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateTripStatus')->name('UpdateTripStatus');
+Route::post('/trip-status-update', 'ClientController\TripController@UpdateTripStatusAjax');
 
 
 //Entry
@@ -119,6 +120,7 @@ Route::get('/non-trip-expense/create', 'ClientController\ExpenseController@Creat
 Route::post('/non-trip-expense/create', 'ClientController\ExpenseController@SaveNonTripExpense');
 Route::get('/non-trip-expense/{id}/edit', 'ClientController\ExpenseController@EditNonTripExpense');
 Route::post('/non-trip-expense/{id}/update', 'ClientController\ExpenseController@UpdateNonTripExpense');
+Route::post('/delete-non-trip-expense', 'ClientController\ExpenseController@DeleteMultipleNonTripExpense');
 
 
 //Expense

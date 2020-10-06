@@ -15,6 +15,7 @@
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!$Trips->isEmpty())
+                        <meta name="csrf-token" content="{{ csrf_token() }}" />
                             <table  class="table table-bordered table-striped DataTable">
                                 <thead>
                                     <tr>
@@ -40,8 +41,8 @@
                                             @if(!$Trip->deleted_at)
                                                 <td>{{ auth()->user()->TripTotalIncome($Trip->id) - auth()->user()->TripTotalExpense($Trip->id) }}</td>
                                                 <td>
-                                                    <input type="checkbox" {{ ($Trip->status == 0)?'':'checked' }} data-toggle="toggle" data-onstyle="success" class="statusButton">
-                                                    <span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span> --}}
+                                                    <input type="checkbox" {{ ($Trip->status == 0)?'':'checked' }} data-toggle="toggle" data-onstyle="success" class="statusButton" trip_id="{{ $Trip->id }}">
+                                                    {{-- <span class="label label-{{ ($Trip->status == 0)?'danger':'success' }}">{{ ($Trip->status == 0)?'Not Completed':'Completed' }}</span> --}}
                                                 </td>
                                                 <td>{{ $Trip->managerid !='' ? $Trip->Manager->name: $Trip->Client->name }}</td>
                                             @else
@@ -102,5 +103,30 @@
             on: 'Completed',
             off: 'Not Completed'
         });
+
+    $(document).ready(function(){
+        $('.statusButton').on('change',function(){
+            var trip_id = $(this).attr('trip_id');
+            var status = $(this).prop('checked');
+
+            $.ajax({
+                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                    type: "post",
+                    url: '{{ action("ClientController\TripController@UpdateTripStatusAjax") }}',
+                    data:{status:status,trip_id:trip_id},
+                    dataType: 'json',
+                    success: function(data) {
+                       if (data.status =='success') {
+                            toastr.success('Trip', 'Status Updated Successfully!!!');
+                            location.reload();
+                        }else{
+                            toastr.warning('Status Not Updated Some Thing Went Wrong!!');
+                        }
+                    }
+            });
+        });
+    });
+
+
     </script>
 @endsection
