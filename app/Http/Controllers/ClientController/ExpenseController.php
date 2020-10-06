@@ -261,4 +261,16 @@ class ExpenseController extends Controller
         return response()->json($data);
     }
 
+    /*==================================
+    Delete Multiple non trip expense 
+    ====================================*/
+    public function DeleteMultipleNonTripExpense(){
+         try {
+            $this->Expense::whereIn('id',request('exp_id'))->delete();
+            return ['status'=>'success','Expense Deleted Successfully'];
+        } catch (\Illuminate\Database\QueryException $e) {
+            return ['status'=>'error','Expense Deleted Error'];
+        }
+    }
+
 }
