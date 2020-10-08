@@ -5,6 +5,10 @@ namespace App\Http\Controllers\API\DashboardController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\ExtraIncome;
+use App\Expense;
+use App\Trip;
+
 class DashboardController extends Controller
 {
 	/*
@@ -62,7 +66,7 @@ class DashboardController extends Controller
         if($amountbal < 0 && $success['profit']['prevamount'] != 0){
             $success['percentage']= ($amountbal / $success['profit']['prevamount']) * 100;
         }else if($amountbal > 0 && $success['profit']['prevamount'] != 0){
-            $success['percentage']= ($amountbal / $success['profit']['amount']) * 100;
+            $success['percentage']= ($amountbal / $success['profit']['prevamount']) * 100;
         }else if($amountbal != 0 && $success['profit']['prevamount'] == 0){
             $success['percentage'] = 100;
         }else{
@@ -147,5 +151,37 @@ class DashboardController extends Controller
 			}
 		}
         return response()->json(['msg'=>$message,'month_msg'=>$monthMessage,'data' => $success], $this->successStatus);
+    }
+
+    /*==========================================
+    Dashboard vehicle detail list
+    ============================================*/
+
+     public function dashboardVehicleWiseListDetails($month,$year,$vehicleId) {
+        $prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');
+        $prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
+        $nextmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonth()->format('m');
+        $nextyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonth()->format('Y');
+        $success['prevmonth'] =  $prevmonth;
+        $success['prevyear'] =  $prevyear;
+        $success['nextmonth'] =  $nextmonth;
+        $success['nextyear'] =  $nextyear; 
+        $success['month'] =  $month;
+        $success['year'] =  $year;
+
+        $success['IncomeAmount'] = auth()->user()->CalculateProfitAmountTotal($vehicleId,$month,$year);
+        $success['ExpenseAmount'] = auth()->user()->CalculateNonTripExpenseAmountTotal($vehicleId,$month,$year);
+        $success['ProfitAmount'] = $success['IncomeAmount'] - $success['ExpenseAmount'];
+
+
+        $success['ExtraIncomes'] =  ExtraIncome::with('ExpenseType')->where([['clientid', auth()->user()->id],['vehicleId',  $vehicleId]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->get();
+        $success['Expenses'] =  Expense::with('ExpenseType')->where([['clientid', auth()->user()->id],['vehicleId',$vehicleId]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->whereNull('tripId')->get();
+
+
+        $success['Trips'] = Trip::where([['clientid', auth()->user()->id],['vehicleId',  $vehicleId]])->whereYear('dateTo', '=', $year)->whereMonth('dateTo', '=', $month)->get()->map(function($Trip) {
+                $Trip->profit = auth()->user()->TripTotalIncome($Trip->id) - auth()->user()->TripTotalExpense($Trip->id);
+               return $Trip;
+            });
+        return response()->json(['msg'=>'income exp','data' => $success], $this->successStatus);
     }
 }

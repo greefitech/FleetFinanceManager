@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/dashboard/dashboard-summary', 'API\DashboardController\DashboardController@DashboardIncomeExpenseSummary');
     Route::get('/dashboard/dashboard-summary-vehicle-wise-list', 'API\DashboardController\DashboardController@dashboardVehicleWiseList');
     Route::get('/dashboard/dashboard-summary-last-three-month-chart', 'API\DashboardController\DashboardController@dashboardLastThreeMonthChart');
+
+
+    Route::get('/dashboard/dashboard-vehicle-list-detail-report/{month}/{year}/{vehicleId}', 'API\DashboardController\DashboardController@dashboardVehicleWiseListDetails');
     Route::get('/profile', 'API\UserController@profile');
 
     /*---------------------------
