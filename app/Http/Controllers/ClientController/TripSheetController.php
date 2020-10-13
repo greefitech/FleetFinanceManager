@@ -17,7 +17,6 @@ class TripSheetController extends Controller
 {
 
     public function __construct(){
-        $this->middleware('client');
         $this->ExpenseType = new ExpenseType;
         $this->Expense = new Expense;
         $this->Entry = new Entry;

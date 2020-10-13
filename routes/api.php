@@ -46,11 +46,12 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/vehicle-expense-type-list', 'API\Master\ExpenseController@GetExpenseType');
         Route::resource('/non-trip-expense', 'API\Master\ExpenseController');
     });
+    Route::get('trip-sheet/{tripId}', 'API\TripController@tripSheetView');
 
     /*--------------------------------------
     Income Route List
     ----------------------------------------*/
-      Route::group(['prefix' => 'income'], function() {
+    Route::group(['prefix' => 'income'], function() {
         Route::get('/customer-balance/{id}', 'API\Income\IncomeBalanceController@CustomerBalance');
         Route::resource('/customer-income', 'API\Income\IncomeBalanceController');
     });
