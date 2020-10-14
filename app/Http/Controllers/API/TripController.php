@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
-use App\Http\Controllers\ClientController\TripSheetController;
+use App\Http\Controllers\API\TripApiSheetController;
 
 
 class TripController extends Controller
@@ -15,9 +15,9 @@ class TripController extends Controller
     public $successStatus = 200;
 
 
-    protected $TripSheetController;
-    public function __construct(TripSheetController $TripSheetController){
-        $this->TripSheetController = $TripSheetController;
+    protected $TripApiSheetController;
+    public function __construct(TripApiSheetController $TripApiSheetController){
+        $this->TripApiSheetController = $TripApiSheetController;
     }
 
     /**
@@ -371,6 +371,6 @@ class TripController extends Controller
     }
 
     public function tripSheetView($tripId) {
-        return $this->TripSheetController->DownloadTripSheet($tripId);
+        return $this->TripApiSheetController->DownloadTripSheet($tripId);
     }
 }
