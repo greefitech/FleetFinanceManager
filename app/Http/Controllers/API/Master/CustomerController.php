@@ -23,15 +23,15 @@ class CustomerController extends Controller
     public function index() {
         $customers=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->get();
         $customers->map(function($customer) {
-                $customerData = $customer;
-                $total = ($customerData->customerEntryData->sum('balance')-$customerData->customerIncomeData->sum('recevingAmount')-$customerData->customerIncomeData->sum('discountAmount'));
-                $customer->outStandingAmount=$total;
+            $customerData = $customer;
+            $total = ($customerData->customerEntryData->sum('balance')-$customerData->customerIncomeData->sum('recevingAmount')-$customerData->customerIncomeData->sum('discountAmount'));
+            $customer->outStandingAmount=$total;
 
-                unset($customer->customerEntryData,$customer->customerIncomeData);
-                if (trim($total) != 0) {
-                    return $customer;
-                }
-            });
+            unset($customer->customerEntryData,$customer->customerIncomeData);
+            if (trim($total) != 0) {
+                return $customer;
+            }
+        });
         $success['customers'] = array();
         foreach ($customers as $key => $customer) {
             if ($customer->outStandingAmount !=0) {
@@ -86,7 +86,7 @@ class CustomerController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return response()->json(['msg'=>'Customer Created Successfully'], $this->successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (Exception $e){
             return response()->json(['msg'=>'Error On Insert'], 401);
         } 
     }
@@ -99,8 +99,12 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
-        return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        try {
+            $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
+            return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        }catch (Exception $e){
+            return response()->json(['msg'=>'Something went wrong!!'], 401);
+        } 
     }
 
     /**
@@ -111,8 +115,12 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
-        return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        try {
+            $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
+            return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        }catch (Exception $e){
+            return response()->json(['msg'=>'Something went wrong!!'], 401);
+        } 
     }
 
     /**
@@ -145,8 +153,8 @@ class CustomerController extends Controller
             $customer->type = request('type');
             $customer->save();
             return response()->json(['msg'=>'Customer Updated Successfully'], $this->successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
-            return response()->json(['msg'=>'Error On Insert'], 401);
+        }catch (Exception $e){
+            return response()->json(['msg'=>'Error On Update'], 401);
         } 
     }
 
@@ -170,5 +178,10 @@ class CustomerController extends Controller
         } catch (\Illuminate\Database\QueryException $e) {
             return response()->json(['msg'=>'Error On Delete!'], 401);
         }  
+    }
+
+     public function ListAllCustomerList() {
+        $customers=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->paginate(10);
+        return response()->json(['msg'=>'All Customer List','data' => $success], $this->successStatus);
     }
 }

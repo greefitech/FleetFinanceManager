@@ -36,6 +36,7 @@ Route::group(['middleware' => 'auth:api'], function() {
     ---------------------------*/
     Route::group(['prefix' => 'master'], function() {
         Route::resource('/customer', 'API\Master\CustomerController');
+        Route::get('/customer-list', 'API\Master\CustomerController@ListAllCustomerList');
 	    Route::resource('/staff', 'API\Master\StaffController');
 	    Route::resource('/vehicle', 'API\Master\VehicleController');
         Route::get('/vehicle-notification/{vehicleId}', 'API\Master\VehicleController@VehicleNotification');
