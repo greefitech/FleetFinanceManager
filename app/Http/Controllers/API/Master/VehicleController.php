@@ -179,6 +179,7 @@ class VehicleController extends Controller
         }
         $success['serviceNotification'] = $NotificationCount;
         $success['documentNotification'] = $DocumentCount;
+        $success['tyre_module'] = env('TYRE_MODULE');
         $success['expenseNotification'] = Expense::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId],['status',0]])->where('tripId', NULL)->count();
         return response()->json(['msg'=>'Vehicle Notification','data' =>$success], $this->successStatus);
     }
