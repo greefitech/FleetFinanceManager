@@ -181,7 +181,7 @@ class CustomerController extends Controller
     }
 
      public function ListAllCustomerList() {
-        $customers=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->paginate(10);
+        $success=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->paginate(10);
         return response()->json(['msg'=>'All Customer List','data' => $success], $this->successStatus);
     }
 }
