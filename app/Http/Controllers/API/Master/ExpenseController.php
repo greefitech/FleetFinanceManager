@@ -144,7 +144,12 @@ class ExpenseController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            Expense::findOrfail($id)->delete();
+            return response()->json(['msg'=>'Expense Deleted Successfully!'], $this->successStatus);
+        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['msg'=>'Error On Delete!'], 401);
+        }  
     }
 
     public function GetExpenseType(){
