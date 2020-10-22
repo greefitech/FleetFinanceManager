@@ -181,7 +181,21 @@ class CustomerController extends Controller
     }
 
      public function ListAllCustomerList() {
-        $customers=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->paginate(10);
+        $success=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->paginate(10);
         return response()->json(['msg'=>'All Customer List','data' => $success], $this->successStatus);
+    }
+
+    public function CustomerIncomePaymentList($id){
+        if (isset($_GET['page'])) 
+            $page = $_GET['page'];
+        else
+            $page = 1;
+        $EntryArray = array('dateFrom as date','id','vehicleId','advance as amount','tripId','account_id');
+        $IncomeArray = array('date','id','vehicleId','recevingAmount as amount','tripId','account_id');
+
+        $Entry = collect(Entry::select($EntryArray)->with('Trip','vehicle','Account')->where([['customerId',$id]])->whereNotNull('advance')->get());
+        $income = collect(Income::select($IncomeArray)->with('Trip','vehicle','Account')->where([['customerId',$id]])->whereNotNull('recevingAmount')->get());
+        $merged = $Entry->merge($income)->sortByDesc('date')->forPage($page,10)->values();
+        return response()->json(['msg'=>'Income List','data' => $merged], $this->successStatus);
     }
 }
