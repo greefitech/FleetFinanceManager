@@ -6,8 +6,6 @@ use App\ClientLogActivity as ClientLogActivityModel;
 
 
 class ClientLogActivity { 
-
-
 	public static function CreateLogActivity($subject){ 
 		$log = []; 
 		$log['subject'] = $subject; 
@@ -18,6 +16,4 @@ class ClientLogActivity {
 		$log['client_id'] = auth()->user()->id; 
 		ClientLogActivityModel::create($log); 
 	} 
-
-
 }
