@@ -9,6 +9,7 @@ use App\Vehicle;
 use App\Mail\SendDocumentNotification;
 use App\Jobs\SendClientMonthlyIncomeExpense;
 use App\Jobs\SendClientDocumentNotification;
+use App\Jobs\ClientMonthlyIncomeExpenseJobQueue;
 use Mail;
 
 class BasicController extends Controller
@@ -22,18 +23,19 @@ class BasicController extends Controller
     */
     public function ClientMonthlyIncomeExpenseMail() {
         /*Dont remove this code its for development checking for single client by mohan*/
-        if(env('APP_ENV') =='localmohan'){
-    		$client = Client::findorfail(3);
-    		SendClientMonthlyIncomeExpense::dispatch($client)->delay(now()->addSecond(10));
-        }
+      //   if(env('APP_ENV') =='localmohan'){
+    		// $client = Client::findorfail(3);
+    		// SendClientMonthlyIncomeExpense::dispatch($client)->delay(now()->addSecond(10));
+      //   }
+        ClientMonthlyIncomeExpenseJobQueue::dispatch()->delay(now()->addSecond(20));
 
-        /*It's production code for sending client email*/
-        if(env('APP_ENV') =='production'){
-    		$clients = Client::where('mail_notification',1)->get();
-    		foreach ($clients as $key => $client) {
-    			SendClientMonthlyIncomeExpense::dispatch($client)->delay(now()->addSecond(10));
-    		}
-        }
+      //   /*It's production code for sending client email*/
+      //   if(env('APP_ENV') =='production'){
+    		// $clients = Client::where('mail_notification',1)->get();
+    		// foreach ($clients as $key => $client) {
+    		// 	SendClientMonthlyIncomeExpense::dispatch($client)->delay(now()->addSecond(10));
+    		// }
+      //   }
 		dd('done');
     }
 

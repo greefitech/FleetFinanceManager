@@ -11,14 +11,14 @@
                     <h4>
                         <center>Add Expense / Income Type</center>
                     </h4>
-                    <a href="{{ route('client.ViewExpenseTypes') }}" class="btn btn-info pull-right">View Expense/Income Type</a>
+                    <a href="{{ action('ClientController\ExpenseTypeController@index') }}" class="btn btn-info pull-right">View Expense/Income Type</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.SaveExpenseType') }}">
+                    <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseTypeController@store') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('expenseType') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Expense Type <span style="color:red">*</span></label>

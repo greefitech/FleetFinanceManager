@@ -22,14 +22,18 @@ Route::get('/dashboard/get-dashboard-chart-values', 'ClientController\DashboardC
 *------------------------------
 */
 
-//CUSTOMER
-Route::resource('master/customers','ClientController\CustomerController');
-//Staff
-Route::resource('master/staffs','ClientController\StaffController');
-//Vehicle
-Route::resource('master/vehicles','ClientController\VehicleController');
-//VEHICLE SERVICE
-Route::resource('/master/vehicle-service', 'ClientController\Master\VehicleServiceController');
+Route::group(['prefix'=>'master'],function(){
+    //Expense Type
+	Route::resource('/expense-types', 'ClientController\ExpenseTypeController');
+	//CUSTOMER
+	Route::resource('customers','ClientController\CustomerController');
+	//Staff
+	Route::resource('staff','ClientController\StaffController');
+	//Vehicle
+	Route::resource('vehicles','ClientController\VehicleController');
+	//VEHICLE SERVICE
+	Route::resource('vehicle-service', 'ClientController\Master\VehicleServiceController');
+});
 
 //Documents
 Route::get('/documents/{vehicleid}/view', 'ClientController\DocumentController@view')->name('ViewDocuments');
@@ -57,15 +61,8 @@ Route::delete('/account/{id}/delete', 'ClientController\AccountController@delete
 Route::get('/account/{id}/view', 'ClientController\AccountController@ViewAccountDetail')->name('ViewAccountDetail');
 Route::get('/accounts/{AccountId}/{VehicleId}/view', 'ClientController\AccountController@AccountDetailVehicleWise');
 
-//Expense Type
-Route::get('/expense-types', 'ClientController\ExpenseTypeController@view')->name('ViewExpenseTypes');
-Route::get('/expense-type/add', 'ClientController\ExpenseTypeController@add')->name('AddExpenseType');
-Route::post('/expense-type/add', 'ClientController\ExpenseTypeController@save')->name('SaveExpenseType');
-Route::get('/expense-type/{id}/edit', 'ClientController\ExpenseTypeController@edit')->name('EditExpenseType');
-Route::post('/expense-type/{id}/update', 'ClientController\ExpenseTypeController@update')->name('UpdateExpenseType');
-Route::delete('/expense-type/{id}/delete', 'ClientController\ExpenseTypeController@delete')->name('DeleteExpenseType');
-
 //RTO Master
+// Route::resource('/rto-masters', 'ClientController\RTOMasterController');
 Route::get('/rto-masters', 'ClientController\RTOMasterController@view')->name('ViewRTOMasters');
 Route::get('/rto-master/add', 'ClientController\RTOMasterController@add')->name('AddRTOMaster');
 Route::post('/rto-master/save', 'ClientController\RTOMasterController@save')->name('SaveRTOMaster');
@@ -104,6 +101,8 @@ Route::get('/entry/memo/RTOMasterData', function (){
     return GetRTOMasterDataInputs();
 });
 
+
+// Route::resource('/entry', 'ClientController\EntryController');
 
 Route::get('/entry/add', 'ClientController\EntryController@add');
 Route::post('/entry/add', 'ClientController\EntryController@save')->name('SaveEntry');
@@ -177,11 +176,15 @@ Route::get('/trip-sheet/{tripid}/download', 'ClientController\TripSheetControlle
 
 
 
-//profile
-Route::get('/profile', 'ClientController\ProfileController@profile')->name('profile');
-Route::post('/profile', 'ClientController\ProfileController@UpdateProfile')->name('UpdateProfile');
-Route::get('/profile/change-password', 'ClientController\ProfileController@ChangePassword')->name('ChangePassword');
-Route::post('/profile/update-password', 'ClientController\ProfileController@UpdatePassword')->name('UpdatePassword');
+/*=======================
+	Profile Route list
+=========================*/
+Route::group(['prefix'=>'profile'],function(){
+	Route::get('/', 'ClientController\ProfileController@profile')->name('profile');
+	Route::post('/', 'ClientController\ProfileController@UpdateProfile')->name('UpdateProfile');
+	Route::get('/change-password', 'ClientController\ProfileController@ChangePassword')->name('ChangePassword');
+	Route::post('/update-password', 'ClientController\ProfileController@UpdatePassword')->name('UpdatePassword');
+});
 
 
 //profile
