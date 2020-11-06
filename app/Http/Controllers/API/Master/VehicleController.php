@@ -36,7 +36,12 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        try{
+            $success['VehicleType']=VehicleType::select('id','vehicleType')->get();
+           return response()->json(['msg'=>'Vehicle Type','data' =>$success], $this-> successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],401);
+        }
     }
 
     /**
@@ -77,7 +82,7 @@ class VehicleController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return response()->json(['msg'=>'Vehicle Created Successfully'], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Insert'],401);
         }
     }
@@ -93,7 +98,7 @@ class VehicleController extends Controller
             $success['VehicleType']=VehicleType::select('id','vehicleType')->get();
             $success['vehicle'] = Vehicle::with('GetVehicleType')->findOrfail($id);
            return response()->json(['msg'=>'Vehicle Show','data' =>$success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -110,7 +115,7 @@ class VehicleController extends Controller
             $success['VehicleType']=VehicleType::select('id','vehicleType')->get();
             $success['vehicle'] = Vehicle::with('GetVehicleType')->findOrfail($id);
            return response()->json(['msg'=>'Vehicle Edit','data' =>$success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -147,7 +152,7 @@ class VehicleController extends Controller
             $vehicle->modelNumber = request('modelNumber');
             $vehicle->save();
             return response()->json(['msg'=>'Vehicle Updated Successfully!'],  $this->successStatus);
-         }catch (Exception $e){
+         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'], 401);
         }
     }

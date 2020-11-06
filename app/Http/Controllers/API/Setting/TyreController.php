@@ -73,7 +73,7 @@ class TyreController extends Controller
                 'clientid'=>auth()->user()->id,
             ]);
            return response()->json(['msg'=>'Tyre Position Created Successfully'], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
              return response()->json(['msg'=>'error'], 404);
         }
     }
@@ -90,7 +90,7 @@ class TyreController extends Controller
             $success['tyrePosition'] = AssignTyre::where([['vehicleId',$id]])->get()->pluck('position');
             $success['tyreAssignedPosition'] = AssignTyre::where([['vehicleId',$id]])->whereNotNull('tyre_id')->get()->pluck('position');
             return response()->json(['msg'=>'Tyre Position List','data' => $success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'error'], 404);
         }
     }
@@ -162,8 +162,8 @@ class TyreController extends Controller
             }
 
             $AssignTyre->save();
-          return response()->json(['msg'=>'Tyre Position Updated Successfully'], $this->successStatus);
-        } catch (Exception $e) {
+            return response()->json(['msg'=>'Tyre Position Updated Successfully'], $this->successStatus);
+        } catch (\Exception $e) {
             return response()->json(['msg'=>'error'], 404);
         }
     }
@@ -196,7 +196,7 @@ class TyreController extends Controller
                 }
             }
             return response()->json(['msg'=>'Tyre Position List','data' => $success], $this->successStatus);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return response()->json(['msg'=>'error'], 404);
         }
     }
@@ -225,8 +225,8 @@ class TyreController extends Controller
                     ]);
                 }
             }
-           return response()->json(['msg'=>'Tyre Position Updated Successfully'], $this->successStatus);
-        } catch (Exception $e) {
+            return response()->json(['msg'=>'Tyre Position Updated Successfully'], $this->successStatus);
+        } catch (\Exception $e) {
             return response()->json(['msg'=>'error'], 404);
         }
     }
@@ -234,8 +234,8 @@ class TyreController extends Controller
      public function getTyreListDetail($vehicleId,$position){
         try{
             $success['tyreLogList'] = TyreLog::where([['vehicleId',$vehicleId],['position',$position]])->with('tyre')->latest()->take(20)->get();
-           return response()->json(['msg'=>'Tyre Position List','data' => $success], $this->successStatus);
-        } catch (Exception $e) {
+            return response()->json(['msg'=>'Tyre Position List','data' => $success], $this->successStatus);
+        } catch (\Exception $e) {
             return response()->json(['msg'=>'error'], 404);
         }
     }

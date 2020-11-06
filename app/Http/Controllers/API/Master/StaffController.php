@@ -80,7 +80,7 @@ class StaffController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return response()->json(['msg'=>'Staff Created Successfully'], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
              $errormsg['msg'] = 'Error On Insert';
              return response()->json(['msg'=>'Error On Insert','data'=>$errormsg], 401);
         }
@@ -96,7 +96,7 @@ class StaffController extends Controller
         try{
             $success['staff'] = Staff::findOrfail($id);
             return response()->json(['msg'=>'Staff List','data' => $success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'], 401);
         }
     }

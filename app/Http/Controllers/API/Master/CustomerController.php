@@ -86,7 +86,7 @@ class CustomerController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return response()->json(['msg'=>'Customer Created Successfully'], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Insert'], 401);
         } 
     }
@@ -102,7 +102,7 @@ class CustomerController extends Controller
         try {
             $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
             return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something went wrong!!'], 401);
         } 
     }
@@ -118,7 +118,7 @@ class CustomerController extends Controller
         try {
             $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
             return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something went wrong!!'], 401);
         } 
     }
@@ -153,7 +153,7 @@ class CustomerController extends Controller
             $customer->type = request('type');
             $customer->save();
             return response()->json(['msg'=>'Customer Updated Successfully'], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Update'], 401);
         } 
     }
@@ -175,7 +175,7 @@ class CustomerController extends Controller
         try {
             Customer::findOrfail($id)->delete();
             return response()->json(['msg'=>'Customer Deleted Successfully!'], $this->successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Delete!'], 401);
         }  
     }

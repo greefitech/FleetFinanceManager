@@ -60,7 +60,7 @@ class AccountController extends Controller
             $Account->clientid=auth()->user()->id;
             $Account->save();
             return response()->json(['msg'=>'Account Saved Successfully'], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -87,7 +87,7 @@ class AccountController extends Controller
         try{
             $success['account'] = Account::select('id','account','HolderName')->findOrfail($id);
             return response()->json(['msg'=>'Account','data' => $success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -122,7 +122,7 @@ class AccountController extends Controller
             $Account->clientid=auth()->user()->id;
             $Account->save();
             return response()->json(['msg'=>'Account Updated Successfully'], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
