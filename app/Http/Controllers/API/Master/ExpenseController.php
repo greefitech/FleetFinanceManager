@@ -24,7 +24,7 @@ class ExpenseController extends Controller
         try{
             $success['Expenses'] =  Expense::with('ExpenseTypes','Account')->where([['clientid',auth()->user()->id]])->WhereNull('tripId')->latest('date')->paginate(10);
            return response()->json(['msg'=>'Vehicle Non Trip Expense List','data' =>$success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -75,7 +75,7 @@ class ExpenseController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return response()->json(['msg'=>'Non Trip Expense Created Successfully'], $this->successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Insert'], 401);
         }
     }
@@ -91,7 +91,7 @@ class ExpenseController extends Controller
         try{
             $success['Expenses'] =  Expense::with('ExpenseTypes','Account')->where([['clientid',auth()->user()->id],['vehicleId',$id]])->WhereNull('tripId')->latest('date')->paginate(10);
            return response()->json(['msg'=>'Vehicle Non Trip Expense List','data' =>$success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -131,7 +131,7 @@ class ExpenseController extends Controller
                 'status'=>request('status'),
             ]);
             return response()->json(['msg'=>'Non Trip Expense Updated Successfully'], $this->successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Insert'], 401);
         }
     }
@@ -147,7 +147,7 @@ class ExpenseController extends Controller
         try {
             Expense::findOrfail($id)->delete();
             return response()->json(['msg'=>'Expense Deleted Successfully!'], $this->successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Delete!'], 401);
         }  
     }

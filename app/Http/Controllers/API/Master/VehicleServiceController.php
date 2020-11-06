@@ -53,7 +53,7 @@ class VehicleServiceController extends Controller
         try{
             $success['VehicleService'] = VehicleService::findorfail($id);
             return response()->json(['msg'=>'Service List','data' => $success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
