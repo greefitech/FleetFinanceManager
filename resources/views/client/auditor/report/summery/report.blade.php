@@ -1,5 +1,7 @@
 @extends('client.layout.master')
 
+@section('AuditorMenu','active')
+
 @section('content')
 
     <div class="row">
@@ -7,7 +9,7 @@
             <div class="box box-info">
                 <div class="box-header">
                     <h4>
-                        <center>Report</center>
+                        <center>Report {{  date("d-m-Y", strtotime($date_from)) }} - {{  date("d-m-Y", strtotime($date_to)) }}</center>
                     </h4>
                 </div>
                 <div class="box-body">

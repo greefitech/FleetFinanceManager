@@ -1,5 +1,7 @@
 @extends('client.layout.master')
 
+@section('AuditorMenu','active')
+
 @section('content')
 
     <div class="row">

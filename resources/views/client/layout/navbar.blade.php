@@ -134,7 +134,7 @@
             </li>
 
             <li class="header">AUDITOR</li>
-            <li class="treeview">
+            <li class="treeview @yield('AuditorMenu')">
                 <a href="#">
                     <i class="fa fa-file-pdf-o <?php echo $color[array_rand($color,1)] ?>"></i>
                     <span>Auditor</span>
@@ -142,7 +142,7 @@
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu" style="display: none;">
+                <ul class="treeview-menu">
                     <li><a href="{{ action('ClientController\Auditor\ExpenseCategoryGroupController@index') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Category</span></a></li>
                     <li><a href="{{ action('ClientController\Auditor\SummeryReportController@index') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Summery Report</span></a></li>
                 </ul>

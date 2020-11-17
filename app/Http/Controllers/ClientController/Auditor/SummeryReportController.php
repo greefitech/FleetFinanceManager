@@ -45,9 +45,6 @@ class SummeryReportController extends Controller
             return $row->sum('recevingAmount');
         })->toArray();
 
-//        dd($Data['income']);
-
-
         foreach (array_keys($Data['income']['entry']) as $IncomeKey){
             if(array_key_exists($IncomeKey,$Data['income']['entry'])){
                 $IncomeTotal[$IncomeKey]=@$Data['income']['entry'][$IncomeKey] + @$Data['income']['Income'][$IncomeKey];
@@ -58,7 +55,11 @@ class SummeryReportController extends Controller
                 $IncomeTotal[$ExpenseKey]=$Data['income']['Income'][$ExpenseKey];
             }
         }
-        $Data['fright_charge'] = $IncomeTotal;
+    
+        $Data['fright_charge'] = $IncomeTotal??0;
+
+        $Data['date_from'] = request('date_from');
+        $Data['date_to'] = request('date_to');
 
         $AuditorIncomeCategories =  AuditorExpenseCategory::where([['clientid',auth()->user()->id],['type','income']])->join('auditor_expense_types','auditor_expense_types.auditor_expense_category_id','=','auditor_expense_categories.id')->get()->groupBy('category');
         foreach($AuditorIncomeCategories as $key=>$AuditorIncomeCategory){
