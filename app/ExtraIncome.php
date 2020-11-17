@@ -26,7 +26,7 @@ class ExtraIncome extends Model
     }
 
     public function ExpenseType(){
-        return $this->belongsTo(ExpenseType::class, 'expense_type');
+        return $this->belongsTo(ExpenseType::class, 'expense_type');    
     }
 
     public function manager(){

@@ -209,11 +209,19 @@ Route::get('AutoStaff','ClientController\TripController@AutoStaff')->name('AutoS
 Route::get('AutoCustomer','ClientController\EntryController@AutoCustomer')->name('AutoCustomer');
 
 
-//auditor
-
 /*=====================
          SETTING
 =======================*/
 Route::resource('/setting/service', 'ClientController\Setting\ServiceController');
 Route::get('/setting/services/VehicleWise/{VehicleId}', 'ClientController\Setting\ServiceController@VehicleWiseService');
 Route::get('/setting/services/VehicleWise/Service/{ServiceTypeId}/{VehicleId}', 'ClientController\Setting\ServiceController@editService');
+
+
+
+/*=================================
+Auditor route
+===================================*/
+Route::resource('/auditor/group-category/expense','ClientController\Auditor\ExpenseCategoryGroupController');
+Route::get('/auditor/report/summery-report','ClientController\Auditor\SummeryReportController@index');
+Route::post('/auditor/report/summery-report/download','ClientController\Auditor\SummeryReportController@DownloadReport');
+Route::post('/auditor/report/full-report/download','ClientController\Auditor\FullReportController@DownloadFullReport');

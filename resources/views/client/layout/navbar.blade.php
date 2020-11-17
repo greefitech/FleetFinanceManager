@@ -132,11 +132,26 @@
                     <li><a href="{{ url('/client/report/expense-report') }}"><i class="fa fa-file-excel-o {{ $color[array_rand($color,1)] }}"></i> <span>Expense Report</span></a></li>
                 </ul>
             </li>
-            <li class="header">SETTING</li>
+
+            <li class="header">AUDITOR</li>
+            <li class="treeview">
+                <a href="#">
+                    <i class="fa fa-file-pdf-o <?php echo $color[array_rand($color,1)] ?>"></i>
+                    <span>Auditor</span>
+                    <span class="pull-right-container">
+                         <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu" style="display: none;">
+                    <li><a href="{{ action('ClientController\Auditor\ExpenseCategoryGroupController@index') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Category</span></a></li>
+                    <li><a href="{{ action('ClientController\Auditor\SummeryReportController@index') }}"><i class="fa fa-circle-o <?php echo $color[array_rand($color,1)] ?>"></i> <span>Summery Report</span></a></li>
+                </ul>
+            </li>
+            <li class="header">SETTINGS</li>
             <li class="treeview @yield('SettingMenu')">
                 <a href="#">
                     <i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i>
-                    <span>Setting</span>
+                    <span>Settings</span>
                     <span class="pull-right-container">
                          <i class="fa fa-angle-left pull-right"></i>
                     </span>
