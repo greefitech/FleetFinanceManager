@@ -107,6 +107,5 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::get('/tyre-assign-list/{vehicleId}/{position}', 'API\Setting\TyreController@getTyreListDetail');
         Route::post('/tyre-assign-update-status', 'API\Setting\TyreController@SaveTyreCurrentStatusVehicle');
     });
-
 });
 
