@@ -32,22 +32,22 @@ class DashboardController extends Controller
     public function DashboardIncomeExpenseSummary() {
          $success['outstandingamount'] =  auth()->user()->get_outstanding_amount();
          if(!empty(request('month')) && !empty(request('year'))){ // if year and month 
-			$month=request('month');$year=request('year');
-			$prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
-			$prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
-			
-			$success['nextmonth']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('Y');
+            $month=request('month');$year=request('year');
+            $prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
+            $prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
+            
+            $success['nextmonth']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('Y');
         }else{ // empty month send current month data
-        	$month=\Carbon\Carbon::now()->format('m');$year=\Carbon\Carbon::now()->format('Y');
-         	$prevmonth=\Carbon\Carbon::now()->subMonth()->format('m');$prevyear=\Carbon\Carbon::now()->subMonth()->format('Y');
-         	$success['nextmonth']=\Carbon\Carbon::now()->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::now()->addMonths(1)->format('Y');
+            $month=\Carbon\Carbon::now()->format('m');$year=\Carbon\Carbon::now()->format('Y');
+            $prevmonth=\Carbon\Carbon::now()->subMonth()->format('m');$prevyear=\Carbon\Carbon::now()->subMonth()->format('Y');
+            $success['nextmonth']=\Carbon\Carbon::now()->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::now()->addMonths(1)->format('Y');
         }
 
         $message = date("F", mktime(0, 0, 0, $month,10)).' - '.$year;
         $success['year'] =   $year;
-     	$success['month'] =   $month;
-     	$success['prevyear'] =   $prevyear;
-     	$success['prevmonth'] =   $prevmonth;
+        $success['month'] =   $month;
+        $success['prevyear'] =   $prevyear;
+        $success['prevmonth'] =   $prevmonth;
 
         $success['income']['amount'] = auth()->user()->CalculateProfitAmountTotal('',$month,$year);
         $success['income']['prevamount'] = auth()->user()->CalculateProfitAmountTotal('',$prevmonth,$prevyear);
