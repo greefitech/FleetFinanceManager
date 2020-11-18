@@ -11,11 +11,12 @@
                     <h4>
                         <center>Edit Expense / Income Type</center>
                     </h4>
-                    <a href="{{ route('client.ViewExpenseTypes') }}" class="btn btn-info pull-right">View Expense/Income Type</a>
+                    <a href="{{ action('ClientController\ExpenseTypeController@index') }}" class="btn btn-info pull-right">View Expense/Income Type</a>
                 </div>
                 <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ route('client.UpdateExpenseType',$ExpenseType->id) }}">
+                    <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseTypeController@update',$ExpenseType->id) }}">
                         {{ csrf_field() }}
+                        <input type="hidden" name="_method" value="PUT">
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-6">

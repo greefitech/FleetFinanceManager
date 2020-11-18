@@ -19,7 +19,7 @@ class ExpenseTypeController extends Controller
         $this->Expense = new Expense;
     }
 
-    public function view(){
+    public function index(){
         if (request()->ajax()) {
             $ExpenseTypes = $this->ExpenseType::where('clientid',auth()->user()->id);
             return DataTables::of($ExpenseTypes)
@@ -34,11 +34,11 @@ class ExpenseTypeController extends Controller
         return view('client.master.expenseType.view');
     }
 
-    public function add(){
+    public function create(){
         return view('client.master.expenseType.add');
     }
 
-    public function save()
+    public function store()
     {
         $this->validate(request(), [
             'expenseType' => 'required',
@@ -52,7 +52,7 @@ class ExpenseTypeController extends Controller
                 'expenseType' => request('expenseType'),
                 'clientid' => auth()->user()->id,
             ]);
-            return redirect(route('client.ViewExpenseTypes'))->with('success', ['Expense Type', 'Added Successfully!']);
+            return redirect(action('ClientController\ExpenseTypeController@index'))->with('success', ['Expense Type', 'Added Successfully!']);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
         }
@@ -81,7 +81,7 @@ class ExpenseTypeController extends Controller
             $ExpenseType = $this->ExpenseType::findOrfail($id);
             $ExpenseType->expenseType=request()->expenseType;
             $ExpenseType->save();
-            return redirect(route('client.ViewExpenseTypes'))->with('success', ['Expense Type', 'Updated Successfully!']);
+            return redirect(action('ClientController\ExpenseTypeController@index'))->with('success', ['Expense Type', 'Updated Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }
@@ -95,7 +95,7 @@ class ExpenseTypeController extends Controller
         }
         try {
             $this->ExpenseType::findOrfail($id)->delete();
-            return redirect(route('client.ViewExpenseTypes'))->with('success',['Expense Type','Deleted Successfully!']);
+            return redirect(action('ClientController\ExpenseTypeController@index'))->with('success',['Expense Type','Deleted Successfully!']);
         }catch (Exception $e){
             return back()->with('danger','Something went wrong!');
         }

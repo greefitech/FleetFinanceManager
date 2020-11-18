@@ -11,7 +11,7 @@
                     <h4>
                         <center>Expense / Income Types</center>
                     </h4>
-                    <a href="{{ action('ClientController\ExpenseTypeController@add') }}" class="btn btn-info pull-right">Add Type</a>
+                    <a href="{{ action('ClientController\ExpenseTypeController@create') }}" class="btn btn-info pull-right">Add Type</a>
                 </div>
                 <div class="box-body">
                     <div class="table-responsive">
@@ -37,7 +37,7 @@
     var Vehicles= $('#ExpenseTable').DataTable({
         processing: true,
         serverSide: true,
-        ajax: '{{ action('ClientController\ExpenseTypeController@view') }}',
+        ajax: '{{ action('ClientController\ExpenseTypeController@index') }}',
         "columns": [
             {data: 'expenseType', name: 'expenseType'},
             {data: 'created_by', name: 'created_by'},

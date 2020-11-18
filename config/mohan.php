@@ -6,6 +6,8 @@
 */
 
 return [
+	/*App env status*/
+	'app_status'=>env('APP_ENV'),
 
 	/*Website title*/
 	'website_title'=>'Fleet Finance',
