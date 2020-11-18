@@ -86,8 +86,7 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         try{
             $success['Expenses'] =  Expense::with('ExpenseTypes','Account')->where([['clientid',auth()->user()->id],['vehicleId',$id]])->WhereNull('tripId')->latest('date')->paginate(10);
            return response()->json(['msg'=>'Vehicle Non Trip Expense List','data' =>$success], $this->successStatus);
