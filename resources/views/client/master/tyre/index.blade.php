@@ -8,15 +8,15 @@ active menu-open
 
     <div class="row">
         <div class="col-xs-12">
-          	@component('layouts.component.box-pannel',['title'=>'Service Details','color'=>env('TABPANELCOLOR')])
-					<div class="row">
-	                    <div class="col-xs-12">
-	                        <center><h4>View Tyre</h4></center>
-	                        <a href="{{ action('ClientController\Master\TyreController@create') }}" class="btn btn-info pull-right">Add Tyre</a>
-	                    </div>
-	                </div>
+            @component('layouts.component.box-pannel',['title'=>'Service Details','color'=>env('TABPANELCOLOR')])
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <center><h4>View Tyre</h4></center>
+                            <a href="{{ action('ClientController\Master\TyreController@create') }}" class="btn btn-info pull-right">Add Tyre</a>
+                        </div>
+                    </div>
 
- 				<meta name="csrf-token" content="{{ csrf_token() }}">
+                <meta name="csrf-token" content="{{ csrf_token() }}">
                 <table class="table table-hover table-striped table-bordered" id="TyreListTable">
                     <thead>
                         <tr>

@@ -223,7 +223,6 @@ Route::get('AutoCustomer','ClientController\EntryController@AutoCustomer')->name
 /*=====================
          SETTING
 =======================*/
-
 Route::group(['prefix' => 'setting'], function() {
     Route::resource('/service', 'ClientController\Setting\ServiceController');
     Route::get('/services/VehicleWise/{VehicleId}', 'ClientController\Setting\ServiceController@VehicleWiseService');
