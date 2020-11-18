@@ -11,23 +11,23 @@ use App\Trip;
 
 class DashboardController extends Controller
 {
-	/*
-	*-------------------------------------
-	* Dashboard api comtroller 
-	*------------------------------------
-	* This function consist of dashboard calculation for api
-	*/
+    /*
+    *-------------------------------------
+    * Dashboard api comtroller 
+    *------------------------------------
+    * This function consist of dashboard calculation for api
+    */
 
 
-	public $successStatus = 200;
+    public $successStatus = 200;
 
 
-	/*
-	*----------------------------------------------
-	*Dashboard Summery Profit Expense
-	*---------------------------------------------
-	*Dashboard summary profit expense outstanging amount for api controller
-	*/
+    /*
+    *----------------------------------------------
+    *Dashboard Summery Profit Expense
+    *---------------------------------------------
+    *Dashboard summary profit expense outstanging amount for api controller
+    */
 
     public function DashboardIncomeExpenseSummary() {
          $success['outstandingamount'] =  auth()->user()->get_outstanding_amount();
@@ -79,7 +79,7 @@ class DashboardController extends Controller
     }
 
     public function dashboardLastThreeMonthChart(){
-    	$month=\Carbon\Carbon::now()->format('m');$year=\Carbon\Carbon::now()->format('Y');
+        $month=\Carbon\Carbon::now()->format('m');$year=\Carbon\Carbon::now()->format('Y');
         $prevmonth=\Carbon\Carbon::now()->subMonth()->format('m');$prevyear=\Carbon\Carbon::now()->subMonth()->format('Y');
         $prev2month=\Carbon\Carbon::now()->subMonth(2)->format('m');$prev2year=\Carbon\Carbon::now()->subMonth(2)->format('Y');
 
@@ -101,7 +101,7 @@ class DashboardController extends Controller
         $success['chart'][2]['expense'] = auth()->user()->CalculateNonTripExpenseAmountTotal('',$month,$year);
 
 
-		$message = $previous2month.' to '.$currentmonth.' Report';
+        $message = $previous2month.' to '.$currentmonth.' Report';
         return response()->json(['msg'=>$message,'data' => $success], $this->successStatus);
     }
 
@@ -113,7 +113,7 @@ class DashboardController extends Controller
     * Dashboard vehicle wise profit expense detail for month wise list
     */
 
-      public function dashboardVehicleWiseList() {
+    public function dashboardVehicleWiseList() {
         if(!empty(request('month')) && !empty(request('year'))){
             $month=request('month');$year=request('year');
             $prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
