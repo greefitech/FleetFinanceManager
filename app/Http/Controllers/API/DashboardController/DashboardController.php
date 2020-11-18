@@ -113,17 +113,17 @@ class DashboardController extends Controller
     * Dashboard vehicle wise profit expense detail for month wise list
     */
 
-    public function dashboardVehicleWiseList() {
+      public function dashboardVehicleWiseList() {
         if(!empty(request('month')) && !empty(request('year'))){
-			$month=request('month');$year=request('year');
-			$prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
-			$prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
+            $month=request('month');$year=request('year');
+            $prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
+            $prevmonth=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('m');$prevyear=\Carbon\Carbon::parse($year.'-'.$month.'-01')->subMonth()->format('Y');
 
-			$success['nextmonth']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('Y');
+            $success['nextmonth']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::parse($year.'-'.$month.'-01')->addMonths(1)->format('Y');
         }else{
-        	$month=\Carbon\Carbon::now()->format('m');$year=\Carbon\Carbon::now()->format('Y');
-         	$prevmonth=\Carbon\Carbon::now()->subMonth()->format('m');$prevyear=\Carbon\Carbon::now()->subMonth()->format('Y');
-         	$success['nextmonth']=\Carbon\Carbon::now()->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::now()->addMonths(1)->format('Y');
+            $month=\Carbon\Carbon::now()->format('m');$year=\Carbon\Carbon::now()->format('Y');
+            $prevmonth=\Carbon\Carbon::now()->subMonth()->format('m');$prevyear=\Carbon\Carbon::now()->subMonth()->format('Y');
+            $success['nextmonth']=\Carbon\Carbon::now()->addMonths(1)->format('m');$success['nextyear']=\Carbon\Carbon::now()->addMonths(1)->format('Y');
         }
 
         $message = date("F", mktime(0, 0, 0, $month,10)).' - '.$year.' Profit / Expense';
@@ -137,19 +137,19 @@ class DashboardController extends Controller
         $success['prevyear'] =  $prevyear;
 
         $success['vehicles']=array();
-		foreach(auth()->user()->vehicles as $key=>$vehicle){
-			$Profit = auth()->user()->CalculateProfitAmountTotal($vehicle->id,$month,$year);
-			$NonExpense = auth()->user()->CalculateNonTripExpenseAmountTotal($vehicle->id,$month,$year);
-			if($Profit > 0 || $NonExpense>0){
-				$ProfExp['id'] = $vehicle->id;
-				$ProfExp['vehicle_number'] = $vehicle->vehicleNumber;
-				$ProfExp['incomeAmount'] = $Profit;
-				$ProfExp['nonTripExpenseAmount'] = $NonExpense;
+        foreach(auth()->user()->vehicles as $key=>$vehicle){
+            $Profit = auth()->user()->CalculateProfitAmountTotal($vehicle->id,$month,$year);
+            $NonExpense = auth()->user()->CalculateNonTripExpenseAmountTotal($vehicle->id,$month,$year);
+            if($Profit > 0 || $NonExpense>0){
+                $ProfExp['id'] = $vehicle->id;
+                $ProfExp['vehicle_number'] = $vehicle->vehicleNumber;
+                $ProfExp['incomeAmount'] = $Profit;
+                $ProfExp['nonTripExpenseAmount'] = $NonExpense;
                 $ProfExp['profitAmount'] = $Profit - $NonExpense;
-				$ProfExp['status'] = ($Profit>$NonExpense)?'success':'danger';
+                $ProfExp['status'] = ($Profit>$NonExpense)?'success':'danger';
                 $success['vehicles'][] = $ProfExp;
-			}
-		}
+            }
+        }
         return response()->json(['msg'=>$message,'month_msg'=>$monthMessage,'data' => $success], $this->successStatus);
     }
 
