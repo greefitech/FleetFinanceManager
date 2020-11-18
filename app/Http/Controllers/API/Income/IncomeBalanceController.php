@@ -42,8 +42,7 @@ class IncomeBalanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $this->validate(request(),[
             'date'=>'required|date',
             'account_id'=>'required',
