@@ -45,7 +45,7 @@
                                             <td>{{ $Expense->amount }}</td>
                                             <td><span class="label label-{{ ($Expense->status == 0)?'danger':'success' }}">{{ ($Expense->status == 0)?'Not Paid':'Paid' }}</span></td>
                                             <td>{{ $Expense->discription }}</td>
-                                            {{-- <td>--</td> --}}
+                                            {{-- <td>-</td> --}}
                                             <td>
                                                 <form action="{{ route('client.DeleteExpense',$Expense->id) }}" method="POST">
                                                     {{ csrf_field() }}
@@ -110,9 +110,6 @@ $(document).ready(function(){
             } 
         }
     })
-
-
-
 });
 </script>
 

@@ -104,29 +104,28 @@
             off: 'Not Completed'
         });
 
-    $(document).ready(function(){
-        $('.statusButton').on('change',function(){
-            var trip_id = $(this).attr('trip_id');
-            var status = $(this).prop('checked');
+        $(document).ready(function(){
+            $('.statusButton').on('change',function(){
+                var trip_id = $(this).attr('trip_id');
+                var status = $(this).prop('checked');
 
-            $.ajax({
-                    headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-                    type: "post",
-                    url: '{{ action("ClientController\TripController@UpdateTripStatusAjax") }}',
-                    data:{status:status,trip_id:trip_id},
-                    dataType: 'json',
-                    success: function(data) {
-                       if (data.status =='success') {
-                            toastr.success('Trip', 'Status Updated Successfully!!!');
-                            location.reload();
-                        }else{
-                            toastr.warning('Status Not Updated Some Thing Went Wrong!!');
+                $.ajax({
+                        headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
+                        type: "post",
+                        url: '{{ action("ClientController\TripController@UpdateTripStatusAjax") }}',
+                        data:{status:status,trip_id:trip_id},
+                        dataType: 'json',
+                        success: function(data) {
+                           if (data.status =='success') {
+                                toastr.success('Trip', 'Status Updated Successfully!!!');
+                                location.reload();
+                            }else{
+                                toastr.warning('Status Not Updated Some Thing Went Wrong!!');
+                            }
                         }
-                    }
+                });
             });
         });
-    });
-
 
     </script>
 @endsection
