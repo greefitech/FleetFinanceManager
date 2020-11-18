@@ -19,7 +19,7 @@ class DocumentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     public function store(Request $request){
+    public function store(Request $request){
         $validator = Validator::make(request()->all(), [
            'documentType'=>'required|exists:document_types,id',
             'duedate'=>'required|date',
