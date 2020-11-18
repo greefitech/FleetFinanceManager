@@ -21,12 +21,13 @@ class DocumentController extends Controller
      */
      public function store(Request $request){
         $validator = Validator::make(request()->all(), [
-            'documentType'=>'required|exists:document_types,id',
+           'documentType'=>'required|exists:document_types,id',
             'duedate'=>'required|date',
             'notifyBefore'=>'required',
             'issuingCompany'=>'required',
             'interval'=>'required',
             'amount'=>'required',
+            'vehicleId'=>'required',
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->toArray() as $value) {
@@ -35,6 +36,7 @@ class DocumentController extends Controller
             return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
         }
         try{
+            $Vehicle = Vehicle::findorfail(request('vehicleId'));
             $document = new Document;
             $document->documentType = request('documentType');
             $document->duedate = request('duedate');
@@ -44,8 +46,15 @@ class DocumentController extends Controller
             $document->amount = request('amount');
             $document->notes = request('notes');
             $document->vehicleId = request('vehicleId');
+            if($request->file('file')){
+                $file = $request->file('file');
+                $imageName = hash('sha256', strval(time())).'.'.$request->file->getClientOriginalExtension();
+                $destinationPath = config('mohan.uploads.vehicle_document').$Vehicle->vehicleNumber.'/';
+                $file->move($destinationPath,$imageName);
+                $document->file =$destinationPath.$imageName;
+            }
             $document->save();
-            return response()->json(['msg'=>'Vehicle Document Created Successfully'], $this->successStatus);
+            return response()->json(['msg'=>'Vehicle Document Saved Successfully'], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
@@ -97,8 +106,7 @@ class DocumentController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $validator = Validator::make(request()->all(), [
            'documentType'=>'required|exists:document_types,id',
             'duedate'=>'required|date',
@@ -115,6 +123,7 @@ class DocumentController extends Controller
         }
         try{
             $document = Document::findOrfail($id);
+            $Vehicle = Vehicle::findorfail($document->vehicleId);
             $document->documentType = request('documentType');
             $document->duedate = request('duedate');
             $document->notifyBefore = request('notifyBefore');
@@ -122,6 +131,13 @@ class DocumentController extends Controller
             $document->issuingCompany = request('issuingCompany');
             $document->amount = request('amount');
             $document->notes = request('notes');
+            if($request->file('file')){
+                $file = $request->file('file');
+                $imageName = hash('sha256', strval(time())).'.'.$request->file->getClientOriginalExtension();
+                $destinationPath = config('mohan.uploads.vehicle_document').$Vehicle->vehicleNumber.'/';
+                $file->move($destinationPath,$imageName);
+                $document->file =$destinationPath.$imageName;
+            }
             $document->save();
             return response()->json(['msg'=>'Vehicle Document Updated Successfully'], $this->successStatus);
         }catch (\Exception $e){

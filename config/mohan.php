@@ -28,7 +28,7 @@ return [
 
 	/*Uploads file location*/
 	'uploads'=>[
-		'vehicle_document'=>'/uploads/vehicle/',
+		'vehicle_document'=>'uploads/vehicle/',
 		'staff_document'=>'/uploads/staff/',
 	],
 
