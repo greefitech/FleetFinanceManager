@@ -60,7 +60,6 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::resource('/customer-income', 'API\Income\IncomeBalanceController');
     });
 
-
 //  STAFF
  //    Route::post('/staff/create', 'API\StaffController@CreateStaff');
     // Route::get('/staffs', 'API\StaffController@GetStaffs');
