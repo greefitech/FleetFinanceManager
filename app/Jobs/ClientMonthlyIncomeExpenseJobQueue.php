@@ -40,7 +40,7 @@ class ClientMonthlyIncomeExpenseJobQueue implements ShouldQueue
         }
 
         if($this->details =='production'){
-            $clients = Client::where('mail_notification',1)->get();
+            $clients = Client::where([['mail_notification',1],['verified',1],['client_status',1]])->get();
             foreach ($clients as $key => $client) {
                 SendClientMonthlyIncomeExpense::dispatch($client)->delay(now()->addSecond(10));
             }

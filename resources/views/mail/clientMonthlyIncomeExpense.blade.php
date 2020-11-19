@@ -4,20 +4,23 @@ Hi <b>{{ $details['transportName'] }}</b>,
 @php
 	$vehicles = App\Vehicle::where([['clientid',$details['id']]])->get();
 	$month = config('mohan.income_expense_send_mail_month');
-	$year = config('mohan.income_expense_send_mail_year');	
+	$year = config('mohan.income_expense_send_mail_year');		
+	// $month = '01';
+	// $year = '2020';	
 @endphp
-<p style="color: green;">Monthly Report For {{ date("F", mktime(0, 0, 0, $month,10)) }} - {{ $year }}</p>
+<p style="color: green;font-size: 20px;">Monthly Report For {{ date("F", mktime(0, 0, 0, $month,10)) }} - {{ $year }}</p>
 
 <table border="1">
 	<thead>
 		<tr>
 			<th>Vehicle Number</th>
 			<th>Trips</th>
-			<th>Profit</th>
-			<th>Non-Trip Expense</th>
-			<th>KM</th>
-			{{-- <th>Diesel (l)</th> --}}
 			<th>Diesel (₹)</th>
+			<th>Income (₹)</th>
+			<th>Non-Trip Expense (₹)</th>
+			<th>KM</th>
+			<th>Profit (₹)</th>
+			{{-- <th>Diesel (l)</th> --}}
 		</tr>
 	</thead>
 	<tbody>
@@ -25,24 +28,28 @@ Hi <b>{{ $details['transportName'] }}</b>,
 			<tr>
 				<td>{{ $vehicle->vehicleNumber }}</td>
 				<td>{{ vehicleMontlyVehicleWiseTripDetail($vehicle->id,$month,$year,$details['id'])['tripCount'] }}</td>
-				<td>{{ CalculateProfitAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
-				<td>{{ CalculateNonTripExpenseAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
-				<td>{{ vehicleMontlyVehicleWiseTripDetail($vehicle->id,$month,$year,$details['id'])['tripTotalKm'] }}</td>
-				{{-- <td>{{ vehicleMontlyVehicleWiseTripExpenseDetail($vehicle->id,$month,$year,$details['id'],2)['quantity'] }}</td> --}}
 				<td>{{ vehicleMontlyVehicleWiseTripExpenseDetail($vehicle->id,$month,$year,$details['id'],2)['amount'] }}</td>
+				<td>{{ $Income = CalculateProfitAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
+				<td>{{ $NonTripExpense = CalculateNonTripExpenseAmountTotalVehicleWise($vehicle->id,$month,$year,$details['id']) }}</td>
+				<td>{{ vehicleMontlyVehicleWiseTripDetail($vehicle->id,$month,$year,$details['id'])['tripTotalKm'] }}</td>
+
+				<td>{{ number_format(@$Income - @$NonTripExpense)  }}</td>
+
+				{{-- <td>{{ vehicleMontlyVehicleWiseTripExpenseDetail($vehicle->id,$month,$year,$details['id'],2)['quantity'] }}</td> --}}
 			</tr>
 		@endforeach
 		<tr>
 			<th>Total</th>
 			<td>{{ vehicleMontlyClientWiseTripDetail($month,$year,$details['id'])['tripCount'] }}</td>
-			<th>{{ CalculateProfitAmountTotalClientWise($month,$year,$details['id']) }}</th>
-			<th>{{ CalculateNonTripExpenseAmountTotalClientWise($month,$year,$details['id']) }}</th>
+			<td>{{ number_format(vehicleMontlyClientWiseTripExpenseDetail($month,$year,$details['id'],2)['amount']) }}</td>
+			<th>{{ number_format($TotIncome = CalculateProfitAmountTotalClientWise($month,$year,$details['id'])) }}</th>
+			<th>{{ number_format($TotNonTripExpense = CalculateNonTripExpenseAmountTotalClientWise($month,$year,$details['id'])) }}</th>
 			<td>{{ vehicleMontlyClientWiseTripDetail($month,$year,$details['id'])['tripTotalKm'] }}</td>
+
+			<th>{{ number_format(@$TotIncome - @$TotNonTripExpense)  }}</th>
 			{{-- <td>{{ vehicleMontlyClientWiseTripExpenseDetail($month,$year,$details['id'],2)['quantity'] }}</td> --}}
-			<td>{{ vehicleMontlyClientWiseTripExpenseDetail($month,$year,$details['id'],2)['amount'] }}</td>
 		</tr>
 	</tbody>
 </table>
-
 
 <p><i>This email is auto generated from <a href="https://myvehicle.biz" target="_blank">MyVehicle Inc.</a></i></p>
