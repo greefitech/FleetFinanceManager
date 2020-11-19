@@ -20,7 +20,7 @@ class HaltController extends Controller
 
     public function save(){
         $this->validate(request(),[
-            'date'=>'required',
+            'date'=>'required|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'location'=>'required',
         ]);

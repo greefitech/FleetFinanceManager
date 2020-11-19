@@ -24,11 +24,22 @@
 <script src="{{ asset('/js/entry.js') }}"></script>
 <script src="{{ asset('/js/expense.js') }}"></script>
 <script src="{{ asset('/js/income.js') }}"></script>
+<script src="//unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
+<link href="https://gitcdn.github.io/bootstrap-toggle/2.2.2/css/bootstrap-toggle.min.css" rel="stylesheet">
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script src="https://adminlte.io/themes/AdminLTE/bower_components/PACE/pace.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/searchbuilder/1.0.0/js/dataTables.searchBuilder.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
 
 <script>
+	$(document).ajaxStart(function() { Pace.restart(); });
     $(document).ready( function () {
         $('.DataTable').DataTable({
-            "aaSorting": []
+            "aaSorting": [],
+            select: true,
+            dom: 'Qfrtip',
+            responsive: true
         });
         $('.select2').select2();
 

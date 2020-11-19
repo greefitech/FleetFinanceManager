@@ -72,7 +72,7 @@ class TripController extends Controller
                 $vehicle->save();
             }
             return back()->with('success',['Trip','Created Successfully']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -84,7 +84,7 @@ class TripController extends Controller
         try {
             $Data['Trip'] = $this->Trip::findorfail($id);
             return view('client.trip.trip.edit',$Data);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
@@ -125,7 +125,7 @@ class TripController extends Controller
             $Trip->tripName = request('tripName');
             $Trip->save();
             return redirect(route('client.ViewTripListVehicleWise', request('vehicleId')))->with('success', ['Trip', 'Updated Successfully']);
-        } catch (Exception $e) {
+        } catch (\Exception $e) {
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -139,23 +139,32 @@ class TripController extends Controller
             $Trip->status = request('status');
             $Trip->save();
             return redirect(route('client.ViewTripListVehicleWise', $Trip->vehicleId))->with('success',['Trip Status','Updated Successfully']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('danger','Something went wrong!');
         }
     }
 
     public function AutoStaff(Request $request){
         $data = [];
+        $data = DB::table("staff")->select("id","name","mobile1")->where('clientid',auth()->user()->id)->limit(5)->get(); 
         if($request->has('q')){
             $search = $request->q;
-            $data = DB::table("staff")
-                    ->select("id","name","mobile1")
-                    ->where('name','LIKE',"%$search%")
-                    ->orWhere('mobile1','LIKE',"%$search%")
-                    ->where('clientid','LIKE',auth()->user()->id)
-                    ->get();    
+            $data = DB::table("staff")->select("id","name","mobile1")->where('name','LIKE',"%$search%")->orWhere('mobile1','LIKE',"%$search%")->where('clientid',auth()->user()->id)->get();   .
         }
         return response()->json($data);
-      
+    }
+
+    /*============================================
+    Update Trip status
+    ==============================================*/
+     public function UpdateTripStatusAjax(){
+        try {
+            $Trip= $this->Trip::findorfail(request('trip_id'));
+            $Trip->status = filter_var(request('status'), FILTER_VALIDATE_BOOLEAN)?1:0;
+            $Trip->save();
+            return ['status'=>'success','Trip Status Updated Successfully!!'];
+        } catch (\Illuminate\Database\QueryException $e) {
+            return ['status'=>'error','Trip Status Updated Error!!'];
+        }
     }
 }

@@ -26,6 +26,9 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::get('/dashboard/dashboard-summary', 'API\DashboardController\DashboardController@DashboardIncomeExpenseSummary');
     Route::get('/dashboard/dashboard-summary-vehicle-wise-list', 'API\DashboardController\DashboardController@dashboardVehicleWiseList');
     Route::get('/dashboard/dashboard-summary-last-three-month-chart', 'API\DashboardController\DashboardController@dashboardLastThreeMonthChart');
+
+
+    Route::get('/dashboard/dashboard-vehicle-list-detail-report/{month}/{year}/{vehicleId}', 'API\DashboardController\DashboardController@dashboardVehicleWiseListDetails');
     Route::get('/profile', 'API\UserController@profile');
 
     /*---------------------------
@@ -33,20 +36,27 @@ Route::group(['middleware' => 'auth:api'], function() {
     ---------------------------*/
     Route::group(['prefix' => 'master'], function() {
         Route::resource('/customer', 'API\Master\CustomerController');
+        Route::get('/customer-list', 'API\Master\CustomerController@ListAllCustomerList');
+        Route::get('/customer-payment-list/{id}', 'API\Master\CustomerController@CustomerIncomePaymentList');
 	    Route::resource('/staff', 'API\Master\StaffController');
 	    Route::resource('/vehicle', 'API\Master\VehicleController');
+        Route::get('/vehicle-notification/{vehicleId}', 'API\Master\VehicleController@VehicleNotification');
         Route::get('/vehicle-document-types', 'API\Master\DocumentController@vehicleDocumentTypes');
         Route::resource('/vehicle-document', 'API\Master\DocumentController');
         Route::resource('/vehicle-service', 'API\Master\VehicleServiceController');
+        Route::resource('/account', 'API\Master\AccountController');
+        Route::get('/vehicle-expense-type-list', 'API\Master\ExpenseController@GetExpenseType');
+        Route::resource('/non-trip-expense', 'API\Master\ExpenseController');
     });
+    Route::get('trip-sheet/{tripId}', 'API\TripController@tripSheetView');
 
-//    CUSTOMER
-
- //    Route::get('/customers', 'API\CustomerController@GetCustomers');
- //    Route::post('/customer/create', 'API\CustomerController@CreateCustomer');
-    // Route::get('/customer/{id}/edit', 'API\CustomerController@EditCustomers');
-    // Route::post('/customer/{id}/update', 'API\CustomerController@UpdateCustomers');
-    // Route::delete('/customer/{id}/delete', 'API\CustomerController@DeleteCustomers');
+    /*--------------------------------------
+    Income Route List
+    ----------------------------------------*/
+    Route::group(['prefix' => 'income'], function() {
+        Route::get('/customer-balance/{id}', 'API\Income\IncomeBalanceController@CustomerBalance');
+        Route::resource('/customer-income', 'API\Income\IncomeBalanceController');
+    });
 
 //  STAFF
  //    Route::post('/staff/create', 'API\StaffController@CreateStaff');
@@ -55,21 +65,13 @@ Route::group(['middleware' => 'auth:api'], function() {
     // Route::post('/staff/{id}/update', 'API\StaffController@UpdateStaff');
     // Route::delete('/staff/{id}/delete', 'API\StaffController@DeleteStaff');
 
-
-//  VEHICLE
- //    Route::get('/vehicle/types', 'API\VehicleController@VehicleType');
-    // Route::post('/vehicle/create', 'API\VehicleController@CreateVehicle');
-    // Route::get('/vehicles', 'API\VehicleController@GetVehicles');
-    // Route::get('/vehicle/{id}/edit', 'API\VehicleController@EditVehicle');
-    // Route::post('/vehicle/{id}/update', 'API\VehicleController@UpdateVehicle');
-
     //  VEHICLE Document
 
 //	ACCOUNT
-    Route::post('/account/create', 'API\AccountController@CreateAccount');
-    Route::get('/accounts', 'API\AccountController@GetAccounts');
-    Route::get('/account/{id}/edit', 'API\AccountController@EditAccount');
-    Route::post('/account/{id}/update', 'API\AccountController@UpdateAccount');
+    // Route::post('/account/create', 'API\AccountController@CreateAccount');
+    // Route::get('/accounts', 'API\AccountController@GetAccounts');
+    // Route::get('/account/{id}/edit', 'API\AccountController@EditAccount');
+    // Route::post('/account/{id}/update', 'API\AccountController@UpdateAccount');
 
 
 //    EXPENSE TYPE
@@ -94,6 +96,13 @@ Route::group(['middleware' => 'auth:api'], function() {
     Route::group(['prefix' => 'setting'], function() {
         Route::resource('/vehicle-service', 'API\Setting\ServiceController');
         Route::get('/services/VehicleWise/{ServiceTypeId}/{VehicleId}', 'API\Setting\ServiceController@vehicleServiceData');
+    });
+
+    Route::group(['prefix' => 'tyre'], function() {
+        Route::resource('/tyre-service', 'API\Setting\TyreController');
+        Route::get('/tyre-assign-edit/{vehicleId}/{position}', 'API\Setting\TyreController@getTyreListEdit');
+        Route::get('/tyre-assign-list/{vehicleId}/{position}', 'API\Setting\TyreController@getTyreListDetail');
+        Route::post('/tyre-assign-update-status', 'API\Setting\TyreController@SaveTyreCurrentStatusVehicle');
     });
 });
 

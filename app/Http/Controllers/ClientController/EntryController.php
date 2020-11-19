@@ -24,7 +24,7 @@ class EntryController extends Controller
 
     public function save(){
         $this->validate(request(),[
-            'dateFrom'=>'required|date',
+            'dateFrom'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'nullable|exists:customers,id',
             'customerMobile'=>'required_without:customerId',
@@ -122,7 +122,7 @@ class EntryController extends Controller
     public function update($id){
         $Trip= $this->Trip::findOrfail(request('tripId'));
         $this->validate(request(),[
-            'dateFrom'=>'required|date|after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo,
+            'dateFrom'=>'required|date|after_or_equal:.'.$Trip->dateFrom.'|before_or_equal:.'.$Trip->dateTo.'|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'customerId'=>'nullable|exists:customers,id',
             'customerMobile'=>'required_without:customerId',
@@ -214,16 +214,11 @@ class EntryController extends Controller
 
     public function AutoCustomer(Request $request){
         $data = [];
+        $data = DB::table("customers")->select("id","name","mobile")->where('clientid',auth()->user()->id)->limit(5)->get();  
         if($request->has('q')){
             $search = $request->q;
-            $data = DB::table("customers")
-                    ->select("id","name","mobile")
-                    ->where('name','LIKE',"%$search%")
-                    ->orWhere('mobile','LIKE',"%$search%")
-                    ->where('clientid','LIKE',auth()->user()->id)
-                    ->get();    
+            $data = DB::table("customers")->select("id","name","mobile")->where('name','LIKE',"%$search%")->orWhere('mobile','LIKE',"%$search%")->where('clientid',auth()->user()->id)->get();    
         }
         return response()->json($data);
-        
     }
 }

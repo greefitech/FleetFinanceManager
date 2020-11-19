@@ -1,8 +1,6 @@
 @extends('client.layout.master')
 
-@section('setting')
-active menu-open
-@endsection
+@section('SettingMenu','active')
 
 @section('content')
 
@@ -23,7 +21,7 @@ active menu-open
                         <input type="hidden" name="vehicle_service_id" value="{{ $VehicleService->id }}" class="form-control">
                         <div class="col-sm-3">
                             <div class="form-group">
-                                {!! Form::label('date', 'Next Service Date') !!}
+                                {!! Form::label('date', 'Service Date') !!}
                                 {!! Form::date('date', null, ['class' => 'form-control','placeholder' =>'Service Date']) !!}
                             </div>
                         </div>

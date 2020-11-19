@@ -20,14 +20,24 @@ class CustomerController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
-        $success['customers']=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->get();
-        $success['customers']->map(function($customer) {
-                $total = ($customer->customerEntryData->sum('balance')-$customer->customerIncomeData->sum('recevingAmount')-$customer->customerIncomeData->sum('discountAmount'));
-                $customer->outStandingAmount=$total;
+     public function index() {
+        $customers=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->get();
+        $customers->map(function($customer) {
+            $customerData = $customer;
+            $total = ($customerData->customerEntryData->sum('balance')-$customerData->customerIncomeData->sum('recevingAmount')-$customerData->customerIncomeData->sum('discountAmount'));
+            $customer->outStandingAmount=$total;
+
+            unset($customer->customerEntryData,$customer->customerIncomeData);
+            if (trim($total) != 0) {
                 return $customer;
-            });
+            }
+        });
+        $success['customers'] = array();
+        foreach ($customers as $key => $customer) {
+            if ($customer->outStandingAmount !=0) {
+                $success['customers'][] = $customer;
+            }
+        }
         return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
     }
 
@@ -47,8 +57,7 @@ class CustomerController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request) {
         $validator = Validator::make(request()->all(), [
             'name' => 'required',
             'mobile' => 'required|min:10|max:10',
@@ -76,8 +85,8 @@ class CustomerController extends Controller
                 'type' => request('type'),
                 'clientid' => auth()->user()->id,
             ]);
-            return response()->json(['msg'=>'Customer Created Successfully'], $this-> successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['msg'=>'Customer Created Successfully'], $this->successStatus);
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Insert'], 401);
         } 
     }
@@ -90,8 +99,12 @@ class CustomerController extends Controller
      */
     public function show($id)
     {
-        $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
-        return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        try {
+            $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
+            return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something went wrong!!'], 401);
+        } 
     }
 
     /**
@@ -102,8 +115,12 @@ class CustomerController extends Controller
      */
     public function edit($id)
     {
-        $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
-        return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        try {
+            $success['customer']=Customer::select('id','name','mobile','address','type')->findorfail($id);
+            return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something went wrong!!'], 401);
+        } 
     }
 
     /**
@@ -135,9 +152,9 @@ class CustomerController extends Controller
             $customer->mobile = request('mobile');
             $customer->type = request('type');
             $customer->save();
-            return response()->json(['msg'=>'Customer Updated Successfully'], $this-> successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
-            return response()->json(['msg'=>'Error On Insert'], 401);
+            return response()->json(['msg'=>'Customer Updated Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Error On Update'], 401);
         } 
     }
 
@@ -157,10 +174,28 @@ class CustomerController extends Controller
         }
         try {
             Customer::findOrfail($id)->delete();
-            $finalData['msg']='Customer Deleted Successfully';
-            return response()->json(['msg'=>'Customer Deleted Successfully!'], $this-> successStatus);
-        } catch (\Illuminate\Database\QueryException $e) {
+            return response()->json(['msg'=>'Customer Deleted Successfully!'], $this->successStatus);
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Delete!'], 401);
         }  
+    }
+
+     public function ListAllCustomerList() {
+        $success=Customer::select('id','name','mobile','address','type')->where('clientid',auth()->user()->id)->orderBy('name')->paginate(10);
+        return response()->json(['msg'=>'All Customer List','data' => $success], $this->successStatus);
+    }
+
+    public function CustomerIncomePaymentList($id){
+        if (isset($_GET['page'])) 
+            $page = $_GET['page'];
+        else
+            $page = 1;
+        $EntryArray = array('dateFrom as date','id','vehicleId','advance as amount','tripId','account_id');
+        $IncomeArray = array('date','id','vehicleId','recevingAmount as amount','tripId','account_id');
+
+        $Entry = collect(Entry::select($EntryArray)->with('Trip','vehicle','Account')->where([['customerId',$id]])->whereNotNull('advance')->get());
+        $income = collect(Income::select($IncomeArray)->with('Trip','vehicle','Account')->where([['customerId',$id]])->whereNotNull('recevingAmount')->get());
+        $merged = $Entry->merge($income)->sortByDesc('date')->forPage($page,10)->values();
+        return response()->json(['msg'=>'Income List','data' => $merged], $this->successStatus);
     }
 }

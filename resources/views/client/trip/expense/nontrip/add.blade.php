@@ -154,7 +154,8 @@
 <script type="text/javascript">
 $(document).ready(function(){
       $('.AutoExpense').select2({
-        placeholder: 'Select an item',
+        placeholder: 'Select Expense Type',
+        allowClear: true,
         ajax: {
           url: '{{route("client.AutoExpense")}}',
           dataType: 'json',
@@ -174,7 +175,8 @@ $(document).ready(function(){
       });   
 
     $('.AutoVehicle').select2({
-        placeholder: 'Select an item',
+        placeholder: 'Select Vehicle',
+        allowClear: true,
         ajax: {
           url: '{{route("client.AutoVehicle")}}',
           dataType: 'json',

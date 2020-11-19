@@ -26,11 +26,11 @@
     </div>
 
     <div class="row">
-        <div class="col-lg-4 col-xs-12">
+        <div class="col-lg-3 col-xs-12">
             <div class="small-box bg-aqua">
                 <div class="inner">
                     <p>Out Standing Amount</p>
-                    <h3>{{ auth()->user()->get_outstanding_amount() }}</h3>
+                    <h3>₹ {{ number_format(auth()->user()->get_outstanding_amount()) }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-bag"></i>
@@ -39,12 +39,12 @@
             </div>
         </div>
         <!-- ./col -->
-        <div class="col-lg-4 col-xs-12">
+        <div class="col-lg-3 col-xs-12">
             <!-- small box -->
-            <div class="small-box bg-green" id="DashboardIncome">
+            <div class="small-box bg-blue" id="DashboardIncome">
                 <div class="inner">
-                    <p>{{ date('M-Y') }} Profit</p>
-                    <h3>0</h3>
+                    <p>{{ date('M-Y') }} Income</p>
+                    <h3>₹ 0</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-stats-bars"></i>
@@ -53,13 +53,26 @@
             </div>
         </div>
 
-        <div class="col-lg-4 col-xs-12">
+        <div class="col-lg-3 col-xs-12">
             <div class="small-box bg-red" id="DashboardExpense">
                 <div class="inner">
                     <p>{{ date('M-Y') }} Expense</p>
-                    <h3>0</h3>
+                    <h3>₹ 0</h3>
                 </div>
                 <div class="icon"><i class="ion ion-pie-graph"></i></div>
+                <a href="{{ route('client.DashboardVehicleProfitTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+            </div>
+        </div>
+                <div class="col-lg-3 col-xs-12">
+            <!-- small box -->
+            <div class="small-box bg-green" id="DashboardProfit">
+                <div class="inner">
+                    <p>{{ date('M-Y') }} Profit</p>
+                    <h3>₹ 0</h3>
+                </div>
+                <div class="icon">
+                    <i class="ion ion-stats-bars"></i>
+                </div>
                 <a href="{{ route('client.DashboardVehicleProfitTotal',[date('m'),date('Y')]) }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
         </div>
@@ -111,11 +124,13 @@
                     beforeSend: function() {
                         $('#DashboardIncome').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
                         $('#DashboardExpense').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
+                        $('#DashboardProfit').find('h3').html('<div class="overlay"><i class="fa fa-refresh fa-spin"></i></div>');
                     },
                     success:function(data){
                         setTimeout(function() {
                             $('#DashboardIncome').html(data.Income);
                             $('#DashboardExpense').html(data.expense);
+                            $('#DashboardProfit').html(data.Profit);
                             if(OldDate == '' || OldDate.split("-")[0] != MonthYear.split("-")[0]){
                                 $.ajax({
                                     url: 'https://www.google.com/jsapi?callback',
@@ -139,7 +154,6 @@
                                     }
                                 });
                             }
-                            
                         }, 1000);
                     }
                 });

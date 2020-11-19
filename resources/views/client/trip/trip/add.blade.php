@@ -130,6 +130,7 @@ $(document).ready(function(){
 
     $('.AutoVehicle').select2({
         placeholder: 'Select Vehicle',
+        allowClear: true,
         ajax: {
           url: '{{route("client.AutoVehicle")}}',
           dataType: 'json',
@@ -150,6 +151,7 @@ $(document).ready(function(){
 
     $('.AutoStaff').select2({
         placeholder: 'Select Staff',
+        allowClear: true,
         ajax: {
           url: '{{route("client.AutoStaff")}}',
           dataType: 'json',

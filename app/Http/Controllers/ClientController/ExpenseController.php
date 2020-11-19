@@ -23,13 +23,13 @@ class ExpenseController extends Controller
     }
 
     public function add(){
-        $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
+        $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->limit(10)->get();
         return view('client.trip.expense.add',$Data);
     }
 
     public function save(){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
@@ -83,7 +83,7 @@ class ExpenseController extends Controller
 
     public function update($id){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
@@ -175,7 +175,7 @@ class ExpenseController extends Controller
 
      public function SaveNonTripExpense(){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
@@ -214,7 +214,7 @@ class ExpenseController extends Controller
 
     public function UpdateNonTripExpense($id){
         $this->validate(request(),[
-            'date'=>'required|date',
+            'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
             'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
@@ -242,28 +242,35 @@ class ExpenseController extends Controller
 
     public function AutoExpense(Request $request){   
         $data = [];
+        $data = DB::table("expense_types")->select("id","expenseType")->where([['clientid',auth()->user()->id]])->orWhereNull('clientid')->limit(10)->get();  
         if($request->has('q')){
             $search = $request->q;
-            $data = DB::table("expense_types")
-                    ->select("id","expenseType")
-                    ->where('expenseType','LIKE',"%$search%")
-                    ->get();    
+            $data = DB::table("expense_types")->select("id","expenseType")->where([['clientid',auth()->user()->id],['expenseType','LIKE',"%$search%"]])->orWhereNull('clientid')->get();
+            
         }
         return response()->json($data);
-    }  
+    }
 
     public function AutoVehicle(Request $request){ 
         $data = [];
+        $data = DB::table("vehicles")->select("id","vehicleNumber")->where('clientid',auth()->user()->id)->get();  
         if($request->has('q')){
             $search = $request->q;
-            // $vehicle = Vehicle::where('clientid',auth()->user()->id)->get('vehicleNumber');
-            $data = DB::table("vehicles")
-                    ->select("id","vehicleNumber")
-                    ->where('vehicleNumber','LIKE',"%$search%")
-                    ->where('clientid','LIKE',auth()->user()->id)
-                    ->get();    
+            $data = DB::table("vehicles")->select("id","vehicleNumber")->where('vehicleNumber','LIKE',"%$search%")->where('clientid','LIKE',auth()->user()->id)->get();    
         }
         return response()->json($data);
+    }
+
+    /*==================================
+    Delete Multiple non trip expense 
+    ====================================*/
+    public function DeleteMultipleNonTripExpense(){
+         try {
+            $this->Expense::whereIn('id',request('exp_id'))->delete();
+            return ['status'=>'success','Expense Deleted Successfully'];
+        } catch (\Illuminate\Database\QueryException $e) {
+            return ['status'=>'error','Expense Deleted Error'];
+        }
     }
 
 }

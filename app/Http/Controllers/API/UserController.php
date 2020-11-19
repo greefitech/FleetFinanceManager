@@ -61,10 +61,10 @@ class UserController extends Controller
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])  || Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
             $user = Auth::user();
-
-            $user->update([
+            Client::findorfail($user->id)->update([
                 'last_login_at' => Carbon::now()->toDateTimeString(),
-                'last_login_ip' => $request->getClientIp()
+                'last_login_ip' => $request->getClientIp(),
+                'firebase_token' => request('firebase_token')
             ]);
             ClientLogActivity::create([
                 'subject' => 'login_app',

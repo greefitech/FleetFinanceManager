@@ -8,6 +8,10 @@ use App\Http\Controllers\Controller;
 use App\Vehicle;
 use App\Client;
 use App\VehicleType;
+use App\Expense;
+use App\Document;
+use App\VehicleService;
+use App\Service;
 use Illuminate\Support\Facades\Auth;
 use Validator;
 
@@ -32,7 +36,12 @@ class VehicleController extends Controller
      */
     public function create()
     {
-        //
+        try{
+            $success['VehicleType']=VehicleType::select('id','vehicleType')->get();
+           return response()->json(['msg'=>'Vehicle Type','data' =>$success], $this-> successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],401);
+        }
     }
 
     /**
@@ -73,7 +82,7 @@ class VehicleController extends Controller
                 'clientid' => auth()->user()->id,
             ]);
             return response()->json(['msg'=>'Vehicle Created Successfully'], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Error On Insert'],401);
         }
     }
@@ -89,7 +98,7 @@ class VehicleController extends Controller
             $success['VehicleType']=VehicleType::select('id','vehicleType')->get();
             $success['vehicle'] = Vehicle::with('GetVehicleType')->findOrfail($id);
            return response()->json(['msg'=>'Vehicle Show','data' =>$success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -106,7 +115,7 @@ class VehicleController extends Controller
             $success['VehicleType']=VehicleType::select('id','vehicleType')->get();
             $success['vehicle'] = Vehicle::with('GetVehicleType')->findOrfail($id);
            return response()->json(['msg'=>'Vehicle Edit','data' =>$success], $this-> successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],401);
         }
     }
@@ -143,7 +152,7 @@ class VehicleController extends Controller
             $vehicle->modelNumber = request('modelNumber');
             $vehicle->save();
             return response()->json(['msg'=>'Vehicle Updated Successfully!'],  $this->successStatus);
-         }catch (Exception $e){
+         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'], 401);
         }
     }
@@ -157,5 +166,26 @@ class VehicleController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function VehicleNotification($vehicleId){
+        $DocumentCount = 0;
+        $NotificationCount = 0;
+        $Documents = Document::where('vehicleId',$vehicleId)->get();
+        foreach ($Documents as $key => $Document) {
+            (DateDifference($Document->duedate)<=$Document->notifyBefore)?$DocumentCount++:0;
+        }
+        $VehicleServices = VehicleService::select('id','title')->where([['clientid',auth()->user()->id]])->orWhereNull('clientid')->get();
+        foreach ($VehicleServices as $key => $VehicleService) {
+            $Service = Service::where([['vehicle_service_id',$VehicleService->id],['vehicleId',$vehicleId]])->latest()->first();
+            if (!empty($Service)) {
+                (DateDifference($Service->next_service_date)<=0)?$NotificationCount++:0;
+            }
+        }
+        $success['serviceNotification'] = $NotificationCount;
+        $success['documentNotification'] = $DocumentCount;
+        $success['tyre_module'] = env('TYRE_MODULE');
+        $success['expenseNotification'] = Expense::where([['clientid', Auth::user()->id],['vehicleId',$vehicleId],['status',0]])->where('tripId', NULL)->count();
+        return response()->json(['msg'=>'Vehicle Notification','data' =>$success], $this->successStatus);
     }
 }

@@ -1,8 +1,6 @@
 @extends('client.layout.master')
 
-@section('SettingMenu')
-active menu-open
-@endsection
+@section('SettingMenu','active')
 
 @section('content')
 

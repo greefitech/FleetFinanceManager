@@ -22,17 +22,15 @@ Route::get('/dashboard/get-dashboard-chart-values', 'ClientController\DashboardC
 *------------------------------
 */
 
-Route::group(['prefix'=>'master'],function(){
-    //Expense Type
+
+/*Master route list*/
+Route::group(['prefix' => 'master'], function() {
+	Route::resource('/customers','ClientController\CustomerController');
+	Route::resource('/staffs','ClientController\StaffController');
+	Route::resource('/vehicles','ClientController\VehicleController');
+	Route::resource('/vehicle-service', 'ClientController\Master\VehicleServiceController');
+	Route::resource('/tyre', 'ClientController\Master\TyreController');
 	Route::resource('/expense-types', 'ClientController\ExpenseTypeController');
-	//CUSTOMER
-	Route::resource('customers','ClientController\CustomerController');
-	//Staff
-	Route::resource('staff','ClientController\StaffController');
-	//Vehicle
-	Route::resource('vehicles','ClientController\VehicleController');
-	//VEHICLE SERVICE
-	Route::resource('vehicle-service', 'ClientController\Master\VehicleServiceController');
 });
 
 //Documents
@@ -75,7 +73,8 @@ Route::get('/trip/add', 'ClientController\TripController@add');
 Route::post('/trip/add', 'ClientController\TripController@save')->name('SaveTrip');
 Route::get('/trip/{id}/edit', 'ClientController\TripController@edit')->name('EditTrip');
 Route::post('/trip/{id}/edit', 'ClientController\TripController@update')->name('UpdateTrip');
-// Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateTripStatus')->name('UpdateTripStatus');
+Route::post('/trip/{id}/status/update', 'ClientController\TripController@UpdateTripStatus')->name('UpdateTripStatus');
+Route::post('/trip-status-update', 'ClientController\TripController@UpdateTripStatusAjax');
 
 
 //Entry
@@ -101,6 +100,8 @@ Route::get('/entry/memo/RTOMasterData', function (){
     return GetRTOMasterDataInputs();
 });
 
+Route::get('/check-entry-already-present', 'ClientController\MemoController@checkEntryAlreadyPresent');
+
 
 // Route::resource('/entry', 'ClientController\EntryController');
 
@@ -116,6 +117,7 @@ Route::get('/non-trip-expense/create', 'ClientController\ExpenseController@Creat
 Route::post('/non-trip-expense/create', 'ClientController\ExpenseController@SaveNonTripExpense');
 Route::get('/non-trip-expense/{id}/edit', 'ClientController\ExpenseController@EditNonTripExpense');
 Route::post('/non-trip-expense/{id}/update', 'ClientController\ExpenseController@UpdateNonTripExpense');
+Route::post('/delete-non-trip-expense', 'ClientController\ExpenseController@DeleteMultipleNonTripExpense');
 
 
 //Expense
@@ -171,10 +173,10 @@ Route::get('/Vehicle-trip/{tripid}/halt-list', 'ClientController\TripWiseControl
 Route::get('/Vehicle-trip/{tripid}/trip-advance-list', 'ClientController\TripWiseController@ViewTripAdvanceList')->name('ViewTripAdvanceList');
 Route::delete('/Vehicle-trip/{tripid}/delete-trip', 'ClientController\TripWiseController@DeleteTripSheetData')->name('DeleteTripSheetData');
 
+/*Undo Delete Trip*/
+Route::get('/Vehicle-list-trip-undo/{id}', 'ClientController\TripWiseController@TripUndoList');
 //Trip Sheet
 Route::get('/trip-sheet/{tripid}/download', 'ClientController\TripSheetController@DownloadTripSheet')->name('DownloadTripSheet');
-
-
 
 /*=======================
 	Profile Route list
@@ -186,8 +188,9 @@ Route::group(['prefix'=>'profile'],function(){
 	Route::post('/update-password', 'ClientController\ProfileController@UpdatePassword')->name('UpdatePassword');
 });
 
-
-//profile
+/*=======================
+    Manager
+=========================*/
 Route::get('/managers', 'ClientController\ManagerController@view')->name('ViewManagers');
 Route::get('/manager/add', 'ClientController\ManagerController@add')->name('AddManager');
 Route::post('/manager/save', 'ClientController\ManagerController@save')->name('SaveManager');
@@ -203,6 +206,9 @@ Route::post('/report/expense-report/download', 'ClientController\ReportControlle
 Route::get('getendingkm','ClientController\MemoController@getendingkm');
 
 
+/*===============================
+    Auto Search for vehicle
+=================================*/
 Route::get('AutoExpense','ClientController\ExpenseController@AutoExpense')->name('AutoExpense');
 Route::get('AutoVehicle','ClientController\ExpenseController@AutoVehicle')->name('AutoVehicle');
 Route::get('AutoStaff','ClientController\TripController@AutoStaff')->name('AutoStaff');
@@ -214,6 +220,15 @@ Route::get('AutoCustomer','ClientController\EntryController@AutoCustomer')->name
 /*=====================
          SETTING
 =======================*/
-Route::resource('/setting/service', 'ClientController\Setting\ServiceController');
-Route::get('/setting/services/VehicleWise/{VehicleId}', 'ClientController\Setting\ServiceController@VehicleWiseService');
-Route::get('/setting/services/VehicleWise/Service/{ServiceTypeId}/{VehicleId}', 'ClientController\Setting\ServiceController@editService');
+Route::group(['prefix' => 'setting'], function() {
+    Route::resource('/service', 'ClientController\Setting\ServiceController');
+    Route::get('/services/VehicleWise/{VehicleId}', 'ClientController\Setting\ServiceController@VehicleWiseService');
+    Route::get('/services/VehicleWise/Service/{ServiceTypeId}/{VehicleId}', 'ClientController\Setting\ServiceController@editService');
+
+
+    Route::resource('/tyre', 'ClientController\Setting\TyreController');
+    Route::get('/tyre/vehicle/{vehicleid}/assign-tyre/{assignedtyreid}/edit',  'ClientController\Setting\TyreController@EditVehicleAssignTyre')->name('EditVehicleAssignTyre');
+    Route::post('/tyre/vehicle/{vehicleid}/assign-tyre/{assignedtyreid}/update',  'ClientController\Setting\TyreController@UpdateVehicleAssignTyre')->name('UpdateVehicleAssignTyre');
+    Route::get('/tyre/vehicle/{vehicleid}/status/{assignedtyreid}/add',  'ClientController\Setting\TyreController@AddTyreCurrentStatusVehicle')->name('AddTyreCurrentStatusVehicle');
+    Route::post('/tyre/vehicle/{vehicleid}/status/{assignedtyreid}/add',  'ClientController\Setting\TyreController@SaveTyreCurrentStatusVehicle')->name('SaveTyreCurrentStatusVehicle');
+});

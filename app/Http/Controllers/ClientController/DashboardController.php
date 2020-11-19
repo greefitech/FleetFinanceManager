@@ -17,20 +17,27 @@ class DashboardController extends Controller
         $Year = $MonthYear[0];
         $Month = $MonthYear[1];
         $month= date('F', mktime(0, 0, 0, $Month, 10));
+        $IncomeAmount = auth()->user()->CalculateProfitAmountTotal('',$Month,$Year);
+        $ExpenseAmount = auth()->user()->CalculateNonTripExpenseAmountTotal('',$Month,$Year);
         $final['Income'] = '<div class="inner">
-                                <p>'.$month.'-'.$Year.' Profit</p>
-                                <h3>'.auth()->user()->CalculateProfitAmountTotal('',$Month,$Year).'</h3>
+                                <p>'.$month.'-'.$Year.' Income</p>
+                                <h3>₹ '.$IncomeAmount.'</h3>
                             </div>
                             <div class="icon"><i class="ion ion-stats-bars"></i></div>
                             <a href="'.route('client.DashboardVehicleProfitTotal',[$Month,$Year]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
         $final['expense'] = '<div class="inner">
                                 <p>'.$month.'-'.$Year.' Expense</p>
-                                <h3>'.auth()->user()->CalculateNonTripExpenseAmountTotal('',$Month,$Year).'</h3>
+                                <h3>₹ '.$ExpenseAmount.'</h3>
                             </div>
                             <div class="icon"><i class="ion ion-pie-graph"></i></div>
                             <a href="'.route('client.DashboardVehicleProfitTotal',[$Month,$Year]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
+        $final['Profit'] = '<div class="inner">
+                <p>'.$month.'-'.$Year.' Profit</p>
+                <h3>₹ '.($IncomeAmount - $ExpenseAmount).'</h3>
+            </div>
+            <div class="icon"><i class="ion ion-stats-bars"></i></div>
+            <a href="'.route('client.DashboardVehicleProfitTotal',[$Month,$Year]).'" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>';
         return $final;
-        
     }
 
 

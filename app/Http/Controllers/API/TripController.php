@@ -7,10 +7,18 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Validator;
 
+use App\Http\Controllers\API\TripApiSheetController;
+
+
 class TripController extends Controller
 {
     public $successStatus = 200;
 
+
+    protected $TripApiSheetController;
+    public function __construct(TripApiSheetController $TripApiSheetController){
+        $this->TripApiSheetController = $TripApiSheetController;
+    }
 
     /**
      * @SWG\Post(
@@ -360,5 +368,9 @@ class TripController extends Controller
             $errormsg['msg'] = 'Error On Insert';
             return response()->json(['status'=>'error','data'=>$errormsg], 401);
         }
+    }
+
+    public function tripSheetView($tripId) {
+        return $this->TripApiSheetController->DownloadTripSheet($tripId);
     }
 }
