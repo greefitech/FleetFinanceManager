@@ -595,16 +595,20 @@
         <span class="sub">Acquired users with 100 Vehicles</span>
     </li>
     <li class="stage">Dec 2019 - Custom Vehicle service Integration Module
-        <span class="sub">Acquired users with 200 Vehicles</span>
+        <span class="sub">Vehicle Document Notification Integrated</span>
     </li>
-    <li class="stage">Feb 2019 - Iterating Lorry owners to ease of usability
-        <span class="sub">Working On Vehicle Document Notification</span>
+    <li class="stage">Feb 2020 - Iterating Lorry owners to ease of usability
         <span class="sub">Memo Sheet Upgration</span>
     </li>
-    <li class="stage active">Mar 2019 - Iterating Lorry owners to ease of usability</li>
-    <li class="stage">May 2019 - Have to Acquire 1K Vehicles</li>
-    <li class="stage">Jul 2020 - Integrate with 3rd Party Apps</li>
-    <li class="stage">End of 2020 - Have to Acquire 10K Vehicles</li>
+    <li class="stage">Jul 2020 - Iterating Lorry owners to ease of usability
+    </li>
+    <li class="stage">Oct 2020 - Lorry owners to ease of usability
+        <span class="sub">Tyre & Service Module Integrated</span>
+    </li>
+    <li class="stage active">Nov 2020 - Integrate IT Filing Module</li>
+    <li class="stage">Jan 2021 - Integrate with 3rd Party Apps</li>
+    <li class="stage">Mid of 2021 - Mobile App Entry for Lorry Drivers</li>
+    <li class="stage">End of 2021 - Have to Acquire 10K Vehicles</li>
 </ol>
 </body>
 </html>

@@ -53,8 +53,11 @@
                                             <label class="form-check-label">
                                                 <input type="checkbox" name="report_wise[]" class="form-check-input" value="expense" {{ !empty(old('report_wise'))? in_array('expense',old('report_wise')) ? 'checked' : '' : '' }}>&nbsp;&nbsp;Expense
                                             </label><br>
+                                             <label class="form-check-label">
+                                                <input type="checkbox" name="report_wise[]" class="form-check-input" value="trip_income" {{ !empty(old('trip_income'))?in_array('extra_income',old('trip_income')) ? 'checked' : '' : '' }}>&nbsp;&nbsp;Income Trip Wise
+                                            </label><br>
                                             <label class="form-check-label">
-                                                <input type="checkbox" name="report_wise[]" class="form-check-input" value="income" {{ !empty(old('report_wise'))?in_array('income',old('report_wise')) ? 'checked' : '' : '' }}>&nbsp;&nbsp;Income
+                                                <input type="checkbox" name="report_wise[]" class="form-check-input" value="income" {{ !empty(old('report_wise'))?in_array('income',old('report_wise')) ? 'checked' : '' : '' }}>&nbsp;&nbsp;Income Client Wise
                                             </label><br>
                                             <label class="form-check-label">
                                                 <input type="checkbox" name="report_wise[]" class="form-check-input" value="non_trip_expense" {{ !empty(old('report_wise'))?in_array('non_trip_expense',old('report_wise')) ? 'checked' : '' : '' }}>&nbsp;&nbsp;Non-Trip Expense
@@ -62,6 +65,7 @@
                                             <label class="form-check-label">
                                                 <input type="checkbox" name="report_wise[]" class="form-check-input" value="extra_income" {{ !empty(old('report_wise'))?in_array('extra_income',old('report_wise')) ? 'checked' : '' : '' }}>&nbsp;&nbsp;Extra Income
                                             </label>
+                                            
                                         </div>
                                     </div>
                                 </div>

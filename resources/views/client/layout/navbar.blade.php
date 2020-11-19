@@ -24,7 +24,7 @@
     </form>
 
     <section class="sidebar">
-        <ul class="sidebar-menu">
+        <ul class="sidebar-menu" data-widget="tree">
             <li class="header">MAIN NAVIGATION</li>
             <li class="@yield('DashboardMenu')"><a href="{{ url('/client/home') }}"><i class="fa fa-dashboard {{ $color[array_rand($color,1)] }}"></i> <span>Dashboard</span></a></li>
 

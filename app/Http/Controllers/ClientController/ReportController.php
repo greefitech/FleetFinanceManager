@@ -7,6 +7,7 @@ use App\Expense;
 use App\ExpenseType;
 use App\Vehicle;
 use App\Income;
+use App\Trip;
 use App\ExtraIncome;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -38,6 +39,7 @@ class ReportController extends Controller
         $FinalIncomeDatas = '';
         $FinalNonTripExpenseDatas = '';
         $FinalExtraIncomeDatas = '';
+        $FinalTripsData = '';
         // dd(request()->all());
 
         if(in_array('expense',request('report_wise'))){
@@ -67,11 +69,16 @@ class ReportController extends Controller
 
 
         if(in_array('extra_income',request('report_wise'))){
-            $FinalExtraIncomeDatas =  ExtraIncome::where([['clientid',auth()->user()->id],['vehicleId',request('vehicleId')]])->whereIn('expense_type',request('expense_type'))->whereBetween('date', [request('dateFrom'), request('dateTo')])->select(['*','amount as extraincome'])->orderBy('date')->get();
+            $FinalExtraIncomeDatas =  ExtraIncome::where([['clientid',auth()->user()->id],['vehicleId',request('vehicleId')]])->where('status',1)->whereIn('expense_type',request('expense_type'))->whereBetween('date', [request('dateFrom'), request('dateTo')])->select(['*','amount as extraincome'])->orderBy('date')->get();
         }
-       
 
-        $merged = collect($FinalExpenseDatas)->merge($FinalIncomeDatas)->merge($FinalNonTripExpenseDatas)->merge($FinalExtraIncomeDatas);
+
+        /*trip list income total data*/
+        if(in_array('trip_income',request('report_wise'))){
+            $FinalTripsData =  Trip::select('dateFrom','dateTo','tripName','id','dateFrom as date')->where([['clientid',auth()->user()->id],['vehicleId',request('vehicleId')]])->whereBetween('dateTo', [request('dateFrom'), request('dateTo')])->orderBy('date')->get();
+        }
+
+        $merged = collect($FinalExpenseDatas)->merge($FinalIncomeDatas)->merge($FinalNonTripExpenseDatas)->merge($FinalExtraIncomeDatas)->merge($FinalTripsData);
 
 
         $FinalSelectDatas = $merged->sortBy('date');
@@ -224,8 +231,25 @@ class ReportController extends Controller
                     }
                 }
             }
-        }
 
+
+            // TRIP WISE INCOME LIST ARRAY CREATE
+            if(in_array('trip_income',request('report_wise'))){
+                if(isset($DataValue->tripName) && isset($DataValue->tripName)){
+                    $finalData[] =array(
+                        'Date' => date("d-m-Y", strtotime(@$DataValue->date)),
+                        'Description' => @$DataValue->tripName.' - '.date("d-m-Y", strtotime(@$DataValue->date)).' ~ '.date("d-m-Y", strtotime(@$DataValue->dateTo)),
+                        'Credit' =>  auth()->user()->TripTotalIncome($DataValue->id) - auth()->user()->TripTotalExpense($DataValue->id),
+                        'Debit' => '',
+                        'Quantity' => '',
+                        'Staff Name' => '',
+                        'Location' => '',
+                        'Payment Status' => '',
+                    );
+                }
+            }
+        }
+        
         if(!empty($finalData)){
             Excel::create($Vehicle->vehicleNumber.' - Report - '. date("d-m-Y", strtotime(date('Y-m-d'))),function($excel) use ($finalData,$Vehicle){
                 $excel->sheet('Sheet 1',function($sheet) use ($finalData,$Vehicle){
