@@ -131,3 +131,58 @@ if (! function_exists('GetNonUsedTyreList')) {
         return Tyre::where([['clientid',auth()->user()->id],['tyre_status','!=',0],['is_sold',0]])->WhereNull('vehicleId')->get();
     }
 }
+
+/*==================================
+    String Replace scroll start -> mohan
+===================================*/
+
+if (! function_exists('stringReplaceScroll')) {
+    function stringReplaceScroll($string){
+        $stringHasBracketsAuth = preg_match_all('/\{(.*?)\}/i', $string,  $matchOutput);
+        if ($stringHasBracketsAuth) {
+            $string = preg_replace_callback('/\{(.*?)}/', function ($m) {
+                return strval(authuser($m[1])); 
+            }, $string);
+        }
+        $stringHasBracketsUrl = preg_match_all('/\#\url\((.*?)\)\#/i', $string,  $matchOutput);
+        if ($stringHasBracketsUrl) {
+            $string = preg_replace_callback('/\#url\((.*?)\)\#/i', function ($m) {
+                return url($m[1]); 
+            }, $string);
+        }
+        $stringHasBracketsConfig = preg_match_all('/\#config\((.*?)\)\#/i', $string,  $matchOutput);
+        if ($stringHasBracketsConfig) {
+            $string = preg_replace_callback('/\#config\((.*?)\)\#/i', function ($m) {
+                return strval(config($m[1])); 
+            }, $string);
+        }
+        $stringHasBracketsDate = preg_match_all('/\#date\((.*?)\)\#/i', $string,  $matchOutput);
+        if ($stringHasBracketsDate) {
+            $string = preg_replace_callback('/\#date\((.*?)\)\#/i', function ($m) {
+                return ChangeDateFormate($m[1]); 
+            }, $string);
+        }
+        $stringHasBracketsEnv = preg_match_all('/\#env\((.*?)\)\#/i', $string,  $matchOutput);
+        if ($stringHasBracketsEnv) {
+            $string = preg_replace_callback('/\#env\((.*?)\)\#/i', function ($m) {
+                return env($m[1]); 
+            }, $string);
+        }
+        return $string;
+    }
+}
+
+if (! function_exists('authuser')) {
+    function authuser($string){
+        return Auth::user()->$string;
+    }
+}
+
+if (! function_exists('ChangeDateFormate')) {
+    function ChangeDateFormate($string){
+        return date("d-m-Y", strtotime($string));
+    }
+}
+/*==================================
+    String Replace scroll end -> mohan
+===================================*/

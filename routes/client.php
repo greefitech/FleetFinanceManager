@@ -8,13 +8,16 @@ Route::get('/home', function () {
 })->name('home');
 
 //Dashboard
-Route::get('/dashboard/total-income-expense', 'ClientController\DashboardController@DashboardTotalIncomeExpense');
-Route::get('/dashboard/profit/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleProfitTotal')->name('DashboardVehicleProfitTotal');
-Route::get('/dashboard/expense/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleExpenseTotal')->name('DashboardVehicleExpenseTotal');
+Route::group(['prefix' => 'dashboard'], function() {
+    Route::get('/total-income-expense', 'ClientController\DashboardController@DashboardTotalIncomeExpense');
+    Route::get('/profit/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleProfitTotal')->name('DashboardVehicleProfitTotal');
+    Route::get('/expense/{month}/{year}/vehicle-list', 'ClientController\DashboardController@DashboardVehicleExpenseTotal')->name('DashboardVehicleExpenseTotal');
 
-Route::get('/dashboard/profit/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleProfitList')->name('DashboardVehicleProfitList');
-Route::get('/dashboard/non-trip-expense/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleNonTripExpenseList')->name('DashboardVehicleNonTripExpenseList');
-Route::get('/dashboard/get-dashboard-chart-values', 'ClientController\DashboardController@DashboardGetChartValues');
+    Route::get('/profit/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleProfitList')->name('DashboardVehicleProfitList');
+    Route::get('/non-trip-expense/{vehicleid}/{month}/{year}/list', 'ClientController\DashboardController@DashboardVehicleNonTripExpenseList')->name('DashboardVehicleNonTripExpenseList');
+    Route::get('/get-dashboard-chart-values', 'ClientController\DashboardController@DashboardGetChartValues');
+    Route::get('/un-paid-expense-list', 'ClientController\DashboardController@unPaidExpenseList');
+});
 
 /*
 *------------------------------

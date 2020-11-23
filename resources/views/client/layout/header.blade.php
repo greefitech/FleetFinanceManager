@@ -7,6 +7,7 @@
         <a href="#" class="sidebar-toggle" data-toggle="offcanvas" role="button" style="text-decoration:none">
             <span class="sr-only">Toggle navigation</span>
         </a>
+    <a href="{{ action('ClientController\MemoController@memo') }}" class="btn btn-warning btn-sm" style="margin-top: 10px;"><i class="fa fa-plus"> Memo</i></a>
         <div class="navbar-custom-menu">
             <ul class="nav navbar-nav">
                 <li class="dropdown user user-menu">

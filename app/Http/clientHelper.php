@@ -132,3 +132,11 @@ if (! function_exists('CheckTripDuplicateEntry')) {
     }
 }
 
+/*Unpaid paid expense list*/
+if (! function_exists('nonTripUnpaidExpneseTotal')) {
+    function nonTripUnpaidExpneseTotal($ClientId){
+        return Expense::where([['clientid', $ClientId],['tripId', NULL],['status',0]])->sum('amount');
+        
+    }
+}
+
