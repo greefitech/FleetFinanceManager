@@ -34,6 +34,7 @@ Route::group(['prefix' => 'master'], function() {
 	Route::resource('/vehicle-service', 'ClientController\Master\VehicleServiceController');
 	Route::resource('/tyre', 'ClientController\Master\TyreController');
 	Route::resource('/expense-types', 'ClientController\ExpenseTypeController');
+    Route::resource('/vendor', 'ClientController\Master\VendorController');
 });
 
 //Documents
