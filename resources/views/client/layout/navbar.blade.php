@@ -42,10 +42,11 @@
                     <li><a href="{{ action('ClientController\VehicleController@index') }}"><i class="fa fa-truck {{ $color[array_rand($color,1)] }}"></i> <span>Vehicles</span></a></li>
                     <li><a href="{{ action('ClientController\StaffController@index') }}"><i class="fa fa-user {{ $color[array_rand($color,1)] }}"></i> <span>Staffs</span></a></li>
                     <li><a href="{{ url('/client/accounts') }}"><i class="fa fa-university {{ $color[array_rand($color,1)] }}"></i> <span>Accounts</span></a></li>
-                    <li><a href="{{ action('ClientController\ExpenseTypeController@index') }}"><i class="fa fa-user {{ $color[array_rand($color,1)] }}"></i> <span>Expense / Income Type</span></a></li>
-                    <li><a href="{{ url('/client/rto-masters') }}"><i class="fa fa-user {{ $color[array_rand($color,1)] }}"></i> <span>RTO/PC Master</span></a></li>
-                    <li><a href="{{ action('ClientController\Master\VehicleServiceController@index') }}"><i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i> <span>Service</span></a></li>
+                    <li><a href="{{ action('ClientController\ExpenseTypeController@index') }}"><i class="fa fa-dollar {{ $color[array_rand($color,1)] }}"></i> <span>Expense / Income Type</span></a></li>
+                    <li><a href="{{ url('/client/rto-masters') }}"><i class="fa fa-rmb {{ $color[array_rand($color,1)] }}"></i> <span>RTO/PC Master</span></a></li>
+                    <li><a href="{{ action('ClientController\Master\VehicleServiceController@index') }}"><i class="fa fa-rouble {{ $color[array_rand($color,1)] }}"></i> <span>Service</span></a></li>
                     <li><a href="{{ action('ClientController\Master\TyreController@index') }}"><i class="fa fa-cog {{ $color[array_rand($color,1)] }}"></i> <span>Tyre</span></a></li>
+                    <li><a href="{{ action('ClientController\Master\VendorController@index') }}"><i class="fa fa-industry {{ $color[array_rand($color,1)] }}"></i> <span>Vendor</span></a></li>
                 </ul>
             </li>
 

@@ -1,21 +1,23 @@
 @extends('client.layout.master')
 
-@section('MasterMenu','active')
+@section('MasterMenu','active menu-open')
+
+@push('BreadCrumbMenu')
+   <li>Master</li>
+   <li class="active"><a href="{{ action('ClientController\Master\VehicleServiceController@index') }}">Vehicle Service</a></li>
+@endpush
 
 @section('content')
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Vehicle Service</center>
-                    </h4>
-                    <a href="{{ action('ClientController\Master\VehicleServiceController@create') }}" class="btn btn-info pull-right"><i class="fa fa-plus"></i> Add</a>
-                </div>
-                <div class="box-body">
-                    
-                    <table class="table table-bordered" id="VehicleService">
+            @component('client.layout.component.panel-head',['MenuTitle'=>'Vehicle Service','Title'=>'Vehicle Service List','color'=>env('TABPANELCOLOR')])
+                @slot('Button')
+                     <a href="{{ action('ClientController\Master\VehicleServiceController@create') }}" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Service</a>
+                @endslot
+
+                <div class="table-responsive">
+                     <table class="table table-bordered" id="VehicleService">
                         <thead>
                             <tr>
                                 <th>Title</th>
@@ -23,9 +25,11 @@
                             </tr>
                         </thead>
                     </table>
-
                 </div>
-            </div>
+
+
+            @endcomponent
+            
         </div>
     </div>
 

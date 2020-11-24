@@ -26,6 +26,11 @@ class CreateVendorsTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::table('expenses', function($table){
+            $table->uuid('vendor_id')->nullable()->after('tripId');
+            $table->foreign('vendor_id')->references('id')->on('vendors');
+        });
     }
 
     /**

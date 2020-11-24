@@ -3,22 +3,25 @@
 
 @section('NonTripExpenseMenu','active')
 
+@push('BreadCrumbMenu')
+   <li>Non-Trip Expense</li>
+   <li class="active">Create</li>
+@endpush
+
+
 @section('content')
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Add Expense</center>
-                    </h4>
-                </div>
-                <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@SaveNonTripExpense') }}">
+
+             @component('client.layout.component.panel-head',['MenuTitle'=>'Non-Trip Expense','Title'=>'Expense Create','color'=>env('TABPANELCOLOR')])
+               
+
+                <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@SaveNonTripExpense') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date</label>
@@ -26,11 +29,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
                                             <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('vendor_id') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Vendor</label>
+                                            <select name="vendor_id" class="form-control select2" id="entry-vendor">
+                                                 <option value="">Select Vendor</option>
+                                                @foreach($Vendors as $Vendor)
+                                                    <option value="{{ $Vendor->id }}" {{ ($Vendor->id == old('vendor_id')) ? 'selected':'' }}>{{ $Vendor->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -138,8 +154,11 @@
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+
+            @endcomponent
+
+
+          
         </div>
     </div>
 

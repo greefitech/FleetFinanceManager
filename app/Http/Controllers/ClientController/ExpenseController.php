@@ -10,6 +10,7 @@ use DB;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Yajra\DataTables\Facades\DataTables;
+use App\Vendor;
 
 
 class ExpenseController extends Controller
@@ -20,6 +21,7 @@ class ExpenseController extends Controller
         $this->Expense = new Expense;
         $this->Trip = new Trip;
         $this->Vehicle = new Vehicle;
+        $this->Vendor = new Vendor;
     }
 
     public function add(){
@@ -169,6 +171,7 @@ class ExpenseController extends Controller
 
      public function CreateNonTripExpense(){
         $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
+        $Data['Vendors'] =  $this->Vendor::where('clientid',auth()->user()->id)->get();
         return view('client.trip.expense.nontrip.add',$Data);
     }
 
@@ -194,6 +197,7 @@ class ExpenseController extends Controller
                 'location' => request('location'),
                 'status'=>request('status'),
                 'account_id' => request('account_id'),
+                'vendor_id' => request('vendor_id'),
                 'clientid' => auth()->user()->id,
             ]);
             return back()->with('success',['Expense','Added Successfully!'])->withInput();
@@ -206,6 +210,7 @@ class ExpenseController extends Controller
         try {
             $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
             $Data['Expense'] = $this->Expense::findorfail($id);
+            $Data['Vendors'] =  $this->Vendor::where('clientid',auth()->user()->id)->get();
             return view('client.trip.expense.nontrip.edit',$Data);
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
@@ -233,6 +238,7 @@ class ExpenseController extends Controller
                 'location' => request('location'),
                 'status'=>request('status'),
                 'account_id' => request('account_id'),
+                'vendor_id' => request('vendor_id'),
             ]);
             return back()->with('success',['Expense','Updated Successfully!'])->withInput();
         } catch (\Illuminate\Database\QueryException $e) {

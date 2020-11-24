@@ -2,22 +2,22 @@
 
 @section('NonTripExpenseMenu','active')
 
+@push('BreadCrumbMenu')
+   <li>Non-Trip Expense</li>
+   <li class="active">Edit</li>
+@endpush
+
 @section('content')
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Edit Expense</center>
-                    </h4>
-                </div>
-                <div class="box-body">
-                    <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@UpdateNonTripExpense',$Expense->id) }}">
+             @component('client.layout.component.panel-head',['MenuTitle'=>'Non-Trip Expense Edit','Title'=>'Expense Edit','color'=>env('TABPANELCOLOR')])
+
+                  <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@UpdateNonTripExpense',$Expense->id) }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date</label>
@@ -25,7 +25,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
@@ -33,6 +33,19 @@
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id==$Expense->vehicleId)?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                  <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('vendor_id') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Vendor</label>
+                                            <select name="vendor_id" class="form-control select2" id="entry-vendor">
+                                                 <option value="">Select Vendor</option>
+                                                @foreach($Vendors as $Vendor)
+                                                    <option value="{{ $Vendor->id }}" {{ ($Vendor->id == $Expense->vendor_id) ? 'selected':'' }}>{{ $Vendor->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -141,13 +154,14 @@
                         <div class="col-xs-12">
                             <div class="col-sm-12">
                                 <div class="c-field u-mb-medium">
-                                    <textarea class="form-control" id="expense-LastData" disabled=""></textarea>
+                                    <textarea class="form-control" rows="3" id="expense-LastData" disabled=""></textarea>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-            </div>
+             @endcomponent
+
+            
         </div>
     </div>
 
