@@ -89,4 +89,9 @@ class DashboardController extends Controller
         }
         return response()->json(['year'=>$Year,'data'=>$FinalData]);
     }
+
+    public function unPaidExpenseList(){
+        $Data['Expenses']= Expense::where([['clientid', auth()->user()->id],['tripId', NULL],['status',0]])->get();
+        return view('client.dashboard.unpaid-non-trip-expense',$Data);
+    }
 }
