@@ -2,34 +2,38 @@
 
 @section('MasterMenu','active')
 
+@push('BreadCrumbMenu')
+   <li>Master</li>
+   <li class="active"><a href="{{ action('ClientController\CustomerController@index') }}">Customer</a></li>
+@endpush
+
 @section('content')
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Customers</center>
-                    </h4>
-                    <a href="{{ action('ClientController\CustomerController@create') }}" class="btn btn-info pull-right">Add Customer</a>
+
+            @component('client.layout.component.panel-head',['MenuTitle'=>'Customers','Title'=>'Customers List','color'=>env('TABPANELCOLOR')])
+                @slot('Button')
+                <a href="{{ action('ClientController\CustomerController@create') }}" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Customer</a>
+                @endslot
+
+                <div class="table-responsive">
+                    <table  class="table table-bordered table-striped table-hover" id="CustomerTable">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Mobile</th>
+                                <th>Address</th>
+                                <th>Type</th>
+                                <th>Created By</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
-                <div class="box-body">
-                    <div class="table-responsive">
-                        <table  class="table table-bordered table-striped table-hover" id="CustomerTable">
-                            <thead>
-                                <tr>
-                                    <th>Name</th>
-                                    <th>Mobile</th>
-                                    <th>Address</th>
-                                    <th>Type</th>
-                                    <th>Created By</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
+            @endcomponent
+
         </div>
     </div>
 @endsection

@@ -17,6 +17,9 @@
             @include('client.layout.navbar')
             <!-- Content -->
                 <div class="content-wrapper">
+                    <section class="content-header">
+                        @yield('BreadCrumb')
+                    </section>
                     <section class="content">
                         {{-- @include('sweetalert::alert') --}}
                         @include('errors')

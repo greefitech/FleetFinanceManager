@@ -2,31 +2,36 @@
 
 @section('MasterMenu','active')
 
+@push('BreadCrumbMenu')
+   <li>Master</li>
+   <li class="active"><a href="{{ action('ClientController\ExpenseTypeController@index') }}">Income~Expense Type</a></li>
+@endpush
+
 @section('content')
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Expense / Income Types</center>
-                    </h4>
-                    <a href="{{ action('ClientController\ExpenseTypeController@create') }}" class="btn btn-info pull-right">Add Type</a>
+
+            @component('client.layout.component.panel-head',['MenuTitle'=>'Expense / Income Types','Title'=>'Expense / Income Types List','color'=>env('TABPANELCOLOR')])
+                @slot('Button')
+                     <a href="{{ action('ClientController\ExpenseTypeController@create') }}" class="btn btn-info btn-sm"><i class="fa fa-plus"></i> Type</a>
+                @endslot
+
+                <div class="table-responsive">
+                    <table  class="table table-bordered table-striped table-hover" id="ExpenseTable">
+                        <thead>
+                            <tr>
+                                <th>Expense / Income Type</th>
+                                <th>Created By</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                    </table>
                 </div>
-                <div class="box-body">
-                    <div class="table-responsive">
-                        <table  class="table table-bordered table-striped table-hover" id="ExpenseTable">
-                            <thead>
-                                <tr>
-                                    <th>Expense / Income Type</th>
-                                    <th>Created By</th>
-                                    <th>Action</th>
-                                </tr>
-                            </thead>
-                        </table>
-                    </div>
-                </div>
-            </div>
+
+
+            @endcomponent
+
         </div>
     </div>
 
