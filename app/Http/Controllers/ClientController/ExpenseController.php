@@ -176,7 +176,7 @@ class ExpenseController extends Controller
     }
 
 
-     public function SaveNonTripExpense(){
+     public function SaveNonTripExpense(Request $request){
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
@@ -186,20 +186,27 @@ class ExpenseController extends Controller
             'quantity'=>'required_if:type,==,2',
         ]);
         try {
-            $this->Expense::create([
-                'date' => request('date'),
-                'expense_type' => request('expense_type'),
-                'vehicleId' => request('vehicleId'),
-                'staffId' => request('staffId'),
-                'quantity' => request('quantity'),
-                'amount' => request('amount'),
-                'discription' => request('discription'),
-                'location' => request('location'),
-                'status'=>request('status'),
-                'account_id' => request('account_id'),
-                'vendor_id' => request('vendor_id'),
-                'clientid' => auth()->user()->id,
-            ]);
+            $Expense = $this->Expense();
+            $Expense->date = request('date');
+            $Expense->expense_type = request('expense_type');
+            $Expense->vehicleId = request('vehicleId');
+            $Expense->staffId = request('staffId');
+            $Expense->quantity = request('quantity');
+            $Expense->amount = request('amount');
+            $Expense->discription = request('discription');
+            $Expense->location = request('location');
+            $Expense->status = request('status');
+            $Expense->account_id = request('account_id');
+            $Expense->vendor_id = request('vendor_id');
+            $Expense->clientid = auth()->user()->id;
+            if($request->file('image')){
+                $file = $request->file('image');
+                $imageName = hash('sha256', strval(time())).'.'.$request->image->getClientOriginalExtension();
+                $destinationPath = config('mohan.uploads.expense_document').'/'.auth()->user()->id.'/'. request('vehicleId').'/';
+                $file->move($destinationPath,$imageName);
+                $Expense->image =$destinationPath.$imageName;
+            }
+            $Expense->save();
             return back()->with('success',['Expense','Added Successfully!'])->withInput();
          }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
@@ -217,7 +224,7 @@ class ExpenseController extends Controller
         }
     }
 
-    public function UpdateNonTripExpense($id){
+    public function UpdateNonTripExpense(Request $request,$id){
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
@@ -227,19 +234,26 @@ class ExpenseController extends Controller
             'quantity'=>'required_if:type,==,2',
         ]);
         try {
-            $this->Expense::findorfail($id)->update([
-                'date' => request('date'),
-                'expense_type' => request('expense_type'),
-                'vehicleId' => request('vehicleId'),
-                'staffId' => request('staffId'),
-                'quantity' => request('quantity'),
-                'amount' => request('amount'),
-                'discription' => request('discription'),
-                'location' => request('location'),
-                'status'=>request('status'),
-                'account_id' => request('account_id'),
-                'vendor_id' => request('vendor_id'),
-            ]);
+            $Expense = $this->Expense->findorfail($id);
+            $Expense->date = request('date');
+            $Expense->expense_type = request('expense_type');
+            $Expense->vehicleId = request('vehicleId');
+            $Expense->staffId = request('staffId');
+            $Expense->quantity = request('quantity');
+            $Expense->amount = request('amount');
+            $Expense->discription = request('discription');
+            $Expense->location = request('location');
+            $Expense->status = request('status');
+            $Expense->account_id = request('account_id');
+            $Expense->vendor_id = request('vendor_id');
+            if($request->file('image')){
+                $file = $request->file('image');
+                $imageName = hash('sha256', strval(time())).'.'.$request->image->getClientOriginalExtension();
+                $destinationPath = config('mohan.uploads.expense_document').'/'.auth()->user()->id.'/'. request('vehicleId').'/';
+                $file->move($destinationPath,$imageName);
+                $Expense->image =$destinationPath.$imageName;
+            }
+            $Expense->save();
             return back()->with('success',['Expense','Updated Successfully!'])->withInput();
         } catch (\Illuminate\Database\QueryException $e) {
             return back()->with('danger', 'Something went wrong!');
