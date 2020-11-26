@@ -3,7 +3,7 @@
 
     <script src="https://storage.googleapis.com/push-pro-java-scripts/pushpro-lib.js"></script>
     @include('manager.layout.headerScript')
-    <body class="hold-transition sidebar-mini skin-black-light">
+    <body class="hold-transition sidebar-mini skin-blue">
         <div class="wrapper">
             <!-- header -->
             @include('manager.layout.header')
@@ -13,6 +13,9 @@
             @include('manager.layout.navbar')
             <!-- Content -->
                 <div class="content-wrapper">
+                    <section class="content-header">
+                        @yield('BreadCrumb')
+                    </section>
                     <section class="content">
                         @include('errors')
                         @yield('content')

@@ -2,14 +2,15 @@
 
 namespace App\Http\Controllers\ClientController;
 
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+use Yajra\DataTables\Facades\DataTables;
+
 use App\Expense;
 use App\ExpenseType;
 use App\Trip;
 use App\Vehicle;
 use DB;
-use Illuminate\Http\Request;
-use App\Http\Controllers\Controller;
-use Yajra\DataTables\Facades\DataTables;
 use App\Vendor;
 
 
@@ -26,6 +27,7 @@ class ExpenseController extends Controller
 
     public function add(){
         $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->limit(10)->get();
+        $Data['Vendors'] =  $this->Vendor::where('clientid',auth()->user()->id)->get();
         return view('client.trip.expense.add',$Data);
     }
 
@@ -33,7 +35,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'amount'=>'required',
+            'total_amount'=>'required',
+            'amount'=>'nullable',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
@@ -52,20 +55,30 @@ class ExpenseController extends Controller
             ]);
         }
         try {
-            $this->Expense::create([
-                'date' => request('date'),
-                'expense_type' => request('expense_type'),
-                'vehicleId' => request('vehicleId'),
-                'staffId' => request('staffId'),
-                'quantity' => request('quantity'),
-                'amount' => request('amount'),
-                'discription' => request('discription'),
-                'location' => request('location'),
-                'status'=>request('status'),
-                'account_id' => request('account_id'),
-                'tripId' => request('tripId'),
-                'clientid' => auth()->user()->id,
-            ]);
+            $Expense = $this->Expense;
+            $Expense->date = request('date');
+            $Expense->expense_type = request('expense_type');
+            $Expense->vehicleId = request('vehicleId');
+            $Expense->staffId = request('staffId');
+            $Expense->quantity = request('quantity');
+            $Expense->amount = request('amount');
+            $Expense->discription = request('discription');
+            $Expense->location = request('location');
+            $Expense->status = request('status');
+            $Expense->account_id = request('account_id');
+            $Expense->tripId = request('tripId');
+            $Expense->total_amount = request('total_amount');
+            $Expense->vendor_id = request('vendor_id');
+            $Expense->clientid = auth()->user()->id;
+            if($request->file('image')){
+                $file = $request->file('image');
+                $imageName = hash('sha256', strval(time())).'.'.$request->image->getClientOriginalExtension();
+                $destinationPath = config('mohan.uploads.expense_document').'/'.auth()->user()->id.'/'. request('vehicleId').'/';
+                $file->move($destinationPath,$imageName);
+                $Expense->image =$destinationPath.$imageName;
+            }
+            $Expense->save();
+
             return back()->with('success',['Expense','Added Successfully!'])->withInput();
          }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
@@ -77,8 +90,9 @@ class ExpenseController extends Controller
             $Data['ExpenseTypes'] =  $this->ExpenseType::where('clientid',auth()->user()->id)->orWhereNull('clientid')->get();
             $Data['Expense'] = $this->Expense::findorfail($id);
             $Data['Trips'] = $this->Trip::findorfail($Data['Expense']->tripId);
+            $Data['Vendors'] =  $this->Vendor::where('clientid',auth()->user()->id)->get();
             return view('client.trip.expense.edit',$Data);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -87,7 +101,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'amount'=>'required',
+            'amount'=>'nullable',
+            'total_amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
@@ -106,19 +121,28 @@ class ExpenseController extends Controller
             ]);
         }
         try {
-            $this->Expense::findorfail($id)->update([
-                'date' => request('date'),
-                'expense_type' => request('expense_type'),
-                'vehicleId' => request('vehicleId'),
-                'staffId' => request('staffId'),
-                'quantity' => request('quantity'),
-                'amount' => request('amount'),
-                'discription' => request('discription'),
-                'location' => request('location'),
-                'status'=>request('status'),
-                'account_id' => request('account_id'),
-                'tripId' => request('tripId'),
-            ]);
+            $Expense = $this->Expense::findorfail($id);
+            $Expense->date = request('date');
+            $Expense->expense_type = request('expense_type');
+            $Expense->vehicleId = request('vehicleId');
+            $Expense->staffId = request('staffId');
+            $Expense->quantity = request('quantity');
+            $Expense->amount = request('amount');
+            $Expense->discription = request('discription');
+            $Expense->location = request('location');
+            $Expense->status = request('status');
+            $Expense->account_id = request('account_id');
+            $Expense->tripId = request('tripId');
+            $Expense->total_amount = request('total_amount');
+            $Expense->vendor_id = request('vendor_id');
+            if($request->file('image')){
+                $file = $request->file('image');
+                $imageName = hash('sha256', strval(time())).'.'.$request->image->getClientOriginalExtension();
+                $destinationPath = config('mohan.uploads.expense_document').'/'.auth()->user()->id.'/'. request('vehicleId').'/';
+                $file->move($destinationPath,$imageName);
+                $Expense->image =$destinationPath.$imageName;
+            }
+            $Expense->save();
             return back()->with('success',['Expense','Updated Successfully!'])->withInput();
          }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
@@ -135,16 +159,16 @@ class ExpenseController extends Controller
     }
 
     public function GetLastExpenseTypeDetail(){
-            $Expense= $this->Expense::where([['clientid', auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
-            return '        Date : '.date('d-m-Y', strtotime($Expense->date)).'
-        Quantity : '.$Expense->quantity.'
-        Amount : '.$Expense->amount.'
-        Discription : '.$Expense->discription;
+        $Expense= $this->Expense::where([['clientid', auth()->user()->id],['vehicleId', request('vehicleID')],['expense_type', request('ExpenseType')]])->orderBy('date', 'DESC')->first();
+            return '        Date : '.date('d-m-Y', strtotime(@$Expense->date)).'
+        Quantity : '.@$Expense->quantity.'
+        Amount : '.@$Expense->amount.'
+        Discription : '.@$Expense->discription;
     }
 
-    /*
-     * NON Trip Expense List
-     */
+    /*=========================================
+         NON Trip Expense List
+     =========================================*/
 
     public function ExpenseVehcleListNonTrip(){
         if (request()->ajax()) {
@@ -180,7 +204,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'amount'=>'required',
+            'total_amount'=>'required',
+            'amount'=>'nullable',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
@@ -192,6 +217,7 @@ class ExpenseController extends Controller
             $Expense->vehicleId = request('vehicleId');
             $Expense->staffId = request('staffId');
             $Expense->quantity = request('quantity');
+            $Expense->total_amount = request('total_amount');
             $Expense->amount = request('amount');
             $Expense->discription = request('discription');
             $Expense->location = request('location');
@@ -219,7 +245,7 @@ class ExpenseController extends Controller
             $Data['Expense'] = $this->Expense::findorfail($id);
             $Data['Vendors'] =  $this->Vendor::where('clientid',auth()->user()->id)->get();
             return view('client.trip.expense.nontrip.edit',$Data);
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -228,7 +254,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'amount'=>'required',
+            'amount'=>'nullable',
+            'total_amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
@@ -240,6 +267,7 @@ class ExpenseController extends Controller
             $Expense->vehicleId = request('vehicleId');
             $Expense->staffId = request('staffId');
             $Expense->quantity = request('quantity');
+            $Expense->total_amount = request('total_amount');
             $Expense->amount = request('amount');
             $Expense->discription = request('discription');
             $Expense->location = request('location');
@@ -255,7 +283,7 @@ class ExpenseController extends Controller
             }
             $Expense->save();
             return back()->with('success',['Expense','Updated Successfully!'])->withInput();
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return back()->with('danger', 'Something went wrong!');
         }
     }
@@ -288,7 +316,7 @@ class ExpenseController extends Controller
          try {
             $this->Expense::whereIn('id',request('exp_id'))->delete();
             return ['status'=>'success','Expense Deleted Successfully'];
-        } catch (\Illuminate\Database\QueryException $e) {
+        }catch (\Exception $e){
             return ['status'=>'error','Expense Deleted Error'];
         }
     }

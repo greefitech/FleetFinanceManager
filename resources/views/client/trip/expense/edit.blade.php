@@ -36,7 +36,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date</label>
@@ -44,7 +44,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle</label>
@@ -52,6 +52,19 @@
                                                 <option value="">Select Vehicle</option>
                                                 @foreach(Auth::user()->vehicles as $vehicle)
                                                     <option value="{{ $vehicle->id }}" {{ ($vehicle->id==$Expense->vehicleId)?'selected':'' }}>{{ $vehicle->vehicleNumber }}</option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                 <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('vendor_id') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Vendor</label>
+                                            <select name="vendor_id" class="form-control select2" id="entry-vendor">
+                                                 <option value="">Select Vendor</option>
+                                                @foreach($Vendors as $Vendor)
+                                                    <option value="{{ $Vendor->id }}" {{ ($Vendor->id == $Expense->vendor_id) ? 'selected':'' }}>{{ $Vendor->name }}</option>
                                                 @endforeach
                                             </select>
                                         </div>
@@ -99,6 +112,14 @@
 
                             <div class="row">
                                 <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('total_amount') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Total Amount</label>
+                                            <input type="number" class="form-control" min="0" name="total_amount" value="{{ $Expense->total_amount }}">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Amount</label>
@@ -114,6 +135,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('account_id') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
@@ -127,10 +151,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
+                           
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Payment Status</label>
@@ -141,11 +163,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                 <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Image</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('discription') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Description</label>
-                                            <textarea class="form-control" name="discription">{{ $Expense->discription }}</textarea>
+                                            <textarea class="form-control" name="discription" rows="3">{{ $Expense->discription }}</textarea>
                                         </div>
                                     </div>
                                 </div>

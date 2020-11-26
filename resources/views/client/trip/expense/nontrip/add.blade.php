@@ -17,8 +17,8 @@
              @component('client.layout.component.panel-head',['MenuTitle'=>'Non-Trip Expense','Title'=>'Expense Create','color'=>env('TABPANELCOLOR')])
                
 
-                <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@SaveNonTripExpense') }}">
-                        {{ csrf_field() }}
+                <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@SaveNonTripExpense') }}" enctype="multipart/form-data">
+                    {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-sm-4">
@@ -87,11 +87,19 @@
                             </div>
 
                             <div class="row">
+                                 <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('total_amount') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Total Amount</label>
+                                            <input type="number" class="form-control" min="0" name="total_amount" value="{{ old('total_amount') }}">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Amount</label>
-                                            <input type="number" class="form-control" min="0" name="amount">
+                                            <label>Paid Amount</label>
+                                            <input type="number" class="form-control" min="0" name="amount" value="{{ old('amount') }}">
                                         </div>
                                     </div>
                                 </div>
@@ -99,10 +107,13 @@
                                     <div class="form-group{{ $errors->has('location') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Location</label>
-                                            <input type="text" class="form-control" name="location">
+                                            <input type="text" class="form-control" name="location" value="{{ old('location') }}">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('account_id') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
@@ -116,10 +127,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
+                          
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Payment Status</label>
@@ -130,7 +139,18 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Image</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('discription') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Description</label>

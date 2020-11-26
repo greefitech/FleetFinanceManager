@@ -28,6 +28,7 @@ class CreateVendorsTable extends Migration
         });
 
         Schema::table('expenses', function($table){
+            $table->string('total_amount')->nullable()->after('quantity');
             $table->uuid('vendor_id')->nullable()->after('tripId');
             $table->foreign('vendor_id')->references('id')->on('vendors');
             $table->longText('image')->nullable()->after('vendor_id');

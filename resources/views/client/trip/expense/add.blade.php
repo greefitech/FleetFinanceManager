@@ -32,7 +32,7 @@
                                 </div>
                             </div>
                             <div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('date') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Date <span style="color:red">*</span></label>
@@ -40,11 +40,24 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vehicleId') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vehicle <span style="color:red">*</span></label>
                                             <select name="vehicleId" class="form-control LastExpense select2 expense-vehicle AutoVehicle" id="entry-vehicle">
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('vendor_id') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Vendor</label>
+                                            <select name="vendor_id" class="form-control select2" id="entry-vendor">
+                                                 <option value="">Select Vendor</option>
+                                                @foreach($Vendors as $Vendor)
+                                                    <option value="{{ $Vendor->id }}" {{ ($Vendor->id == old('vendor_id')) ? 'selected':'' }}>{{ $Vendor->name }}</option>
+                                                @endforeach
                                             </select>
                                         </div>
                                     </div>
@@ -56,7 +69,7 @@
                                     <div class="form-group{{ $errors->has('expense_type') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Expense <span style="color:red">*</span></label>
-                                                <select name="expense_type" class="form-control expense-type LastExpense select2 AutoExpense" id="entry-type"></select>
+                                            <select name="expense_type" class="form-control expense-type LastExpense select2 AutoExpense" id="entry-type"></select>
                                         </div>
                                     </div>
                                 </div>
@@ -84,10 +97,18 @@
                             </div>
 
                             <div class="row">
+                                 <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('total_amount') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Total Amount</label>
+                                            <input type="number" class="form-control" min="0" name="total_amount" value="{{ old('total_amount') }}">
+                                        </div>
+                                    </div>
+                                </div>
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Amount <span style="color:red">*</span></label>
+                                            <label>Paid Amount <span style="color:red">*</span></label>
                                             <input type="number" class="form-control" min="0" name="amount">
                                         </div>
                                     </div>
@@ -100,6 +121,9 @@
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('account_id') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
@@ -113,10 +137,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
+                         
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Payment Status</label>
@@ -127,11 +149,21 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Image</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('discription') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Description</label>
-                                            <textarea class="form-control" name="discription">{{ old('discription') }}</textarea>
+                                            <textarea class="form-control" name="discription" rows="3">{{ old('discription') }}</textarea>
                                         </div>
                                     </div>
                                 </div>

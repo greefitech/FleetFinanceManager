@@ -85,17 +85,16 @@
                                     </div>
                                 </div>
 
-
                                 @if(isset($TripTemp) && empty(old('staff')))
                                     <div class="row">
                                          <div class="col-sm-3">
                                             <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
                                                 <div class="col-sm-12">
-                                                    <label>First Driver / டிரைவர் பெயர் 1 <span style="color:red">*</span></label>
+                                                    <label>First Driver / டிரைவர் 1 <span style="color:red">*</span></label>
                                                     <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
-                                                            <option value="{{ $staff->id }}" {{ ($staff->id==$TripTemp->staff1)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                            <option value="{{ $staff->id }}" {{ ($staff->id == $TripTemp->staff1)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -104,11 +103,11 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <div class="col-sm-12">
-                                                    <label>Second Driver / டிரைவர் பெயர் 2</label>
+                                                    <label>Second Driver / டிரைவர் 2</label>
                                                     <select name="staff[]" class="form-control select2" id="entry-staff2">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
-                                                            <option value="{{ $staff->id }}"{{ ($staff->id==$TripTemp->staff2)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id == $TripTemp->staff2)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -117,11 +116,11 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <div class="col-sm-12">
-                                                    <label>Select Cleaner / கிளீனர் பெயர்</label>
+                                                    <label>Select Cleaner / கிளீனர்</label>
                                                     <select name="staff[]" class="form-control select2" id="entry-staff3">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
-                                                            <option value="{{ $staff->id }}"{{ ($staff->id==$TripTemp->staff3)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id == $TripTemp->staff3)?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -133,11 +132,11 @@
                                          <div class="col-sm-3">
                                             <div class="form-group{{ $errors->has('staff.0') ? ' has-error' : '' }}">
                                                 <div class="col-sm-12">
-                                                    <label>First Driver / டிரைவர் பெயர் 1 <span style="color:red">*</span></label>
+                                                    <label>First Driver / டிரைவர் 1 <span style="color:red">*</span></label>
                                                     <select name="staff[]" class="form-control select2 Driverchange" id="entry-staff1">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
-                                                            <option value="{{ $staff->id }}" {{ ($staff->id==old('staff')[0])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                            <option value="{{ $staff->id }}" {{ ($staff->id == @old('staff')[0])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -146,11 +145,11 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <div class="col-sm-12">
-                                                    <label>Second Driver / டிரைவர் பெயர் 2</label>
+                                                    <label>Second Driver / டிரைவர் 2</label>
                                                     <select name="staff[]" class="form-control select2" id="entry-staff2">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
-                                                            <option value="{{ $staff->id }}"{{ ($staff->id==old('staff')[1])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id == @old('staff')[1])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -159,11 +158,11 @@
                                         <div class="col-sm-3">
                                             <div class="form-group">
                                                 <div class="col-sm-12">
-                                                    <label>Select Cleaner / கிளீனர் பெயர்</label>
+                                                    <label>Select Cleaner / கிளீனர்</label>
                                                     <select name="staff[]" class="form-control select2" id="entry-staff3">
                                                         <option value="">Select Staff</option>
                                                         @foreach(Auth::user()->staffs as $staff)
-                                                            <option value="{{ $staff->id }}"{{ ($staff->id==old('staff')[2])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
+                                                            <option value="{{ $staff->id }}"{{ ($staff->id == @old('staff')[2])?'selected':'' }}>{{ $staff->name }} | {{ $staff->mobile1 }}</option>
                                                         @endforeach
                                                     </select>
                                                 </div>
@@ -902,6 +901,7 @@
 
 
     <script>
+        $('body').addClass('sidebar-collapse');
 
         $('tbody').sortable();
         var EntryI = {{ isset($EntryKey)?++$EntryKey:0}};

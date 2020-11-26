@@ -1,0 +1,6 @@
+updated Expense column value
+=====================================
+UPDATE `expenses` SET `total_amount` = `amount`
+
+===================================================
+<li>Welcome <i  style="color:green;"> #config(mohan.app_status)# </i> Have a nice day {name} <a href="#url(client/home)#">Home Link</a> #date({expires_on})# #env(APP_TIMEZONE)#</li>

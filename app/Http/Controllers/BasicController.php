@@ -66,7 +66,4 @@ class BasicController extends Controller
         }
         dd('done');
     }
-
-
-
 }

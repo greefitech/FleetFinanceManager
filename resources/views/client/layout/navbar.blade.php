@@ -68,6 +68,14 @@
                     <li><a href="{{ url('/client/halt/add') }}"><i class="fa fa-shield {{ $color[array_rand($color,1)] }}"></i> <span>Add Halt</span></a></li>
                 </ul>
             </li>
+            <li class="@yield('TripSheetMenu')"><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-shopping-cart {{ $color[array_rand($color,1)] }}"></i> <span>Trip Sheet</span></a></li>
+
+             <li class="@yield('TempMemoSheetMenu')"><a href="{{ action('ClientController\MemoController@ViewTempMemo') }}">
+                    <i class="fa fa-sticky-note-o {{ $color[array_rand($color,1)] }}"></i> <span>Temp Memo Sheet</span>
+                </a>
+            </li>
+
+            <li class="header">Income / Expense</li>
 
             <li class="treeview @yield('IncomeMenu')">
                 <a href="#">
@@ -111,15 +119,7 @@
                 </ul>
             </li>
 
-            <li class="@yield('TripSheetMenu')"><a href="{{ route('client.ViewVehicleList') }}"><i class="fa fa-shopping-cart {{ $color[array_rand($color,1)] }}"></i> <span>Trip Sheet</span></a></li>
-
-             <li class="@yield('TempMemoSheetMenu')"><a href="{{ action('ClientController\MemoController@ViewTempMemo') }}">
-                    <i class="fa fa-sticky-note-o {{ $color[array_rand($color,1)] }}"></i> <span>Temp Memo Sheet</span>
-                    <span class="pull-right-container">
-                        <img src="{{ config('mohan.new_image') }}" height="30px">
-                    </span>
-                </a>
-            </li>
+            
 
              <li class="header">REPORT</li>
             <li class="treeview @yield('ReportMenu')">

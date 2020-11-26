@@ -13,7 +13,7 @@
         <div class="col-xs-12">
              @component('client.layout.component.panel-head',['MenuTitle'=>'Non-Trip Expense Edit','Title'=>'Expense Edit','color'=>env('TABPANELCOLOR')])
 
-                  <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@UpdateNonTripExpense',$Expense->id) }}">
+                  <form class="form-horizontal" method="post" action="{{ action('ClientController\ExpenseController@UpdateNonTripExpense',$Expense->id) }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -38,7 +38,7 @@
                                         </div>
                                     </div>
                                 </div>
-                                  <div class="col-sm-4">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('vendor_id') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Vendor</label>
@@ -93,9 +93,18 @@
 
                             <div class="row">
                                 <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('total_amount') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Total Amount</label>
+                                            <input type="number" class="form-control" min="0" name="total_amount" value="{{ $Expense->total_amount }}">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
-                                            <label>Amount</label>
+                                            <label>Paid Amount</label>
                                             <input type="number" class="form-control" min="0" name="amount" value="{{ $Expense->amount }}">
                                         </div>
                                     </div>
@@ -107,7 +116,10 @@
                                             <input type="text" class="form-control" value="{{ $Expense->location }}" min="0" name="location">
                                         </div>
                                     </div>
-                                </div>
+                                </div> 
+                            </div>
+
+                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('account_id') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
@@ -121,10 +133,8 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
-                                <div class="col-sm-6">
+                           
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Payment Status</label>
@@ -135,7 +145,17 @@
                                         </div>
                                     </div>
                                 </div>
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
+                                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                        <div class="col-sm-12">
+                                            <label>Image</label>
+                                            <input type="file" class="form-control" name="image">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('discription') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Description</label>
