@@ -21,6 +21,9 @@ class Account extends Model
 
     protected $guarded = ['id', 'created_at', 'updated_at'];
 
+    public function getFullAccountAttribute(){
+        return $this->account . ' | ' . $this->HolderName;
+    }
 }
 
 

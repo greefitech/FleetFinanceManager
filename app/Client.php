@@ -50,6 +50,10 @@ class Client extends Authenticatable
         return $this->hasMany(Customer::class, 'clientid', 'id')->orderBy('name');
     }
 
+     public function vendors(){
+        return $this->hasMany(Vendor::class, 'clientid', 'id');
+    }
+
     public function vehicles(){
         return $this->hasMany(Vehicle::class, 'clientid', 'id');
     }

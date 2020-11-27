@@ -4,6 +4,7 @@ use App\Trip;
 use App\ExtraIncome;
 use App\Entry;
 use App\Expense;
+use App\VendorExpensePayment;
 
 /*
 /---------------------------------------------------
@@ -140,3 +141,17 @@ if (! function_exists('nonTripUnpaidExpneseTotal')) {
     }
 }
 
+
+/*=========================
+    Client Vendor Payment
+===========================*/
+
+
+/*Unpaid paid expense list*/
+if (! function_exists('vendorUnpaidExpenseList')) {
+    function vendorUnpaidExpenseList($ClientId,$vendorId){
+        $Expense = Expense::where([['clientid', $ClientId],['vendor_id', $vendorId],['status',0]])->sum('amount');
+        $VendorExpensePayment= VendorExpensePayment::where([['clientid', $ClientId],['vendor_id', $vendorId]])->sum('amount');
+        return $Expense - $VendorExpensePayment;
+    }
+}

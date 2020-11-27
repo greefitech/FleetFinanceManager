@@ -236,3 +236,14 @@ Route::group(['prefix' => 'setting'], function() {
     Route::get('/tyre/vehicle/{vehicleid}/status/{assignedtyreid}/add',  'ClientController\Setting\TyreController@AddTyreCurrentStatusVehicle')->name('AddTyreCurrentStatusVehicle');
     Route::post('/tyre/vehicle/{vehicleid}/status/{assignedtyreid}/add',  'ClientController\Setting\TyreController@SaveTyreCurrentStatusVehicle')->name('SaveTyreCurrentStatusVehicle');
 });
+
+
+
+/*=================================
+    Vendor Payment
+===================================*/
+
+Route::group(['prefix' => 'vendor-payment'], function() {
+    Route::resource('/vendor-list', 'ClientController\vendorPayment\VendorPaymentController');
+    Route::resource('/vendor-payment-list', 'ClientController\vendorPayment\VendorPaymentListController');
+});

@@ -118,6 +118,19 @@
                      <li><a href="{{ url('/client/expense-vehicle-list') }}"><i class="fa fa-circle-o {{ $color[array_rand($color,1)] }}"></i> <span>View Expense</span></a></li>
                 </ul>
             </li>
+            <li class="treeview @yield('VendorPaymentMenu')">
+                <a href="#">
+                    <i class="fa fa-bitcoin {{ $color[array_rand($color,1)] }}"></i>
+                    <span>Vendor Payment</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li><a href="{{ action('ClientController\vendorPayment\VendorPaymentController@index') }}"><i class="fa fa-pie-chart {{ $color[array_rand($color,1)] }}"></i> <span>View Payment</span></a></li>
+                     <li><a href="{{ action('ClientController\vendorPayment\VendorPaymentListController@index') }}"><i class="fa fa-circle-o {{ $color[array_rand($color,1)] }}"></i> <span>View Paid List</span></a></li>
+                </ul>
+            </li>
 
             
 

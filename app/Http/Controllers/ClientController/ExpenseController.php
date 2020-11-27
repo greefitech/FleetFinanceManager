@@ -67,7 +67,7 @@ class ExpenseController extends Controller
             $Expense->status = request('status');
             $Expense->account_id = request('account_id');
             $Expense->tripId = request('tripId');
-            $Expense->total_amount = request('total_amount');
+            // $Expense->total_amount = request('total_amount');
             $Expense->vendor_id = request('vendor_id');
             $Expense->clientid = auth()->user()->id;
             if($request->file('image')){
@@ -133,7 +133,7 @@ class ExpenseController extends Controller
             $Expense->status = request('status');
             $Expense->account_id = request('account_id');
             $Expense->tripId = request('tripId');
-            $Expense->total_amount = request('total_amount');
+            // $Expense->total_amount = request('total_amount');
             $Expense->vendor_id = request('vendor_id');
             if($request->file('image')){
                 $file = $request->file('image');
@@ -217,7 +217,7 @@ class ExpenseController extends Controller
             $Expense->vehicleId = request('vehicleId');
             $Expense->staffId = request('staffId');
             $Expense->quantity = request('quantity');
-            $Expense->total_amount = request('total_amount');
+            // $Expense->total_amount = request('total_amount');
             $Expense->amount = request('amount');
             $Expense->discription = request('discription');
             $Expense->location = request('location');
@@ -267,7 +267,7 @@ class ExpenseController extends Controller
             $Expense->vehicleId = request('vehicleId');
             $Expense->staffId = request('staffId');
             $Expense->quantity = request('quantity');
-            $Expense->total_amount = request('total_amount');
+            // $Expense->total_amount = request('total_amount');
             $Expense->amount = request('amount');
             $Expense->discription = request('discription');
             $Expense->location = request('location');
