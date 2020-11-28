@@ -77,9 +77,12 @@ class VendorPaymentController extends Controller
         $VendorExpensePayment = VendorExpensePayment::where([['clientid', auth()->user()->id],['vendor_id', $id]])->groupby('expense_id')->selectRaw('expense_id,sum(amount) as amount')->get()->pluck('amount','expense_id')->toArray();
         $ExpenseDataFinal=array();
         foreach ($Expenses as $key => $Expense) {
-            $ExpenseData = $Expense;
-            $ExpenseData['amount'] = $Expense['amount'] - @$VendorExpensePayment[$Expense->id];
-            $ExpenseDataFinal[] = $ExpenseData;
+            $amount = $Expense['amount'] - @$VendorExpensePayment[$Expense->id];
+            if($amount != 0){
+                $ExpenseData = $Expense;
+                $ExpenseData['amount'] = $amount;
+                $ExpenseDataFinal[] = $ExpenseData;
+            }
         }
         $Data['FinalExpenseDatas'] = $ExpenseDataFinal;
         return view('client.trip.vendor_payment.payment',$Data);

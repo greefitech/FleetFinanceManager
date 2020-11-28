@@ -32,6 +32,9 @@
 <script type="text/javascript" src="//cdn.datatables.net/searchbuilder/1.0.0/js/dataTables.searchBuilder.min.js"></script>
 <script type="text/javascript" src="//cdn.datatables.net/rowgroup/1.1.2/js/dataTables.rowGroup.min.js"></script>
 
+<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.css">
+<script src="//cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.min.js"></script>
+
 <script>
 	$(document).ajaxStart(function() { Pace.restart(); });
     $(document).ready( function () {
