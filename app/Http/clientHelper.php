@@ -155,3 +155,12 @@ if (! function_exists('vendorUnpaidExpenseList')) {
         return $Expense - $VendorExpensePayment;
     }
 }
+
+/*Unpaid paid expense list client Wise*/
+if (! function_exists('ClientvendorUnpaidExpenseTotal')) {
+    function ClientvendorUnpaidExpenseTotal($ClientId){
+        $Expense = Expense::where([['clientid', $ClientId],['vendor_id', '!=',NULL],['status',0]])->sum('amount');
+        $VendorExpensePayment= VendorExpensePayment::where([['clientid', $ClientId]])->sum('amount');
+        return $Expense - $VendorExpensePayment;
+    }
+}

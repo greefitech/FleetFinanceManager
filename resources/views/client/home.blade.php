@@ -91,12 +91,12 @@
             <div class="small-box bg-yellow">
                 <div class="inner">
                     <p>In Pending Amount</p>
-                    <h3>₹ {{ nonTripUnpaidExpneseTotal(auth()->user()->id) }}</h3>
+                    <h3>₹ {{ ClientvendorUnpaidExpenseTotal(auth()->user()->id) }}</h3>
                 </div>
                 <div class="icon">
                     <i class="ion ion-compass"></i>
                 </div>
-                <a href="{{ action('ClientController\DashboardController@unPaidExpenseList') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                <a href="{{ action('ClientController\vendorPayment\VendorPaymentController@index') }}" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
             </div>
 
             {{-- Documet renewal on same panel --}}

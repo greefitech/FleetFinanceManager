@@ -343,6 +343,7 @@
                                                     <thead>
                                                     <tr>
                                                         <th>Date / தேதி <span style="color:red">*</span></th>
+                                                        <th>Vendor / விற்பனையாளர்</th>
                                                         <th>Location / இடம்</th>
                                                         <th>Bunk / Description</th>
                                                         <th>Litre / லிட்டர் <span style="color:red">*</span></th>
@@ -358,6 +359,14 @@
                                                                 <tr>
                                                                     <td class="{{ $errors->has('DieselData.date.'.$DiselKey) ? ' has-error' : '' }}">
                                                                         <input type="date" class="form-control DateValue" placeholder="Enter date" value="{{ $diselEditDatas['date'][$DiselKey] }}" name="DieselData[date][]">
+                                                                    </td>
+                                                                    <td class="{{ $errors->has('DieselData.vendor_id.'.$DiselKey) ? ' has-error' : '' }}">
+                                                                           <select name="DieselData[vendor_id][]" class="form-control select2">
+                                                                            <option value="">Select Vendor</option>
+                                                                            @foreach(Auth::user()->vendors as $vendors)
+                                                                                <option value="{{ $vendors->id }}" {{ ($vendors->id == $diselEditDatas['vendor_id'][$DiselKey])? 'selected':''}} >{{ $vendors->name }} </option>
+                                                                            @endforeach
+                                                                        </select>
                                                                     </td>
                                                                     <td class="{{ $errors->has('DieselData.location.'.$DiselKey) ? ' has-error' : '' }}">
                                                                         <input type="text" class="form-control" placeholder="Enter Location" value="{{ $diselEditDatas['location'][$DiselKey] }}" name="DieselData[location][]">
@@ -382,7 +391,7 @@
                                                                     <td class="{{ $errors->has('DieselData.status.'.$DiselKey) ? ' has-error' : '' }}">
                                                                         <select class="form-control" name="DieselData[status][]">
                                                                             <option value="1" {{ ($diselEditDatas['status'][$DiselKey]==1)?'selected':'' }}>Paid</option>
-                                                                            <option value="0" {{ (old('DieselData')['status'][$DiselKey]==0)?'selected':'' }}>Not Paid</option>
+                                                                            <option value="0" {{ ($diselEditDatas['status'][$DiselKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
                                                                     <td class="RemoveDieselInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
@@ -391,7 +400,7 @@
                                                         @endif
                                                     </tbody>
                                                     <tr>
-                                                        <th colspan="3">Total</th>
+                                                        <th colspan="4">Total</th>
                                                         <th id="DieselLitreTotalSpentAmount"></th>
                                                         <th id="DieselCostTotalSpentAmount"></th>
                                                         <th></th>

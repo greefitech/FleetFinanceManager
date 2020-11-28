@@ -183,8 +183,8 @@ class MemoController extends Controller
                 $Trip->clientid = auth()->user()->id;
                 $Trip->save();
                 $vehicle = Vehicle::findorfail(request('vehicleId'));
-                if($vehicle->vehicleLastKm < request('Trip')['endKm']){
-                    $vehicle->vehicleLastKm = request('Trip')['endKm'];
+                if($vehicle->vehicleLastKm < request('endKm')){
+                    $vehicle->vehicleLastKm = request('endKm');
                     $vehicle->save();
                 }
                 if(!empty(request('EntryData'))){
@@ -229,6 +229,7 @@ class MemoController extends Controller
                         $Expense->date = request('DieselData')['date'][$DieselDataKey];
                         $Expense->expense_type = 2;
                         $Expense->vehicleId = request('vehicleId');
+                        $Expense->vendor_id = request('DieselData')['vendor_id'][$DieselDataKey];
                         $Expense->quantity = request('DieselData')['quantity'][$DieselDataKey];
                         $Expense->amount = request('DieselData')['amount'][$DieselDataKey];
                         $Expense->status = request('DieselData')['status'][$DieselDataKey];
@@ -557,8 +558,8 @@ class MemoController extends Controller
                 $Trip->clientid = auth()->user()->id;
                 $Trip->save();
                 $vehicle = Vehicle::findorfail(request('vehicleId'));
-                if($vehicle->vehicleLastKm < request('Trip')['endKm']){
-                    $vehicle->vehicleLastKm = request('Trip')['endKm'];
+                if($vehicle->vehicleLastKm < request('endKm')){
+                    $vehicle->vehicleLastKm = request('endKm');
                     $vehicle->save();
                 }
                 if(!empty(request('EntryData'))){
@@ -603,6 +604,7 @@ class MemoController extends Controller
                         $Expense->date = request('DieselData')['date'][$DieselDataKey];
                         $Expense->expense_type = 2;
                         $Expense->vehicleId = request('vehicleId');
+                        $Expense->vendor_id = request('DieselData')['vendor_id'][$DieselDataKey];
                         $Expense->quantity = request('DieselData')['quantity'][$DieselDataKey];
                         $Expense->amount = request('DieselData')['amount'][$DieselDataKey];
                         $Expense->status = request('DieselData')['status'][$DieselDataKey];

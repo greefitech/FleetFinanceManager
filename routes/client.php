@@ -104,6 +104,10 @@ Route::get('/entry/memo/RTOMasterData', function (){
     return GetRTOMasterDataInputs();
 });
 
+Route::get('/entry/memo/vendors', function (){
+    return GetVendorOption();
+});
+
 Route::get('/check-entry-already-present', 'ClientController\MemoController@checkEntryAlreadyPresent');
 
 

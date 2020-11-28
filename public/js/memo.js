@@ -212,6 +212,11 @@ $(document).ready(function() {
             '        <input type="date" class="form-control DateValue" placeholder="Enter date" name="DieselData[date][]">\n' +
             '    </td>\n' +
             '    <td>\n' +
+            '        <select name="DieselData[vendor_id][]" class="form-control">\n'+
+            '               <option value="">Select Vendor</option>'+VendorDatas +
+            '        </select>\n' +
+            '    </td>\n' +
+            '    <td>\n' +
             '        <input type="text" class="form-control" placeholder="Enter Location" name="DieselData[location][]">\n' +
             '    </td>\n' +
             '    <td>\n' +
@@ -587,6 +592,19 @@ function GetAccountOptionData(){
         }
     });
     return AccountDatas;
+}
+
+var VendorDatas;
+GetAccountOptionData();
+function GetAccountOptionData(){
+    $.ajax({
+        type: "get",
+        url: '/client/entry/memo/vendors',
+        success: function(data) {
+            VendorDatas = data;
+        }
+    });
+    return VendorDatas;
 }
 
 /*

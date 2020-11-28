@@ -68,6 +68,16 @@ if (! function_exists('GetCustomersOption')) {
     }
 }
 
+if (! function_exists('GetVendorOption')) {
+    function GetVendorOption(){
+        $vendorsData='';
+        foreach(auth()->user()->vendors as $vendor){
+            $vendorsData = $vendorsData.'<option value="'.$vendor->id.'">'.$vendor->name.' | '.$vendor->mobile.'</option>';
+        }
+        return $vendorsData;
+    }
+}
+
 if (! function_exists('GetRTOMasterDataInputs')) {
     function GetRTOMasterDataInputs(){
         $Cal = (request('type') == 'RTO')?request('type').'Data':request('type');
