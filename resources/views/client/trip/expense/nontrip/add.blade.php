@@ -87,14 +87,6 @@
                             </div>
 
                             <div class="row">
-                                 <div class="col-sm-4">
-                                    <div class="form-group{{ $errors->has('total_amount') ? ' has-error' : '' }}">
-                                        <div class="col-sm-12">
-                                            <label>Total Amount</label>
-                                            <input type="number" class="form-control" min="0" name="total_amount" value="{{ old('total_amount') }}">
-                                        </div>
-                                    </div>
-                                </div>
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('amount') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
@@ -111,31 +103,24 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-
-                            <div class="row">
+                  
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('account_id') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Payment Type</label>
-                                            <select name="account_id" class="form-control" id="entry-Payment">
-                                                <option value="1" {{ (1 == old('account_id')) ? 'selected':'' }}>Cash</option>
-                                                @foreach(Auth::user()->Accounts as $Account)
-                                                    <option value="{{ $Account->id }}" {{ ($Account->id == old('account_id')) ? 'selected':'' }}>{{ $Account->account }} - {{ $Account->HolderName }}</option>
-                                                @endforeach
-                                            </select>
+                                             {!! Form::select('account_id',[1=>'Cash']+auth()->user()->Accounts->pluck('full_account','id')->toArray(), null, ['class' => 'form-control']) !!}
                                         </div>
                                     </div>
                                 </div>
+                                          </div>
+
+                            <div class="row">
                           
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('status') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">
                                             <label>Payment Status</label>
-                                            <select class="form-control" name="status">
-                                                <option value="1">Paid</option>
-                                                <option value="0">Not Paid</option>
-                                            </select>
+                                             {!! Form::select('status',[1=>'Paid',0=>'Not Paid'], null, ['class' => 'form-control']) !!}
                                         </div>
                                     </div>
                                 </div>
@@ -147,9 +132,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
 
-                            <div class="row">
                                 <div class="col-sm-4">
                                     <div class="form-group{{ $errors->has('discription') ? ' has-error' : '' }}">
                                         <div class="col-sm-12">

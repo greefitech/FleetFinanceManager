@@ -35,8 +35,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'total_amount'=>'required',
-            'amount'=>'nullable',
+            // 'total_amount'=>'required',
+            'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
@@ -101,8 +101,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'amount'=>'nullable',
-            'total_amount'=>'required',
+            'amount'=>'required',
+            // 'total_amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
@@ -204,8 +204,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'total_amount'=>'required',
-            'amount'=>'nullable',
+            // 'total_amount'=>'required',
+            'amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
@@ -254,8 +254,8 @@ class ExpenseController extends Controller
         $this->validate(request(),[
             'date'=>'required|date|after:'.date('2010-01-01'),
             'vehicleId'=>'required|exists:vehicles,id',
-            'amount'=>'nullable',
-            'total_amount'=>'required',
+            'amount'=>'required',
+            // 'total_amount'=>'required',
             'expense_type'=>'required|exists:expense_types,id',
             'staffId'=>'required_if:type,==,1',
             'quantity'=>'required_if:type,==,2',
