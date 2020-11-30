@@ -23,6 +23,7 @@
                                 <th>Vehicle</th>
                                 <th>Expense</th>
                                 <th>Amount</th>
+                                <th>Discount</th>
                                 <th>Action</th>
                             </tr>
                         </thead>
@@ -51,8 +52,17 @@
             {data: 'vehicle', name: 'vehicle'},
             {data: 'expense_id', name: 'expense_id'},
             {data: 'amount', name: 'amount'},
+            {data: 'discount', name: 'discount'},
             {data: 'action', name: 'action'},
-        ]
+        ],
+        'rowCallback': function(row, data, index){
+            if(data['discount'] != ''){
+                $(row).find('td:eq(5)').css('color', 'red');
+            }
+            if(data['amount'] != ''){
+                $(row).find('td:eq(4)').css('color', 'green');
+            }
+        }
     });
 
     $('#DataTableList').on('click', '.Delete', function (e) { 

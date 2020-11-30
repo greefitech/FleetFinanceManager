@@ -28,7 +28,7 @@ class CreateVendorsTable extends Migration
         });
 
         Schema::table('expenses', function($table){
-            // $table->string('total_amount')->nullable()->after('quantity');
+            $table->string('paid_status')->default(1);
             $table->uuid('vendor_id')->nullable()->after('tripId');
             $table->foreign('vendor_id')->references('id')->on('vendors');
             $table->longText('image')->nullable()->after('vendor_id');
@@ -36,7 +36,8 @@ class CreateVendorsTable extends Migration
         Schema::create('vendor_expense_payments', function (Blueprint $table) {
             $table->uuid('id')->primary();
             $table->string('date');
-            $table->string('amount');
+            $table->string('amount')->nullable();
+            $table->string('discount')->nullable();
             $table->string('account_id')->nullable();
             $table->uuid('vendor_id')->nullable();
             $table->foreign('vendor_id')->references('id')->on('vendors');

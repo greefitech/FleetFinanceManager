@@ -45,6 +45,7 @@
                                                     <th>Expense</th>
                                                     <th>Balance Amount</th>
                                                     <th>Paid Amount</th>
+                                                    <th>Discount</th>
                                                 </tr>
                                             </thead>
                                             <tbody>
@@ -55,7 +56,10 @@
                                                     <td>{{ $FinalExpenseData->ExpenseTypes->expenseType }}</td>
                                                     <td>{{ $FinalExpenseData->amount }}</td>
                                                     <td>
-                                                       {!! Form::number('expense['.$FinalExpenseData->id.']', null, ['class' => 'form-control','min'=>0,'max'=>$FinalExpenseData->amount]) !!} 
+                                                       {!! Form::number('expense['.$FinalExpenseData->id.'][amount]', null, ['class' => 'form-control','min'=>0,'max'=>$FinalExpenseData->amount]) !!} 
+                                                    </td>
+                                                     <td>
+                                                       {!! Form::number('expense['.$FinalExpenseData->id.'][discount]', null, ['class' => 'form-control','min'=>0,'max'=>$FinalExpenseData->amount]) !!} 
                                                     </td>
                                                 </tr>
                                                 @endforeach

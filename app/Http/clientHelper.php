@@ -152,7 +152,8 @@ if (! function_exists('vendorUnpaidExpenseList')) {
     function vendorUnpaidExpenseList($ClientId,$vendorId){
         $Expense = Expense::where([['clientid', $ClientId],['vendor_id', $vendorId],['status',0]])->sum('amount');
         $VendorExpensePayment= VendorExpensePayment::where([['clientid', $ClientId],['vendor_id', $vendorId]])->sum('amount');
-        return $Expense - $VendorExpensePayment;
+        $VendorExpenseDiscount= VendorExpensePayment::where([['clientid', $ClientId],['vendor_id', $vendorId]])->sum('discount');
+        return $Expense - $VendorExpensePayment - $VendorExpenseDiscount;
     }
 }
 
@@ -161,6 +162,7 @@ if (! function_exists('ClientvendorUnpaidExpenseTotal')) {
     function ClientvendorUnpaidExpenseTotal($ClientId){
         $Expense = Expense::where([['clientid', $ClientId],['vendor_id', '!=',NULL],['status',0]])->sum('amount');
         $VendorExpensePayment= VendorExpensePayment::where([['clientid', $ClientId]])->sum('amount');
-        return $Expense - $VendorExpensePayment;
+        $VendorExpenseDiscount= VendorExpensePayment::where([['clientid', $ClientId]])->sum('discount');
+        return $Expense - $VendorExpensePayment - $VendorExpenseDiscount;
     }
 }

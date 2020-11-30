@@ -114,6 +114,12 @@ class Client extends Authenticatable
         return $this->hasOne('App\VerifyClient');
     }
    
+    public function VehicleCredits(){
+        return $this->hasMany(VehicleCredits::class, 'clientid', 'id');
+    }
+
+
+
 
 
     public function get_outstanding_amount(){
@@ -138,17 +144,23 @@ class Client extends Authenticatable
             foreach ($Trips as $Trip){
                 $total_income += ($this->TripTotalIncome($Trip->id) - $this->TripTotalExpense($Trip->id));
             }
-            return $total_income+ExtraIncome::where('clientid', auth()->user()->id)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+            return $total_income + ExtraIncome::where('clientid', auth()->user()->id)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
         }
     }
 
 
     public function CalculateNonTripExpenseAmountTotal($VehicleId=NULL,$month,$year){
         if(!empty($VehicleId)){
-            return Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId]])->where('tripId', NULL)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+            $Expense = Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId],['tripId', NULL],['status',1],['paid_status',1]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+            // $VendorExpensePayment= VendorExpensePayment::where([['clientid', Auth::user()->id]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
 
+
+            
+            return $Expense + $VendorExpensePayment;
         }else{
-            return Expense::where('clientid', Auth::user()->id)->where('tripId', NULL)->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+            $Expense = Expense::where('clientid', Auth::user()->id)->where([['tripId', NULL],['status',1],['paid_status',1]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+            $VendorExpensePayment= VendorExpensePayment::where([['clientid', Auth::user()->id]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+            return $VendorExpensePayment + $Expense;
         }
     }
 
@@ -241,10 +253,5 @@ class Client extends Authenticatable
 
     public function getVehicleTotalDiesel($VehicleId){
         return $Expense= Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId],['expense_type','=', '2']])->get();
-    }
-
-
-    public function VehicleCredits(){
-        return $this->hasMany(VehicleCredits::class, 'clientid', 'id');
     }
 }

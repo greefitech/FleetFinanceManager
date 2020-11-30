@@ -105,4 +105,3 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::post('/tyre-assign-update-status', 'API\Setting\TyreController@SaveTyreCurrentStatusVehicle');
     });
 });
-
