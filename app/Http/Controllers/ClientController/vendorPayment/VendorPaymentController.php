@@ -46,12 +46,13 @@ class VendorPaymentController extends Controller
         ]);
         try {
             foreach (request('expense') as $expense_id => $amount) {
-                if (!empty($amount)) {
+                if (!empty($amount['amount']) || !empty($amount['discount'])) {
                     $VendorExpensePayment = new VendorExpensePayment();
                     $VendorExpensePayment->date = request('date');
                     $VendorExpensePayment->vendor_id = request('vendor_id');
                     $VendorExpensePayment->expense_id = $expense_id;
-                    $VendorExpensePayment->amount = $amount;
+                    $VendorExpensePayment->amount = $amount['amount'];
+                    $VendorExpensePayment->discount = $amount['discount'];
                     $VendorExpensePayment->clientid  = auth()->user()->id;
                     $VendorExpensePayment->save();
                 }
@@ -75,9 +76,10 @@ class VendorPaymentController extends Controller
 
         $Expenses = Expense::where([['clientid', auth()->user()->id],['vendor_id', $id],['status',0]])->get();
         $VendorExpensePayment = VendorExpensePayment::where([['clientid', auth()->user()->id],['vendor_id', $id]])->groupby('expense_id')->selectRaw('expense_id,sum(amount) as amount')->get()->pluck('amount','expense_id')->toArray();
+        $VendorExpenseDiscount = VendorExpensePayment::where([['clientid', auth()->user()->id],['vendor_id', $id]])->groupby('expense_id')->selectRaw('expense_id,sum(discount) as amount')->get()->pluck('amount','expense_id')->toArray();
         $ExpenseDataFinal=array();
         foreach ($Expenses as $key => $Expense) {
-            $amount = $Expense['amount'] - @$VendorExpensePayment[$Expense->id];
+            $amount = $Expense['amount'] - @$VendorExpensePayment[$Expense->id] - @$VendorExpenseDiscount[$Expense->id];
             if($amount != 0){
                 $ExpenseData = $Expense;
                 $ExpenseData['amount'] = $amount;

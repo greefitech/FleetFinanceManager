@@ -152,7 +152,7 @@ class Client extends Authenticatable
     public function CalculateNonTripExpenseAmountTotal($VehicleId=NULL,$month,$year){
         if(!empty($VehicleId)){
             $Expense = Expense::where([['clientid', Auth::user()->id],['vehicleId',$VehicleId],['tripId', NULL],['status',1],['paid_status',1]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
-            // $VendorExpensePayment= VendorExpensePayment::where([['clientid', Auth::user()->id]])->whereYear('date', '=', $year)->whereMonth('date', '=', $month)->sum('amount');
+            $VendorExpensePayment= VendorExpensePayment::select('vendor_expense_payments.amount')->join('expenses','expenses.id','vendor_expense_payments.expense_id')->where([['vendor_expense_payments.clientid', Auth::user()->id],['expenses.vehicleId',$VehicleId]])->whereYear('vendor_expense_payments.date', '=', $year)->whereMonth('vendor_expense_payments.date', '=', $month)->sum('vendor_expense_payments.amount');
 
 
             
