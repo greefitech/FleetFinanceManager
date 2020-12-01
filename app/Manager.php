@@ -6,10 +6,11 @@ use App\Notifications\ManagerResetPassword;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Support\Facades\Auth;
+use Laravel\Passport\HasApiTokens;
 
 class Manager extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable,HasApiTokens;
 
     /**
      * The attributes that are mass assignable.
