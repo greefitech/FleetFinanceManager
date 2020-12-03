@@ -9,9 +9,17 @@
     // $ExpenseDetails = App\Expense::findorfail('185ef6a0-807b-11ea-a874-3ba7b3fe45c4');
 
 @endphp
+{{-- {{ NotificationScrollingUser(auth()->user()->id) }} --}}
 
 {{-- <marquee behavior="scroll"  direction="left">{!! stringReplaceScroll($ExpenseDetails->discription) !!}</marquee> --}}
-<marquee behavior="scroll" scrollamount="4" direction="left"><li>Welcome <i>{{ auth()->user()->transportName }}</i> Your Service Expire on {{ date("d-m-Y", strtotime(auth()->user()->expires_on)) }}.Contact Admin</li></marquee>
+<marquee behavior="scroll"  direction="left">
+    @foreach(NotificationScrollingUser(auth()->user()->id) as $Notification)
+       * {!! stringReplaceScroll($Notification) !!}
+    @endforeach
+</marquee>
+
+
+{{-- <marquee behavior="scroll" scrollamount="4" direction="left"><li>Welcome <i>{{ auth()->user()->transportName }}</i> Your Service Expire on {{ date("d-m-Y", strtotime(auth()->user()->expires_on)) }}.Contact Admin</li></marquee> --}}
 
     <div class="row">
         <div class="col-xs-12">

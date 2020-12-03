@@ -49,6 +49,17 @@ class CreateVendorsTable extends Migration
             $table->foreign('managerid')->references('id')->on('managers');
             $table->timestamps();
         });
+
+        Schema::create('client_notification_scrolls', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('start_date');
+            $table->string('end_date');
+            $table->string('except')->nullable();
+            $table->longText('content');
+            $table->integer('clientid')->unsigned()->nullable();
+            $table->foreign('clientid')->references('id')->on('clients');
+            $table->timestamps();
+        });
     }
 
     /**

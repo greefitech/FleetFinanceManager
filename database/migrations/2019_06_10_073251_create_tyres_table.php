@@ -82,5 +82,7 @@ class CreateTyresTable extends Migration
     public function down()
     {
         Schema::dropIfExists('tyres');
+        Schema::dropIfExists('assign_tyres');
+        Schema::dropIfExists('tyre_logs');
     }
 }

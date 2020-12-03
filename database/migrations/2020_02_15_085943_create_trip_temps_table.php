@@ -95,7 +95,43 @@ class CreateTripTempsTable extends Migration
             $table->timestamps();
         });
 
+        Schema::create('vehicle_services', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->longText('title');
+            $table->string('notification')->default(0);
+            $table->integer('clientid')->unsigned()->nullable();
+            $table->foreign('clientid')->references('id')->on('clients');
+            $table->softDeletes();
+            $table->timestamps();
+        });
+        
+        Schema::create('services', function (Blueprint $table) {
+            $table->uuid('id')->primary();
 
+            $table->string('date')->nullable();
+            $table->string('service_station_name')->nullable();
+            $table->string('next_service_date')->nullable();
+
+
+            $table->string('service_km')->nullable();
+            $table->string('next_service_km')->nullable();
+
+
+            $table->string('note')->nullable();
+
+            $table->uuid('vehicle_service_id')->nullable();
+            $table->foreign('vehicle_service_id')->references('id')->on('vehicle_services');
+
+            $table->uuid('vehicleId')->nullable();
+            $table->foreign('vehicleId')->references('id')->on('vehicles');
+
+            $table->integer('clientid')->unsigned()->nullable();
+            $table->foreign('clientid')->references('id')->on('clients');
+            $table->integer('managerid')->unsigned()->nullable();
+            $table->foreign('managerid')->references('id')->on('managers');
+
+            $table->timestamps();
+        });
     }
 
     /**
@@ -106,5 +142,9 @@ class CreateTripTempsTable extends Migration
     public function down()
     {
         Schema::dropIfExists('trip_temps');
+        Schema::dropIfExists('client_log_activities');
+        Schema::dropIfExists('jobs');
+        Schema::dropIfExists('vehicle_services');
+        Schema::dropIfExists('services');
     }
 }

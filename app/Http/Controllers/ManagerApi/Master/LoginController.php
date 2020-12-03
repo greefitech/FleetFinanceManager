@@ -13,8 +13,11 @@ use Illuminate\Support\Facades\Auth;
 
 class LoginController extends Controller
 {
-  
+  public $successStatus = 200;
 
+    /*=======================
+        Manager Login Verification
+    =========================*/
     public function login(Request $request) {
         $validator = Validator::make($request->all(), [
             'email' => 'required',
@@ -28,32 +31,22 @@ class LoginController extends Controller
             return response()->json(['status'=>'error','data'=>$errorMsg], 401);
         }
 
-
-        $Manager = Manager::where('mobile',request('email'))->first();
-        if (!empty($Manager)) {
-            if (!Hash::check(request('password'), @$Manager->password)) {
-                return response()->json(['error' => 'Unauthorized'], 401);
-            }
-            return Auth::login($Manager);
-            if(Auth::guard('manager')->login($Manager)){
-                return response( array( "message" => "Sign In Successful", "data" => [
-                    "manager" => $Manager,
-                    "token" => $Manager->createToken('Personal Access Token',['customer'])->accessToken
-                ]  ), 200 );
+        if(Auth::guard('manager')->attempt(['mobile' => request('email'), 'password' => request('password')], false, false)) {
+            $Manager = auth()->guard('manager')->user();
+            $success['token'] =  $Manager->createToken('GREEFITECH')-> accessToken;
+            $success['manager'] =  $Manager;
+            return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
+        }else{ 
+            $ManagerLogin = Manager::where('email', request('email'))->orWhere('mobile', request('email'))->first();
+            if($ManagerLogin == null) {
+                return response()->json(['msg'=>'Incorrect Email / Mobile Number'], 401); 
             } else {
-                return response( array( "message" => "Wrong Credentials." ), 422 );
-            }
-        } else {
-            return response( array( "message" => "No User." ), 422 );
-        }
-
-
-
+                return response()->json(['msg'=>'Incorrect Password'], 401); 
+            }  
+        } 
     }
 
     public function demo(){
         return auth()->user();
     }
-
-   
 }

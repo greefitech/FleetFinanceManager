@@ -28,6 +28,16 @@ class CreateVehiclesTable extends Migration
             $table->softDeletes();
             $table->timestamps();
         });
+
+        Schema::create('accounts', function (Blueprint $table) {
+            $table->uuid('id')->primary();
+            $table->string('account');
+            $table->string('HolderName')->nullable();
+            $table->integer('clientid')->unsigned()->nullable();
+            $table->foreign('clientid')->references('id')->on('clients');
+            $table->softDeletes();
+            $table->timestamps();
+        });
     }
 
     /**
@@ -38,5 +48,6 @@ class CreateVehiclesTable extends Migration
     public function down()
     {
         Schema::dropIfExists('vehicles');
+        Schema::dropIfExists('accounts');
     }
 }

@@ -5,6 +5,7 @@ use App\ExtraIncome;
 use App\Entry;
 use App\Expense;
 use App\VendorExpensePayment;
+use App\ClientNotificationScroll;
 
 /*
 /---------------------------------------------------
@@ -141,6 +142,20 @@ if (! function_exists('nonTripUnpaidExpneseTotal')) {
     }
 }
 
+/*==================================
+    Dashboard
+====================================*/
+
+/*Unpaid paid expense list*/
+if (! function_exists('NotificationScrollingUser')) {
+    function NotificationScrollingUser($ClientId){
+        $dateNow = Carbon\Carbon::now();
+        $AllClient = ClientNotificationScroll::where([['start_date','<=',$dateNow],['end_date','>=',$dateNow]])->whereNull('clientid')->whereNull('except')->get();
+        $OnlyClient = ClientNotificationScroll::where([['clientid',$ClientId],['start_date','<=',$dateNow],['end_date','>=',$dateNow]])->whereNull('except')->get();
+        return $AllClient->merge($OnlyClient)->sortByDesc('created_at')->pluck('content');
+        // return ClientNotificationScroll::where([['start_date','<=',$dateNow],['end_date','>=',$dateNow]])->whereNotNull('except')->get();
+    }
+}
 
 /*=========================
     Client Vendor Payment
