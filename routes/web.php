@@ -12,6 +12,11 @@
 */
 
 Route::get('/', function () {
+    // $filename = "backup-" . \Carbon\Carbon::now()->format('Y-m-d') . ".gz";
+    // $command = "mysqldump --user=" . env('DB_USERNAME','root') ." --password=" . env('DB_PASSWORD','') . " --host=" . env('DB_HOST','127.0.0.1') . " " . env('DB_DATABASE','MyVehicle') . "  | gzip > " . public_path() . "/app/backup/" . $filename;
+    // $returnVar = NULL;
+    // $output  = NULL;
+    // return exec($command, $output, $returnVar);
     return view('welcome');
 });
 
