@@ -156,13 +156,22 @@
                                         </div>
                                     </div>
                                 </div>
-                                 <div class="col-sm-4">
-                                    <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
-                                        <div class="col-sm-12">
-                                            <label>Image</label>
-                                            <input type="file" class="form-control" name="image">
-                                        </div>
-                                    </div>
+                                <div class="col-sm-4">
+                                    <ul class="list-group">
+                                        <li class="list-group-item">
+                                            <div class="form-group{{ $errors->has('image') ? ' has-error' : '' }}">
+                                                <div class="col-sm-12">
+                                                    <label>Image</label>
+                                                    <input type="file" class="form-control" name="image">
+                                                </div>
+                                            </div>
+                                        </li>
+                                        @if(!empty($Expense->image))
+                                        <li class="list-group-item">
+                                            <img src="{{ url($Expense->image) }}" height="50">
+                                        </li>
+                                        @endif
+                                    </ul>
                                 </div>
 
                                 <div class="col-sm-4">

@@ -32,9 +32,9 @@ class AuthServiceProvider extends ServiceProvider
             'clients' => 'Access Customer App',
         ]);
 
-        Passport::setDefaultScope([
-            'clients',
-        ]);
+        // Passport::setDefaultScope([
+        //     'clients',
+        // ]);
     
         //
     }

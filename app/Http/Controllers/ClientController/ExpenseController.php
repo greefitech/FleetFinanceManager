@@ -67,6 +67,7 @@ class ExpenseController extends Controller
             $Expense->status = request('status');
             $Expense->account_id = request('account_id');
             $Expense->tripId = request('tripId');
+            $Expense->paid_status = request('status');
             // $Expense->total_amount = request('total_amount');
             $Expense->vendor_id = request('vendor_id');
             $Expense->clientid = auth()->user()->id;
@@ -133,6 +134,7 @@ class ExpenseController extends Controller
             $Expense->status = request('status');
             $Expense->account_id = request('account_id');
             $Expense->tripId = request('tripId');
+            $Expense->paid_status = request('status');
             // $Expense->total_amount = request('total_amount');
             $Expense->vendor_id = request('vendor_id');
             if($request->file('image')){
@@ -225,6 +227,11 @@ class ExpenseController extends Controller
             $Expense->account_id = request('account_id');
             $Expense->vendor_id = request('vendor_id');
             $Expense->clientid = auth()->user()->id;
+            if (request('status') ==0) {
+                $Expense->paid_status = request('status');
+            }else {
+                $Expense->paid_status = request('status');
+            }
             if($request->file('image')){
                 $file = $request->file('image');
                 $imageName = hash('sha256', strval(time())).'.'.$request->image->getClientOriginalExtension();
@@ -274,6 +281,7 @@ class ExpenseController extends Controller
             $Expense->status = request('status');
             $Expense->account_id = request('account_id');
             $Expense->vendor_id = request('vendor_id');
+            $Expense->paid_status = request('status');
             if($request->file('image')){
                 $file = $request->file('image');
                 $imageName = hash('sha256', strval(time())).'.'.$request->image->getClientOriginalExtension();

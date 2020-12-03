@@ -233,6 +233,7 @@ class MemoController extends Controller
                         $Expense->quantity = request('DieselData')['quantity'][$DieselDataKey];
                         $Expense->amount = request('DieselData')['amount'][$DieselDataKey];
                         $Expense->status = request('DieselData')['status'][$DieselDataKey];
+                        $Expense->paid_status = request('DieselData')['status'][$DieselDataKey];
                         $Expense->location = request('DieselData')['location'][$DieselDataKey];
                         $Expense->discription = request('DieselData')['discription'][$DieselDataKey];
                         $Expense->account_id = request('DieselData')['account_id'][$DieselDataKey];
@@ -608,6 +609,7 @@ class MemoController extends Controller
                         $Expense->quantity = request('DieselData')['quantity'][$DieselDataKey];
                         $Expense->amount = request('DieselData')['amount'][$DieselDataKey];
                         $Expense->status = request('DieselData')['status'][$DieselDataKey];
+                        $Expense->paid_status = request('DieselData')['status'][$DieselDataKey];
                         $Expense->location = request('DieselData')['location'][$DieselDataKey];
                         $Expense->discription = request('DieselData')['discription'][$DieselDataKey];
                         $Expense->account_id = request('DieselData')['account_id'][$DieselDataKey];

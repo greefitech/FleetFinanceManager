@@ -2,15 +2,17 @@
 
 @section('NonTripExpenseMenu','active')
 
+@push('BreadCrumbMenu')
+   <li>{{ $Vehicle->vehicleNumber }}</li>
+   <li class="active">Non Trip Expense</li>
+@endpush
+
 @section('content')
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4><center>{{ $Vehicle->vehicleNumber }} Expense List</center></h4>
-                </div>
-                <div class="box-body">
+               @component('client.layout.component.panel-head',['MenuTitle'=>'Non Trip Expense','Title'=>'Non Trip Expense List','color'=>env('TABPANELCOLOR')])
+         
                     <div class="table-responsive">
                         @if(!$Expenses->isEmpty())
                             <meta name="csrf-token" content="{{ csrf_token() }}" />
@@ -19,12 +21,12 @@
                                     <tr>
                                         <th>
                                             <input type="checkbox" id="deleteCheck">
-                                            <button type="button" id="deleteButton" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i> Delete</button>
+                                            <button type="button" id="deleteButton" class="btn btn-primary btn-sm"><i class="fa fa-trash-o"></i></button>
                                         </th>
                                         <th style="width:100px">Date</th>
                                         <th style="width:200px">Expense Type</th>
                                         <th>Location</th>
-                                        <th>Quantity</th>
+                                        {{-- <th>Quantity</th> --}}
                                         <th>Amount</th>
                                         <th>Status</th>
                                         <th>Description</th>
@@ -41,9 +43,9 @@
                                             <td>{{ date("d-m-Y", strtotime($Expense->date)) }}</td>
                                             <td>{{ $Expense->ExpenseType->expenseType }}</td>
                                             <td>{{ $Expense->location }}</td>
-                                            <td>{{ $Expense->quantity }}</td>
+                                            {{-- <td>{{ $Expense->quantity }}</td> --}}
                                             <td>{{ $Expense->amount }}</td>
-                                            <td><span class="label label-{{ ($Expense->status == 0)?'danger':'success' }}">{{ ($Expense->status == 0)?'Not Paid':'Paid' }}</span></td>
+                                            <td><span class="label label-{{ ($Expense->paid_status == 0)?'danger':'success' }}">{{ ($Expense->paid_status == 0)?'Not Paid':'Paid' }}</span></td>
                                             <td>{{ $Expense->discription }}</td>
                                             {{-- <td>-</td> --}}
                                             <td>
@@ -62,8 +64,7 @@
                             <blockquote><p>No Expense till now added!!</p></blockquote>
                         @endif
                     </div>
-                </div>
-            </div>
+                @endcomponent
         </div>
     </div>
 
