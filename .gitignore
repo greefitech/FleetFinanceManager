@@ -2,6 +2,7 @@
 /public/hot
 /public/logo/*
 /public/uploads/*
+/public/backup/*
 /public/pdf/*
 /public/storage
 /storage/*.key

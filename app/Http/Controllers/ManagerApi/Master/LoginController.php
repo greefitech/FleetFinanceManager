@@ -11,9 +11,13 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 
 
-class LoginController extends Controller
-{
-  public $successStatus = 200;
+class LoginController extends Controller{
+
+    public $successStatus = 200;
+
+    public function __construct(){
+    }
+
 
     /*=======================
         Manager Login Verification
@@ -28,7 +32,7 @@ class LoginController extends Controller
             foreach ($validator->errors()->toArray() as $value) {
                $errorMsg['error'][]=$value[0];
             }
-            return response()->json(['status'=>'error','data'=>$errorMsg], 401);
+            return response()->json(['status'=>'error','data'=>$errorMsg], 422);
         }
 
         if(Auth::guard('manager')->attempt(['mobile' => request('email'), 'password' => request('password')], false, false)) {
@@ -39,14 +43,23 @@ class LoginController extends Controller
         }else{ 
             $ManagerLogin = Manager::where('email', request('email'))->orWhere('mobile', request('email'))->first();
             if($ManagerLogin == null) {
-                return response()->json(['msg'=>'Incorrect Email / Mobile Number'], 401); 
+                return response()->json(['msg'=>'Incorrect Email / Mobile Number'], 422); 
             } else {
-                return response()->json(['msg'=>'Incorrect Password'], 401); 
+                return response()->json(['msg'=>'Incorrect Password'], 422); 
             }  
-        } 
+        }
     }
 
     public function demo(){
         return auth()->user();
+    }
+
+
+    /*========================
+        Manager Logout 
+    ==========================*/
+    public function logout(Request $request){
+        $request->user()->token()->revoke();
+        return response()->json(['msg'=>'Logout Success'], $this->successStatus);
     }
 }
