@@ -41,7 +41,8 @@
         "files": [
             "app/Http/helpers.php",
             "app/Http/AdminHelpers.php",
-            "app/Http/clientHelper.php"
+            "app/Http/clientHelper.php",
+            "app/Http/NotificationHelper.php"
         ]
     },
     "autoload-dev": {
@@ -63,6 +64,20 @@
             "@php artisan key:generate"
         ],
         "post-autoload-dump": [
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
+        ],
+        "mohaninstall": [
+            "@composer install",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
+            "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
+            "@php artisan package:discover"
+        ],
+        "mohan": [
+            "@composer update",
+            "@php -r \"file_exists('.env') || copy('.env.example', '.env');\"",
+            "@php artisan key:generate",
             "Illuminate\\Foundation\\ComposerScripts::postAutoloadDump",
             "@php artisan package:discover"
         ]

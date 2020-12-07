@@ -8,6 +8,18 @@
 
 MyVehicle - One Stop Fleet Accounts Management Solution
 
+## Composer
+Compoer install for project clone
+>    Composer Run-Script mohaninstall
+
+- This will run
+1. composer install,env file copy
+
+Composer update in project
+> composer run-script mohan
+
+1. composer update,env file copy
+
 ## Road Map
 
-- [Road Map](https://myvehicle.biz/roadmap) of Fleet Finance 
+- [Road Map](https://myvehicle.biz/roadmap) of Fleet Finance

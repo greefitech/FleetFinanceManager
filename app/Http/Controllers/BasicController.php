@@ -66,4 +66,37 @@ class BasicController extends Controller
         }
         dd('done');
     }
+
+
+    public function notification(){
+        return firebaseOneClientNotification('welcome','welcome to myvehicle','https://lh5.googleusercontent.com/-yrR_NRzA_fg/AAAAAAAAAAI/AAAAAAAAAAA/y_tR_zTs_ag/s44-p-k-no-ns-nd/photo.jpg','d2FYzYspI6E:APA91bHZ4tXZgidIUu0thSV1DcWMswQvi0_b1iTqUdG0gm-gfZ8aJTo9og0yNr-fdgtpEy23TmJTTSZdb0CPSu8Hc-hF2LiqqXsYKqXzHszDkGSWyUxfBXfkUMFB0MjcU3Y7PgnoXKdAd');
+
+        $url = 'https://fcm.googleapis.com/fcm/send';
+        $fields = array (
+            // 'to' => 'd2FYzYspI6E:APA91bHZ4tXZgidIUu0thSV1DcWMswQvi0_b1iTqUdG0gm-gfZ8aJTo9og0yNr-fdgtpEy23TmJTTSZdb0CPSu8Hc-hF2LiqqXsYKqXzHszDkGSWyUxfBXfkUMFB0MjcU3Y7PgnoXKdAd',
+            // 'registration_ids'=>array('d2FYzYspI6E:APA91bHZ4tXZgidIUu0thSV1DcWMswQvi0_b1iTqUdG0gm-gfZ8aJTo9og0yNr-fdgtpEy23TmJTTSZdb0CPSu8Hc-hF2LiqqXsYKqXzHszDkGSWyUxfBXfkUMFB0MjcU3Y7PgnoXKdAd','d2FYzYspI6E:APA91bHZ4tXZgidIUu0thSV1DcWMswQvi0_b1iTqUdG0gm-gfZ8aJTo9og0yNr-fdgtpEy23TmJTTSZdb0CPSu8Hc-hF2LiqqXsYKqXzHszDkGSWyUxfBXfkUMFB0MjcU3Y7PgnoXKdAd'),
+            'notification' => array(
+                'title' => 'Hai Title',
+                'body' => 'welcome mohan Have a nice day',
+                'color'=>'#ff3c33',
+                "image"=> 'https://lh5.googleusercontent.com/-yrR_NRzA_fg/AAAAAAAAAAI/AAAAAAAAAAA/y_tR_zTs_ag/s44-p-k-no-ns-nd/photo.jpg' ,
+            ),
+            'priority' =>'high'
+        );
+        $key = env('FIREBASE_NOTIFICATION_SERVER_KEY');
+        $headers = array (
+            'Authorization: key='.$key,
+            'Content-Type: application/json'
+        );
+        $ch = curl_init();
+        curl_setopt( $ch, CURLOPT_URL, $url );
+        curl_setopt( $ch,CURLOPT_POST, true );
+        curl_setopt( $ch,CURLOPT_HTTPHEADER, $headers );
+        curl_setopt( $ch,CURLOPT_RETURNTRANSFER, true );
+        curl_setopt( $ch,CURLOPT_SSL_VERIFYPEER, false );
+        curl_setopt( $ch,CURLOPT_POSTFIELDS, json_encode($fields));
+        $result = curl_exec($ch);
+        curl_close ( $ch );
+        return $result;
+    }
 }

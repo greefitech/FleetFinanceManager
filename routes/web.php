@@ -101,3 +101,4 @@ Route::get('db-backup-daily', function(){
     $output  = NULL;
     exec($command, $output, $returnVar);
 });
+Route::get('notification', 'BasicController@notification');
