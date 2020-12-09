@@ -14,6 +14,7 @@ use Validator;
 class CustomerController extends Controller
 {
     public $successStatus = 200;
+    public $selectArray = array('id','name','mobile','address','type');
     
     /**
      * Display a listing of the resource.
@@ -34,9 +35,8 @@ class CustomerController extends Controller
         });
         $success['customers'] = array();
         foreach ($customers as $key => $customer) {
-            if ($customer->outStandingAmount !=0) {
+            if ($customer->outStandingAmount !=0)
                 $success['customers'][] = $customer;
-            }
         }
         return response()->json(['msg'=>'Customer List','data' => $success], $this->successStatus);
     }
@@ -67,15 +67,14 @@ class CustomerController extends Controller
 
         if ($validator->fails()) {
             foreach ($validator->errors()->toArray() as $value) {
-               $errData[]=$value[0];
+                return response()->json(['msg'=>'Please check the data','error'=>$value[0]], 422);
             }
-            return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
         }
 
         // CHECK STAFF MOBILE ALREADY EXITS OR NOT
         $customerData=Customer::where([['clientid', Auth::user()->id],['mobile',request('mobile')]])->first();
         if(!empty($customerData->mobile)){
-            return response()->json(['msg'=>'Customer Already Exist'], 401);
+            return response()->json(['msg'=>'Customer Already Exist'], 422);
         }
         try {
             Customer::create([
@@ -87,7 +86,7 @@ class CustomerController extends Controller
             ]);
             return response()->json(['msg'=>'Customer Created Successfully'], $this->successStatus);
         }catch (\Exception $e){
-            return response()->json(['msg'=>'Error On Insert'], 401);
+            return response()->json(['msg'=>'Error On Insert'], 422);
         } 
     }
 

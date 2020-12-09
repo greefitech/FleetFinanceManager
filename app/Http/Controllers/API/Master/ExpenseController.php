@@ -5,16 +5,20 @@ namespace App\Http\Controllers\API\Master;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Validator;
+use Illuminate\Support\Facades\Auth;
 use App\Expense;
 use App\ExpenseType;
 use App\Vehicle;
-use Validator;
-use Illuminate\Support\Facades\Auth;
+use App\Vendor;
 
 class ExpenseController extends Controller
 {
     public $successStatus = 200;
 
+    public function __construct(){
+        $this->Vendor = new Vendor;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -123,7 +127,7 @@ class ExpenseController extends Controller
             foreach ($validator->errors()->toArray() as $value) {
                $errData[]=$value[0];
             }
-            return response()->json(['msg'=>'Please check the data','error'=>$errData], 401);
+            return response()->json(['msg'=>'Please check the data','error'=>$errData], 422);
         }
         try {
             Expense::findorfail($id)->update([
@@ -131,7 +135,7 @@ class ExpenseController extends Controller
             ]);
             return response()->json(['msg'=>'Non Trip Expense Updated Successfully'], $this->successStatus);
         }catch (\Exception $e){
-            return response()->json(['msg'=>'Error On Insert'], 401);
+            return response()->json(['msg'=>'Error On Insert'], 422);
         }
     }
 
@@ -141,18 +145,27 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         try {
             Expense::findOrfail($id)->delete();
             return response()->json(['msg'=>'Expense Deleted Successfully!'], $this->successStatus);
         }catch (\Exception $e){
-            return response()->json(['msg'=>'Error On Delete!'], 401);
+            return response()->json(['msg'=>'Error On Delete!'], 422);
         }  
     }
 
     public function GetExpenseType(){
         $success['expenseTypes'] = ExpenseType::select('id','expenseType')->where('clientid',auth()->user()->id)->orderBy('expenseType')->get();
         return response()->json(['msg'=>'Expense Type List','data' => $success], $this->successStatus);
+    }
+
+    /*Vendor list*/
+    public function vendor(){
+         try {
+            $success['vendors'] = $this->Vendor::where('clientid',auth()->user()->id)->get();
+            return response()->json(['msg'=>'Vendor List','data' => $success], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Error On Delete!'], 422);
+        } 
     }
 }

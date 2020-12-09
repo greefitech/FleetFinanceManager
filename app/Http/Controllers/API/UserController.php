@@ -76,7 +76,7 @@ class UserController extends Controller
             ]);
 
             if($user->verified == 1){
-                 $success['token'] =  $user->createToken('GREEFITECH')-> accessToken;
+                 $success['token'] =  $user->createToken('GREEFITECH')->accessToken;
                  $success['user'] =  $user;
                  $success['user']['profile_image'] = (!empty($user->profile_image) && PublicFolderFileExsits($user->profile_image))?url($user->profile_image):url(config('mohan.website_logo'));
                  return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);

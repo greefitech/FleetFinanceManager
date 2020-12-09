@@ -2,17 +2,23 @@
 
 @section('SettingMenu','active')
 
+
+@push('BreadCrumbMenu')
+   <li>Settinf</li>
+   <li class="active">Manager</li>
+@endpush
+
 @section('content')
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Managers</center>
-                    </h4>
-                    <a href="{{ route('client.AddManager') }}" class="btn btn-info pull-right">Add Manager</a>
-                </div>
+
+            @component('client.layout.component.panel-head',['MenuTitle'=>'Manager','Title'=>'Manager','color'=>env('TABPANELCOLOR')])
+                @slot('Button')
+                    <a href="{{ route('client.AddManager') }}" class="btn btn-info btn-sm"><i class="fa fa-plus"></i>Manager</a>
+                @endslot
+
+
                 <div class="box-body">
                     <div class="table-responsive">
                         @if(!auth()->user()->managers->isEmpty())
@@ -50,7 +56,9 @@
                         @endif
                     </div>
                 </div>
-            </div>
+        
+            @endcomponent
+
         </div>
     </div>
 

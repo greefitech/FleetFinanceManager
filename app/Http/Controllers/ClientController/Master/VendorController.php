@@ -13,7 +13,7 @@ use Yajra\DataTables\Facades\DataTables;
 class VendorController extends Controller
 {
 
-     public function __construct(){
+    public function __construct(){
         $this->Vendor = new Vendor;
     }
 

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\Request;
+use App\Http\Resources\TestResource;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,6 +17,12 @@ use Illuminate\Http\Request;
 // Route::middleware('auth:api')->get('/client', function (Request $request) {
 //     return $request->user();
 // });
+
+
+Route::get('test', function(){
+    return new TestResource(1);
+});
+
 
 
 Route::post('login', 'API\UserController@login');
@@ -46,6 +53,7 @@ Route::group(['middleware' => 'auth:api'], function() {
         Route::resource('/vehicle-service', 'API\Master\VehicleServiceController');
         Route::resource('/account', 'API\Master\AccountController');
         Route::get('/vehicle-expense-type-list', 'API\Master\ExpenseController@GetExpenseType');
+        Route::get('/vendor-list', 'API\Master\ExpenseController@vendor');
         Route::resource('/non-trip-expense', 'API\Master\ExpenseController');
     });
     Route::get('trip-sheet/{tripId}', 'API\TripController@tripSheetView');

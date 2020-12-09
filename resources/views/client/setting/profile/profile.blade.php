@@ -1,17 +1,21 @@
 @extends('client.layout.master')
 
+
+@push('BreadCrumbMenu')
+   <li>Profile</li>
+@endpush
+
 @section('content')
 
-    <div class="row">
+ <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Profile</center>
-                        <a href="{{ route('client.ChangePassword') }}" class="btn btn-primary pull-right">Change Password</a>
-                    </h4>
-                </div>
-                <div class="box-body">
+
+            @component('client.layout.component.panel-head',['MenuTitle'=>'Profile','Title'=>'Profile Detail','color'=>env('TABPANELCOLOR')])
+                @slot('Button')
+                    <a href="{{ route('client.ChangePassword') }}" class="btn btn-primary btn-sm">Change Password</a>
+                @endslot
+
+
                     <form class="form-horizontal" method="post" action="{{ route('client.UpdateProfile') }}" enctype="multipart/form-data">
                         {{ csrf_field() }}
                         <div class="box-body">
@@ -74,13 +78,12 @@
                             </div>
 
                             <div align="center">
-                                <button type="submit" class="btn btn-info">Update Profile</button>
+                                <button type="submit" class="btn btn-info btn-sm"><i class="fa fa-save"></i> Update Profile</button>
                             </div>
                         </div>
-                    </form>
-                </div>
+                @endcomponent
+
             </div>
         </div>
-    </div>
-    
+        
 @endsection
