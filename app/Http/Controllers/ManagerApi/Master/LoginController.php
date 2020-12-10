@@ -28,16 +28,14 @@ class LoginController extends Controller{
             'password' => 'required',
         ]);
         if ($validator->fails()) {
-            $errorMsg['status'] = 'error';
             foreach ($validator->errors()->toArray() as $value) {
-               $errorMsg['error'][]=$value[0];
+                return response()->json(['status'=>'error','msg'=>$value[0]], 422);
             }
-            return response()->json(['status'=>'error','data'=>$errorMsg], 422);
         }
 
         if(Auth::guard('manager')->attempt(['mobile' => request('email'), 'password' => request('password')], false, false)) {
             $Manager = auth()->guard('manager')->user();
-            $success['token'] =  $Manager->createToken('GREEFITECH')-> accessToken;
+            // $success['token'] =  $Manager->createToken('GREEFITECH')-> accessToken;
             $success['manager'] =  $Manager;
             return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
         }else{ 

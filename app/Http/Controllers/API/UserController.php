@@ -52,20 +52,20 @@ class UserController extends Controller
             'password' => 'required',
         ]);
         if ($validator->fails()) {
-            $errorMsg['status'] = 'error';
             foreach ($validator->errors()->toArray() as $value) {
-               $errorMsg['error'][]=$value[0];
+                return response()->json(['status'=>'error','msg'=>$value[0]], 422);
             }
-            return response()->json(['status'=>'error','data'=>$errorMsg], 401);
         }
 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])  || Auth::attempt(['mobile' => request('email'), 'password' => request('password')])){
-            $user = Auth::user();
+            return $user = Auth::user();
             Client::findorfail($user->id)->update([
                 'last_login_at' => Carbon::now()->toDateTimeString(),
                 'last_login_ip' => $request->getClientIp(),
                 'firebase_token' => request('firebase_token')
             ]);
+
+
             ClientLogActivity::create([
                 'subject' => 'login_app',
                 'url' =>  $request->fullUrl(),
@@ -75,20 +75,28 @@ class UserController extends Controller
                 'client_id' => $user->id,
             ]);
 
+
+
             if($user->verified == 1){
-                 $success['token'] =  $user->createToken('GREEFITECH')->accessToken;
-                 $success['user'] =  $user;
-                 $success['user']['profile_image'] = (!empty($user->profile_image) && PublicFolderFileExsits($user->profile_image))?url($user->profile_image):url(config('mohan.website_logo'));
+                 // $success['token'] =  $user->createToken('GREEFITECH')->accessToken;
+                 return $user;
+                  $success['user'] =  $user;
+                  return $success['user']['profile_image'] = (!empty($user->profile_image) && PublicFolderFileExsits($user->profile_image))?url($user->profile_image):url(config('mohan.website_logo'));
                  return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
             }else{
-                return response()->json(['msg'=>'Account Not Yet Verified Check Email To Verify Account!!'], 401); 
+                return response()->json(['msg'=>'Account Not Yet Verified Check Email To Verify Account!!'], 422); 
             }
+
+
+
+
+
         } else{ 
             $UserLogin = Client::where('email', request('email'))->orWhere('mobile', request('email'))->first();
             if($UserLogin == null) {
-                return response()->json(['msg'=>'Incorrect Email / Mobile Number'], 401); 
+                return response()->json(['msg'=>'Incorrect Email / Mobile Number'], 422); 
             } else {
-                return response()->json(['msg'=>'Incorrect Password'], 401); 
+                return response()->json(['msg'=>'Incorrect Password'], 422); 
             }  
         } 
     }

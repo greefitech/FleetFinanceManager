@@ -17,6 +17,7 @@
         "laravel/passport": "^7.3",
         "laravel/tinker": "^1.0",
         "laravelcollective/html": "^5.4",
+        "lcobucci/jwt": "3.3.3",
         "maatwebsite/excel": "~2.1.0",
         "webpatser/laravel-uuid": "^3.0",
         "yajra/laravel-datatables-oracle": "~8.0",
