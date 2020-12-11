@@ -7,28 +7,29 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
-use App\Customer;
 
-class CustomerController extends Controller
+use App\Staff;
+
+class StaffController extends Controller
 {
     private $successStatus = 200;
     private $errorStatus = 422;
-    private $customerArray = array('id','name','mobile','address','type');
+    private $staffArray = array('id','name','mobile1','address','type','licenceNumber','licenceRenewal');
 
     public function __construct(){
-        $this->Customer = new Customer;
+        $this->Staff = new Staff;
     }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $customers = $this->Customer::select($this->customerArray)->where([['clientid',auth()->user()->clientid]]);
+    public function index()
+    {
+        $staffs = $this->Staff::select($this->staffArray)->where([['clientid',auth()->user()->clientid]]);
         if (!empty(request('type')))
-            $customers->where('type',request('type'));
-        $Data['customer'] = $customers->get();
+            $staffs->where('type',request('type'));
+        $Data['staffs'] = $staffs->get();
         return response()->json(['status'=>'success','data' => $Data], $this->successStatus);
     }
 

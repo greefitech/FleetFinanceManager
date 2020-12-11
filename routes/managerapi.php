@@ -12,6 +12,9 @@ Route::group(['middleware' => 'auth:managerapi'], function() {
 	Route::group(['prefix' => 'master'], function() {
         Route::resource('/customer', 'ManagerApi\Master\CustomerController');
         Route::resource('/vehicle', 'ManagerApi\Master\VehicleController');
+        Route::resource('/driver', 'ManagerApi\Master\StaffController');
+        Route::resource('/account', 'ManagerApi\Master\AccountController');
+        Route::resource('/expense-type', 'ManagerApi\Master\ExpenseTypeController');
     });
 
 });

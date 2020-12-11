@@ -30,7 +30,7 @@ class VendorController extends Controller
                 return '<a href="'.action('ClientController\Master\VendorController@edit',$Vendor->id).'" class="btn btn-primary btn-sm"><i class="fa fa-edit"></i></a>';
             })
             ->addColumn('balance',function($Vendor){
-                return '~~~-~~~';
+                return vendorUnpaidExpenseList(auth()->user()->id,$Vendor->id);
             })
             ->rawColumns(['action'])->make(true);
         }

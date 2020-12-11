@@ -207,13 +207,14 @@ $(document).ready(function() {
     $('body').on('click', '.AddDiseleInput', function (e) {
         e.preventDefault();
         var AccountsDataOption = GetAccountOptionData();
+        var VendorDatasOption = GetVendorOptionData();
         var DieselInputData ='<tr>\n' +
             '    <td>\n' +
             '        <input type="date" class="form-control DateValue" placeholder="Enter date" name="DieselData[date][]">\n' +
             '    </td>\n' +
             '    <td>\n' +
             '        <select name="DieselData[vendor_id][]" class="form-control">\n'+
-            '               <option value="">Select Vendor</option>'+VendorDatas +
+            '               <option value="">Select Vendor</option>'+VendorDatasOption +
             '        </select>\n' +
             '    </td>\n' +
             '    <td>\n' +
@@ -595,8 +596,8 @@ function GetAccountOptionData(){
 }
 
 var VendorDatas;
-GetAccountOptionData();
-function GetAccountOptionData(){
+GetVendorOptionData();
+function GetVendorOptionData(){
     $.ajax({
         type: "get",
         url: '/client/entry/memo/vendors',

@@ -7,28 +7,26 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
-use App\Customer;
 
-class CustomerController extends Controller
+use App\Account;
+
+class AccountController extends Controller
 {
     private $successStatus = 200;
     private $errorStatus = 422;
-    private $customerArray = array('id','name','mobile','address','type');
+    private $accountArray = array('id','account','HolderName');
 
     public function __construct(){
-        $this->Customer = new Customer;
+        $this->Account = new Account;
     }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $customers = $this->Customer::select($this->customerArray)->where([['clientid',auth()->user()->clientid]]);
-        if (!empty(request('type')))
-            $customers->where('type',request('type'));
-        $Data['customer'] = $customers->get();
+    public function index()
+    {
+        $Data['account'] = Account::select($this->accountArray)->where([['clientid',auth()->user()->clientid]])->get();
         return response()->json(['status'=>'success','data' => $Data], $this->successStatus);
     }
 
