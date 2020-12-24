@@ -50,9 +50,9 @@ class LoginController extends Controller{
         }
     }
 
-    public function demo(){
-        return auth()->user();
-    }
+    // public function demo(){
+    //     return auth()->user();
+    // }
 
 
     /*========================

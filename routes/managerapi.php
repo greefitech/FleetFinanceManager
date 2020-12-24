@@ -3,10 +3,11 @@
 
 Route::post('login', 'ManagerApi\Master\LoginController@login');
 /*Auth*/
+ Route::resource('/master/vehicle1', 'ManagerApi\Master\VehicleController');
 Route::group(['middleware' => 'auth:managerapi'], function() {
 	Route::post('/logout', 'ManagerApi\Master\LoginController@logout');
 
-	Route::get('demo', 'ManagerApi\Master\LoginController@demo');
+	// Route::get('demo', 'ManagerApi\Master\LoginController@demo');
 
 	Route::group(['prefix' => 'master'], function() {
         Route::resource('/customer', 'ManagerApi\Master\CustomerController');
