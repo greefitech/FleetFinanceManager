@@ -25,8 +25,7 @@ class VehicleController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $ManagerAccessVehicle = ManagerLorry::where([['manager_login_id',auth()->user()->id]])->get()->pluck('vehicleId')->toArray();
         $Data['vehicles'] = Vehicle::select($this->vehicleArray)->whereIn('id',$ManagerAccessVehicle)->get();
         return response()->json(['status'=>'success','data' => $Data], $this->successStatus);

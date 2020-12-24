@@ -16,6 +16,7 @@ class LoginController extends Controller{
     public $successStatus = 200;
 
     public function __construct(){
+        
     }
 
 
@@ -37,6 +38,7 @@ class LoginController extends Controller{
             $Manager = auth()->guard('manager')->user();
             $success['token'] =  $Manager->createToken('GREEFITECH')-> accessToken;
             $success['manager'] =  $Manager;
+            $success['transportName'] =  $Manager->Owner->transportName;
             return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
         }else{ 
             $ManagerLogin = Manager::where('email', request('email'))->orWhere('mobile', request('email'))->first();

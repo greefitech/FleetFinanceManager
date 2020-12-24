@@ -8,7 +8,6 @@ Route::group(['middleware' => 'auth:managerapi'], function() {
 
 	Route::get('demo', 'ManagerApi\Master\LoginController@demo');
 
-
 	Route::group(['prefix' => 'master'], function() {
         Route::resource('/customer', 'ManagerApi\Master\CustomerController');
         Route::resource('/vehicle', 'ManagerApi\Master\VehicleController');
