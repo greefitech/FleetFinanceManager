@@ -769,5 +769,12 @@ class MemoController extends Controller
         }
     }
 
-
+    public function deleteTempMemo($tripId){
+        try{
+            $TripTemp = $this->TripTemp::findorfail($tripId)->delete();
+          return redirect(action('ClientController\MemoController@ViewTempMemo'))->with('success',['Memo Entry','Deleted Successfully!']);
+        }catch (\Exception $e){
+            return back()->with('danger','Something went wrong!');
+        }
+    }
 }

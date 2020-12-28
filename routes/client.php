@@ -86,6 +86,7 @@ Route::get('/entry/memo', 'ClientController\MemoController@memo');
 Route::post('/entry/memo', 'ClientController\MemoController@SaveMemo')->name('SaveMemo');
 Route::get('/entry/memo/view', 'ClientController\MemoController@ViewTempMemo')->name('ViewMemoList');
 Route::get('/entry/memo/{id}/edit', 'ClientController\MemoController@edit')->name('EditMemo');
+Route::delete('/entry/temp-memo/{id}/delete', 'ClientController\MemoController@deleteTempMemo')->name('DeleteMemo');
 Route::put('/entry/memo/{id}/update', 'ClientController\MemoController@updateMemo')->name('updateMemo');
 
 //GET AJAX DATA MEMO

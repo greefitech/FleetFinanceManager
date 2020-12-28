@@ -35,11 +35,11 @@
                                             <td>{{ $TripTemp->totalKm }}</td>
                                             <td>{{ $TripTemp->Staff1['name'] }}</td>  
                                             <td>
-                                                <form action="">
+                                                <form action="{{ route('client.DeleteMemo',$TripTemp->id) }}" method="post">
                                                     {{ csrf_field() }}
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     <a href="{{ route('client.EditMemo',$TripTemp->id) }}" class="btn"><i class="fa fa-pencil text-aqua"></i></a>
-                                                    <button href="" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
+                                                    <button type="submit" onclick="return confirm('Are you sure?')" class="btn"><i class="fa fa-trash-o"></i></button>
                                                 </form>
                                             </td>
                                         </tr>

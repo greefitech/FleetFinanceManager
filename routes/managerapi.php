@@ -3,7 +3,6 @@
 
 Route::post('login', 'ManagerApi\Master\LoginController@login');
 /*Auth*/
- Route::resource('/master/vehicle1', 'ManagerApi\Master\VehicleController');
 Route::group(['middleware' => 'auth:managerapi'], function() {
 	Route::post('/logout', 'ManagerApi\Master\LoginController@logout');
 
@@ -12,9 +11,14 @@ Route::group(['middleware' => 'auth:managerapi'], function() {
 	Route::group(['prefix' => 'master'], function() {
         Route::resource('/customer', 'ManagerApi\Master\CustomerController');
         Route::resource('/vehicle', 'ManagerApi\Master\VehicleController');
-        Route::resource('/driver', 'ManagerApi\Master\StaffController');
+        Route::resource('/staff', 'ManagerApi\Master\StaffController');
         Route::resource('/account', 'ManagerApi\Master\AccountController');
         Route::resource('/expense-type', 'ManagerApi\Master\ExpenseTypeController');
+    });
+
+
+    Route::group(['prefix' => 'entry'], function() {
+        Route::resource('/trip', 'ManagerApi\Entry\TripController');
     });
 
 });
