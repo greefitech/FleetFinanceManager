@@ -95,7 +95,12 @@ class TripController extends Controller
      */
     public function show($id)
     {
-        //
+        try{
+            $success['trip'] = $this->TripTemp::where('vehicleId',$id)->first();
+            return response()->json(['msg'=>'Trip List','isdata'=>empty($success['trip'])?false:true,'data' => $success], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],422);
+        }
     }
 
     /**
