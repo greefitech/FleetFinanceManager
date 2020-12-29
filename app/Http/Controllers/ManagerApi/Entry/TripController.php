@@ -111,7 +111,12 @@ class TripController extends Controller
      */
     public function edit($id)
     {
-        //
+        try{
+            $success['trip'] = $this->TripTemp::findorfail($id);
+            return response()->json(['msg'=>'Trip List','data' => $success], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],422);
+        }
     }
 
     /**
@@ -123,7 +128,35 @@ class TripController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+         $validator = Validator::make(request()->all(), [
+            'dateFrom'=>'required',
+            'dateTo'=>'required',
+            'startKm'=>'required',
+            'endKm'=>'required',
+            'staff1'=>'required',
+        ]);
+         if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+                return response()->json(['msg'=>$value[0]], 422);
+            }
+        }
+        try {
+            $TripTemp = $this->TripTemp::findorfail($id);
+            $TripTemp->vehicleId = request('vehicleId');
+            $TripTemp->dateFrom = request('dateFrom');
+            $TripTemp->dateTo = request('dateTo');
+            $TripTemp->startKm = request('startKm');
+            $TripTemp->endKm = request('endKm');
+            $TripTemp->totalKm = request('endKm')-request('startKm');
+            $TripTemp->staff1 = request('staff1');
+            $TripTemp->staff2 = request('staff2');
+            $TripTemp->staff3 = request('staff3');
+            $TripTemp->advance = request('advance');
+            $TripTemp->save();
+               return response()->json(['msg'=>'Trip Updated Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],422);
+        }
     }
 
     /**

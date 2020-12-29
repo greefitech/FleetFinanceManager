@@ -35,7 +35,7 @@
                                         <div class="form-group{{ $errors->has('dateFrom') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி <span style="color:red">*</span></label>
-                                                {!! Form::date('dateFrom', null, ['class' => 'form-control DateChanges dateFrom','max'=>date('Y-m-d')]) !!}
+                                                {!! Form::date('dateFrom', null, ['class' => 'form-control DateChanges dateFrom']) !!}
                                             </div>
                                         </div>
                                     </div>
@@ -43,7 +43,7 @@
                                         <div class="form-group{{ $errors->has('dateTo') ? ' has-error' : '' }}">
                                             <div class="col-sm-12">
                                                 <label>Date / தேதி <span style="color:red">*</span></label>
-                                                {!! Form::date('dateTo', null, ['class' => 'form-control DateChanges dateTo','max'=>date('Y-m-d')]) !!}
+                                                {!! Form::date('dateTo', null, ['class' => 'form-control DateChanges dateTo']) !!}
                                             </div>
                                         </div>
                                     </div>
