@@ -128,6 +128,7 @@ class TripController extends Controller
      */
     public function update(Request $request, $id)
     {
+        // return request()->all();
          $validator = Validator::make(request()->all(), [
             'dateFrom'=>'required',
             'dateTo'=>'required',
@@ -142,7 +143,6 @@ class TripController extends Controller
         }
         try {
             $TripTemp = $this->TripTemp::findorfail($id);
-            $TripTemp->vehicleId = request('vehicleId');
             $TripTemp->dateFrom = request('dateFrom');
             $TripTemp->dateTo = request('dateTo');
             $TripTemp->startKm = request('startKm');
