@@ -20,6 +20,7 @@ Route::group(['middleware' => 'auth:managerapi'], function() {
     Route::group(['prefix' => 'entry'], function() {
         Route::resource('/trip', 'ManagerApi\Entry\TripController');
         Route::resource('/trip-toll', 'ManagerApi\Entry\TollController');
+        Route::resource('/trip-driver-advance', 'ManagerApi\Entry\DriverAdvanceController');
     });
 
 });

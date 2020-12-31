@@ -9,7 +9,7 @@ use App\TripTemp;
 use DB;
 use Validator;
 
-class TollController extends Controller
+class DriverAdvanceController extends Controller
 {
 
     private $successStatus = 200;
@@ -23,18 +23,17 @@ class TollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index() {
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
-            $tollgate = unserialize($TempTrip->tollgate);
+            $driverAdvance = unserialize($TempTrip->driverAdvance);
             $TollFinalArray = array();
-            if (!empty($tollgate)) {
-                foreach ($tollgate['location'] as $key => $value) {
+            if (!empty($driverAdvance)) {
+                foreach ($driverAdvance['date'] as $key => $value) {
                     $TollArray=array(
-                        'location'=>$tollgate['location'][$key],
-                        'amount'=>$tollgate['amount'][$key],
-                        'account_id'=>$tollgate['account_id'][$key]
+                        'date'=>$driverAdvance['date'][$key],
+                        'amount'=>$driverAdvance['amount'][$key],
+                        'account_id'=>$driverAdvance['account_id'][$key]
                     );
                     $TollFinalArray[]=$TollArray;
                 }
@@ -65,10 +64,12 @@ class TollController extends Controller
      */
     public function store(Request $request)
     {
+        // return request()->all();
         $validator = Validator::make(request()->all(), [
             'trip_id'=>'required',
             'amount'=>'required',
             'account_id'=>'required',
+            'date'=>'required',
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->toArray() as $value) {
@@ -77,17 +78,16 @@ class TollController extends Controller
         }
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
-            $tollgate = unserialize($TempTrip->tollgate);
-            $tollgate['location'][]=request('location');
-            $tollgate['amount'][]=request('amount');
-            $tollgate['account_id'][]=request('account_id');
-            $TempTrip->tollgate = serialize($tollgate);
+            $driverAdvance = unserialize($TempTrip->driverAdvance);
+            $driverAdvance['date'][]=request('date');
+            $driverAdvance['amount'][]=request('amount');
+            $driverAdvance['account_id'][]=request('account_id');
+            $TempTrip->driverAdvance = serialize($driverAdvance);
             $TempTrip->save();
-            return response()->json(['msg'=>'Toll Created Successfully'], $this->successStatus);
+            return response()->json(['msg'=>'Driver Advance Created Successfully'], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);
         }
-
     }
 
     /**
@@ -119,29 +119,31 @@ class TollController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id){
+    public function update(Request $request, $id)
+    {
         $validator = Validator::make(request()->all(), [
             'trip_id'=>'required',
             'amount'=>'required',
             'account_id'=>'required',
+            'date'=>'required',
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->toArray() as $value) {
                 return response()->json(['msg'=>$value[0]], 422);
             }
         }
-         try {
+        try {
             $TempTrip = $this->TripTemp::findorfail($id);
-            $tollgate = unserialize($TempTrip->tollgate);
-            array_splice($tollgate['location'],request('index'),1);
-            array_splice($tollgate['amount'],request('index'),1);
-            array_splice($tollgate['account_id'],request('index'),1);
-            $tollgate['location'][]=request('location');
-            $tollgate['amount'][]=request('amount');
-            $tollgate['account_id'][]=request('account_id');
-            $TempTrip->tollgate = serialize($tollgate);
+            $driverAdvance = unserialize($TempTrip->driverAdvance);
+            array_splice($driverAdvance['date'],request('index'),1);
+            array_splice($driverAdvance['amount'],request('index'),1);
+            array_splice($driverAdvance['account_id'],request('index'),1);
+            $driverAdvance['date'][]=request('date');
+            $driverAdvance['amount'][]=request('amount');
+            $driverAdvance['account_id'][]=request('account_id');
+            $TempTrip->driverAdvance = serialize($driverAdvance);
             $TempTrip->save();
-            return response()->json(['msg'=>'Toll Updated Successfully'], $this->successStatus);
+            return response()->json(['msg'=>'Driver Advance Updated Successfully'], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);
         }
@@ -157,13 +159,13 @@ class TollController extends Controller
     {
         try {
             $TempTrip = $this->TripTemp::findorfail($id);
-            $tollgate = unserialize($TempTrip->tollgate);
-            array_splice($tollgate['location'],request('index'),1);
-            array_splice($tollgate['amount'],request('index'),1);
-            array_splice($tollgate['account_id'],request('index'),1);
-            $TempTrip->tollgate = serialize($tollgate);
+            $driverAdvance = unserialize($TempTrip->driverAdvance);
+            array_splice($driverAdvance['date'],request('index'),1);
+            array_splice($driverAdvance['amount'],request('index'),1);
+            array_splice($driverAdvance['account_id'],request('index'),1);
+            $TempTrip->driverAdvance = serialize($driverAdvance);
             $TempTrip->save();
-            return response()->json(['msg'=>'Toll Removed Successfully'], $this->successStatus);
+            return response()->json(['msg'=>'Driver Advance Removed Successfully'], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);
         }
