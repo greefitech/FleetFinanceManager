@@ -584,6 +584,7 @@
                                             </div>
                                             <div class="panel-body table-responsive">
 
+                                                
                                                 @if(isset($TripTemp) && empty(old('ExtraExpense')))
                                                     @if(unserialize($TripTemp->extraExpense))
                                                         @php
@@ -645,7 +646,7 @@
                                                                     <td class="{{ $errors->has('ExtraExpense.status.'.$ExpenseKey) ? ' has-error' : '' }}">
                                                                         <select class="form-control" name="ExtraExpense[status][]">
                                                                             <option value="1" {{ ($extraExpenseEditDatas['status'][$ExpenseKey]==1)?'selected':'' }}>Paid</option>
-                                                                            <option value="0" {{ (old('ExtraExpense')['status'][$ExpenseKey]==0)?'selected':'' }}>Not Paid</option>
+                                                                            <option value="0" {{ ($extraExpenseEditDatas['status'][$ExpenseKey]==0)?'selected':'' }}>Not Paid</option>
                                                                         </select>
                                                                     </td>
                                                                     <td class="RemoveExtraExpenseInput" style="font-size: 13px;"><i style="color: red;" class="fa fa-close"></i></td>
