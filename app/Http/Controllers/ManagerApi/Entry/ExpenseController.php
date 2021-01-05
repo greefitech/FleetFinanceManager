@@ -130,7 +130,41 @@ class ExpenseController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validator = Validator::make(request()->all(), [
+            'trip_id'=>'required',
+            'amount'=>'required',
+            'account_id'=>'required',
+            'expense_type'=>'required',
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+                return response()->json(['msg'=>$value[0]], 422);
+            }
+        }
+         try {
+            $TempTrip = $this->TripTemp::findorfail($id);
+            $extraExpense = unserialize($TempTrip->extraExpense);
+            array_splice($extraExpense['expense_type'],request('index'),1);
+            array_splice($extraExpense['quantity'],request('index'),1);
+            array_splice($extraExpense['location'],request('index'),1);
+            array_splice($extraExpense['amount'],request('index'),1);
+            array_splice($extraExpense['discription'],request('index'),1);
+            array_splice($extraExpense['account_id'],request('index'),1);
+            array_splice($extraExpense['status'],request('index'),1);
+
+            $extraExpense['expense_type'][]=request('expense_type');
+            $extraExpense['quantity'][]=request('quantity');
+            $extraExpense['location'][]=request('location');
+            $extraExpense['amount'][]=request('amount');
+            $extraExpense['discription'][]=request('discription');
+            $extraExpense['account_id'][]=request('account_id');
+            $extraExpense['status'][]=request('status');
+            $TempTrip->extraExpense = serialize($extraExpense);
+            $TempTrip->save();
+            return response()->json(['msg'=>'Toll Updated Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],422);
+        }
     }
 
     /**

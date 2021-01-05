@@ -36,7 +36,7 @@ class LoginController extends Controller{
 
         if(Auth::guard('manager')->attempt(['mobile' => request('email'), 'password' => request('password')], false, false)) {
             $Manager = auth()->guard('manager')->user();
-            $success['token'] =  $Manager->createToken('GREEFITECH')-> accessToken;
+            $success['token'] =  $Manager->createToken('GREEFITECH')->accessToken;
             $success['manager'] =  $Manager;
             $success['transportName'] =  $Manager->Owner->transportName;
             return response()->json(['msg'=>'Login Success','data' => $success], $this->successStatus);
