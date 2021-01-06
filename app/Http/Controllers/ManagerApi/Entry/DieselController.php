@@ -27,10 +27,10 @@ class DieselController extends Controller
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
             $diesel = unserialize($TempTrip->diesel);
-            $TollFinalArray = array();
+            $FinalArray = array();
             if (!empty($diesel)) {
                 foreach ($diesel['date'] as $key => $value) {
-                    $TollArray=array(
+                    $NewArray=array(
                         'date'=>$diesel['date'][$key],
                         'vendor_id'=>$diesel['vendor_id'][$key],
                         'location'=>$diesel['location'][$key],
@@ -40,10 +40,10 @@ class DieselController extends Controller
                         'account_id'=>$diesel['account_id'][$key],
                         'status'=>$diesel['status'][$key],
                     );
-                    $TollFinalArray[]=$TollArray;
+                    $FinalArray[]=$NewArray;
                 }
             }
-             $success['diesel'] = $TollFinalArray;
+             $success['diesel'] = $FinalArray;
             return response()->json(['msg'=>'Diesel List','data'=>$success], $this->successStatus);
         }catch (Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);

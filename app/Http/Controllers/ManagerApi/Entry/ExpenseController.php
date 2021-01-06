@@ -29,10 +29,10 @@ class ExpenseController extends Controller
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
             $extraExpense = unserialize($TempTrip->extraExpense);
-            $TollFinalArray = array();
+            $FinalArray = array();
             if (!empty($extraExpense)) {
                 foreach ($extraExpense['expense_type'] as $key => $value) {
-                    $TollArray=array(
+                    $Array=array(
                         'expense_type'=>$extraExpense['expense_type'][$key],
                         'quantity'=>$extraExpense['quantity'][$key],
                         'location'=>$extraExpense['location'][$key],
@@ -41,10 +41,10 @@ class ExpenseController extends Controller
                         'account_id'=>$extraExpense['account_id'][$key],
                         'status'=>$extraExpense['status'][$key],
                     );
-                    $TollFinalArray[]=$TollArray;
+                    $FinalArray[]=$Array;
                 }
             }
-             $success['expense'] = $TollFinalArray;
+             $success['expense'] = $FinalArray;
             return response()->json(['msg'=>'Toll List','data'=>$success], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);

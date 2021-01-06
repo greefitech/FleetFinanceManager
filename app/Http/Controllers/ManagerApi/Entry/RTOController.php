@@ -1,35 +1,20 @@
 <?php
 
-namespace App\Http\Controllers\ManagerApi\Master;
+namespace App\Http\Controllers\ManagerApi\Entry;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
-use Illuminate\Support\Facades\Auth; 
-use Validator;
-use App\Customer;
-
-class CustomerController extends Controller
+class RTOController extends Controller
 {
-    private $successStatus = 200;
-    private $errorStatus = 422;
-    private $customerArray = array('id','name','mobile','address','type');
-
-    public function __construct(){
-        $this->Customer = new Customer;
-    }
-
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
-        $customers = $this->Customer::select($this->customerArray)->where([['clientid',auth()->user()->clientid]]);
-        if (!empty(request('type')))
-            $customers->where('type',request('type'));
-        $Data['customers'] = $customers->get();
-        return response()->json(['status'=>'success','data' => $Data], $this->successStatus);
+    public function index()
+    {
+        //
     }
 
     /**
@@ -50,7 +35,7 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        return request()->all();
     }
 
     /**
