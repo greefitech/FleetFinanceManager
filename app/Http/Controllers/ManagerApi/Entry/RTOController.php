@@ -5,8 +5,18 @@ namespace App\Http\Controllers\ManagerApi\Entry;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\TripTemp;
+use DB;
+use Validator;
+
 class RTOController extends Controller
 {
+
+    private $successStatus = 200,$errorStatus = 200;
+
+    public function __construct(){
+        $this->TripTemp = new TripTemp;
+    }
     /**
      * Display a listing of the resource.
      *
@@ -33,9 +43,35 @@ class RTOController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        return request()->all();
+    public function store(Request $request){
+         $validator = Validator::make(request()->all(), [
+           'trip_id'=>'required',
+            'rto'=>'required',
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+                return response()->json(['msg'=>$value[0]], $this->errorStatus);
+            }
+        }
+        try {
+            $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
+            $rto = unserialize($TempTrip->rto);
+            if (!empty(json_decode(request('rto'),true))) {
+                foreach ( json_decode(request('rto'),true) as $key => $value) {
+                    if(!empty($value['amount'])){
+                        $rto['location'][] = $value['location'];
+                        $rto['amount'][] = $value['amount'];
+                    }
+                }
+            }
+            $TempTrip->rto = serialize($rto);
+            $TempTrip->save();
+            return response()->json(['msg'=>'Diesel Created Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],$this->errorStatus);
+        }
+
+        
     }
 
     /**
