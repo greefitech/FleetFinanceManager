@@ -9,7 +9,7 @@ use App\TripTemp;
 use DB;
 use Validator;
 
-class RTOController extends Controller
+class PCController extends Controller
 {
 
     private $successStatus = 200,$errorStatus = 200;
@@ -22,21 +22,22 @@ class RTOController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index() {
+    public function index()
+    {
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
-            $rto = unserialize($TempTrip->rto);
+            $pc = unserialize($TempTrip->pc);
             $FinalArray = array();
-            if (!empty($rto)) {
-                foreach ($rto['location'] as $key => $value) {
+            if (!empty($pc)) {
+                foreach ($pc['location'] as $key => $value) {
                     $NewArray=array(
-                        'location'=>$rto['location'][$key],
-                        'amount'=>$rto['amount'][$key],
+                        'location'=>$pc['location'][$key],
+                        'amount'=>$pc['amount'][$key],
                     );
                     $FinalArray[]=$NewArray;
                 }
             }
-            $success['rto'] = $FinalArray;
+            $success['pc'] = $FinalArray;
             return response()->json(['msg'=>'RTO List','data'=>$success], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],$this->errorStatus);
@@ -59,10 +60,11 @@ class RTOController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request){
+    public function store(Request $request)
+    {
          $validator = Validator::make(request()->all(), [
            'trip_id'=>'required',
-            'rto'=>'required',
+            'pc'=>'required',
         ]);
         if ($validator->fails()) {
             foreach ($validator->errors()->toArray() as $value) {
@@ -71,22 +73,21 @@ class RTOController extends Controller
         }
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
-            $rto = unserialize($TempTrip->rto);
-            if (!empty(json_decode(request('rto'),true))) {
-                foreach ( json_decode(request('rto'),true) as $key => $value) {
+            $pc = unserialize($TempTrip->pc);
+            if (!empty(json_decode(request('pc'),true))) {
+                foreach ( json_decode(request('pc'),true) as $key => $value) {
                     if(!empty($value['amount'])){
-                        $rto['location'][] = $value['location'];
-                        $rto['amount'][] = $value['amount'];
+                        $pc['location'][] = $value['location'];
+                        $pc['amount'][] = $value['amount'];
                     }
                 }
             }
-            $TempTrip->rto = serialize($rto);
+            $TempTrip->pc = serialize($pc);
             $TempTrip->save();
-            return response()->json(['msg'=>'RTO Created Successfully'], $this->successStatus);
+            return response()->json(['msg'=>'PC Created Successfully'], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],$this->errorStatus);
         }
-        
     }
 
     /**
@@ -131,6 +132,16 @@ class RTOController extends Controller
      */
     public function destroy($id)
     {
-        //
+        try {
+            $TempTrip = $this->TripTemp::findorfail($id);
+            $pc = unserialize($TempTrip->pc);
+            array_splice($pc['location'],request('index'),1);
+            array_splice($pc['amount'],request('index'),1);
+            $TempTrip->pc = serialize($pc);
+            $TempTrip->save();
+            return response()->json(['msg'=>'PC Removed Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],422);
+        }
     }
 }

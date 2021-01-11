@@ -493,12 +493,12 @@
                                 </div>
                                 <!-- RTO End -->
 
+
                                 <!-- PC End -->
                                 <div class="col-sm-6">
                                     <div class="panel-group">
                                         <div class="panel panel-success">
                                             <div class="panel-heading">
-
                                                 <div class="row">
                                                     <div class="col-sm-3">
                                                         <h5 style="font-weight: bold;">PC</h5>
@@ -520,16 +520,13 @@
                                             </div>
                                             <div class="panel-body table-responsive">
 
+
                                                 @if(isset($TripTemp) && empty(old('PCData')))
                                                     @if(unserialize($TripTemp->pc))
-                                                        @php
-                                                            $pcEditDatas = unserialize($TripTemp->pc);
-                                                        @endphp
+                                                        @php $pcEditDatas = unserialize($TripTemp->pc); @endphp
                                                     @endif
                                                 @else
-                                                    @php
-                                                        $pcEditDatas = old('PCData');
-                                                    @endphp
+                                                    @php $pcEditDatas = old('PCData'); @endphp
                                                 @endif
 
 

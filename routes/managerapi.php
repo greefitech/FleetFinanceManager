@@ -27,6 +27,7 @@ Route::group(['middleware' => 'auth:managerapi'], function() {
         Route::resource('/trip-diesel', 'ManagerApi\Entry\DieselController');
         Route::resource('/trip-entry', 'ManagerApi\Entry\EntryController');
         Route::resource('/trip-rto', 'ManagerApi\Entry\RTOController');
+        Route::resource('/trip-pc', 'ManagerApi\Entry\PCController');
     });
 
 });

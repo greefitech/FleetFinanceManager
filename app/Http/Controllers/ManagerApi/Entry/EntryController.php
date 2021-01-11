@@ -158,6 +158,33 @@ class EntryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function destroy($id){
-        //
+         try {
+            $TempTrip = $this->TripTemp::findorfail($id);
+            $entry = unserialize($TempTrip->entry);
+            array_splice($entry['dateFrom'],request('index'),1);
+            array_splice($entry['customerId'],request('index'),1);
+            array_splice($entry['locationFrom'],request('index'),1);
+            array_splice($entry['locationTo'],request('index'),1);
+            array_splice($entry['loadType'],request('index'),1);
+            array_splice($entry['ton'],request('index'),1);
+            array_splice($entry['account_id'],request('index'),1);
+            array_splice($entry['billAmount'],request('index'),1);
+            array_splice($entry['advance'],request('index'),1);
+            array_splice($entry['comission'],request('index'),1);
+            array_splice($entry['commission_status'],request('index'),1);
+            array_splice($entry['driverPadi'],request('index'),1);
+            array_splice($entry['cleanerPadi'],request('index'),1);
+            array_splice($entry['driverPadiAmount'],request('index'),1);
+            array_splice($entry['cleanerPadiAmount'],request('index'),1);
+            array_splice($entry['loadingMamool'],request('index'),1);
+            array_splice($entry['loading_mamool_status'],request('index'),1);
+            array_splice($entry['unLoadingMamool'],request('index'),1);
+            array_splice($entry['unloading_mamool_status'],request('index'),1);
+            $TempTrip->entry = serialize($entry);
+            $TempTrip->save();
+            return response()->json(['msg'=>'Entry Removed Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],422);
+        }
     }
 }
