@@ -148,7 +148,67 @@ class EntryController extends Controller {
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, $id){
-        //
+        $validator = Validator::make(request()->all(), [
+            'trip_id'=>'required',
+             'dateFrom'=>'required',
+            'customerId'=>'required',
+            'account_id'=>'required',
+            'billAmount'=>'required',
+            'advance'=>'required',
+        ]);
+        if ($validator->fails()) {
+            foreach ($validator->errors()->toArray() as $value) {
+                return response()->json(['msg'=>$value[0]], 422);
+            }
+        }
+         try {
+            $TempTrip = $this->TripTemp::findorfail($id);
+            $entry = unserialize($TempTrip->entry);
+            array_splice($entry['dateFrom'],request('index'),1);
+            array_splice($entry['customerId'],request('index'),1);
+            array_splice($entry['locationFrom'],request('index'),1);
+            array_splice($entry['locationTo'],request('index'),1);
+            array_splice($entry['loadType'],request('index'),1);
+            array_splice($entry['ton'],request('index'),1);
+            array_splice($entry['account_id'],request('index'),1);
+            array_splice($entry['billAmount'],request('index'),1);
+            array_splice($entry['advance'],request('index'),1);
+            array_splice($entry['comission'],request('index'),1);
+            array_splice($entry['commission_status'],request('index'),1);
+            array_splice($entry['driverPadi'],request('index'),1);
+            array_splice($entry['cleanerPadi'],request('index'),1);
+            array_splice($entry['driverPadiAmount'],request('index'),1);
+            array_splice($entry['cleanerPadiAmount'],request('index'),1);
+            array_splice($entry['loadingMamool'],request('index'),1);
+            array_splice($entry['loading_mamool_status'],request('index'),1);
+            array_splice($entry['unLoadingMamool'],request('index'),1);
+            array_splice($entry['unloading_mamool_status'],request('index'),1);
+
+            $entry['dateFrom'][]=request('dateFrom');
+            $entry['customerId'][]=request('customerId');
+            $entry['locationFrom'][]=request('locationFrom');
+            $entry['locationTo'][]=request('locationTo');
+            $entry['loadType'][]=request('loadType');
+            $entry['ton'][]=request('ton');
+            $entry['account_id'][]=request('account_id');
+            $entry['billAmount'][]=request('billAmount');
+            $entry['advance'][]=request('advance');
+            $entry['comission'][]=request('comission');
+            $entry['commission_status'][]=request('commission_status');
+            $entry['driverPadi'][]=request('driverPadi');
+            $entry['cleanerPadi'][]=request('cleanerPadi');
+            $entry['driverPadiAmount'][]=request('driverPadiAmount');
+            $entry['cleanerPadiAmount'][]=request('cleanerPadiAmount');
+            $entry['loadingMamool'][]=request('loadingMamool');
+            $entry['loading_mamool_status'][]=request('loading_mamool_status');
+            $entry['unLoadingMamool'][]=request('unLoadingMamool');
+            $entry['unloading_mamool_status'][]=request('unloading_mamool_status');
+            $TempTrip->entry = serialize($entry);
+            $TempTrip->save();
+            return response()->json(['msg'=>'Toll Updated Successfully'], $this->successStatus);
+        }catch (\Exception $e){
+            return response()->json(['msg'=>'Something Went Wrong'],422);
+        }
     }
 
     /**
