@@ -2,19 +2,25 @@
 
 @section('MasterMenu','active')
 
+@push('BreadCrumbMenu')
+   <li>Master</li>
+   <li class="active"><a href="{{ action('ClientController\CustomerController@index') }}">Customer</a></li>
+   <li>Create</li>
+@endpush
+
 @section('content')
 
 
     <div class="row">
         <div class="col-xs-12">
-            <div class="box box-info">
-                <div class="box-header">
-                    <h4>
-                        <center>Add Customer</center>
-                    </h4>
-                    <a href="{{ action('ClientController\CustomerController@index') }}" class="btn btn-info pull-right">View Customer</a>
-                </div>
-                <div class="box-body">
+
+            @component('client.layout.component.panel-head',['MenuTitle'=>'Customers Create','Title'=>'Customers List','color'=>env('TABPANELCOLOR')])
+                @slot('Button')
+                <a href="{{ action('ClientController\CustomerController@index') }}" class="btn btn-info pull-right">View Customer</a>
+                @endslot
+
+
+          
                     <form class="form-horizontal" method="post" action="{{ action('ClientController\CustomerController@store') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
@@ -63,8 +69,7 @@
                             </div>
                         </div>
                     </form>
-                </div>
-            </div>
+                @endcomponent
         </div>
     </div>
 

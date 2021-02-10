@@ -9,11 +9,9 @@ use App\TripTemp;
 use DB;
 use Validator;
 
-class ExpenseController extends Controller
-{
+class ExpenseController extends Controller{
 
-
-    private $successStatus = 200;
+    private $successStatus = 200,$errorStatus = 200;
 
     public function __construct(){
         $this->TripTemp = new TripTemp;
@@ -24,8 +22,7 @@ class ExpenseController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
             $extraExpense = unserialize($TempTrip->extraExpense);
@@ -45,7 +42,7 @@ class ExpenseController extends Controller
                 }
             }
              $success['expense'] = $FinalArray;
-            return response()->json(['msg'=>'Toll List','data'=>$success], $this->successStatus);
+            return response()->json(['msg'=>'Expense List','data'=>$success], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);
         }
@@ -67,8 +64,7 @@ class ExpenseController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $validator = Validator::make(request()->all(), [
             'trip_id'=>'required',
             'amount'=>'required',
@@ -128,8 +124,7 @@ class ExpenseController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $validator = Validator::make(request()->all(), [
             'trip_id'=>'required',
             'amount'=>'required',

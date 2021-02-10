@@ -11,8 +11,7 @@ use Validator;
 
 class TollController extends Controller
 {
-
-    private $successStatus = 200;
+    private $successStatus = 200,$errorStatus = 200;
 
     public function __construct(){
         $this->TripTemp = new TripTemp;
@@ -23,8 +22,7 @@ class TollController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
             $tollgate = unserialize($TempTrip->tollgate);
@@ -63,8 +61,7 @@ class TollController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $validator = Validator::make(request()->all(), [
             'trip_id'=>'required',
             'amount'=>'required',
@@ -153,8 +150,7 @@ class TollController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         try {
             $TempTrip = $this->TripTemp::findorfail($id);
             $tollgate = unserialize($TempTrip->tollgate);

@@ -14,11 +14,11 @@
         </div>
     </div> --}}
 
-    @foreach($errors->all() as $error)
-          <script>
+    <script>
+        @foreach($errors->all() as $error)
             toastr.error('{{ $error }}');
-        </script>
-    @endforeach
+        @endforeach
+    </script>
         
 @endif
 

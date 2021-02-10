@@ -212,6 +212,7 @@
         // $(window).resize(function(){
         //     drawChart();
         // });
+        $('body').addClass('sidebar-collapse');
 
   </script>
 

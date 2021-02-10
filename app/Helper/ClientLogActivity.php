@@ -16,4 +16,14 @@ class ClientLogActivity {
 		$log['client_id'] = auth()->user()->id; 
 		ClientLogActivityModel::create($log); 
 	} 
+
+	public static function CreateActivityLog($subject){
+        $log = [];
+        $log['subject'] = $subject;
+        $log['url'] = Request::fullUrl();
+        $log['method'] = Request::method();
+        $log['ip'] = Request::ip();
+        $log['agent'] = Request::header('user-agent');
+        UserLogActivityModel::create($log);
+    }
 }

@@ -42,6 +42,7 @@ class VehicleController extends Controller
         }
 
         try {
+            \ClientLogActivity::CreateLogActivity( str_replace(' ', '',strtoupper(request('vehicleNumber'))).' Vehicle Added');
             $this->Vehicle::create([
                 'ownerName' => request('ownerName'),
                 'vehicleNumber' => str_replace(' ', '',strtoupper(request('vehicleNumber'))),
@@ -81,6 +82,7 @@ class VehicleController extends Controller
             'vehicleType'=>'required|exists:vehicle_types,id',
         ]);
         try{
+            \ClientLogActivity::CreateLogActivity( str_replace(' ', '',strtoupper(request('vehicleNumber'))).' Vehicle Updated');
             $vehicle = $this->Vehicle::findOrfail($id);
             $vehicle->ownerName = request('ownerName');
             $vehicle->vehicleNumber = str_replace(' ', '',strtoupper(request('vehicleNumber')));

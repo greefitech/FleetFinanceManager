@@ -11,7 +11,6 @@ use Validator;
 
 class RTOController extends Controller
 {
-
     private $successStatus = 200,$errorStatus = 200;
 
     public function __construct(){

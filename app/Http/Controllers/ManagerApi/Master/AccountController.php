@@ -24,8 +24,7 @@ class AccountController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $Data['account'] = Account::select($this->accountArray)->where([['clientid',auth()->user()->clientid]])->get();
         return response()->json(['status'=>'success','data' => $Data], $this->successStatus);
     }

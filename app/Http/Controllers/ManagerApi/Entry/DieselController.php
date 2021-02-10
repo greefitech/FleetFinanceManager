@@ -9,10 +9,9 @@ use App\TripTemp;
 use DB;
 use Validator;
 
-class DieselController extends Controller
-{
-
-    private $successStatus = 200;
+class DieselController extends Controller{
+    
+    private $successStatus = 200,$errorStatus = 422;
 
     public function __construct(){
         $this->TripTemp = new TripTemp;
@@ -22,8 +21,7 @@ class DieselController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
             $diesel = unserialize($TempTrip->diesel);
@@ -45,7 +43,7 @@ class DieselController extends Controller
             }
              $success['diesel'] = $FinalArray;
             return response()->json(['msg'=>'Diesel List','data'=>$success], $this->successStatus);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);
         }
     }
@@ -66,8 +64,7 @@ class DieselController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $validator = Validator::make(request()->all(), [
             'date'=>'required',
             'trip_id'=>'required',
@@ -130,8 +127,7 @@ class DieselController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $validator = Validator::make(request()->all(), [
             'date'=>'required',
             'trip_id'=>'required',

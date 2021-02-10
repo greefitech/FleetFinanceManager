@@ -11,9 +11,8 @@ use App\TripTemp;
 use DB;
 use Validator;
 
-class TripController extends Controller
-{
-    private $successStatus = 200;
+class TripController extends Controller{
+    private $successStatus = 200,$errorStatus = 200;
 
     public function __construct(){
         $this->TripTemp = new TripTemp;
@@ -44,8 +43,7 @@ class TripController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         $validator = Validator::make(request()->all(), [
             'dateFrom'=>'required',
             'dateTo'=>'required',
@@ -93,10 +91,16 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
-    {
+    public function show($id){
         try{
-            $success['trip'] = $this->TripTemp::where('vehicleId',$id)->first();
+            $trip = $success['trip'] = $this->TripTemp::where('vehicleId',$id)->first(); 
+            $success['count']['entry'] = !empty(unserialize($trip->entry))?count(unserialize($trip->entry)['dateFrom']):0;
+            $success['count']['diesel'] = !empty(unserialize($trip->diesel))?count(unserialize($trip->diesel)['date']):0;
+            $success['count']['rto'] = !empty(unserialize($trip->rto))?count(unserialize($trip->rto)['location']):0;
+            $success['count']['pc'] = !empty(unserialize($trip->pc))?count(unserialize($trip->pc)['location']):0;
+            $success['count']['extraExpense'] = !empty(unserialize($trip->extraExpense))?count(unserialize($trip->extraExpense)['expense_type']):0;
+            $success['count']['tollgate'] = !empty(unserialize($trip->tollgate))?count(unserialize($trip->tollgate)['location']):0;
+            $success['count']['driverAdvance'] = !empty(unserialize($trip->driverAdvance))?count(unserialize($trip->driverAdvance)['date']):0;
             return response()->json(['msg'=>'Trip List','isdata'=>empty($success['trip'])?false:true,'data' => $success], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);
@@ -109,8 +113,7 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
-    {
+    public function edit($id){
         try{
             $success['trip'] = $this->TripTemp::findorfail($id);
             return response()->json(['msg'=>'Trip List','data' => $success], $this->successStatus);
@@ -126,8 +129,7 @@ class TripController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         // return request()->all();
          $validator = Validator::make(request()->all(), [
             'dateFrom'=>'required',

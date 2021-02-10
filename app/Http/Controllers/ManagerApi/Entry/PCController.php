@@ -9,8 +9,7 @@ use App\TripTemp;
 use DB;
 use Validator;
 
-class PCController extends Controller
-{
+class PCController extends Controller{
 
     private $successStatus = 200,$errorStatus = 200;
 
@@ -22,8 +21,7 @@ class PCController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
             $pc = unserialize($TempTrip->pc);
@@ -38,7 +36,7 @@ class PCController extends Controller
                 }
             }
             $success['pc'] = $FinalArray;
-            return response()->json(['msg'=>'RTO List','data'=>$success], $this->successStatus);
+            return response()->json(['msg'=>'PC List','data'=>$success], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],$this->errorStatus);
         }
@@ -60,8 +58,7 @@ class PCController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
          $validator = Validator::make(request()->all(), [
            'trip_id'=>'required',
             'pc'=>'required',
@@ -130,8 +127,7 @@ class PCController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         try {
             $TempTrip = $this->TripTemp::findorfail($id);
             $pc = unserialize($TempTrip->pc);

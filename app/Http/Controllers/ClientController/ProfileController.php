@@ -32,18 +32,22 @@ class ProfileController extends Controller
         ]);
         try {
             $Client = Client::findorfail(auth()->user()->id);
-                if ($files = $request->file('profile_image')) {
-                    $profileImage = date('YmdHis').auth()->user()->name. "." . $files->getClientOriginalExtension();
-                    $files->move(public_path().'/logo/',$profileImage);
-                    $Client->profile_image = '/logo/'.$profileImage;
-                }
+            if($Client->isDirty('mobile'))
+                \ClientLogActivity::CreateLogActivity('Movile Number Chnaged - '.request('mobile'));
+            if ($files = $request->file('profile_image')) {
+                $profileImage = date('YmdHis').auth()->user()->name. "." . $files->getClientOriginalExtension();
+                $files->move(public_path().'/logo/',$profileImage);
+                $Client->profile_image = '/logo/'.$profileImage;
+                \ClientLogActivity::CreateLogActivity('Profile Picture Changed');
+            }
             $Client->name = request('name');
             $Client->mobile = request('mobile');
             $Client->transportName = request('transportName');
             $Client->address = request('address');
             $Client->save();
+            \ClientLogActivity::CreateLogActivity('Profile Updated');
             return back()->with('success',['Profile','Updated Successfully!!']);
-        }catch (Exception $e){
+        }catch (\Exception $e){
             return back()->with('sorry','Sorry,Profile Not Found!');
         }
     }
@@ -66,6 +70,7 @@ class ProfileController extends Controller
 
         $Client = Client::findorfail(auth()->user()->id);
         if(!Hash::check(request('old_password'), $Client->password)){
+            \ClientLogActivity::CreateLogActivity('Password Changed');
             return back()->with('sorry','Old Password And New Password Cannot Be matched');
         }else{
             $Client->password = bcrypt(request('password'));

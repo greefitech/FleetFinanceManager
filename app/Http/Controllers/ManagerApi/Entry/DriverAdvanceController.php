@@ -9,10 +9,9 @@ use App\TripTemp;
 use DB;
 use Validator;
 
-class DriverAdvanceController extends Controller
-{
-
-    private $successStatus = 200;
+class DriverAdvanceController extends Controller{
+    
+    private $successStatus = 200,$errorStatus = 422;
 
     public function __construct(){
         $this->TripTemp = new TripTemp;
@@ -27,20 +26,19 @@ class DriverAdvanceController extends Controller
         try {
             $TempTrip = $this->TripTemp::findorfail(request('trip_id'));
             $driverAdvance = unserialize($TempTrip->driverAdvance);
-            $TollFinalArray = array();
+            $FinalArray = array();
             if (!empty($driverAdvance)) {
                 foreach ($driverAdvance['date'] as $key => $value) {
-                    $TollArray=array(
+                    $DArray=array(
                         'date'=>$driverAdvance['date'][$key],
                         'amount'=>$driverAdvance['amount'][$key],
                         'account_id'=>$driverAdvance['account_id'][$key]
                     );
-                    $TollFinalArray[]=$TollArray;
+                    $FinalArray[]=$DArray;
                 }
             }
-             $success['toll'] = $TollFinalArray;
-
-            return response()->json(['msg'=>'Toll List','data'=>$success], $this->successStatus);
+            $success['driverAdvance'] = $FinalArray;
+            return response()->json(['msg'=>'Driver Advance List','data'=>$success], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],422);
         }
@@ -62,8 +60,7 @@ class DriverAdvanceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
+    public function store(Request $request){
         // return request()->all();
         $validator = Validator::make(request()->all(), [
             'trip_id'=>'required',
@@ -119,8 +116,7 @@ class DriverAdvanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
-    {
+    public function update(Request $request, $id){
         $validator = Validator::make(request()->all(), [
             'trip_id'=>'required',
             'amount'=>'required',
@@ -155,8 +151,7 @@ class DriverAdvanceController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
-    {
+    public function destroy($id){
         try {
             $TempTrip = $this->TripTemp::findorfail($id);
             $driverAdvance = unserialize($TempTrip->driverAdvance);

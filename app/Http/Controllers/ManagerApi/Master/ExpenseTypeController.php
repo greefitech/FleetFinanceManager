@@ -23,8 +23,7 @@ class ExpenseTypeController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
-    {
+    public function index(){
         $Data['expenseType'] = ExpenseType::select($this->expenseTypeArray)->where('clientid',auth()->user()->owner->id)->orWhereNull('clientid')->get();
         return response()->json(['status'=>'success','data' => $Data], $this->successStatus);
     }

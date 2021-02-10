@@ -29,5 +29,4 @@ Route::group(['middleware' => 'auth:managerapi'], function() {
         Route::resource('/trip-rto', 'ManagerApi\Entry\RTOController');
         Route::resource('/trip-pc', 'ManagerApi\Entry\PCController');
     });
-
 });

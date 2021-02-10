@@ -53,7 +53,7 @@ class EntryController extends Controller {
                 }
             }
             $success['entries'] = $FinalArray;
-            return response()->json(['msg'=>'Toll List','data'=>$success], $this->successStatus);
+            return response()->json(['msg'=>'Entry List','data'=>$success], $this->successStatus);
         }catch (\Exception $e){
             return response()->json(['msg'=>'Something Went Wrong'],$this->errorStatus);
         }
